@@ -26,11 +26,3 @@ build_folder_structure(project_name)
 raw_data<-read.csv(choose.files())
 write.csv(raw_data, here(paste0(project_name,"/data","/raw_data/raw_data.csv")))
 
-# Load data management plan
-# Need to add functions
-#
-
-
-# open minimum metadata
-
-#PBSmodelling::openFile(fname=here(paste0(project_name,"/minimum_metadata","/minimum_metadata/minimum_metadata.Rmd")))
