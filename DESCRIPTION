@@ -1,5 +1,5 @@
 Package: LivingNorwayR
-Title: What the Package Does (One Line, Title Case)
+Title: Creates a data archive (a data package) for biodiversity/ecology data
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "First",
@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "first.last@example.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Description: The package creates a folder structure in a project directory and provides a workflow for creating a data archive including all raw data, data management plans, protocols, mapped data (maniupulated for analysis), analysis scripts, reports, etc. Facilitates ease of sharing data and uploading on to data repositories e.g. GBIF
 License: `use_mit_license()`, `use_gpl3_license()` or friends to
     pick a license
 Encoding: UTF-8

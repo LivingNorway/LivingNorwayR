@@ -2,5 +2,12 @@
 
 export(.onAttach)
 export(build_folder_structure)
+export(check_locations)
+export(check_taxonomy)
+export(check_time_data)
+export(get_data_metadata)
+export(get_files)
 export(get_geographic_extent)
 export(get_project_title)
+export(get_taxa_cover)
+export(get_temporal_cover)
