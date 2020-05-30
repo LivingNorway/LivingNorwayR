@@ -7,5 +7,6 @@ devtools:install_github("LivingNorway/LivingNorwayR")
 
 ## Short demo
 library(LivingNorwayR)
+
 demo("workflow_example")
 
