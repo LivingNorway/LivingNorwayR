@@ -3,6 +3,7 @@ The LivingNorwayR package is in development. There will be many developments in 
 
 ## Installation
 install.packages("devtools")
+
 devtools:install_github("LivingNorway/LivingNorwayR")
 
 ## Short demo
