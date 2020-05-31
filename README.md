@@ -6,8 +6,4 @@ install.packages("devtools")
 
 devtools:install_github("LivingNorway/LivingNorwayR")
 
-## Short demo
-library(LivingNorwayR)
-
-demo("workflow_example")
-
+## For a basic example of the workflow please see::
