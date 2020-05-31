@@ -1,0 +1,87 @@
+---
+title: "How to initiate and organise a data project in ecology?"
+author: "Matt & Erlend"
+date: "31 5 2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Living Norway
+
+The Living Norway Ecological Data Network has the ambition to become the focal point for ecological data in Norway. The primary objective of Living Norway will be to provide infrastructure for cutting-edge and transparent science of the highest societal relevance in ecology, including the associated fields of biodiversity, conservation biology, taxonomy, systematics and evolution. 
+
+## LivingNorwayR
+
+The R package associated with Living Norway, "LivingNorwayR" is currently in development, here we demonstrate the use of the first function which allows the user to  set up a logical folder structure in which to store all files associated with the data collected. This folder structure serves as the architecture for a "data package" which includes not only raw data, but digitised field notes, data that has been manipulated for analysis, analysis scripts, etc. In addition, data documentation such as data management plans and metadata should be included in the “data package”.
+
+Not all projects will rely on the same underlying data flow model, but in our experience most field based ecology projects still have sufficient overlap in terms of data flow to make it worthwhile suggesting a common folder structure for field data projects. Beyond making it easier for the individual researchers or data management units to keep their data well organised, an important endpoint is to facilitate publication of the “data package” at the appropriate stage in the project lifecycle. Thus, the folder structure needs to facilitate publishing of the mapped data as a Darwin Core Archive (and preferentially register the data set with GBIF). Also the raw data could be easily extracted and archived in a generalist repository. 
+
+## Creating your data package structure
+
+We recommend working within an RStudio project so that you have more control about where your "working environment" is situated (this is folder where, on your computer, R saves files to). Once you have set-up a project (open RStudio select "File" then "New Project"), you can install and load LivingNorwayR. 
+
+
+```{r install Living Norway}
+#Install and load packages
+# If you need to install packages first remove the "#" sign (which in R language means that the line is not run as code)
+#install.packages(devtools)
+library(devtools)
+#devtools::install_github("LivingNorway/LivingNorwayR")
+library(LivingNorwayR)
+```
+
+
+## Create the folder structure
+
+First we need to give the project a name. R does not like names to be too complex and to contain special characters or spaces. Please use "_" instead of a space in the project name (and in all your R work - it will make your life a lot easier). 
+
+
+```{r folder structure, message=FALSE}
+project_name="My_First_LivingNorway_prj"
+build_folder_structure(project_name = project_name)
+
+```
+
+Once you run the build_folder_structure() function you end up with a folder containing several sub-folders in your project. Let's explore these folders. 
+
+
+```{r look at folders}
+library(plyr)
+path<-paste0(getwd(),"/", project_name)
+dirslist<-list.dirs(path,recursive = TRUE)
+x <- lapply(strsplit(dirslist, "/"), function(z) as.data.frame(t(z)))
+LivingNorway_project <- rbind.fill(x)
+library(collapsibleTree) 
+p <- collapsibleTree( LivingNorway_project, c("V8", "V9"))
+p
+
+
+```
+
+From the tree diagram you can explore the folder structure (click on the blue nodes to expand them). At the moment we have 5 folders in the top-most heirachy: data, dmp,meta_xml,minimum_metadata and scripts. 
+
+### data
+
+The data folder contains three other folders: mapped_data, raw_data and scan_data. Let's start with the raw_data folder. In this folder you can place the data in its rawest form (i.e. no manipulation or data cleaning has taken place). Raw_data that you subsequently clean or transform in anyway needs to be stored in the mapped_data folder. It is really useful to be able to go back to the original data especially if something happens to the datafiles that you are working on for the analysis (the mapped_data file(s)). The scan_data folder contains scanned copies of non-digital raw data (field collection notes for example). 
+
+### dmp
+
+The dmp folder contains your data management plan. A data management plan is "a written document that describes the data you expect to acquire or generate during the course of a research project, how you will manage, describe, analyze, and store those data, and what mechanisms you will use at the end of your project to share and preserve your data" (https://library.stanford.edu/research/data-management-services/data-management-plans).
+
+
+### meta_xml
+
+This folder contains metadata in a machine readable form using the EML metadata language.
+
+
+### scripts
+Any code (e.g. python or R) used to manipulate the raw data, download publically available covariates, etc. should be saved in this folder. All scripts should be reproducilble by others not using your specifc computer (so not calling on locally stored files or functions). 
+
+### Minimum metadata
+Metadata (a set of variables that describes the raw or transformed dataset) are required so that future users (including your future self) get an understanding of, for example, where the data was collected, who collected it and what units the variables were measured in. Basic mimimum metadata should be added as soon as possible (before you forget it). 
+
+
+## ***Now your folder structure is ready. The next step is to load your files in to the correct folders***
