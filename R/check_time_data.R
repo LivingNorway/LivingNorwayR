@@ -9,3 +9,15 @@ check_time_data<-function(X){
 
 
 }
+
+#' Check_date
+#' Look for a date column
+#' @param dataframe dataframe
+#' @return Output: list of valid cols (is.Date)
+#' @export
+
+
+Check_date<-function(dataframe){
+  which(purrr::map(dataframe,function(x){lubridate::is.Date(x)})==TRUE)
+}
+
