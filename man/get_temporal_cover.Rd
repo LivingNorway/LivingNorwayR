@@ -8,7 +8,7 @@ Get temporal coverage from raw data / mapped data}
 get_temporal_cover(x)
 }
 \arguments{
-\item{x}{Date/time column from user defined dataframe}
+\item{x}{Date/time column from user defined dataframe needs to be formatted as class Date}
 }
 \value{
 Output: temporal extent chart?
