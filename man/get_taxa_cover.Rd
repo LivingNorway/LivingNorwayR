@@ -5,10 +5,24 @@
 \title{get_taxa_cover
 Get taxonomic coverage from raw data / mapped data.}
 \usage{
-get_taxa_cover(x)
+get_taxa_cover(
+  data,
+  TaxaField = "SpeciesName",
+  TaxaLevel = "Species",
+  addFreq = "Yes",
+  addPlot = "Yes"
+)
 }
 \arguments{
-\item{x}{taxonomic column from user defined dataframe}
+\item{data}{Dataset including a column with taxonomic information for the record/occurence}
+
+\item{TaxaField}{The field (column) in the data set containing information about the taxonomic group of the record/occurence}
+
+\item{TaxaLevel}{Taxonomic level (e.g. Species, Genus)}
+
+\item{addFreq}{Control argument - include number of records in the table listing the taxonomic coverage}
+
+\item{addPlot}{Control argument - add a barplot with number of records for each taxa defined above}
 }
 \value{
 Output: list of taxa. Potential chart displaying proportion of occurences from different taxa.
