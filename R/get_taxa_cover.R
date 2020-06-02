@@ -12,13 +12,13 @@
 
 get_taxa_cover<-function(data, TaxaField="SpeciesName", TaxaLevel="Species",
                          addFreq="Yes", addPlot="Yes"){
-
+library(tidyverse)
   ### Setting up the species list
-  data <- data %>% rename("TaxaField"=TaxaField)
+  data <- data %>% dplyr::rename("TaxaField"=TaxaField)
 
-  TaxaList <- x %>% group_by(TaxaField) %>%
-    count() %>%
-    rename("Number of records"=n, "Taxa"=TaxaField)
+  TaxaList <- x %>% dplyr::group_by(TaxaField) %>%
+    dplyr::count() %>%
+    dplyr::rename("Number of records"=n, "Taxa"=TaxaField)
 
   ### Switch: report number of records in alongside the species list
   switch(addFreq,
@@ -32,7 +32,7 @@ get_taxa_cover<-function(data, TaxaField="SpeciesName", TaxaLevel="Species",
   )
 
   ### Simple barplot;
-  p1 <- ggplot(data=TaxaList, aes(x=`Taxa`, y=`Number of records`, fill=Taxa))+
+  p1 <- ggplot2::ggplot(data=TaxaList, aes(x=`Taxa`, y=`Number of records`, fill=Taxa))+
     geom_bar(stat="identity") + scale_fill_viridis_d(option = "D", alpha=0.65)+
     theme(axis.title.x=element_blank()) +
     guides(fill=guide_legend(title=paste(TaxaLevel, "name", sep=" ")))
