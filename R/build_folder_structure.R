@@ -21,8 +21,8 @@ build_folder_structure<-function(project_name=project_name){
     dir.create(paste0(getwd(),"/", project_name,"/","scripts"))
     dir.create(paste0(getwd(),"/", project_name,"/","meta_xml"))
     dir.create(paste0(getwd(),"/", project_name,"/","dmp"))
-    rmarkdown::draft(paste0(getwd(),"/", project_name,"/", "minimum_metadata", "/","minimum_metadata.Rmd"),
-                     template="minimum_metadata", package="TheDataPackage", edit=FALSE)
+    rmarkdown::draft(paste0(getwd(),"/", project_name,"/", "metadata", "/","metadata.Rmd"),
+                     template="metadata", package="LivingNorwayR", edit=FALSE)
 
       }
 
