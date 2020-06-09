@@ -17,5 +17,7 @@ RoxygenNote: 7.1.0
 Imports: dplyr
 Suggests:
     knitr,
-    rmarkdown
+    rmarkdown,
+    sf,
+    leaflet
 VignetteBuilder: knitr
