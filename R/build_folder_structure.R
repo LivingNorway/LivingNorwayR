@@ -13,7 +13,7 @@ build_folder_structure<-function(project_name=project_name){
     print("Directory already exists please check the name and retry")
   } else{
     dir.create(paste0(getwd(),"/", project_name))
-    dir.create(paste0(getwd(),"/", project_name,"/", "minimum_metadata"))
+    dir.create(paste0(getwd(),"/", project_name,"/", "metadata"))
     dir.create(paste0(getwd(),"/",project_name,"/", "data"))
     dir.create(paste0(getwd(),"/", project_name,"/","data", "/", "raw_data"))
     dir.create(paste0(getwd(),"/", project_name,"/","data", "/", "mapped_data"))
