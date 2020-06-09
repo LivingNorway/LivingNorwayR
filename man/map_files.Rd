@@ -5,7 +5,7 @@
 \title{map_files
 Get a list of files in the data folders}
 \usage{
-map_files(project_name, addPlot = "Yes")
+map_files(project_name, addtable = "No", addPlot = "Yes")
 }
 \arguments{
 \item{project_name}{the project name}

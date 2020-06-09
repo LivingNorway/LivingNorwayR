@@ -5,7 +5,7 @@
 #' @export
 
 
-map_folders<-function(project_name, addPlot="Yes"){
+map_folders<-function(project_name, addtable="No",addPlot="Yes"){
   path<-paste0(getwd(),"/", project_name)
   dirslist<-list.dirs(path,recursive = TRUE, full.names = TRUE)
   x <- lapply(strsplit(dirslist, "/"), function(z) as.data.frame(t(z)))
@@ -14,7 +14,7 @@ map_folders<-function(project_name, addPlot="Yes"){
   p <- collapsibleTree::collapsibleTree( LivingNorway_project, c(names(LivingNorway_project)[y-1], names(LivingNorway_project)[y]))
 
   if (addPlot=="Yes") print(p)
-  return(LivingNorway_project)
+  if (addtable=="Yes")return(LivingNorway_project)
 
 
   }
@@ -25,7 +25,7 @@ map_folders<-function(project_name, addPlot="Yes"){
 #' @return Output: List of data files, and potentially a description of the field names/types.
 #' @export
 
-map_files<-function(project_name, addPlot="Yes"){
+map_files<-function(project_name, addtable="No",addPlot="Yes"){
   path<-paste0(getwd(),"/", project_name)
   dirslist<-list.files(path,recursive = TRUE, full.names = TRUE)
   x <- lapply(strsplit(dirslist, "/"), function(z) as.data.frame(t(z)))
@@ -33,7 +33,7 @@ map_files<-function(project_name, addPlot="Yes"){
   y=dim(LivingNorway_project)[2]
   p <- collapsibleTree::collapsibleTree( LivingNorway_project, c(names(LivingNorway_project)[y-2], names(LivingNorway_project)[y-1], names(LivingNorway_project)[y]))
   if (addPlot=="Yes") print(p)
-  return(LivingNorway_project)
+  if (addtable=="Yes")return(LivingNorway_project)
 
 }
 

@@ -13,10 +13,11 @@
 get_taxa_cover<-function(data, TaxaField="SpeciesName", TaxaLevel="Species",
                          addFreq="Yes", addPlot="Yes"){
 library(tidyverse)
+  library(kableExtra)
   ### Setting up the species list
   data <- data %>% dplyr::rename("TaxaField"=TaxaField)
 
-  TaxaList <- x %>% dplyr::group_by(TaxaField) %>%
+  TaxaList <- data %>% dplyr::group_by(TaxaField) %>%
     dplyr::count() %>%
     dplyr::rename("Number of records"=n, "Taxa"=TaxaField)
 

@@ -7,7 +7,7 @@
 #' @param Y longitude column indicated by data$Y
 #' @param Code Code to convert UTM to lat lon
 #' @return A ggplot map of the coordinates
-#' @example
+#' @example #get_NOR_geographic_extent(df, X,Y,Code)
 #' @export
 
 get_NOR_geographic_extent<-function(df,X,Y,Code){
@@ -16,7 +16,7 @@ get_NOR_geographic_extent<-function(df,X,Y,Code){
     sf::st_transform(4326)     #transform coordinates to WGS84 coordinates
   leaflet::leaflet() %>%
     leaflet::addTiles() %>%
-    leaflet::addMarkers( data = df.sf )
-}
+    leaflet::addMarkers(data=df.sf)
+  }
 
 
