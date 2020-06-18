@@ -29,7 +29,7 @@ build_folder_structure<-function(project_name=project_name){
 
 }
 
-build_folder_structure(project_name = "Test")
+#build_folder_structure(project_name = "Test")
 
 
 #NEED TO ADD TEST
