@@ -15,11 +15,12 @@ build_folder_structure<-function(project_name=project_name){
     dir.create(paste0(getwd(),"/", project_name))
     dir.create(paste0(getwd(),"/", project_name,"/", "metadata"))
     dir.create(paste0(getwd(),"/",project_name,"/", "data"))
-    dir.create(paste0(getwd(),"/", project_name,"/","data", "/", "raw_data"))
-    dir.create(paste0(getwd(),"/", project_name,"/","data", "/", "mapped_data"))
-    dir.create(paste0(getwd(),"/", project_name,"/","data", "/", "scan_data"))
+    dir.create(paste0(getwd(),"/", project_name,"/","data", "/", "raw"))
+    dir.create(paste0(getwd(),"/", project_name,"/","data", "/", "derived"))
+    dir.create(paste0(getwd(),"/", project_name,"/","data", "/", "scan"))
     dir.create(paste0(getwd(),"/", project_name,"/","scripts"))
-    dir.create(paste0(getwd(),"/", project_name,"/","meta_xml"))
+    dir.create(paste0(getwd(),"/",project_name,"/", "dwca"))
+    dir.create(paste0(getwd(),"/", project_name,"/","dwca", "/", "meta_xml"))
     dir.create(paste0(getwd(),"/", project_name,"/","dmp"))
     rmarkdown::draft(paste0(getwd(),"/", project_name,"/", "metadata", "/","metadata.Rmd"),
                      template="metadata", package="LivingNorwayR", edit=FALSE)
@@ -28,7 +29,7 @@ build_folder_structure<-function(project_name=project_name){
 
 }
 
-#build_folder_structure(project_name = "Test")
+build_folder_structure(project_name = "Test")
 
 
 #NEED TO ADD TEST
