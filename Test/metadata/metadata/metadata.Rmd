@@ -1,0 +1,70 @@
+---
+author: ''
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(LivingNorwayR)
+t<-get_project_title()
+```
+
+
+---
+title: '`r paste0('Title:  ', t)`'
+---
+
+# Dataset description
+## Identifer: 
+## Catelog system:
+## Title
+
+# Dataset Owner(s)
+## Indivdiual:
+## Address:
+## Email:
+
+# Abstract
+
+# Keywords
+
+# License and Usage Rights 
+
+# Geographic coverage
+
+## Geographic description:
+
+## Bounding Coordinates:
+
+# Temporal Coverage
+
+## Temporal description
+
+## Date range
+
+# Taxonomic Coverage
+
+## Taxonomic Authority Citation:
+
+## General Info:
+
+## Classification:
+
+# Methods
+
+## Sampling design
+
+# Data table information
+
+# Table attributes
+
+
+							
+							
+							
+
+
