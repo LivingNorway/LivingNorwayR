@@ -2,6 +2,8 @@
 
 export(.onAttach)
 export(Check_date)
+export(Full_decrypt)
+export(Sensitive_data)
 export(build_folder_structure)
 export(check_locations)
 export(check_taxonomy)
