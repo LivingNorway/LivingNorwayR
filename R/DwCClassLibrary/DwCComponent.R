@@ -1,0 +1,3 @@
+setRefClass(
+  Class = "DwCComponent"
+)
