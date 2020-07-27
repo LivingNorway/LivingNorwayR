@@ -20,7 +20,7 @@ title: '`r paste0('Title:  ', t)`'
 
 
 ```{r}
-rdMarkMeta=read_metadata(file="Metadata.rmd")
+rdMarkMeta=LivingNorwayR::read_metadata(file="Metadata.rmd")
   
 ```
 
@@ -52,5 +52,13 @@ eml<-list(dataset=list(title=title,
                        packageId = "10.xxx")
 
 eml
+```
+
+```{r}
+ifelse(!dir.exists(file.path(paste0(here(),"/EML"))), dir.create(paste0(here(),"/EML"), FALSE))
+ex.xml <- tempfile("ex", tmpdir=paste0(here(),"/EML"), fileext = ".xml") # use your preferred file path
+emld::as_xml(eml, ex.xml)
+emld::eml_validate(ex.xml)
+
 ```
 
