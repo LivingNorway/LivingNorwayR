@@ -56,7 +56,7 @@ eml
 
 ```{r}
 ifelse(!dir.exists(file.path(paste0(here(),"/EML"))), dir.create(paste0(here(),"/EML"), FALSE))
-ex.xml <- tempfile("ex", tmpdir=paste0(here(),"/EML"), fileext = ".xml") # use your preferred file path
+ex.xml <- tempfile("ex", tmpdir=paste0(here(),"/EML"), fileext = ".xml") 
 emld::as_xml(eml, ex.xml)
 emld::eml_validate(ex.xml)
 
