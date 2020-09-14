@@ -5,7 +5,7 @@
 
 get_project_title<-function(){
 
-  txt<-paste0(here())
+  txt<-paste0(here::here())
   if (grepl("metadata", txt, fixed = TRUE)==TRUE){
     txt<-stringr::str_replace(txt, "/metadata/metadata", "")
   } else{txt<-txt}
