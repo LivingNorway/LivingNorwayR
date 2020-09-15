@@ -157,7 +157,7 @@ retrieveDwCClassSpecifications <- function(includeExtensions = TRUE, includeDepr
       execCommitteeDecisions = as.character(curClassInfo[13]),
       miscInformation = as.character(curClassInfo[14]),
       termDef = as.character(curClassInfo[15]),
-      compositeTerms = as.data.frame(matrix(as.character(c()), nrow = 0, ncol = 14, dimnames = list(NULL, colnames(termFrame))))
+      compositeTerms = as.data.frame(matrix(as.character(c()), nrow = 0, ncol = 15, dimnames = list(NULL, colnames(termFrame))))
     )
     # Lookup the HTML node containing the specification for the class
     nodeIndex <- which(xml_text(langNodes) == outList$label)
