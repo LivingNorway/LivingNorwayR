@@ -139,7 +139,7 @@ retrieveDwCClassSpecifications <- function(includeExtensions = TRUE, includeDepr
   classFrame <- termFrame[termFrame$type == "Class", ]
   # Download the landuage terms defined by the Darwin Core standard
   langNodes <- xml_find_all(read_html("https://dwc.tdwg.org/list/"), "//p[preceding-sibling::h3[@id=\"31-index-by-term-name\"] and following-sibling::h3[@id=\"32-index-by-label\"]]")
-  apply(X = as.matrix(classFrame), FUN = function(curClassInfo, langNodes, termFrame) {
+  setNames(apply(X = as.matrix(classFrame), FUN = function(curClassInfo, langNodes, termFrame) {
     # Initialise an output list
     outList <- list(
       termName = as.character(curClassInfo[1]),
@@ -157,15 +157,16 @@ retrieveDwCClassSpecifications <- function(includeExtensions = TRUE, includeDepr
       execCommitteeDecisions = as.character(curClassInfo[13]),
       miscInformation = as.character(curClassInfo[14]),
       termDef = as.character(curClassInfo[15]),
-      compositeTerms = as.data.frame(matrix(as.character(c()), nrow = 0, ncol = 14, dimnames = list(NULL, colnames(termFrame))))
+      compositeTerms = as.data.frame(matrix(as.character(c()), nrow = 0, ncol = ncol(termFrame), dimnames = list(NULL, colnames(termFrame))))
     )
     # Lookup the HTML node containing the specification for the class
     nodeIndex <- which(xml_text(langNodes) == outList$label)
     if(length(nodeIndex) > 0) {
       # Get the terms associated with the class
       termLabels <- strsplit(xml_text(langNodes)[nodeIndex[1] + 1], "\\s*\\|\\s*", perl = TRUE)[[1]]
-      outList$compositeTerms = termFrame[termLabels, ]
+      termLabels <- termLabels[termLabels %in% rownames(termFrame)]
+      outList$compositeTerms <- termFrame[termLabels, ]
     }
     outList
-  }, MARGIN = 1, langNodes = langNodes, termFrame = termFrame)
+  }, MARGIN = 1, langNodes = langNodes, termFrame = termFrame), rownames(classFrame))
 }
