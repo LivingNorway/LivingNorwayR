@@ -1,3 +1,0 @@
-setRefClass(
-  Class = "DwCComponent"
-)
