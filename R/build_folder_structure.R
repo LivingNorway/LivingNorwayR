@@ -20,7 +20,7 @@ build_folder_structure<-function(project_name=project_name){
     dir.create(paste0(getwd(),"/", project_name,"/","data", "/", "scan"))
     dir.create(paste0(getwd(),"/", project_name,"/","scripts"))
     dir.create(paste0(getwd(),"/",project_name,"/", "dwc_a"))
-    dir.create(paste0(getwd(),"/", project_name,"/","dwca", "/", "meta_xml"))
+    dir.create(paste0(getwd(),"/", project_name,"/","dwc_a", "/", "meta_xml"))
     dir.create(paste0(getwd(),"/", project_name,"/","dmp"))
     rmarkdown::draft(paste0(getwd(),"/", project_name,"/", "metadata", "/","metadata.Rmd"),
                      template="metadata", package="LivingNorwayR", edit=FALSE)
