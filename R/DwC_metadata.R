@@ -1,0 +1,21 @@
+library(R6)
+DwC_metadata<-R6::R6Class(
+  classname = "metadata",
+  public = list(
+    metadata=NA,
+    initialize=function(metadata){
+        self$metadata<-metadata},
+    get_metadata = function(filepath) {
+      x = readr::read_lines(filepath) # read markdown using readlines
+      rng = grep("^---$", x)
+      rng = rng + c(1, -1)
+      x = x[rng[1]:rng[2]]
+      names(x) = gsub("(.*):.*", "\\1", x)
+      x = gsub(".*: (.*)", "\\1", x)
+      return(as.list(x))
+    }
+    ))
+
+test<-DwC_metadata$new(metadata = NA)
+test$get_metadata(filepath ="C:/Users/matthew.grainger/Documents/Projects_in_development/Test_the_dataPackage/Rock_ptarmigan/metadata/metadata/metadata.Rmd")
+
