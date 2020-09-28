@@ -5,6 +5,11 @@ DwC_metadata<-R6::R6Class(
     metadata=NA,
     initialize=function(metadata){
         self$metadata<-metadata},
+    #' read_metadata
+    #' read the metadata from a rmarkdown file
+    #' @param filepath a filepath to a RMarkdown file
+    #' @return Output: text string of yaml information
+
     get_metadata = function(filepath) {
       x = readr::read_lines(filepath) # read markdown using readlines
       rng = grep("^---$", x)
