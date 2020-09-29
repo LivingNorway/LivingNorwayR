@@ -1,6 +1,6 @@
 library(R6)
-DwC_metadata<-R6::R6Class(
-  classname = "metadata",
+DwCMetadata<-R6::R6Class(
+  classname = "DwCMetadata",
   public = list(
     metadata=NA,
     initialize=function(metadata){
@@ -10,7 +10,7 @@ DwC_metadata<-R6::R6Class(
     #' @param filepath a filepath to a RMarkdown file
     #' @return Output: text string of yaml information
 
-    get_metadata = function(filepath) {
+    getMetadata = function(filepath) {
       x = readr::read_lines(filepath) # read markdown using readlines
       rng = grep("^---$", x)
       rng = rng + c(1, -1)
@@ -21,6 +21,6 @@ DwC_metadata<-R6::R6Class(
     }
     ))
 
-test<-DwC_metadata$new(metadata = NA)
-test$get_metadata(filepath ="C:/Users/matthew.grainger/Documents/Projects_in_development/Test_the_dataPackage/Rock_ptarmigan/metadata/metadata/metadata.Rmd")
+test<-DwCMetadata$new(metadata = NA)
+test$getMetadata(filepath ="C:/Users/matthew.grainger/Documents/Projects_in_development/Test_the_dataPackage/Rock_ptarmigan/metadata/metadata/metadata.Rmd")
 
