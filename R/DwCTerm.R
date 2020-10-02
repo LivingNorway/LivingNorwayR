@@ -1,5 +1,5 @@
 # ------ 1. A DWCTERM CLASS TO HOLD INFORMATION ON DARWIN CORE TERMS ------
-DwCTerm <- R6Class("DWCTerm",
+DwCTerm <- R6Class("DwCTerm",
   # ====== 1.1. Define private members of the terms class ======
   private = list(
     termName = character(),
@@ -49,10 +49,10 @@ DwCTerm <- R6Class("DWCTerm",
         outVal <- tryCatch(as.character(inVar), error = function(err) {
           stop("error encountered whilst processing the ", paramText, " parameter: ", err)
         })
-        if(length(characterScalarTest) > 2) {
+        if(length(outVal) > 2) {
           warning(paramText, " has length greater than one: only the first element will be used")
           outVal <- outVal[1]
-        } else if(length(characterScalarTest) > 0) {
+        } else if(length(outVal) > 0) {
           if(is.na(outVal) || outVal == "") {
             outVal <- character()
           }
