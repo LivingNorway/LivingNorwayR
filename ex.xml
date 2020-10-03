@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eml:eml xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.2" packageId="8b2e50f7-9164-40b4-8bd1-9a01decead65" system="uuid" xsi:schemaLocation="https://eml.ecoinformatics.org/eml-2.2.0 https://eml.ecoinformatics.org/eml-2.2.0/eml.xsd">
+  <dataset>
+    <title>GalliForm: Galliformes occurrence records from the Indo-Malay and Palaearctic, 1800-2008</title>
+    <creator>
+      <organizationName>Newcastle University</organizationName>
+      <onlineUrl>http://www.ncl.ac.uk/</onlineUrl>
+    </creator>
+    <contact>
+      <individualName>
+        <givenName>Philip</givenName>
+        <surName>McGowan</surName>
+      </individualName>
+      <electronicMailAddress>philip.mcgowan@newcastle.ac.uk</electronicMailAddress>
+    </contact>
+  </dataset>
+</eml:eml>

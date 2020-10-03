@@ -1,0 +1,150 @@
+---
+title: "Rock ptarmigan (Lagopus muta) radio telemetry in Lierne, Norway"
+pubDate: "2019-09-17"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+alternateIdentifier: 10.15468/o4zcd3/
+alternateIdentifier: http://data.nina.no:8080/ipt/resource?r=rockptarmigan_radiotelemetry_liernenorway
+alternateIdentifier: b848f1f3-3955-4725-8ad8-e711e4a9e0ac
+
+givenName:Erlend B.
+surName:Nilsen
+organizationName: Norwgian Institute for Nature Research (NINA)
+positionName: Senior Research Scientist
+deliveryPoint: Norwegian Institute for Nature Research
+city: Trondheim
+postalCode:7485
+country:NORWAY
+electronicMailAddress: erlend.nilsen@nina.no
+
+givenName: Hans Chr.
+surName:Pedersen
+organizationName: Norwgian Institute for Nature Research (NINA)
+positionName: Senior Research Scientist
+deliveryPoint: Norwegian Institute for Nature Research
+city: Trondheim
+postalCode: 7485
+country: NORWAY
+electronicMailAddress: hans.pedersen@nina.no
+
+givenName: Henrik
+surName: Brøseth
+organizationName: Norwegian Institute for Nature Research (NINA)
+positionName: Senior Research Scientist
+deliveryPoint: Norwegian Institute for Nature Research
+city: Trondheim
+postalCode: 7485
+country: NORWAY
+electronicMailAddress: henrik.broseth@nina.no
+
+givenName: Pål F.
+surName: Moa
+Nord University
+positionName: Senior Lecturer
+country:NORWAY
+electronicMailAddress: paal.f.moa@nord.no
+
+metadataProvider
+givenName:Erlend B.
+surName: Nilsen
+organizationName: Norwegian Institute for Nature Research (NINA)
+
+positionName: Senior Research Scientist
+deliveryPoint: Norwegian Institute for Nature Research
+city: Trondheim
+postalCode: 7485
+country: NORWAY
+electronicMailAddress: erlend.nilsen@nina.no
+directory="http://orcid.org/0000-0002-5119-8331"
+
+givenName:Roald
+surName: Vang
+organizationName: Norwegian Institute for Nature Research (NINA)
+deliveryPoint:Norwegian Institute for Nature Research
+city:Trondheim
+postalCode: 7485
+country: NORWAY
+electronicMailAddress:rv@nina.no
+language: ENGLISH
+abstract: This data set is based on a small radio telemetry project on rock ptarmigan (Lagopus muta) in Lierne municipality, central Norway. In total, 85 rock ptarmigans were captured and radio-collared. After release, the birds were re-located with variable geographical precision (noted in the data). When mortality were detected, cause of death was as far as possible recorded. 
+
+In the published data, cause of death is attributed to one of two causes (hunting OR other causes), and this information is available in the field &amp;#34;dynamicProperties&amp;#34; together with information about the event (capture OR radiotelemetry/recature). In some cases more detailed information about the event and state is available in the raw data.
+
+KeywordSet
+keyword: Occurrence
+intellectualRights: This work is licensed under a url="http://creativecommons.org/licenses/by/4.0/legalcode"
+citetitle:Creative Commons Attribution (CC-BY) 4.0 License
+
+coverage
+geographicCoverage
+geographicDescription: Study area mainly in central Norway (Lierne and Snåsa municipalities). Some re-locations of radio-collared ptarmigans in Sweden are included in the data set.
+
+boundingCoordinates
+westBoundingCoordinate:12.659
+eastBoundingCoordinate:14.653
+northBoundingCoordinate:64.774
+southBoundingCoordinate:64.033
+temporalCoverage
+rangeOfDates
+beginDate: 2012-02-14
+endDate:    2014-09-17
+taxonomicCoverage
+taxonomicClassification
+taxonRankName: Species
+taxonRankValue: Lagopus muta
+commonName:Rock ptarmigan</commonName>
+
+maintenanceUpdateFrequency: asNeeded
+contact: givenName:Erlend B.
+surName:Nilsen
+organizationName: Norwgian Institute for Nature Research (NINA)
+positionName: Senior Research Scientist
+deliveryPoint: Norwegian Institute for Nature Research
+city: Trondheim
+postalCode:7485
+country:NORWAY
+electronicMailAddress: erlend.nilsen@nina.no
+directory="http://orcid.org/0000-0002-5119-8331"
+
+givenName:Roald
+surName: Vang
+organizationName: Norwegian Institute for Nature Research (NINA)
+deliveryPoint:Norwegian Institute for Nature Research
+city:Trondheim
+postalCode: 7485
+country: NORWAY
+electronicMailAddress:rv@nina.no
+
+project title:Rock ptarmigan (Lagopus muta) telemetry project in Lierne, Norway 2012-2014
+personnel
+givenName: Erlend B.
+surName: Nilsen
+role: PRINCIPAL_INVESTIGATOR
+
+givenName: Henrik
+surName: Brøseth
+role: PRINCIPAL_INVESTIGATOR
+givenName: Hans Chr.
+surName: Pedersen
+role: PRINCIPAL_INVESTIGATOR
+givenName: Pål F.
+surName: Moa
+role: PRINCIPAL_INVESTIGATOR
+abstract: The purpose of the study was both to provide basic ecological knowledge about rock ptarmigan in Norway, and to assess the applicability and usefulness of a suite of field methods to study rock ptarmigan biology, demography and population dynamics. In addition to the radio-telemetry, pilot studies focusing on point-count studies and site-occupancy dynamics, as well as mark-recapture studies based on fecal DNA was preformed.
+funding: The project was funded by a grant from the Norwegian Environment Agency (grant #12040045; Rock ptarmigan demography and population status). All handling of animals were in agreement with Norwegian laws, and approved by the Norwegian Food Safety Authority (approval ID 3960).
+studyAreaDescription:
+descriptor name="generic" 
+citableClassificationSystem="false"
+descriptorValue: The main study area was in Lierne municipality, Nord-Trøndelag county, Norway. All capture of rock ptarmigan for the radio-telemetry study was conducted around Lierne National Park. Point-count studies and mark-recapture studies based on fecal DNA was performed at Lifjellet, Lierne, Norway.
+
+additionalMetadata
+
+citation: Nilsen E B, Pedersen H C, Brøseth H, Moa P F, Vang R (2019). Rock ptarmigan (Lagopus muta) radio telemetry in Lierne, Norway. Version 1.2. Norwegian Institute for Nature Research. Occurrence dataset https://doi.org/10.15468/o4zcd3 accessed via GBIF.org on 2020-09-24.
+bibliography
+citation identifier="http://hdl.handle.net/11250/2379287"
+Nilsen, E.B., Pedersen, H.C., Brøseth, H., Kleven, O., Moa, P.F. &amp; Hagen, B.R. 2015. Fjellrypeprosjektet i Lierne: Årsrapport 2015. NINA Rapport 1217. 28 s.

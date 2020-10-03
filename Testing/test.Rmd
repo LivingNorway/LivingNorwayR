@@ -1,0 +1,48 @@
+---
+onlineURL: "http://www.ncl.ac.uk/"
+pubDate: "2020-07-15"
+intellectualRights: "http://creativecommons.org/licenses/by/4.0/legalcode"
+givenName: "Philip"
+surName: "McGowan"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(here)
+library(LivingNorwayR)
+title<- "GalliForm: Galliformes occurrence records from the Indo-Malay and Palaearctic, 1800-2008"
+Date<-"2020-07-15"
+```
+---
+title: '`r paste0('title:  ', title)`'
+---
+
+'`r paste0('Date:  ', Date)`'
+
+
+
+```{r}
+dataset<-list()
+dataset$title= "GalliForm: Galliformes occurrence records from the Indo-Malay and Palaearctic, 1800-2008"
+dataset$creator$organizationName= "Newcastle University"
+dataset$creator$onlineUrl="http://www.ncl.ac.uk/"
+dataset$pubDate="2020-07-15"
+dataset$intellectualRights= "http://creativecommons.org/licenses/by/4.0/legalcode"
+dataset$abstract= "GalliForm comprises 186687 galliform occurrence records linked to 118907 localities, predominantly in Europe and Asia. The dataset covers the 130 species of Galliform found in the Palaearctic and Indo-Malay biogeographic realms. Records of the hybrid Lophura imperialis, are also included as are some North American records of Lagopus muta and Lagopus lagopus. 95% of records date from 1877 to 2008 although the earliest record is from 1648. Records were derived from museums, peer-reviewed and grey literature, unpublished field notes, diaries and correspondence, banding records, atlas records and online birding trip reports."
+dataset$coverage$geographicCoverage$geographicDescription="Global"
+dataset$coverage$geographicCoverage$boundingCoordinates$westBoundingCoordinate= 0
+dataset$coverage$geographicCoverage$boundingCoordinates$eastBoundingCoordinate=0
+dataset$coverage$geographicCoverage$boundingCoordinates$northBoundingCoordinate=0
+dataset$coverage$geographicCoverage$boundingCoordinates$southBoundingCoordinate=0
+dataset$contact$individualName$givenName="Philip"
+dataset$contact$individualName$surName= "McGowan"
+dataset$contact$electronicMailAddress="philip.mcgowan@newcastle.ac.uk"
+dataset$purpose= "The GalliForm dataset is a valuable resource for ecological and conservation studies. Occurrence data underpin species distribution modelling but geographic ranges are changing rapidly due to the diverse impacts caused by human activities. Historical occurrence data, coupled with climate and land-use data, may improve our understanding of populations responses to climate change, land-use change and hunting. The order Galliformes exhibits a wide range of ecological characteristics and life history traits and is subject to a variety of anthropogenic threats, meaning that the Galliformeslend themselves well to macroecological studies."
+```
+
+
+
+
+
+
