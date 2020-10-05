@@ -15,6 +15,3 @@ get_data_metadata = function(file) {
 }
 
 
-
-
-}

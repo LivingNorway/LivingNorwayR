@@ -2,17 +2,18 @@
 % Please edit documentation in R/get_data_metadata.R
 \name{get_data_metadata}
 \alias{get_data_metadata}
-\title{Functions for mapping to Darwin Core
-function for adding data level metadata to the (e.g. institution, country, community, etc)
-BORROW FROM EML??}
+\title{get_data_metadata
+read the metadata from a rmarkdown file}
 \usage{
-get_data_metadata()
+get_data_metadata(file)
+}
+\arguments{
+\item{X}{an RMarkdown file}
 }
 \value{
-data level metadata in eml
+Output: text string of yaml information
 }
 \description{
-Functions for mapping to Darwin Core
-function for adding data level metadata to the (e.g. institution, country, community, etc)
-BORROW FROM EML??
+get_data_metadata
+read the metadata from a rmarkdown file
 }
