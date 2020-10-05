@@ -3,6 +3,9 @@
 \name{DwCGeneric}
 \alias{DwCGeneric}
 \title{R6 class representing a generic data structure for a Darwin Core archive file}
+\format{
+\code{\link{R6Class}} object.
+}
 \description{
 R6 class representing a generic data structure for a Darwin Core archive file
 
