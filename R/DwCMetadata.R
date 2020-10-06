@@ -1,4 +1,14 @@
-library(R6)
+#' R6 class that represents metadata in DwC
+#'
+#'  @description
+#' The `DwCMetadata` class is the primary class for
+#' constructing metadata for DWC
+#'
+#' @docType class
+#' @importFrom R6 R6Class
+#' @export
+#' @format \code{\link{R6Class}} object.
+
 DwCMetadata<-R6::R6Class(
   classname = "DwCMetadata",
   public = list(

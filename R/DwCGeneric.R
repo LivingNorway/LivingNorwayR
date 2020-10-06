@@ -5,7 +5,9 @@
 #' archive files but may miss some of the specialised functionality of the more specialist classes.
 #' See \url{https://dwc.tdwg.org/terms/}{the Darwin core reference guide} for more information on Darwin core classes and the terms
 #' supported by them.
-#'
+#' @importFrom R6 R6Class
+#' @export
+#' @format \code{\link{R6Class}} object.
 DwCGeneric <- R6::R6Class("DwCGeneric",
   # ====== 1.1. Define private members of the generic class ======
   private = list(
