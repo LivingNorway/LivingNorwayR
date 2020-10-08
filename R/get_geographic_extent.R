@@ -5,17 +5,25 @@
 #' @param  df a dataframe
 #' @param lat latitude column indicated by data$lat
 #' @param lon longitude column indicated by data$lon
-#' @return A ggplot map of the coordinates
+#' @param add_map add a map (default is "yes")
+#' @return A leaflet map of the coordinates and the minimum and maximum of the latitude and longitude
 #' @example #get_geographic_extent(lat = raw_data$Latitude, lon = raw_data$Longitude) #use example from our own examples package
 #' @export
 
 
-get_geographic_extent<-function(df,lon,lat){
+get_geographic_extent<-function(df,lon,lat, add_map="yes"){
   my.sf.point <- sf::st_as_sf(x = df,
                               coords = c(lon, lat),
                               crs = "+proj=longlat +datum=WGS84")
+  bounding_box=data.frame(minX=min(lon), maxX=max(lon), minY=min(lat), maxY=max(lat))
 
-  leaflet::leaflet() %>% addTiles() %>% addMarkers( data = my.sf.point)
+  switch(add_map,
+         yes={leaflet::leaflet() %>% addTiles() %>% addMarkers( data = my.sf.point)
+           return(bounding_box)
+         },
+         no={return(bounding_box)
+         }
+  )
 }
 
 
