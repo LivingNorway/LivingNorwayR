@@ -4,12 +4,14 @@
 \alias{get_geographic_extent}
 \title{Get the geographic extent of a dataframe with geographic coordinates}
 \usage{
-get_geographic_extent(lat, lon)
+get_geographic_extent(df, lon, lat)
 }
 \arguments{
-\item{lat}{latitude column indicated by data$lat}
+\item{df}{a dataframe}
 
 \item{lon}{longitude column indicated by data$lon}
+
+\item{lat}{latitude column indicated by data$lat}
 }
 \value{
 A ggplot map of the coordinates
