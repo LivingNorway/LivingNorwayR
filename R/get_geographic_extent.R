@@ -2,7 +2,7 @@
 #' Get the geographic extent of a dataframe with geographic coordinates
 #'
 #' This function plots a map of the latitude and longitude from a datafile specified by the user.
-#'
+#' @param  df a dataframe
 #' @param lat latitude column indicated by data$lat
 #' @param lon longitude column indicated by data$lon
 #' @return A ggplot map of the coordinates
