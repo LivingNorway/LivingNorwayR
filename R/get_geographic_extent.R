@@ -10,8 +10,8 @@
 #' @export
 
 
-get_geographic_extent<-function(lon,lat){
-  my.sf.point <- sf::st_as_sf(x = d,
+get_geographic_extent<-function(df,lon,lat){
+  my.sf.point <- sf::st_as_sf(x = df,
                               coords = c(lon, lat),
                               crs = "+proj=longlat +datum=WGS84")
 
