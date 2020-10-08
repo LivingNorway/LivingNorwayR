@@ -18,8 +18,9 @@ get_geographic_extent<-function(df,lon,lat, add_map="yes"){
   bounding_box=data.frame(minX=min(lon), maxX=max(lon), minY=min(lat), maxY=max(lat))
 
   switch(add_map,
-         yes={leaflet::leaflet() %>% addTiles() %>% addMarkers( data = my.sf.point)
-           return(bounding_box)
+         yes={map<-leaflet::leaflet() %>% addTiles() %>% addMarkers( data = my.sf.point)
+         return(bounding_box)
+         return(map)
          },
          no={return(bounding_box)
          }
