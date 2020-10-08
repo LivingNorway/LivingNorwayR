@@ -10,14 +10,12 @@
 #' @export
 
 
-get_geographic_extent<-function(lat,lon){
-  lat<-as.numeric(lat)
-  long<-as.numeric(lon)
-  coords<-as.data.frame(cbind(lat,long))
-  world <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf")
-  ggplot2::ggplot(data = world) +
-    ggplot2::geom_sf() +
-    ggplot2::geom_point(data=coords,aes(long,lat))
+get_geographic_extent<-function(lon,lat){
+  my.sf.point <- sf::st_as_sf(x = d,
+                              coords = c(lon, lat),
+                              crs = "+proj=longlat +datum=WGS84")
+
+  leaflet::leaflet() %>% addTiles() %>% addMarkers( data = my.sf.point)
 }
 
 
