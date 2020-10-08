@@ -15,17 +15,35 @@ get_geographic_extent<-function(df,lon,lat, add_map="yes"){
   my.sf.point <- sf::st_as_sf(x = df,
                               coords = c(lon, lat),
                               crs = "+proj=longlat +datum=WGS84")
-  bounding_box=data.frame(minX=min(lon), maxX=max(lon), minY=min(lat), maxY=max(lat))
+
 
   switch(add_map,
          yes={map<-leaflet::leaflet() %>% addTiles() %>% addMarkers( data = my.sf.point)
-         return(bounding_box)
-         return(map)
+         return(list(sf::st_bbox(my.sf.point), map))
          },
-         no={return(bounding_box)
+         no={return(sf::st_bbox(my.sf.point))
          }
   )
 }
+
+
+# d <- as_tibble(read_delim(
+#   "C:/Users/matthew.grainger/Documents/Projects_in_development/LNC2020_presentation/Rock_ptarmigan_example/data/occurrence.txt", delim="\t", quote = ""))
+#
+# ######################################################################################
+#
+# d <- d %>%
+#   mutate(dynamicProperties = purrr::map(dynamicProperties, ~ jsonlite::fromJSON(.) %>% as.data.frame())) %>%
+#   unnest(dynamicProperties) %>%
+#   filter(organismName!=4272265) %>%
+#   mutate(Year=year(eventDate))
+#
+# d<-as.data.frame(d)
+#
+# get_geographic_extent(d, lon = "decimalLongitude",lat= "decimalLatitude", add_map = "yes")
+#
+
+
 
 
 # get Norway geographic extent
