@@ -2,7 +2,7 @@
 #' Get the geographic extent of a dataframe with geographic coordinates
 #'
 #' This function plots a map of the latitude and longitude from a datafile specified by the user.
-#'
+#' @param  df a dataframe
 #' @param lat latitude column indicated by data$lat
 #' @param lon longitude column indicated by data$lon
 #' @return A ggplot map of the coordinates
@@ -10,14 +10,12 @@
 #' @export
 
 
-get_geographic_extent<-function(lat,lon){
-  lat<-as.numeric(lat)
-  long<-as.numeric(lon)
-  coords<-as.data.frame(cbind(lat,long))
-  world <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf")
-  ggplot2::ggplot(data = world) +
-    ggplot2::geom_sf() +
-    ggplot2::geom_point(data=coords,aes(long,lat))
+get_geographic_extent<-function(df,lon,lat){
+  my.sf.point <- sf::st_as_sf(x = df,
+                              coords = c(lon, lat),
+                              crs = "+proj=longlat +datum=WGS84")
+
+  leaflet::leaflet() %>% addTiles() %>% addMarkers( data = my.sf.point)
 }
 
 
