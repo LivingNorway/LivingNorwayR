@@ -16,7 +16,8 @@ DwCTerm <- R6Class("DwCTerm",
     termInformationLN = character(),
     execCommitteeDecisions = character(),
     miscInformation = character(),
-    termDef = character()
+    termDef = character(),
+    vocabularyURI = character()
   ),
   public = list(
     # ====== 1.2. Initialise a DwCTerm object ======
@@ -38,12 +39,13 @@ DwCTerm <- R6Class("DwCTerm",
     #' @param execCommitteeDecisions A \code{character} vector of links to decisions made by executive committees on the usage of the term
     #' @param miscInformation A \code{character} vector providing supplementary information for the term
     #' @param termDef A \code{character} scalar providing information about the location of the body in charge of definition of the term
+    #' @param vocabularyURI A \code{character} scalar containing the Unified Resource Identifier (URI) for a vocabulary that the possible values for this term are based on
     #'
     #' @return A new DwCTerm object
     initialize = function(termName, namespaceName = character(), termIRI = character(), termVersionIRI = character(),
       dateModified = character(), label = character(), isReplacedBy = character(), definition = character(), notes = character(),
       type = character(), examples = character(), termInformationLN = character(), execCommitteeDecisions = character(),
-      miscInformation = character(), termDef = character()) {
+      miscInformation = character(), termDef = character(), vocabularyURI = character()) {
       # Utility function to ensure that character scalar have the correct formatting
       characterScalarTest <- function(paramText, inVar) {
         outVal <- tryCatch(as.character(inVar), error = function(err) {
@@ -77,6 +79,11 @@ DwCTerm <- R6Class("DwCTerm",
       }
       # Sanity check the namespace
       private$namespaceName <- characterScalarTest("namespace name", namespaceName)
+      if(length(private$namespaceName) > 0) {
+        if(!grepl("/$", private$namespaceName, perl = TRUE)) {
+          private$namespaceName <- paste(private$namespaceName, "/", sep = "")
+        }
+      }
       # Sanity check the term IRI
       private$termIRI <- characterScalarTest("term IRI", termIRI)
       # Sanity check the term version IRI
@@ -103,6 +110,8 @@ DwCTerm <- R6Class("DwCTerm",
       private$miscInformation <- characterVectorTest("miscellaneous information", miscInformation)
       # Sanity check the term definition source
       private$termDef <- characterScalarTest("term definition source", termDef)
+      # Sanity check the vocabulary term
+      private$vocabularyURI <- characterScalarTest("vocabulary URI", vocabularyURI)
       # Return the object invisibly
       invisible(self)
     },
@@ -115,7 +124,7 @@ DwCTerm <- R6Class("DwCTerm",
       outVal <- private$termName
       if(length(private$namespaceName) > 0)
       { # Include the namespace informtion if it exists
-        outVal <- paste(private$namespaceName, private$termName, sep = ":")
+        outVal <- paste(private$namespaceName, private$termName, sep = "")
       }
       outVal
     },
@@ -126,11 +135,21 @@ DwCTerm <- R6Class("DwCTerm",
     #' \code{FALSE} otherwise
     #'
     isDeprecated = function() {
+      deprTextSearch <- function(inText) {
+        any(
+          grepl("This term is deprecated and should no longer be used", inText, fixed = TRUE) |
+          grepl("This extension has been DEPRECATED", inText, fixed = TRUE)
+        )
+      }
       outVal <- FALSE
       if(length(private$isReplacedBy) > 0) {
         outVal <- TRUE
-      } else if(length(private$miscInformation) > 0) {
-        outVal <- any(grepl("This term is deprecated and should no longer be used", private$miscInformation, fixed = TRUE))
+      }
+      if(length(private$miscInformation) > 0 && !outVal) {
+        outVal <- deprTextSearch(private$miscInformation)
+      }
+      if(length(private$notes) > 0 && !outVal) {
+        outVal <- deprTextSearch(private$miscInformation)
       }
       outVal
     },
@@ -182,6 +201,9 @@ DwCTerm <- R6Class("DwCTerm",
       }
       if(length(private$termInformationLN) > 0) {
         cat("\tLiving Norway supplementary information:\n", paste("\t\t", private$termInformationLN, sep = "", collapse = "\n"), "\n", sep = "")
+      }
+      if(length(private$vocabularyURI) > 0) {
+        cat("\tVocabulary URI:\n", paste("\t\t", private$vocabularyURI, sep = "", collapse = "\n"), "\n", sep = "")
       }
       invisible(self)
     },
@@ -270,7 +292,7 @@ DwCTerm <- R6Class("DwCTerm",
     #' @return A \code{character} vector containing examples of use of the term
     #'
     getExamples = function() {
-      self@examples
+      self$examples
     },
     # ====== 1.17. Retrieve Living Norway supplementary information ======
     #' Retrieve supplementary information about the term provided by Living Norway
@@ -278,7 +300,7 @@ DwCTerm <- R6Class("DwCTerm",
     #' @return A \code{character} vector containing the Living Norway supplementary information
     #'
     getTermInformationLN = function() {
-      self@termInformationLN
+      self$termInformationLN
     },
     # ====== 1.18. Retrieve executive committee decisions ======
     #' Retrieve executive committee decisions about the use of the term
@@ -286,7 +308,7 @@ DwCTerm <- R6Class("DwCTerm",
     #' @return A \code{character} vector containing the executive committee decisions
     #'
     getExecCommitteeDecisions = function() {
-      self@execCommitteeDecisions
+      self$execCommitteeDecisions
     },
     # ====== 1.19. Retrieve miscellaneous information ======
     #' Retrieve miscellaneous information on the usage of the term
@@ -294,7 +316,7 @@ DwCTerm <- R6Class("DwCTerm",
     #' @return A \code{character} vector containing the miscellaneous information
     #'
     getMiscInformation = function() {
-      self@miscInformation
+      self$miscInformation
     },
     # ====== 1.20. Retrieve the source of the term definition ======
     #' Retrieve the source of the term definition
@@ -302,7 +324,16 @@ DwCTerm <- R6Class("DwCTerm",
     #' @return A \code{character} scalar containing the source of the term definition
     #'
     getTermDef = function() {
-      self@termDef
+      self$termDef
+    },
+    # ===== 1.21. Retrieve the URI of the vocabulary definition ======
+    #' Retrieve the vocabulary URI
+    #'
+    #' @return A \code{character} scalar containing the URI where the vocabulary for the
+    #' term is described
+    #'
+    getVocabularyURI = function() {
+      self$vocabularyURI
     }
   )
 )
@@ -311,7 +342,7 @@ DwCTerm <- R6Class("DwCTerm",
 #' Retrieve terms used by Darwin core
 #'
 #' @param includeExtensions A \code{logical} scalar that, if \code{TRUE}, instructs the fuction to also
-#' include terms used in registered Darwin core extensions. If \code{FALSE}, only the terms specified by
+#' include terms used in registered GBIF extensions to Darwin Core. If \code{FALSE}, only the terms specified by
 #' the Darwin core standard is included
 #' @param includeDeprecated A \code{logical} scalar that, if \code{TRUE}, instructs the function to also
 #' include terms in the Dawin Core standard that are deprecated
@@ -333,7 +364,14 @@ retrieveDwCTermSpecifications <- function(includeExtensions = TRUE, includeDepre
     outList <- data.frame(
       # Retrieve the name of the term as defined (and its namespace)
       termName = gsub("^.*\\:([\\w\\-]+)\\s*$", "\\1", xml_text(xml_find_first(curNode, ".//thead")),perl = TRUE),
-      namespaceName = gsub("^.*\\s([\\w\\-]+)\\:[\\w\\-]+\\s*$", "\\1", xml_text(xml_find_first(curNode, ".//thead")), perl = TRUE),
+      namespaceName = switch(
+        gsub("^.*\\s([\\w\\-]+)\\:[\\w\\-]+\\s*$", "\\1", xml_text(xml_find_first(curNode, ".//thead")), perl = TRUE),
+        "dwc" = "http://rs.tdwg.org/dwc/terms/",
+        "dwciri" = "http://rs.tdwg.org/dwc/iri/",
+        "dc" = "http://purl.org/dc/elements/1.1/",
+        "dcterms" = "http://purl.org/dc/terms/",
+        ""
+      ),
       termIRI = "",
       termVersionIRI = "",
       dateModified = "",
@@ -347,6 +385,7 @@ retrieveDwCTermSpecifications <- function(includeExtensions = TRUE, includeDepre
       execCommitteeDecisions = "",
       miscInformation = "",
       termDef = "https://dwc.tdwg.org/",
+      vocabularyURI = "",
       stringsAsFactors = FALSE
     )
     # Look through the table of attributes for the term and populate the list
@@ -378,17 +417,86 @@ retrieveDwCTermSpecifications <- function(includeExtensions = TRUE, includeDepre
       dateModified = outList$dateModified, label = outList$label, isReplacedBy = outList$isReplacedBy, definition = outList$definition, notes = strsplit(outList$notes, delimToUse, fixed = TRUE)[[1]],
       type = outList$type, examples = strsplit(outList$examples, delimToUse, fixed = TRUE)[[1]], termInformationLN = strsplit(outList$termInformationLN, delimToUse, fixed = TRUE)[[1]],
       execCommitteeDecisions = strsplit(outList$execCommitteeDecisions, delimToUse, fixed = TRUE)[[1]], miscInformation = strsplit(outList$miscInformation, delimToUse, fixed = TRUE)[[1]],
-      termDef = outList$termDef)
+      termDef = outList$termDef, vocabularyURI = outList$vocabularyURI)
   })
-  # ====== 2.2. Retrieve concepts from TDWG ======
-  # Currently this isn't supported because we need to have access to the Biodiversity Information Standards database
-  # on biological concepts. There are around 13000 concepts listed there (some of which are supported by GBIF) and
-  # to support some of GBIF's registered extensions to Darwin Core we need an automated interface
+  # ====== 2.2. Retrieve GBIF extensions terms ======
+  # If requested, download terms defined in the GBIF registered extensions
   if(tryCatch(as.logical(includeExtensions)[1], error = function(err) {
     stop("error encountered during processing of extensions inclusion parameter: ", err)
   })) {
-    # TODO: put processing of extension terms here
-    warning("extension terms not currently supported")
+    # Function to read all the terms specified at a given URL
+    retrieveXMLSpecs <- function(specAddress) {
+      # Function to read the GBIF XML file
+      readGBIFXML <- function(specAddress) {
+        curDoc <- read_xml(specAddress)
+        # Convert each of the child nodes of the xml specification to terms objects
+        append(lapply(X = xml_children(curDoc), FUN = function(curNode, curDoc) {
+          DwCTerm$new(
+            termName = xml_attr(curNode, "name"),
+            namespaceName = xml_attr(curNode, "namespace"),
+            termIRI = xml_attr(curNode, "relation"),
+            termVersionIRI = xml_attr(curNode, "relation"),
+            dateModified = xml_attr(curDoc, "issued"),
+            label = xml_attr(curNode, "name"),
+            isReplacedBy = "",
+            definition = xml_attr(curNode, "description"),
+            notes = xml_attr(curNode, "description"),
+            type = xml_name(curNode),
+            examples = xml_attr(curNode, "examples"),
+            termInformationLN = "",
+            execCommitteeDecisions = "",
+            miscInformation = paste("GBIF sub-class designation: ", ifelse(is.na(xml_attr(curNode, "group")), "unknown", xml_attr(curNode, "group")), sep = ""),
+            vocabularyURI = xml_attr(curNode, "thesaurus")
+          )
+        }, curDoc = curDoc), list(
+          # Convert the countaining class to a a terms object
+          DwCTerm$new(
+            termName = xml_attr(curDoc, "name"),
+            namespaceName = xml_attr(curDoc, "namespace"),
+            termIRI = xml_attr(curDoc, "relation"),
+            termVersionIRI = xml_attr(curDoc, "relation"),
+            dateModified = xml_attr(curDoc, "issued"),
+            label = xml_attr(curDoc, "name"),
+            isReplacedBy = "",
+            definition = xml_attr(curDoc, "description"),
+            notes = xml_attr(curDoc, "description"),
+            type = "class",
+            examples = "",
+            termInformationLN = "",
+            miscInformation = paste("GBIF core/extension class"),
+            vocabularyURI = xml_attr(curDoc, "xmlns")
+          )
+        ))
+      }
+      # Retrieve the link nodes for all the entries in the specification page
+      if(!grepl("/$", specAddress, perl = TRUE)) {
+        specAddress <- paste(specAddress, "/", sep = "")
+      }
+      aNodes <- xml_find_all(read_html(specAddress), "//td/a")
+      aLinks <- sapply(X = aNodes[2:length(aNodes)], FUN = xml_attr, attr = "href")
+      # Go through each of the links and process each entry
+      unlist(lapply(X = aLinks, FUN = function(curLink, curBaseAddress) {
+        outVals <- list()
+        if(grepl("\\.xml$", curLink, perl = TRUE)) {
+          # If the link is to a XML file then scrape the property information from it
+          outVals <- readGBIFXML(paste(curBaseAddress, curLink, sep = ""))
+        } else if(grepl("/$", curLink, perl = TRUE)) {
+          # If the link is to another folder then call the function recursively
+          outVals <- retrieveXMLSpecs(paste(curBaseAddress, curLink, sep = ""))
+        }
+        outVals
+      }, curBaseAddress = specAddress))
+    }
+    # Retrieve the term specifications for both the core and extension elements
+    GBIFSpecs <- append(
+      retrieveXMLSpecs("https://rs.gbif.org/core/"),
+      retrieveXMLSpecs("https://rs.gbif.org/extension/")
+    )
+    # Remove those entries in the GBIF specifications that are already in the Darwin Core specification and append those to in the
+    # Darwin core specification
+    termList <- append(termList, GBIFSpecs[sapply(X = GBIFSpecs, FUN = function(curSpec, termList) {
+      !any(curSpec$getQualifiedName() == sapply(X = termList, FUN = function(curTerm) { curTerm$getQualifiedName() }))
+    }, termList = termList)])
   }
   # ====== 2.3. Process the outputs ======
   # Use qualified names to index the list
@@ -400,17 +508,13 @@ retrieveDwCTermSpecifications <- function(includeExtensions = TRUE, includeDepre
   })) {
     # If the terms list is to exclude depracted terms then remove them from the output
     termList <- termList[!sapply(X = termList, FUN = function(curOb) { curOb$isDeprecated() })]
-    # termList <- termList[is.na(termList$isReplacedBy) & ifelse(is.na(termList$miscInformation), "", termList$miscInformation) != "This term is deprecated and should no longer be used.", ]
   }
   termList
 }
 
 # ------ 3. FUNCTION TO RETRIEVE LIST OF DARWIN CORE CLASSES ------
-#' Retrieve classes and their related term used by Darwin core
+#' Retrieve classes and their related terms used by Darwin core
 #'
-#' @param includeExtensions A \code{logical} scalar that, if \code{TRUE}, instructs the fuction to also
-#' include classes used in registered Darwin core extensions. If \code{FALSE}, only the classes specified by
-#' the Darwin core standard is included
 #' @param includeDeprecated A \code{logical} scalar that, if \code{TRUE}, instructs the function to also
 #' include terms in the Dawin Core standard that are depracated
 #'
@@ -426,10 +530,10 @@ retrieveDwCTermSpecifications <- function(includeExtensions = TRUE, includeDepre
 #' \code{\link[DwCTerm]{DwCTerm}}
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}
 #'
-retrieveDwCClassSpecifications <- function(includeExtensions = TRUE, includeDeprecated = FALSE) {
+retrieveDwCClassSpecifications <- function(includeDeprecated = FALSE) {
   # TODO: add in some error handling if a connection to the server can't be made
   # ====== 3.1. Retrieve terms from the Darwin core standard ======
-  termList <- retrieveDwCTermSpecifications(includeExtensions, includeDeprecated)
+  termList <- retrieveDwCTermSpecifications(FALSE, includeDeprecated)
   # ====== 3.2. Retrieve classes from the Darwin core standard ======
   classList <- termList[sapply(X = termList, FUN = function(curOb) { curOb$getType() == "Class" })]
   # Download the landuage terms defined by the Darwin Core standard
@@ -450,4 +554,121 @@ retrieveDwCClassSpecifications <- function(includeExtensions = TRUE, includeDepr
     }
     outList
   }, langNodes = langNodes, termList = termList), names(classList))
+}
+
+# ------ 4. FUNCTION TO RETRIEVE LIST OF GBIF REGISTERED CLASSES ------
+#' Retrieve classes and their related terms used by GBIF
+#'
+#' @param classOption A \code{character} scalar that if set to \code{"core"} returns only the classes and the associated terms of GBIF's accepted core types.
+#' If set to \code{"extension"} returns only the classes and associated terms of GBIF's \url{https://tools.gbif.org/dwca-validator/extensions.do}{registered extensions}.
+#' \code{"all"} (the default) returns all of GBIF's registered class types.
+#' @param includeDeprecated A \code{logical} scalar that, if \code{TRUE}, instructs the function to also include terms in the GBIF classes that are depracated
+#'
+#' @return A \code{list} containing one element per class. Each element is itself a \code{list} with the
+#' following named elements:
+#' \itemize{
+#'   \item{termInfo}{A \code{DwCTerm} object containing the information of the class term}
+#'   \item{compositeTerms}{A \code{list} of \code{DwCTerm} objects for each term that is associated with
+#'   the class}
+#' }
+#' #'
+#' @seealso \code{\link[retrieveDwCTermSpecifications]{retrieveDwCTermSpecifications}}
+#' \code{\link[DwCTerm]{DwCTerm}}
+#' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}
+#'
+retrieveGBIFClassSpecifications <- function(classOption = "all", includeDeprecated = FALSE) {
+  # ====== 4.1. Retrieve terms from the GBIF list of used terms ======
+  termList <- retrieveDwCTermSpecifications(TRUE, includeDeprecated)
+  # ====== 4.2. Assign terms to their respective GBIF classes ======
+  # Sanity test the class option input
+  inClassOption <- tryCatch(tolower(as.character(classOption)), error = function(err) {
+    stop("error encountered processing the class option parameter: ", err)
+  })
+  if(length(inClassOption) > 1) {
+    warning("class option parameter length greater than one: only the first element will be used")
+    inClassOption <- inClassOption[1]
+  } else if(length(inClassOption) == 0) {
+    stop("error encountered processing the class option parameter: parameter has length 0")
+  }
+  # The URLs to check the class structure from
+  urlCheck <- c("https://rs.gbif.org/core/", "https://rs.gbif.org/extension/")
+  if(inClassOption != "all") {
+    if(inClassOption == "core") {
+      urlCheck <- urlCheck[1]
+    } else if(inClassOption == "extension") {
+      urlCheck <- urlCheck[2]
+    } else {
+      stop("error encountered processing the class option parameter: values must be \"all\", \"core\", or \"extension\"")
+    }
+  }
+  # Function to find the classes contained in the current URL
+  findGBIFClasses <- function(specAddress, termList) {
+    # Function to generate a GBIF class from a list of terms
+    createGBIFClass <- function(specAddress, termList) {
+      # Function to add a trailing "/" if there isn't one
+      addTrailingDir <- function(inText) {
+        outText <- as.character(inText)
+        if(!grepl("\\/$", outText, perl = TRUE)) {
+          outText <- paste(outText, "/", sep = "")
+        }
+        outText
+      }
+      curDoc <- read_xml(specAddress)
+      # Get the qualified names of each of the members of the class
+      memberTerms <- sapply(X = xml_children(curDoc), FUN = function(curNode) {
+        paste(addTrailingDir(xml_attr(curNode, "namespace")), xml_attr(curNode, "name"), sep = "")
+      })
+      memberTerms <- memberTerms[memberTerms %in% names(termList)]
+      # Format the output object into a list of terms for the class
+      list(
+        termInfo = termList[[paste(addTrailingDir(xml_attr(curDoc, "namespace")), xml_attr(curDoc, "name"), sep = "")]],
+        compositeTerms = termList[memberTerms]
+      )
+    }
+    # Retrieve the link nodes for all the entries in the specification page
+    if(!grepl("/$", specAddress, perl = TRUE)) {
+      specAddress <- paste(specAddress, "/", sep = "")
+    }
+    aNodes <- xml_find_all(read_html(specAddress), "//td/a")
+    aLinks <- sapply(X = aNodes[2:length(aNodes)], FUN = xml_attr, attr = "href")
+    # Retrieve the links that are directories
+    dirLinks <- aLinks[grepl("/$", aLinks, perl = TRUE)]
+    # For the links that are XML files: make sure the links are only the most recently defined
+    xmlLinks <- aLinks[grepl("\\.xml$", aLinks, perl = TRUE)]
+    xmlLinks <- sapply(X = unique(gsub("_*\\d\\d\\d\\d[_-]\\d\\d[_-]\\d\\d_*", "", xmlLinks, perl = TRUE)), FUN = function(curLink, xmlLinks) {
+      possLinks <- xmlLinks[curLink == gsub("_*\\d\\d\\d\\d[_-]\\d\\d[_-]\\d\\d_*", "", xmlLinks, perl = TRUE)]
+      if(length(possLinks) > 1) {
+        # If the there are multiple possible links for the class definition then use the most recent definition
+        curDates <- strptime(
+          gsub("^.*(\\d\\d\\d\\d)[_-](\\d\\d)[_-](\\d\\d).*$", "\\1-\\2-\\3", possLinks, perl = TRUE),
+          "%Y-%m-%d")
+        possLinks <- possLinks[which.max(ifelse(is.na(curDates), -Inf, as.double(as.POSIXlt(curDates))))]
+      }
+      if(length(possLinks) == 0) {
+        possLinks <- curLink
+      }
+      possLinks
+    }, xmlLinks = xmlLinks)
+    # Go through each of the links and process each entry
+    do.call(c, lapply(X = c(dirLinks, xmlLinks), FUN = function(curLink, curBaseAddress, termList) {
+      outVals <- list()
+      if(grepl("\\.xml$", curLink, perl = TRUE)) {
+        # If the link is to a XML file then scrape the property information from it
+        outVals <- list(createGBIFClass(paste(curBaseAddress, curLink, sep = ""), termList))
+      } else if(grepl("/$", curLink, perl = TRUE)) {
+        # If the link is to another folder then call the function recursively
+        outVals <- findGBIFClasses(paste(curBaseAddress, curLink, sep = ""), termList)
+      }
+      outVals
+    }, curBaseAddress = specAddress, termList = termList))
+  }
+  outList <- do.call(c, lapply(X = urlCheck, FUN = findGBIFClasses, termList = termList))
+  outList <- outList[sapply(X = outList, FUN = function(curEl) {!is.null(curEl$termInfo)})]
+  names(outList) <- sapply(X = outList, FUN = function(curEl) {curEl$termInfo$getQualifiedName()})
+  outList
+}
+
+# TODO: document helper function
+isDwCTerm <- function(inOb) {
+  any(class(inOb) == "DwCTerm")
 }
