@@ -95,7 +95,7 @@ DwCGeneric <- R6::R6Class("DwCGeneric",
           stop("error encountered during processing of column index: ", err)
         })
         # Final quality control checks to ensure column indeces are valid
-        if(!is.null(inColNames)) {
+        if(is.null(inColNames)) {
           stop("error encountered during processing of column index: data object does not have column names")
         } else if(tempName <= 0 || tempName > length(inColNames)) {
           stop("error encountered during processing of column index: index falls outside width of data object")
@@ -120,16 +120,24 @@ DwCGeneric <- R6::R6Class("DwCGeneric",
         stop("error encountered during processing of mapping information: mapping info has no names attribute")
       }
       private$termMapping[sapply(X = names(termMapping), FUN = function(curTerm, possTermNames) {
-        matchingIndeces <- unique(c(which(curTerm == possTermNames), which(curTerm == gsub("^.*\\:\\:", "", possTermNames, perl = TRUE))))
+        matchingIndeces <- unique(c(which(curTerm == possTermNames), which(curTerm == gsub("^.*[\\/\\:]", "", possTermNames, perl = TRUE))))
         if(length(matchingIndeces) <= 0) {
           stop("error encountered during processing of mapping information: specified term is not one recognised by the class")
         } else if(length(matchingIndeces) > 1) {
-          stop("error encountered during processing of mapping information: ")
+          stop("error encountered during processing of mapping information: multiple terms matching term in the class")
         }
         matchingIndeces[1]
       }, possTermNames = names(private$termMapping))] <- termMapping
-      # Sanity test the ID column entry
-      private$idColumnIndex <- getColIndex(idColumnInfo, colnames(private$objectData))
+      # If the ID column index is the same as a qualified name of one of the defined terms that set the ID column
+      # to the same column as that defined term
+      if((is.character(idColumnInfo) || is.factor(idColumnInfo)) &&
+         any(as.character(idColumnInfo) == names(private$termMapping[!is.na(private$termMapping)]))
+      ) {
+        private$idColumnIndex <- private$termMapping[names(private$termMapping) == as.character(idColumnInfo)]
+      } else {
+        # Sanity test the ID column entry
+        private$idColumnIndex <- getColIndex(idColumnInfo, colnames(private$objectData))
+      }
       # Return the object
       invisible(self)
     }
@@ -196,8 +204,11 @@ DwCGeneric <- R6::R6Class("DwCGeneric",
       private$setClassInfo(classTermInfo, associatedTerms)
       # Set the data information
       private$setDataInfo(objectData, list(...), idColumnInfo)
+      # Set the table name based on the term containing the class type
+      self$setTableName(classTermInfo$getTermName())
       invisible(self)
     },
+
     # ====== 1.6. Function to get the name of the Darwin core class that the object holds ======
     #' @description
     #' Retrieve the name of the class used in Darwin core
@@ -212,7 +223,7 @@ DwCGeneric <- R6::R6Class("DwCGeneric",
     #' of the object
     #' @seealso \code{\link[DwCTerm]{DwCTerm}}
     getDwCTermInfo = function() {
-      private$classTermInfo
+      private$classTermInfo$clone()
     },
     # ====== 1.8. Function to retrieve the mapping information =======
     #' @description
@@ -224,7 +235,7 @@ DwCGeneric <- R6::R6Class("DwCGeneric",
     getTermMapping = function() {
       data.frame(
         columnIndex = private$termMapping,
-        columnName = colnames(private$objectData),
+        columnName = colnames(private$objectData)[private$termMapping],
         row.names = names(private$termMapping))
     },
     # ====== 1.9. Function to retrieve the terms associated with the class ======
@@ -232,17 +243,17 @@ DwCGeneric <- R6::R6Class("DwCGeneric",
     #' Retrieve the terms associated with the Darwin core class of the object
     #' @return A \code{list} of \code{DwCTerm} objects containing the term information
     getAssociatedTerms = function() {
-      private$associatedTerms
+      lapply(X = private$associatedTerms, FUN = function(curEl) { curEl$clone() })
     },
     # ====== 1.10. Function to print the object to the console ======
     #' Print the term information
     print = function() {
       cat(toupper(private$objectName), "CLASS INFORMATION\n")
       private$classTermInfo$print()
-      cat("MAPPED DARWIN CORE TERMS\n")
-      outMapFrame <- getTermMapping()
+      cat("\nMAPPED DARWIN CORE TERMS\n")
+      outMapFrame <- self$getTermMapping()
       print(outMapFrame[!is.na(outMapFrame$columnIndex), ])
-      cat("TABLE DATA\n")
+      cat("\nTABLE DATA (ID column index ", self$getIDIndex(), ifelse(is.na(self$getIDName()), "", paste(" - \"", self$getIDName(), "\"", sep = "")), ")\n", sep = "")
       print(private$objectData)
     },
     # ====== 1.11. Function to export the data ======
@@ -251,6 +262,56 @@ DwCGeneric <- R6::R6Class("DwCGeneric",
     #' @return A \code{data.frame} of the object's table data
     exportAsDataFrame = function() {
       private$objectData
+    },
+    # ====== 1.12. Function to write the data to a text file ======
+    #' @description
+    #' Export the table as a text file
+    #' @param fileName Either a \code{character} string naming a file or a connection open for writing.
+    #' \code{""} indicates to the console.
+    #' @param append A \code{logical} scalar. Only relevant if \code{fileName} is a \code{character} string. If
+    #' \code{TRUE}, the output is appended to the file. If \code{FALSE}, any existing file of the name is
+    #' destroyed.
+    #' @param quote A \code{logical} scalar or a \code{numeric} vector. If \code{TRUE}, any character or factor
+    #' columns will be surrounded by double quotes. If a \code{numeric} vector, its elements are taken as the
+    #' indeces of columns to quote. In both cases, row and column names are quoted if they are written. If \code{FALSE},
+    #' nothing is quoted.
+    #' @param sep The field seperator stirng. Values within each row are separated by this string.
+    #' @param eol The character(s) to print at the end of each line (row).
+    #' @param na The string to use for missing values in the data.
+    #' @param dec The string to use for decimal points in numeric or complex columns: must be a single character
+    #' @param qmethod A character string specifying how to deal with embedded double quote characters when
+    #' quoting strings. Must be one of \code{"escape"}, in which case the quote character is escaped in C style by a
+    #' backslash, or \code{"double"}, in which case it is doubled
+    #' @param fileEncoding A character string. If non-empty, declares the encoding to be used on a file so the
+    #' character data can be re-encoded as they are written
+    exportTable = function(fileName, append = FALSE, quote = TRUE, sep = "\t", eol = "\n", na = "NA", dec = ".", qmethod = "escape", fileEncoding = "") {
+      tryCatch(write.table(private$objectData, fileName, append, quote, sep, eol, na, dec, FALSE, TRUE, qmethod, fileEncoding), error = function(err) {
+        stop("error encountered whilst exporting object: ", err)
+      })
+      invisible(self)
+    },
+    # ====== 1.13. Function to retrieve the ID column index ======
+    #' @description
+    #' Retrieve the column index in the dataset that refers to the unique ID in the dataset
+    #' @return An \code{integer} scalar giving the index of the column that refers to the unique dataset IDs
+    getIDIndex = function() {
+      private$idColumnIndex
+    },
+    # ====== 1.14. Function to retrieve the ID column name ======
+    #' @description
+    #' Retrieve the column name in the dataset that refers to the unique ID in the dataset
+    #' @return A \code{character} scalar giving the column name that refers to the unique dataset IDs
+    getIDName = function() {
+      outVal <- NA
+      if(!is.null(colnames(private$objectData))) {
+        outVal <- colnames(private$objectData)[private$idColumnIndex]
+      }
+      outVal
     }
   )
 )
+
+# TODO: document helper function
+isDwCGeneric <- function(inOb) {
+  any(class(inOb) == "DwCGeneric")
+}

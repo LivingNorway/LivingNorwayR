@@ -8,8 +8,7 @@ Authors@R:
            email = "first.last@example.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: The package creates a folder structure in a project directory and provides a workflow for creating a data archive including all raw data, data management plans, protocols, mapped data (maniupulated for analysis), analysis scripts, reports, etc. Facilitates ease of sharing data and uploading on to data repositories e.g. GBIF
-License: `use_mit_license()`, `use_gpl3_license()` or friends to
-    pick a license
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
@@ -17,7 +16,8 @@ RoxygenNote: 7.1.1
 Imports: dplyr,leaflet,sf,R6,readr
 Suggests:
     knitr,
-    rmarkdown
+    rmarkdown,
+    testthat
 VignetteBuilder: knitr
 Depends: 
     R (>= 2.10)
