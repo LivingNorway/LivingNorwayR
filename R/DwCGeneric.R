@@ -5,7 +5,10 @@
 #' archive files but may miss some of the specialised functionality of the more specialist classes.
 #' See \url{https://dwc.tdwg.org/terms/}{the Darwin core reference guide} for more information on Darwin core classes and the terms
 #' supported by them.
-DwCGeneric <- R6Class("DwCGeneric",
+#' @importFrom R6 R6Class
+#' @export
+#' @format \code{\link{R6Class}} object.
+DwCGeneric <- R6::R6Class("DwCGeneric",
   # ====== 1.1. Define private members of the generic class ======
   private = list(
     # A DwCTerm object containing the term associated with the class
@@ -205,13 +208,14 @@ DwCGeneric <- R6Class("DwCGeneric",
       self$setTableName(classTermInfo$getTermName())
       invisible(self)
     },
-    # ====== 1.6. Funcntion to get the name of the Darwin core class that the object holds ======
+
+    # ====== 1.6. Function to get the name of the Darwin core class that the object holds ======
     #' @description
     #' Retrieve the name of the class used in Darwin core
     #' @return A \code{character} scalar contining the name of the Darwin core class
     getDwCClassName = function() {
       private$classTermInfo$getQualifiedName()
-    },
+      },
     # ====== 1.7. Function to retrieve the term information of the Darwin core class ======
     #' @description
     #' Retrieve the term information of thee Darwin core class of the object
