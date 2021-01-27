@@ -1,10 +1,10 @@
-#' get_data_metadata
+#' read_metadata
 #' read the metadata from a rmarkdown file
 #' @param X an RMarkdown file
 #' @return Output: text string of yaml information
 #' @export
 
-get_data_metadata = function(file) {
+read_metadata = function(file) {
   x = readr::read_lines(file) # read markdown using readlines
   rng = grep("^---$", x)
   rng = rng + c(1, -1)
@@ -13,5 +13,3 @@ get_data_metadata = function(file) {
   x = gsub(".*: (.*)", "\\1", x)
   as.list(x)
 }
-
-

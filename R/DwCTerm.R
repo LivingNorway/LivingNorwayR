@@ -1,5 +1,9 @@
 # ------ 1. A DWCTERM CLASS TO HOLD INFORMATION ON DARWIN CORE TERMS ------
-DwCTerm <- R6Class("DwCTerm",
+#' @importFrom R6 R6Class
+#' @export
+#' @format \code{\link{R6Class}} object.
+
+DwCTerm <- R6::R6Class("DwCTerm",
   # ====== 1.1. Define private members of the terms class ======
   private = list(
     termName = character(),

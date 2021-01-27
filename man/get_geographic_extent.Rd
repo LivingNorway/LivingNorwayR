@@ -4,15 +4,19 @@
 \alias{get_geographic_extent}
 \title{Get the geographic extent of a dataframe with geographic coordinates}
 \usage{
-get_geographic_extent(lat, lon)
+get_geographic_extent(df, lon, lat, add_map = "yes")
 }
 \arguments{
-\item{lat}{latitude column indicated by data$lat}
+\item{df}{a dataframe}
 
 \item{lon}{longitude column indicated by data$lon}
+
+\item{lat}{latitude column indicated by data$lat}
+
+\item{add_map}{add a map (default is "yes")}
 }
 \value{
-A ggplot map of the coordinates
+A leaflet map of the coordinates and the minimum and maximum of the latitude and longitude
 }
 \description{
 This function plots a map of the latitude and longitude from a datafile specified by the user.
