@@ -86,6 +86,9 @@ DwCTerm <- R6Class("DwCTerm",
       }
       # Sanity check the term IRI
       private$termIRI <- characterScalarTest("term IRI", termIRI)
+      if(length(private$termIRI) < 0) {
+        private$termIRI <- self$getQualifiedName()
+      }
       # Sanity check the term version IRI
       private$termVersionIRI <- characterScalarTest("term version IRI", termVersionIRI)
       # Sanity check the date modified
@@ -429,13 +432,17 @@ retrieveDwCTermSpecifications <- function(includeExtensions = TRUE, includeDepre
       # Function to read the GBIF XML file
       readGBIFXML <- function(specAddress) {
         curDoc <- read_xml(specAddress)
+        # Class name
+        className <- switch(xml_attr(curDoc, "rowType"),
+          "http://data.ggbn.org/schemas/ggbn/terms/Cloning" = "Cloning",   # Cloning class has the 'Amplification' name.  Manually need to over-ride that here
+          xml_attr(curDoc, "name"))
         # Convert each of the child nodes of the xml specification to terms objects
         append(lapply(X = xml_children(curDoc), FUN = function(curNode, curDoc) {
           DwCTerm$new(
             termName = xml_attr(curNode, "name"),
             namespaceName = xml_attr(curNode, "namespace"),
-            termIRI = xml_attr(curNode, "relation"),
-            termVersionIRI = xml_attr(curNode, "relation"),
+            termIRI = xml_attr(curNode, "rowType"),
+            termVersionIRI = xml_attr(curNode, "rowType"),
             dateModified = xml_attr(curDoc, "issued"),
             label = xml_attr(curNode, "name"),
             isReplacedBy = "",
@@ -451,12 +458,12 @@ retrieveDwCTermSpecifications <- function(includeExtensions = TRUE, includeDepre
         }, curDoc = curDoc), list(
           # Convert the countaining class to a a terms object
           DwCTerm$new(
-            termName = xml_attr(curDoc, "name"),
+            termName = className,
             namespaceName = xml_attr(curDoc, "namespace"),
-            termIRI = xml_attr(curDoc, "relation"),
-            termVersionIRI = xml_attr(curDoc, "relation"),
+            termIRI = xml_attr(curDoc, "rowType"),
+            termVersionIRI = xml_attr(curDoc, "rowType"),
             dateModified = xml_attr(curDoc, "issued"),
-            label = xml_attr(curDoc, "name"),
+            label = className,
             isReplacedBy = "",
             definition = xml_attr(curDoc, "description"),
             notes = xml_attr(curDoc, "description"),
@@ -464,7 +471,7 @@ retrieveDwCTermSpecifications <- function(includeExtensions = TRUE, includeDepre
             examples = "",
             termInformationLN = "",
             miscInformation = paste("GBIF core/extension class"),
-            vocabularyURI = xml_attr(curDoc, "xmlns")
+            vocabularyURI = xml_attr(curDoc, "relation")
           )
         ))
       }
@@ -621,7 +628,12 @@ retrieveGBIFClassSpecifications <- function(classOption = "all", includeDeprecat
       memberTerms <- memberTerms[memberTerms %in% names(termList)]
       # Format the output object into a list of terms for the class
       list(
-        termInfo = termList[[paste(addTrailingDir(xml_attr(curDoc, "namespace")), xml_attr(curDoc, "name"), sep = "")]],
+        termInfo = termList[[paste(addTrailingDir(xml_attr(curDoc, "namespace")),
+          switch(specAddress,
+            "https://rs.gbif.org/extension/ggbn/cloning.xml" = "Cloning",    # Cloning class been given an incorrect name in the GBIF API so need to over-ride it here
+            xml_attr(curDoc, "name")
+          ),
+          sep = "")]],
         compositeTerms = termList[memberTerms]
       )
     }

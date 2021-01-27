@@ -18,6 +18,8 @@ DwCGeneric <- R6Class("DwCGeneric",
     termMapping = integer(),
     # A list of terms associated with the DwC class
     associatedTerms = list(),
+    # A string representing the default data format
+    defaultDateFormat = character(),
     # A data frame containing the data held in the DwC object
     objectData = data.frame(),
     # ---- 1.1.1. Define a function to import the class information ----
@@ -163,7 +165,7 @@ DwCGeneric <- R6Class("DwCGeneric",
     #' @description
     #' Retrieve the name of the file that the data will print to when preparing the Darwin core archive
     #' @return The name currently set as the file name in the output archive
-    getFileName = function() {
+    getTableName = function() {
       private$objectName
     },
     # ====== 1.4. Import data into the table ====
@@ -190,17 +192,58 @@ DwCGeneric <- R6Class("DwCGeneric",
     #' @param idColumnInfo Either a \code{character} scalar containing the column name
     #' of \code{objectData} or an \code{integer} scalar giving the index of the column of
     #' \code{objectData} that corresponds to the ID variable
+    #' @param nameAutoMap A \code{logical} scalar that if \code{TRUE} maps the columns of \code{objectData}
+    #' to their respective Darwin core terms based on the column names
+    #' @param defDateFormat A \code{character} scalar providing the default format for strings denoting dates in the
+    #' data table.  See the \url{https://dwc.tdwg.org/text/#1-introduction}{Darwin Core text guide} for expected values
+    #' for this string.
     #' @param ... A named set of parameter corresponding to Darwin core terms associated
     #' with the DwCGeneric class type. Each is either a a \code{character} scalar containing
     #' the column name of \code{objectData} or an \code{integer} scalar giving the index of
     #' the column of \code{objectData} that corresponds to the term
     #' @return A new \code{DwCGeneric} object
     #' @seealso \code{\link[DwCTerm]{DwCTerm}}
-    initialize = function(classTermInfo, associatedTerms, objectData, idColumnInfo, ...) {
+    initialize = function(classTermInfo, associatedTerms, objectData, idColumnInfo, nameAutoMap = FALSE, defDateFormat = "YYYY-MM-DD", ...) {
+      mappingParameters <- list(...)
+      # Set the default date format
+      self$setDefaultYearFormat(defDateFormat)
       # Set the class information
       private$setClassInfo(classTermInfo, associatedTerms)
+      # Sanity check the auto mapping parameter
+      if(!is.null(nameAutoMap)) {
+        inAutoMap <- tryCatch(as.logical(nameAutoMap), error = function(err) {
+          stop("error encountered when processing automapping flag: ", err)
+        })
+        if(length(inAutoMap) > 0) {
+          if(length(inAutoMap) > 1) {
+            warning("auto mapping flag parameter has length greater than one: only the first element will be used")
+            inAutoMap <- inAutoMap[1]
+          }
+          if(!is.na(inAutoMap) && inAutoMap == TRUE)  {
+            # If the user requests for the mapping to be based on column names then test those names against the associated terms
+            obColNames <- tryCatch(colnames(as.data.frame(objectData)), error = function(err) {
+              stop("error encountered during auto mapping of column names: ", err)
+            })
+            # Retrieve the column names in the input data table that correspond to associated Darwin core terms
+            mappedCols <- setNames(sapply(X = private$associatedTerms, FUN = function(curTerm, obColNames) {
+              outVal <- obColNames[curTerm$getTermName() == obColNames | curTerm$getQualifiedName() == obColNames]
+              if(length(outVal) <= 0) {
+                outVal <- NA
+              } else if(length(outVal) > 2) {
+                stop("error encountered during auto mapping of column names: duplicate column names in data table")
+              }
+              outVal
+            }, obColNames = obColNames), sapply(X = private$associatedTerms, FUN = function(curTerm) { curTerm$getTermName() }))
+            mappedCols <- mappedCols[!is.na(mappedCols)]
+            # Add the auto-mapped parameters to the manually assigned ones
+            mappingParameters <- tryCatch(append(mappingParameters, as.list(mappedCols)), error = function(err) {
+              stop("error encountered during auto mapping of column names: ", err)
+            })
+          }
+        }
+      }
       # Set the data information
-      private$setDataInfo(objectData, list(...), idColumnInfo)
+      private$setDataInfo(objectData, mappingParameters, idColumnInfo)
       # Set the table name based on the term containing the class type
       self$setTableName(classTermInfo$getTermName())
       invisible(self)
@@ -280,8 +323,29 @@ DwCGeneric <- R6Class("DwCGeneric",
     #' backslash, or \code{"double"}, in which case it is doubled
     #' @param fileEncoding A character string. If non-empty, declares the encoding to be used on a file so the
     #' character data can be re-encoded as they are written
-    exportTable = function(fileName, append = FALSE, quote = TRUE, sep = "\t", eol = "\n", na = "NA", dec = ".", qmethod = "escape", fileEncoding = "") {
-      tryCatch(write.table(private$objectData, fileName, append, quote, sep, eol, na, dec, FALSE, TRUE, qmethod, fileEncoding), error = function(err) {
+    #' @param renameMapped A \code{logical} scalar that, if \code{TRUE}, replaces mapped column names with their Darwin
+    #' core versions
+    exportTable = function(fileName, append = FALSE, quote = TRUE, sep = "\t", eol = "\n", na = "NA", dec = ".", qmethod = "escape", fileEncoding = "", renameMapped = FALSE) {
+      # Sanity test the mapping the rename parameter
+      inRename <- tryCatch(as.logical(renameMapped), error = function(err) {
+        stop("error encountered whilst exporting object: ", err)
+      })
+      if(length(inRename) <= 0) {
+        stop("error encountered whilst exporting object: mapping renaming parameter has length zero")
+      } else if(length(inRename) > 1) {
+        warning("mapping renaming parameter has length greater than one: only the first element will be used")
+        inRename <- inRename[1]
+      }
+      if(is.na(inRename)) {
+        stop("error encountered whilst exporting object: mapping renaming parameter is NA")
+      }
+      outTable <- private$objectData
+      if(inRename == TRUE) {
+        # Rename the columns according to their mapped Darwin core term if requested by the user
+        mappedTerms <- private$termMapping[!is.na(private$termMapping)]
+        colnames(outTable)[mappedTerms] <- gsub("^.*[\\/\\:]", "", names(mappedTerms), perl = TRUE)
+      }
+      tryCatch(write.table(outTable, fileName, append, quote, sep, eol, na, dec, FALSE, TRUE, qmethod, fileEncoding), error = function(err) {
         stop("error encountered whilst exporting object: ", err)
       })
       invisible(self)
@@ -303,11 +367,67 @@ DwCGeneric <- R6Class("DwCGeneric",
         outVal <- colnames(private$objectData)[private$idColumnIndex]
       }
       outVal
+    },
+    # ====== 1.15. Function to set the default date format ======
+    #' @description
+    #' Set the default date format in the dataset
+    #' @param detDateFormat A \code{character} scalar providing the default format for strings denoting dates in the
+    #' data table.  See the \url{https://dwc.tdwg.org/text/#1-introduction}{Darwin Core text guide} for expected values
+    #' for this string.
+    setDefaultYearFormat = function(detDateFormat) {
+      private$defaultDateFormat <- "YYYY-MM-DD"
+      if(!is.null(detDateFormat)) {
+        private$defaultDateFormat <- tryCatch(as.character(detDateFormat), error = function(err) {
+          stop("error encountered during setting of default date format: ", err)
+        })
+        if(length(private$defaultDateFormat) <= 0) {
+          private$defaultDateFormat <- "YYYY-MM-DD"
+        } else if(length(private$defaultDateFormat) > 1) {
+          warning("entry for default date format has a length greater than one: only the first element will be used")
+          private$defaultDateFormat <- private$defaultDateFormat[1]
+        }
+        if(is.na(private$defaultDateFormat)) {
+          private$defaultDateFormat <- "YYYY-MM-DD"
+        }
+      }
+      invisible(self)
+    },
+    # ====== 1.16. Retrieve the default date format ======
+    #' @description
+    #' Retrieve the default date format
+    #' @return A \code{character} scalar containing the default date format
+    getDefaultYearFormat = function() {
+      private$defaultDateFormat
     }
   )
 )
 
-# TODO: document helper function
+# ------ 2. INITIALISATION FUNCTION ------
+#' Initialize a new DwCGeneric object
+#' @param classTermInfo A \code{DwCTerm} object containing the term information for the class
+#' @param associatedTerms A \code{list} of \code{DwCTerm} objects that contain all the terms associated with the class
+#' @param objectData A \code{data.frame} containing the data to import into the object
+#' @param idColumnInfo Either a \code{character} scalar containing the column name of
+#' \code{objectData} or an \code{integer} scalar giving the index of the column of
+#' \code{objectData} that corresponds to the ID variable.  Alternatively, this parameter
+#' may be the qualified name of the Darwin core term for which the appropriately mapped column
+#' will be used as the ID variable
+#' @param nameAutoMap A \code{logical} scalar that if \code{TRUE} maps the columns of \code{objectData}
+#' to their respective Darwin core terms based on the column names
+#' @param ... A named set of paramaeters corresponding to Darwin core terms associated with the DwCGeneric
+#' class type.  Each is either a \code{character} scalar containing the column name of \code{objectData}
+#' or an \code{integer} scalar giving the index of the column of \code{objectData} that corresponds to the
+#' term.
+#' @return A new \code{DwCGeneric} object
+#' @seealso \code{\link[DwCTerm]{DwCTerm}}
+initializeDwCGeneric <- function(classTermInfo, associatedTerms, objectData, idColumnInfo, nameAutoMap = FALSE, ...) {
+  DwCGeneric$new(classTermInfo = classTermInfo, associatedTerms = associatedTerms, objectData = objectData, idColumnInfo = idColumnInfo, nameAutoMap = nameAutoMap, ...)
+}
+
+# ------ 3. TYPE CHECK FUNCTION ------
+#' Test whether an object is derived from DwCGeneric
+#' @param inOb An object that you want to test
+#' @return A \code{logical} scalar that is \code{TRUE} if \code{inOb} is derived from DwCGeneric
 isDwCGeneric <- function(inOb) {
   any(class(inOb) == "DwCGeneric")
 }

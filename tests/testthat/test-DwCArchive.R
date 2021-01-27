@@ -18,8 +18,8 @@ thestthat::test_that("Darwin core archive object can import and export losslessl
     valType = rep("count", 4)
   )
   # ====== 1.2. Convert test data to augmented frames ======
-  eventCoreOb <- GBIFEvent$new(testCoreFrame, eventID = "idCode", decimalLatitude = "lat", decimalLongitude = "long")
-  measurementExtOb <- GBIFMeasurementOrFact$new(testExtFrame, "relatedTo", measurementID = "idCode", measurementUnit = "valType", measurementValue = "count")
+  eventCoreOb <- initializeGBIFEvent(testCoreFrame, "idCode", eventID = "idCode", decimalLatitude = "lat", decimalLongitude = "long")
+  measurementExtOb <- initializeGBIFMeasurementOrFact(testExtFrame, "relatedTo", measurementID = "idCode", measurementUnit = "valType", measurementValue = "count")
   # ====== 1.3. Build the Darwin core archive ======
   archiveOb <- DwCArchive$new(eventCoreOb, measurementExtOb)
   # Create a temporary location to store the Darwin core archive file
@@ -27,4 +27,7 @@ thestthat::test_that("Darwin core archive object can import and export losslessl
   archiveOb$exportAsDwCArchive(testLoc)
   # ===== 1.4. Import from the Darwin core archive ======
   inArchiveOb <- DwCArchive$new(testLoc)
+  # ===== 1.5. Retrieve the original data frames from the Darwin core archive ======
+  outTestCoreFrame <- inArchiveOb$getCoreTable()$exportAsDataFrame()
+  outTestExtFrame <- inArchiveOb$getExtensionTables()[[1]]$exportAsDataFrame()
 })
