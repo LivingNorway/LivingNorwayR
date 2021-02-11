@@ -35,6 +35,9 @@ supported by them.
 \item \href{#method-getAssociatedTerms}{\code{DwCGeneric$getAssociatedTerms()}}
 \item \href{#method-print}{\code{DwCGeneric$print()}}
 \item \href{#method-exportAsDataFrame}{\code{DwCGeneric$exportAsDataFrame()}}
+\item \href{#method-exportTable}{\code{DwCGeneric$exportTable()}}
+\item \href{#method-getIDIndex}{\code{DwCGeneric$getIDIndex()}}
+\item \href{#method-getIDName}{\code{DwCGeneric$getIDName()}}
 \item \href{#method-clone}{\code{DwCGeneric$clone()}}
 }
 }
@@ -204,6 +207,84 @@ Export the data contained in the table as a \code{data.frame}
 
 \subsection{Returns}{
 A \code{data.frame} of the object's table data
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-exportTable"></a>}}
+\if{latex}{\out{\hypertarget{method-exportTable}{}}}
+\subsection{Method \code{exportTable()}}{
+Export the table as a text file
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DwCGeneric$exportTable(
+  fileName,
+  append = FALSE,
+  quote = TRUE,
+  sep = "\\t",
+  eol = "\\n",
+  na = "NA",
+  dec = ".",
+  qmethod = "escape",
+  fileEncoding = ""
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{fileName}}{Either a \code{character} string naming a file or a connection open for writing.
+\code{""} indicates to the console.}
+
+\item{\code{append}}{A \code{logical} scalar. Only relevant if \code{fileName} is a \code{character} string. If
+\code{TRUE}, the output is appended to the file. If \code{FALSE}, any existing file of the name is
+destroyed.}
+
+\item{\code{quote}}{A \code{logical} scalar or a \code{numeric} vector. If \code{TRUE}, any character or factor
+columns will be surrounded by double quotes. If a \code{numeric} vector, its elements are taken as the
+indeces of columns to quote. In both cases, row and column names are quoted if they are written. If \code{FALSE},
+nothing is quoted.}
+
+\item{\code{sep}}{The field seperator stirng. Values within each row are separated by this string.}
+
+\item{\code{eol}}{The character(s) to print at the end of each line (row).}
+
+\item{\code{na}}{The string to use for missing values in the data.}
+
+\item{\code{dec}}{The string to use for decimal points in numeric or complex columns: must be a single character}
+
+\item{\code{qmethod}}{A character string specifying how to deal with embedded double quote characters when
+quoting strings. Must be one of \code{"escape"}, in which case the quote character is escaped in C style by a
+backslash, or \code{"double"}, in which case it is doubled}
+
+\item{\code{fileEncoding}}{A character string. If non-empty, declares the encoding to be used on a file so the
+character data can be re-encoded as they are written}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-getIDIndex"></a>}}
+\if{latex}{\out{\hypertarget{method-getIDIndex}{}}}
+\subsection{Method \code{getIDIndex()}}{
+Retrieve the column index in the dataset that refers to the unique ID in the dataset
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DwCGeneric$getIDIndex()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+An \code{integer} scalar giving the index of the column that refers to the unique dataset IDs
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-getIDName"></a>}}
+\if{latex}{\out{\hypertarget{method-getIDName}{}}}
+\subsection{Method \code{getIDName()}}{
+Retrieve the column name in the dataset that refers to the unique ID in the dataset
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DwCGeneric$getIDName()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+A \code{character} scalar giving the column name that refers to the unique dataset IDs
 }
 }
 \if{html}{\out{<hr>}}
