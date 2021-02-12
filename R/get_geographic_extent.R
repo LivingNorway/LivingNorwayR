@@ -11,7 +11,7 @@
 #' @export
 
 
-get_geographic_extent<-function(df,lon,lat, add_map="yes"){
+get_geographic_extent<-function(df,lon,lat, add_map="no"){
   my.sf.point <- sf::st_as_sf(x = df,
                               coords = c(lon, lat),
                               crs = "+proj=longlat +datum=WGS84")
@@ -27,11 +27,11 @@ get_geographic_extent<-function(df,lon,lat, add_map="yes"){
 }
 
 
-# d <- as_tibble(read_delim(
-#   "C:/Users/matthew.grainger/Documents/Projects_in_development/LNC2020_presentation/Rock_ptarmigan_example/data/occurrence.txt", delim="\t", quote = ""))
-#
-# ######################################################################################
-#
+#d <- as_tibble(read_delim(
+ # "C:/Users/matthew.grainger/Documents/Projects_in_development/LNC2020_presentation/Rock_ptarmigan_example/data/occurrence.txt", delim="\t", quote = ""))
+
+######################################################################################
+
 # d <- d %>%
 #   mutate(dynamicProperties = purrr::map(dynamicProperties, ~ jsonlite::fromJSON(.) %>% as.data.frame())) %>%
 #   unnest(dynamicProperties) %>%
@@ -42,8 +42,6 @@ get_geographic_extent<-function(df,lon,lat, add_map="yes"){
 #
 # get_geographic_extent(d, lon = "decimalLongitude",lat= "decimalLatitude", add_map = "yes")
 #
-
-
 
 
 # get Norway geographic extent

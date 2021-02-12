@@ -3,10 +3,30 @@ output:
    html_document: default
 ---
 
+
+
 ```{r Set up, echo=FALSE, warning=FALSE, message=FALSE}
 #PLEASE DO NOT DELETE THIS FUNCTION
 fmt <- rmarkdown::default_output_format(knitr::current_input())$name
 knitr::opts_chunk$set(echo = TRUE)
+library(tippy)
+
+```
+
+## Dataset (Resource)
+
+```{r call in dataset, echo=FALSE}
+d <- as_tibble(read_delim("C:/Users/matthew.grainger/Documents/Projects_in_development/LNC2020_presentation/Rock_ptarmigan_example/data/occurrence.txt", delim="\t", quote = ""))
+
+######################################################################################
+d <- d %>%
+   mutate(dynamicProperties = purrr::map(dynamicProperties, ~ jsonlite::fromJSON(.) %>% as.data.frame())) %>%
+   unnest(dynamicProperties) %>%
+   filter(organismName!=4272265) %>%
+   mutate(Year=year(eventDate))
+
+ d<-as.data.frame(d)
+
 
 ```
 
@@ -37,6 +57,12 @@ url="url"#The URL of the resource that is available online.
 abstract="abstract"#A brief overview of the resource that is being documented.
 
 ```
+
+#### AlternativeIdentifier = `r LivingNorwayR::add_tag(tagtype = "alternateIdentifier", txt=alternateIdentifier)` 
+
+#### Title= `r LivingNorwayR::add_tag(tagtype = "title", txt=title)` 
+
+#### Creator= `r LivingNorwayR::add_tag(tagtype = "creator", txt=creator)` 
 
 ## Project
 
@@ -117,6 +143,7 @@ commonName="commonName"	#Applicable common names; these common names may be gene
 geographicDescription="geographicDescription"#A short text description of a dataset's geographic areal domain. A text description is especially important to provide a geographic setting when the extent of the dataset cannot be well described by the "boundingCoordinates". E.g., "Manistee River watershed", "extent of 7 1/2 minute quads containing any property belonging to Yellowstone National Park"
 ###########################################################
 westBoundingCoordinate="westBoundingCoordinate"	#Subfield of boundingCoordinates field covering the W margin of a bounding box. The longitude in decimal degrees of the western-most point of the bounding box that is being described. E.g., -18.25, +25, 45.24755.
+westBoundingCoordinate=LivingNorwayR::get_geographic_extent(d, lon = "decimalLongitude",lat= "decimalLatitude", add_map = "no")[1]
 
 ###########################################################
 eastBoundingCoordinate="eastBoundingCoordinate"	#Subfield of boundingCoordinates field covering the E margin of a bounding box. The longitude in decimal degrees of the eastern-most point of the bounding box that is being described. E.g., -18.25, +25, 45.24755.
@@ -139,7 +166,6 @@ singleDateTime="singleDateTime"#	The SingleDateTime field is intended to describ
 
 
 ## Methods
-
 ```{r, results='asis', echo=FALSE}
 methodStep="methodStep"#	The methodStep field allows for repeated sets of elements that document a series of procedures followed to produce a data object. These include text descriptions of the procedures, relevant literature, software, instrumentation, source data and any quality control measures taken.
 ###########################################################

@@ -26,7 +26,7 @@ supported by them.
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-setTableName}{\code{DwCGeneric$setTableName()}}
-\item \href{#method-getFileName}{\code{DwCGeneric$getFileName()}}
+\item \href{#method-getTableName}{\code{DwCGeneric$getTableName()}}
 \item \href{#method-importDataTable}{\code{DwCGeneric$importDataTable()}}
 \item \href{#method-new}{\code{DwCGeneric$new()}}
 \item \href{#method-getDwCClassName}{\code{DwCGeneric$getDwCClassName()}}
@@ -38,6 +38,8 @@ supported by them.
 \item \href{#method-exportTable}{\code{DwCGeneric$exportTable()}}
 \item \href{#method-getIDIndex}{\code{DwCGeneric$getIDIndex()}}
 \item \href{#method-getIDName}{\code{DwCGeneric$getIDName()}}
+\item \href{#method-setDefaultYearFormat}{\code{DwCGeneric$setDefaultYearFormat()}}
+\item \href{#method-getDefaultYearFormat}{\code{DwCGeneric$getDefaultYearFormat()}}
 \item \href{#method-clone}{\code{DwCGeneric$clone()}}
 }
 }
@@ -59,12 +61,12 @@ Set the name of the file that the data will print to when preparing the Darwin c
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getFileName"></a>}}
-\if{latex}{\out{\hypertarget{method-getFileName}{}}}
-\subsection{Method \code{getFileName()}}{
+\if{html}{\out{<a id="method-getTableName"></a>}}
+\if{latex}{\out{\hypertarget{method-getTableName}{}}}
+\subsection{Method \code{getTableName()}}{
 Retrieve the name of the file that the data will print to when preparing the Darwin core archive
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DwCGeneric$getFileName()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{DwCGeneric$getTableName()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
@@ -103,7 +105,15 @@ the column of \code{objectData} that corresponds to the term}
 \subsection{Method \code{new()}}{
 Create a new DwCGeneric object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DwCGeneric$new(classTermInfo, associatedTerms, objectData, idColumnInfo, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{DwCGeneric$new(
+  classTermInfo,
+  associatedTerms,
+  objectData,
+  idColumnInfo,
+  nameAutoMap = FALSE,
+  defDateFormat = "YYYY-MM-DD",
+  ...
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -118,6 +128,13 @@ Create a new DwCGeneric object
 \item{\code{idColumnInfo}}{Either a \code{character} scalar containing the column name
 of \code{objectData} or an \code{integer} scalar giving the index of the column of
 \code{objectData} that corresponds to the ID variable}
+
+\item{\code{nameAutoMap}}{A \code{logical} scalar that if \code{TRUE} maps the columns of \code{objectData}
+to their respective Darwin core terms based on the column names}
+
+\item{\code{defDateFormat}}{A \code{character} scalar providing the default format for strings denoting dates in the
+data table.  See the \url{https://dwc.tdwg.org/text/#1-introduction}{Darwin Core text guide} for expected values
+for this string.}
 
 \item{\code{...}}{A named set of parameter corresponding to Darwin core terms associated
 with the DwCGeneric class type. Each is either a a \code{character} scalar containing
@@ -224,7 +241,8 @@ Export the table as a text file
   na = "NA",
   dec = ".",
   qmethod = "escape",
-  fileEncoding = ""
+  fileEncoding = "",
+  renameMapped = FALSE
 )}\if{html}{\out{</div>}}
 }
 
@@ -257,6 +275,9 @@ backslash, or \code{"double"}, in which case it is doubled}
 
 \item{\code{fileEncoding}}{A character string. If non-empty, declares the encoding to be used on a file so the
 character data can be re-encoded as they are written}
+
+\item{\code{renameMapped}}{A \code{logical} scalar that, if \code{TRUE}, replaces mapped column names with their Darwin
+core versions}
 }
 \if{html}{\out{</div>}}
 }
@@ -285,6 +306,38 @@ Retrieve the column name in the dataset that refers to the unique ID in the data
 
 \subsection{Returns}{
 A \code{character} scalar giving the column name that refers to the unique dataset IDs
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-setDefaultYearFormat"></a>}}
+\if{latex}{\out{\hypertarget{method-setDefaultYearFormat}{}}}
+\subsection{Method \code{setDefaultYearFormat()}}{
+Set the default date format in the dataset
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DwCGeneric$setDefaultYearFormat(detDateFormat)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{detDateFormat}}{A \code{character} scalar providing the default format for strings denoting dates in the
+data table.  See the \url{https://dwc.tdwg.org/text/#1-introduction}{Darwin Core text guide} for expected values
+for this string.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-getDefaultYearFormat"></a>}}
+\if{latex}{\out{\hypertarget{method-getDefaultYearFormat}{}}}
+\subsection{Method \code{getDefaultYearFormat()}}{
+Retrieve the default date format
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DwCGeneric$getDefaultYearFormat()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+A \code{character} scalar containing the default date format
 }
 }
 \if{html}{\out{<hr>}}
