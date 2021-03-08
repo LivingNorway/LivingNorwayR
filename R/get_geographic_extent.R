@@ -18,7 +18,7 @@ get_geographic_extent<-function(df,lon,lat, add_map="no"){
 
 
   switch(add_map,
-         yes={map<-leaflet::leaflet() %>% addTiles() %>% addMarkers( data = my.sf.point)
+         yes={map<-leaflet::leaflet() %>% addTiles() %>% addCircleMarkers( data = my.sf.point)
          return(list(sf::st_bbox(my.sf.point), map))
          },
          no={return(sf::st_bbox(my.sf.point))
@@ -56,11 +56,20 @@ get_geographic_extent<-function(df,lon,lat, add_map="no"){
 #' @example
 #' @export
 
-get_NOR_geographic_extent<-function(df,X,Y,Code){
+get_NOR_geographic_extent<-function(df,X,Y,Code, add_map="no"){
   df.sf <- sf::st_as_sf(df, coords = c(X, Y) ) %>%
     sf::st_set_crs(Code) %>%   #set coordinate system used
     sf::st_transform(4326)     #transform coordinates to WGS84 coordinates
-  leaflet::leaflet() %>% addTiles() %>% addMarkers( data = df.sf )
+
+  switch(add_map,
+         yes={map<-leaflet::leaflet() %>% addTiles() %>% addCircleMarkers( data = df.sf )
+         return(list(sf::st_bbox(df.sf), map))
+         },
+         no={return(sf::st_bbox(df.sf))
+         }
+  )
+
+
 }
 
 
