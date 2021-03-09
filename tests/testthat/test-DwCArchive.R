@@ -1,7 +1,7 @@
 # ------ 1. TEST ARCHIVE IMPORT/EXPORT FUNCTIONALITY ------
 # Unit testing to make sure that Darwin Core Archive object can import data from a data frame, create a
 # Darwin core archive file from it and the go back the other way without losing information
-thestthat::test_that("Darwin core archive object can import and export losslessly (event core)", {
+testthat::test_that("Darwin core archive object can import and export losslessly (event core)", {
   # ====== 1.1. Create test data ======
   # Initialise two data frames representing test data to convert into a Darwin core archive
   # Initialise a data frame to be the core type

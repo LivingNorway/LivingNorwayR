@@ -31,5 +31,5 @@ DwCMetadata<-R6::R6Class(
     }
   ))
 
-test<-DwCMetadata$new(metadata = NA)
-test$getMetadata(filepath ="C:/Users/matthew.grainger/Documents/Projects_in_development/Test_the_dataPackage/Rock_ptarmigan/metadata/metadata/metadata.Rmd")
+#test<-DwCMetadata$new(metadata = NA)
+#test$getMetadata(filepath ="C:/Users/matthew.grainger/Documents/Projects_in_development/Test_the_dataPackage/Rock_ptarmigan/metadata/metadata/metadata.Rmd")
