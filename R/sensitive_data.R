@@ -67,6 +67,7 @@ Sensitive_data<-function(data, XField, YField,
 #' @param data A dataframe with encrpyted X and Y coordinates (only works for UTM at the moment)
 #' @param target cols The X coordinate and the Y coordinate
 #' @return Data frame with unmasked coordinates - you need the password to decrypt (enter it twice when promted)
+#' @keywords internal
 #' @export
 
 Full_decrypt<-function(data=data,target_cols=c(x, y)){

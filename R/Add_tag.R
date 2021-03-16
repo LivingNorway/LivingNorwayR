@@ -1,15 +1,3 @@
-#some tags not needed
-# anchortag - orcidID no text output
-# set attributes
-# empty span tags
-#abstract, methods description, project description - long forms
-# markdown LN functions
-#abstract or summary acceptable
-#begin and end tags
-#mask/hidden
-# Dates for workshop
-
-
 #' add_Tag
 #' Add metadata html tag (only run in RMarkdown)
 #' @param tagtype The name of the EML element that will be tagged
@@ -17,9 +5,8 @@
 #' @return Output: html tag
 #' @export
 
-fmt="html_document"
-
 add_Tag<-function(tag,txt){
+  #fmt="html_document"
   #fmt <- rmarkdown::default_output_format(knitr::current_input())$name # this needs to be in the RMArkdown file
   if(fmt=="html_document"){
       LNtag=paste0("<", "LN_",tag, ">", txt, "</", "LN_",tag, ">")

@@ -19,3 +19,4 @@ Data frame with unmasked coordinates - you need the password to decrypt (enter i
 Full decrypt
 unencrypt encrpyted sensitive location data
 }
+\keyword{internal}

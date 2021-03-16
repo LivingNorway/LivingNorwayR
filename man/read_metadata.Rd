@@ -17,3 +17,4 @@ Output: text string of yaml information
 read_metadata
 read the metadata from a rmarkdown file
 }
+\keyword{internal}
