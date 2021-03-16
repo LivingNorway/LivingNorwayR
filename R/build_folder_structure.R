@@ -7,7 +7,6 @@
 
 
 build_folder_structure<-function(project_name=project_name){
-  neet::assert_neet(project_name, "character")
 
   if(dir.exists(project_name)==TRUE) {
     print("Directory already exists please check the name and retry")
