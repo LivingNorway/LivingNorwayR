@@ -5,6 +5,7 @@
 #' @param YField The Y coordinate
 #' @param Cat The GBIF Category. Defaults to "Not sensitive"
 #' @return Data frame with masked or reduced resolution of the locations
+#' @keywords internal
 #' @export
 
 
@@ -77,3 +78,5 @@ Full_decrypt<-function(data=data,target_cols=c(x, y)){
   return(decrypted)
 
 }
+
+### NOT IN USE

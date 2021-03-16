@@ -1,5 +1,6 @@
 # Launch Shiny
 #' This function launches a shiny app for meta-data entry
+#' @keywords internal
 #' @export
 
 launchShiny <- function() {
@@ -43,3 +44,5 @@ launchShiny <- function() {
 }
 
 #launchShiny()
+
+## NOT IN USE
