@@ -5,9 +5,9 @@
 \alias{get_NOR_geographic_extent}
 \title{Get the geographic extent of a dataframe with geographic UTM XY coordinates}
 \usage{
-get_NOR_geographic_extent(df, X, Y, Code)
+get_NOR_geographic_extent(df, X, Y, Code, add_map = "no")
 
-get_NOR_geographic_extent(df, X, Y, Code)
+get_NOR_geographic_extent(df, X, Y, Code, add_map = "no")
 }
 \arguments{
 \item{df}{the dataframe}
