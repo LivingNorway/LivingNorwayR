@@ -17,7 +17,7 @@
 #' @return Output: html tag
 #' @export
 
-
+fmt="html_document"
 
 add_Tag<-function(tag,txt){
   #fmt <- rmarkdown::default_output_format(knitr::current_input())$name # this needs to be in the RMArkdown file
@@ -230,40 +230,71 @@ LN_intellectualRights=function(intellectualRights){
   add_Tag("intellectualRights",intellectualRights )
 }
 
+
+##Coverage
+### geographicCoverage
+
+#'boundingCoordinates
+#' @return Output: html tag
+#' @export
+
+LN_boundingCoordinates=function(westBoundingCoordinate, eastBoundingCoordinate, northBoundingCoordinate,
+                                southBoundingCoordinate){
+
+  tag1=add_Tag("westBoundingCoordinate", westBoundingCoordinate)
+  tag2=add_Tag("eastBoundingCoordinate", eastBoundingCoordinate)
+  tag3=add_Tag("northBoundingCoordinate", southBoundingCoordinate)
+  tag4=add_Tag("southBoundingCoordinate", northBoundingCoordinate)
+
+  tag5=add_Tag("boundingCoordinates",  paste0(tag1,tag2,tag3,tag4))
+
+  tag5
+}
+
+#' geographicCoverage
+#' @return Output: html tag
+#' @export
+
+LN_geographicCoverage=function(geographicDescription, boundingCoordinates){
+
+tag1=add_Tag("geographicDescription",geographicDescription)
+tag2=add_Tag("geographicCoverage", paste0(tag1, boundingCoordinates))
+}
+
+#' TemporalCoverage
+#' @return Output: html tag
+#' @export
+
+LN_temporalCoverage=function(beginDate,endDate){
+
+
+  tag1=add_Tag("calendarDate", beginDate)
+  tag2=add_Tag("calendarDate", endDate)
+  tag3=add_Tag("beginDate", paste0(tag1))
+  tag4=add_Tag("endDate", paste0(tag2))
+  tag5=add_Tag("rangeOfDates", paste0(tag3, tag4))
+  tag5
+}
+
+#' TaxonomicCoverage
+#' @return Output: html tag
+#' @export
+
+LN_taxonomicCoverage=function(taxonRankName, taxonRankValue, commonName){
+
+  tag1=add_Tag("taxonRankValue",taxonRankValue)
+  tag2=add_Tag("taxonRankName",taxonRankName)
+  tag3=add_Tag("commonName", commonName)
+  tag4=add_Tag("taxonomicClassification", paste0(tag2, tag1,tag3))
+  tag4
+  }
+
 #' coverage
 #' @return Output: html tag
 #' @export
 
-<coverage>
-  <geographicCoverage>
-  <geographicDescription>Study area mainly in central Norway (Lierne and SnÃ¥sa municipalities). Some re-locations of radio-collared ptarmigans in Sweden are included in the data set.</geographicDescription>
-  <boundingCoordinates>
-  <westBoundingCoordinate>12.659</westBoundingCoordinate>
-  <eastBoundingCoordinate>14.653</eastBoundingCoordinate>
-  <northBoundingCoordinate>64.774</northBoundingCoordinate>
-  <southBoundingCoordinate>64.033</southBoundingCoordinate>
-  </boundingCoordinates>
-  </geographicCoverage>
-  <temporalCoverage>
-  <rangeOfDates>
-  <beginDate>
-  <calendarDate>      2012-02-14
-</calendarDate>
-  </beginDate>
-  <endDate>
-  <calendarDate>      2014-09-17
-</calendarDate>
-  </endDate>
-  </rangeOfDates>
-  </temporalCoverage>
-  <taxonomicCoverage>
-  <taxonomicClassification>
-  <taxonRankName>Species</taxonRankName>
-  <taxonRankValue>Lagopus muta</taxonRankValue>
-  <commonName>Rock ptarmigan</commonName>
-  </taxonomicClassification>
-  </taxonomicCoverage>
-  </coverage>
+LN_coverage=function(geographicCoverage, temporalCoverage, taxonomicCoverage){
 
-
-
+  tag1=add_Tag("coverage", paste0(geographicCoverage,temporalCoverage, temporalCoverage))
+  tag1
+}
