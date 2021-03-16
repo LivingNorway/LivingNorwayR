@@ -1,0 +1,56 @@
+---
+title: "Data Package Structure for Legacy and Raw data"
+author: "Matt Grainger, Anders Finstad"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Data Package Structure for Legacy and Raw data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Building the foundation for FAIR data management with Living Norway
+
+Good data management underpins the FAIR (Findable, Accessible, Interoperable, Resuable) principles for scientific data management and stewardship. A starting point for good data management is a logical folder structure in which to store all files associated with the data collected. The structure outlined below can be used for all projects that collect contemporary biodiversity data or "rescue" legacy data. 
+
+### Minimum metadata
+
+Metadata (a set of variables that describes the raw or transformed dataset) are required so that future users (including your future self) get an understanding of, for example, where the data was collected, who collected it and what units the variables were measured in. Basic mimimum metadata should be added as soon as possible (before you forget it). 
+
+### Data
+
+#### Raw Data
+
+There is always some level of processing involved in getting data collected in the field or laboratory in to a digital raw format. This folder should contain the most basic digital representation of any dataset. The level of standarisation will likely vary wildely among projects, for example, the original data might be stored in a proprietary file format from some kind of instrument that are only readable with software available for Windows 3.1 - these should be stored in raw data folder, whilst tabular output of this in .csv format are stored in the mapped data folder.
+
+#### Mapped Data
+
+The mapped data folder is where manipulated copies of the raw data are stored. Data cleaning (removing errors in the raw data stemming from data-entry for example), transformation of variables, etc. should all be included in this folder (remember that the raw data no matter how messy is sacrosanct).
+
+#### Scanned Data
+
+A copy of the raw field data (field or lab notes, data recording sheets, etc.) should be scanned and uploaded in to scanned data folder. 
+
+### Scripts
+
+Any code (e.g. python or R) used to manipulate the raw data, download publically available covariates, etc. should be saved in this folder. All scripts should be reproducilble by others not using your specifc computer (so not calling on locally stored files or functions). 
+
+### Meta.xml
+
+This folder contains metadata in a machine readable form using the EML metadata language.
+
+### Data management plan
+In this folder you store the data management plan that you created before starting the project. This gives a detailed description of how and where data will be managed and stored.
+
+
+## Using Living Norway to automate this folder structure
+
+In your working directory (i.e. the folder where the project will be saved in to) run the function "build_folder_structure(project_name = "Project_name")" replacing the "Project_name" with the name of your project. This will create a folder which contains each of the folders outlined above. This function also creates an empty markdown file for you to fill in your minimum metadata. 
+ 
