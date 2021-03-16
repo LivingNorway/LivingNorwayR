@@ -31,9 +31,3 @@ build_folder_structure<-function(project_name=project_name){
 
 #build_folder_structure(project_name = "Test")
 
-
-#NEED TO ADD TEST
-#library(neet)
-# expected type will be a folder - what is this as an R object
-# check list.files function documentation
-
