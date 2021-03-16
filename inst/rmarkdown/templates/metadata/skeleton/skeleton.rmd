@@ -191,7 +191,6 @@ taxonRankName="taxonRankName"#The name of the taxonomic rank for which the Taxon
 ###########################################################
 taxonRankValue="taxonRankValue"#The name representing the taxonomic rank of the taxon being described. E.g. Acer would be an example of a genus rank value, and rubrum would be an example of a species rank value, together indicating the common name of red maple. It is recommended to start with Kingdom and include ranks down to the most detailed level possible.
 
-#taxonRankValue<-LivingNorwayR::add_tag(tagtype = "taxonRankValue", txt=taxonRankValue)
 
 ###########################################################
 commonName="commonName"	#Applicable common names; these common names may be general descriptions of a group of organisms if appropriate. E.g., invertebrates, waterfowl.
