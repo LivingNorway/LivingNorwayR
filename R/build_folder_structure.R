@@ -7,7 +7,6 @@
 
 
 build_folder_structure<-function(project_name=project_name){
-  neet::assert_neet(project_name, "character")
 
   if(dir.exists(project_name)==TRUE) {
     print("Directory already exists please check the name and retry")
@@ -30,10 +29,4 @@ build_folder_structure<-function(project_name=project_name){
 }
 
 #build_folder_structure(project_name = "Test")
-
-
-#NEED TO ADD TEST
-#library(neet)
-# expected type will be a folder - what is this as an R object
-# check list.files function documentation
 

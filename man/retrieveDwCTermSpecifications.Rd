@@ -11,7 +11,7 @@ retrieveDwCTermSpecifications(
 }
 \arguments{
 \item{includeExtensions}{A \code{logical} scalar that, if \code{TRUE}, instructs the fuction to also
-include terms used in registered Darwin core extensions. If \code{FALSE}, only the terms specified by
+include terms used in registered GBIF extensions to Darwin Core. If \code{FALSE}, only the terms specified by
 the Darwin core standard is included}
 
 \item{includeDeprecated}{A \code{logical} scalar that, if \code{TRUE}, instructs the function to also

@@ -2,6 +2,7 @@
 #' read the metadata from a rmarkdown file
 #' @param X an RMarkdown file
 #' @return Output: text string of yaml information
+#' @keywords internal
 #' @export
 
 read_metadata = function(file) {
@@ -13,3 +14,5 @@ read_metadata = function(file) {
   x = gsub(".*: (.*)", "\\1", x)
   as.list(x)
 }
+
+### NOT IN USE

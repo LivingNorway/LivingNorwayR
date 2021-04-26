@@ -23,3 +23,4 @@ Data frame with masked or reduced resolution of the locations
 Sensitive_data
 mask or reduce the resolution of sensitive location data
 }
+\keyword{internal}

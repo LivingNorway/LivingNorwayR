@@ -2,18 +2,11 @@
 % Please edit documentation in R/DwCTerm.R
 \name{retrieveDwCClassSpecifications}
 \alias{retrieveDwCClassSpecifications}
-\title{Retrieve classes and their related term used by Darwin core}
+\title{Retrieve classes and their related terms used by Darwin core}
 \usage{
-retrieveDwCClassSpecifications(
-  includeExtensions = TRUE,
-  includeDeprecated = FALSE
-)
+retrieveDwCClassSpecifications(includeDeprecated = FALSE)
 }
 \arguments{
-\item{includeExtensions}{A \code{logical} scalar that, if \code{TRUE}, instructs the fuction to also
-include classes used in registered Darwin core extensions. If \code{FALSE}, only the classes specified by
-the Darwin core standard is included}
-
 \item{includeDeprecated}{A \code{logical} scalar that, if \code{TRUE}, instructs the function to also
 include terms in the Dawin Core standard that are depracated}
 }
@@ -27,7 +20,7 @@ the class}
 }
 }
 \description{
-Retrieve classes and their related term used by Darwin core
+Retrieve classes and their related terms used by Darwin core
 }
 \seealso{
 \code{\link[retrieveDwCTermSpecifications]{retrieveDwCTermSpecifications}}

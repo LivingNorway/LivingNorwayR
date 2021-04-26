@@ -4,7 +4,7 @@
 \alias{get_geographic_extent}
 \title{Get the geographic extent of a dataframe with geographic coordinates}
 \usage{
-get_geographic_extent(df, lon, lat, add_map = "yes")
+get_geographic_extent(df, lon, lat, add_map = "no")
 }
 \arguments{
 \item{df}{a dataframe}
