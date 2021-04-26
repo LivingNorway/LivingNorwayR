@@ -4,7 +4,7 @@
 \alias{LN_alternateIdentifier}
 \title{LN_alternativeIdentifier}
 \usage{
-LN_alternateIdentifier(alternateIdentifier)
+LN_alternateIdentifier(alternateIdentifier, hidden = FALSE)
 }
 \value{
 Output: html tag

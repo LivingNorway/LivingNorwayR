@@ -13,7 +13,8 @@ LN_creator(
   city = NULL,
   postalCode = NULL,
   electonicMail = NULL,
-  order = NULL
+  order = NULL,
+  hidden = FALSE
 )
 }
 \value{

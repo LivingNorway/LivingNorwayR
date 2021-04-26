@@ -4,7 +4,7 @@
 \alias{LN_abstract}
 \title{abstract}
 \usage{
-LN_abstract(abstract)
+LN_abstract(abstract, hidden = FALSE)
 }
 \value{
 Output: html tag

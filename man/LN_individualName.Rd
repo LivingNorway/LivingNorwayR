@@ -5,7 +5,7 @@
 \title{LN_individualName
 Add individualName metadata html tag (only run in RMarkdown)}
 \usage{
-LN_individualName(firstName, secondName)
+LN_individualName(firstName, secondName, hidden = FALSE)
 }
 \arguments{
 \item{firstName}{The givenName of the individual}

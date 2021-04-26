@@ -4,7 +4,12 @@
 \alias{LN_coverage}
 \title{coverage}
 \usage{
-LN_coverage(geographicCoverage, temporalCoverage, taxonomicCoverage)
+LN_coverage(
+  geographicCoverage,
+  temporalCoverage,
+  taxonomicCoverage,
+  hidden = FALSE
+)
 }
 \value{
 Output: html tag

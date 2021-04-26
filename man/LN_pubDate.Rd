@@ -4,7 +4,7 @@
 \alias{LN_pubDate}
 \title{pubDate}
 \usage{
-LN_pubDate(Date)
+LN_pubDate(Date, hidden = FALSE)
 }
 \value{
 Output: html tag
