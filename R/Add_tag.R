@@ -10,10 +10,10 @@ add_Tag<-function(tag,txt, hidden=FALSE){
   #fmt <- rmarkdown::default_output_format(knitr::current_input())$name # this needs to be in the RMArkdown file
   if(fmt=="html_document"){
     if(hidden==FALSE){
-      LNtag=paste0("<span ", "class=LN_",tag, ">", txt, "</span")
+      LNtag=paste0("<span", " class=LN_",tag, ">", txt, "</span>")
       LNtag
     }else{
-      LNtag=paste0("<span ","style='display:none'", "class=LN_",tag, ">", txt, "</span")
+      LNtag=paste0("<span"," style='display:none' ", "class=LN_",tag, ">", txt, "</span>")
       LNtag
       }
       }else{
@@ -24,6 +24,7 @@ add_Tag<-function(tag,txt, hidden=FALSE){
 #add_Tag("Project", "ABC", hidden=TRUE)
 
 #' LN_alternativeIdentifier
+#' Add alternativeIdentifier metadata html tag (only run in RMarkdown)
 #' @return Output: html tag
 #' @export
 
@@ -37,6 +38,7 @@ LN_alternateIdentifier<-function(alternateIdentifier, hidden=FALSE){
 }
 
 #' LN_title
+#' Add title metadata html tag (only run in RMarkdown)
 #' @return Output: html tag
 #' @export
 
@@ -57,15 +59,11 @@ LN_title<-function(title, hidden=FALSE){
 
 LN_individualName=function(firstName,secondName, hidden=FALSE){
   if(hidden==FALSE){
-    tag1=add_Tag("givenName",firstName)
-    tag2=add_Tag("surName", secondName)
-    tag3=add_Tag("individualName", paste0(tag1,tag2))
-    tag3
+    tag=add_Tag("individualName", paste0(firstName," ", secondName))
+    tag
   }else{
-  tag1=add_Tag("givenName",firstName)
-  tag2=add_Tag("surName", secondName)
-  tag3=add_Tag("individualName", paste0(tag1,tag2), hidden=TRUE)
-  tag3
+  tag=add_Tag("individualName", paste0(firstName," ", secondName), hidden=TRUE)
+  tag
   }
 
 }
@@ -78,7 +76,7 @@ LN_individualName=function(firstName,secondName, hidden=FALSE){
 
 LN_creator=function(individualName, organizationName=NULL,
                     positionName=NULL, deliveryPoint=NULL, city=NULL, postalCode=NULL,
-                    electonicMail=NULL, order=NULL, hidden=FALSE){
+                    electronicMail=NULL, order=NULL, hidden=FALSE){
   if(hidden==FALSE){
   #Need to have individualName
   tag1=individualName
@@ -173,6 +171,7 @@ LN_creator=function(individualName, organizationName=NULL,
 }
 
 #' metadataProvider
+#' Add metadataProvider metadata html tag (only run in RMarkdown)
 #' @return Output: html tag
 #' @export
 
@@ -277,6 +276,7 @@ tag10
 
 
 #' pubDate
+#' Add pubDate metadata html tag (only run in RMarkdown)
 #' @return Output: html tag
 #' @export
 
@@ -292,6 +292,7 @@ LN_pubDate=function(Date, hidden=FALSE){
 }
 
 #' language
+#' Add language metadata html tag (only run in RMarkdown)
 #' @return Output: html tag
 #' @export
 
@@ -305,6 +306,7 @@ LN_language=function(language, hidden=FALSE){
   }
 
 #' abstract
+#' Add abstract metadata html tag (only run in RMarkdown)
 #' @return Output: html tag
 #' @export
 
@@ -323,6 +325,7 @@ LN_abstract=function(abstract, hidden=FALSE){
 
 
 #' keywordSet
+#' Add keywordSet metadata html tag (only run in RMarkdown)
 #' @return Output: html tag
 #' @export
 
@@ -344,24 +347,9 @@ LN_keywordSet=function(keyword, keywordThesaurus=NULL, hidden=FALSE){
 
 
 
-#' keywordSet
-#' @return Output: html tag
-#' @export
-
-LN_keywordSet=function(keyword, keywordThesaurus=NULL, hidden=FALSE){
-  if(hidden==FALSE){
-    tag1=add_Tag("keyword",keyword)
-    if(!is.null(keywordThesaurus)){
-      tag2=add_Tag("keywordThesaurus", keywordThesaurus)
-    }else{
-      tag2=""
-    }
-    tag3=add_Tag("keywordSet", paste0(tag1,tag2))
-    tag3
-  }
-  }
 
 #' intellectualRights
+#' Add intellectualRights metadata html tag (only run in RMarkdown)
 #' @return Output: html tag
 #' @export
 
@@ -378,6 +366,7 @@ LN_intellectualRights=function(intellectualRights, hidden=FALSE){
 ### geographicCoverage
 
 #'boundingCoordinates
+#' Add boundingCoordinates metadata html tag (only run in RMarkdown)
 #' @return Output: html tag
 #' @export
 
@@ -405,6 +394,7 @@ if(hidden==FALSE){
 }
 
 #' geographicCoverage
+#' Add geographicCoveragemetadata html tag (only run in RMarkdown)
 #' @return Output: html tag
 #' @export
 
@@ -420,6 +410,7 @@ tag2=add_Tag("geographicCoverage", paste0(tag1, boundingCoordinates))
 }
 
 #' TemporalCoverage
+#' Add TemporalCoverage html tag (only run in RMarkdown)
 #' @return Output: html tag
 #' @export
 
@@ -444,6 +435,7 @@ if(hidden==FALSE){
 }
 
 #' TaxonomicCoverage
+#' Add TaxonomicCoverage html tag (only run in RMarkdown)
 #' @return Output: html tag
 #' @export
 
@@ -464,6 +456,7 @@ LN_taxonomicCoverage=function(taxonRankName, taxonRankValue, commonName, hidden=
   }
 }
 #' coverage
+#' Add coverage html tag (only run in RMarkdown)
 #' @return Output: html tag
 #' @export
 

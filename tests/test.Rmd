@@ -1,0 +1,17 @@
+---
+title: " "
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+fmt <- rmarkdown::default_output_format(knitr::current_input())$name
+```
+
+## Title: `r LivingNorwayR::LN_title("The best project in the world")`
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla non fringilla ex, id semper risus. Integer pulvinar sem et nibh venenatis, id blandit justo gravida. Phasellus ullamcorper tempor est vel aliquam. Cras quis facilisis felis. Nulla et ipsum cursus, placerat libero nec, pulvinar arcu. Phasellus eleifend pulvinar vulputate. Donec commodo dolor justo, nec molestie metus rutrum id. Aliquam neque metus, hendrerit at tincidunt eu, laoreet sed lectus. Ut convallis dictum mi, non tincidunt sapien sollicitudin at. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi ipsum nunc, porta sit amet ipsum nec, posuere sollicitudin justo. Quisque quis elit pretium, lacinia eros vel, sodales est. Vestibulum id mi non magna hendrerit lobortis ut eget justo. Morbi at ex in purus mollis rhoncus a eget tellus. Quisque rutrum fermentum lectus, id mattis magna ullamcorper a.
+
+The project was created by `r LivingNorwayR::LN_individualName("Matt", "Grainger")`
+
+The project is written in a hidden language `r LivingNorwayR::LN_language("Latin", hidden=TRUE)`

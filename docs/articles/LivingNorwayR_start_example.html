@@ -62,6 +62,9 @@
     <li>
       <a href="../articles/LivingNorwayR_start_example.html">How to initiate and organise a data project in ecology?</a>
     </li>
+    <li>
+      <a href="../articles/My_First_LivingNorway_prj/metadata/metadata/metadata.html">UNKNOWN TITLE</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -124,8 +127,9 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">project_name</span><span class="op">=</span><span class="st">"My_First_LivingNorway_prj"</span>
 <span class="fu"><a href="../reference/build_folder_structure.html">build_folder_structure</a></span><span class="op">(</span>project_name <span class="op">=</span> <span class="va">project_name</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] "Directory already exists please check the name and retry"</code></pre>
 <p>Once you run the build_folder_structure() function you end up with a folder containing several sub-folders in your project. Let’s explore these folders.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://had.co.nz/plyr">plyr</a></span><span class="op">)</span>
 <span class="va">path</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"/"</span>, <span class="va">project_name</span><span class="op">)</span>
 <span class="va">dirslist</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.dirs</a></span><span class="op">(</span><span class="va">path</span>,recursive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
@@ -133,11 +137,11 @@
 <span class="va">LivingNorway_project</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/plyr/man/rbind.fill.html">rbind.fill</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/AdeelK93/collapsibleTree">collapsibleTree</a></span><span class="op">)</span> </code></pre></div>
 <pre><code>## Warning: package 'collapsibleTree' was built under R version 4.0.4</code></pre>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/collapsibleTree/man/collapsibleTree.html">collapsibleTree</a></span><span class="op">(</span> <span class="va">LivingNorway_project</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"V8"</span>, <span class="st">"V9"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">p</span></code></pre></div>
-<div id="htmlwidget-cf588e05b7419132c89a" style="width:700px;height:432.632880098888px;" class="collapsibleTree html-widget"></div>
-<script type="application/json" data-for="htmlwidget-cf588e05b7419132c89a">{"x":{"data":{"name":"LivingNorway_project","children":[{"name":"My_First_LivingNorway_prj","children":[{"name":"data"},{"name":"dmp"},{"name":"dwc_a"},{"name":"metadata"},{"name":"scripts"}]}]},"options":{"hierarchy":["V8","V9"],"input":null,"attribute":"leafCount","linkLength":null,"fontSize":10,"tooltip":false,"collapsed":true,"zoomable":true,"margin":{"top":20,"bottom":20,"left":125,"right":65},"fill":"lightsteelblue"}},"evals":[],"jsHooks":[]}</script><p>From the tree diagram you can explore the folder structure (click on the blue nodes to expand them). At the moment we have 5 folders in the top-most heirachy: data, dmp,meta_xml,minimum_metadata and scripts.</p>
+<div id="htmlwidget-048bb970808d64b4ec07" style="width:700px;height:432.632880098888px;" class="collapsibleTree html-widget"></div>
+<script type="application/json" data-for="htmlwidget-048bb970808d64b4ec07">{"x":{"data":{"name":"LivingNorway_project","children":[{"name":"My_First_LivingNorway_prj","children":[{"name":"data"},{"name":"dmp"},{"name":"dwc_a"},{"name":"metadata"},{"name":"scripts"}]}]},"options":{"hierarchy":["V8","V9"],"input":null,"attribute":"leafCount","linkLength":null,"fontSize":10,"tooltip":false,"collapsed":true,"zoomable":true,"margin":{"top":20,"bottom":20,"left":125,"right":65},"fill":"lightsteelblue"}},"evals":[],"jsHooks":[]}</script><p>From the tree diagram you can explore the folder structure (click on the blue nodes to expand them). At the moment we have 5 folders in the top-most heirachy: data, dmp,meta_xml,minimum_metadata and scripts.</p>
 <div id="data" class="section level3">
 <h3 class="hasAnchor">
 <a href="#data" class="anchor"></a>data</h3>
