@@ -12,7 +12,8 @@ LN_metadataProvider(
   city = NULL,
   postalCode = NULL,
   electonicMail = NULL,
-  userId = NULL
+  userId = NULL,
+  hidden = FALSE
 )
 }
 \value{

@@ -4,7 +4,7 @@
 \alias{LN_taxonomicCoverage}
 \title{TaxonomicCoverage}
 \usage{
-LN_taxonomicCoverage(taxonRankName, taxonRankValue, commonName)
+LN_taxonomicCoverage(taxonRankName, taxonRankValue, commonName, hidden = FALSE)
 }
 \value{
 Output: html tag
