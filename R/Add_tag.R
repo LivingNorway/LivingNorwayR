@@ -17,7 +17,7 @@ add_Tag<-function(tag,txt, hidden=FALSE){
       LNtag
       }
       }else{
-    cat(txt)
+    txt
       }
   }
 
@@ -36,6 +36,7 @@ LN_alternateIdentifier<-function(alternateIdentifier, hidden=FALSE){
   }
 
 }
+#LN_alternateIdentifier(uuid::UUIDgenerate())
 
 #' LN_title
 #' Add title metadata html tag (only run in RMarkdown)
@@ -76,96 +77,114 @@ LN_individualName=function(firstName,secondName, hidden=FALSE){
 
 LN_creator=function(individualName, organizationName=NULL,
                     positionName=NULL, deliveryPoint=NULL, city=NULL, postalCode=NULL,
-                    electronicMail=NULL, order=NULL, hidden=FALSE){
+                    electronicMail=NULL, hidden=FALSE, includeOrganizationName=FALSE,
+                    includepositionName=FALSE, includedeliveryPoint=FALSE, includecity=FALSE, includepostalCode=FALSE,
+                    includeelectronicMail=FALSE){
+
   if(hidden==FALSE){
   #Need to have individualName
   tag1=individualName
-  if(!is.null(organizationName)){
-    tag2=add_Tag("organizationName",organizationName)
-  }else{
-    tag2=""
-  }
 
-  if(!is.null(positionName)){
+    if (!is.null(organizationName))  {
+    #!is.null(organizationName) result is TRUE then, it will check for includeOrganizationName=TRUE
+    if (includeOrganizationName==TRUE)  {
+      #includeOrganizationName=TRUE result is TRUE, then these statements will be executed
+      tag2=add_Tag("organizationName",organizationName)
+      tag2=paste0(" ",tag2)
+    } else {
+      #includeOrganizationName=TRUE result is FALSE then, these statements will be executed
+      tag2=add_Tag("organizationName",organizationName,hidden = TRUE)
+      tag2=paste0(" ",tag2)
+      }
+      }else {
+      #If the !is.null(organizationName) result is FALSE, these statements will be executed
+      tag2=""
+    }
+
+if(!is.null(positionName)){
     tag3=add_Tag("positionName",positionName)
+    tag3=paste0(" ",tag3)
 }else{
   tag3=""
 }
   if(!is.null(deliveryPoint)){
     tag4=add_Tag("deliveryPoint",deliveryPoint)
+    tag4=paste0(" ",tag4)
   }else{
     tag4=""
   }
   if(!is.null(city)){
     tag5=add_Tag("city",city)
+    tag5=paste0(" ",tag5)
   }else{
     tag5=""
   }
-  if(!is.null(deliveryPoint)){
-    tag6=add_Tag("deliveryPoint", deliveryPoint)
-  }else{
-        tag6=""
-  }
+
   if(!is.null(postalCode)){
     tag7=add_Tag("postalCode",postalCode)
+    tag7=paste0(" ",tag7)
   }else{
     tag7=""
   }
-  if(!is.null(electonicMail)){
-    tag8=add_Tag("electonicMail",electonicMail)
+  if(!is.null(electronicMail)){
+    tag8=add_Tag("electronicMail",electronicMail)
+    tag8=paste0(" ",tag8)
   }else{
         tag8=""
       }
-  if(!is.null(order)){
-  tag9=add_Tag("creator", paste0(tag1,tag2,tag3,tag4,tag5,tag6,tag7,tag8, order))
-  }else{
-    tag9=add_Tag("creator", paste0(tag1,tag2,tag3,tag4,tag5,tag6,tag7,tag8))
-      }
+  tag9=add_Tag("creator", paste0(tag1,tag2,tag3,tag4,tag5,tag6,tag7,tag8))
   tag9
+
+
+
   }else{
     #Need to have individualName
     tag1=individualName
     if(!is.null(organizationName)){
       tag2=add_Tag("organizationName",organizationName, hidden=TRUE)
+      tag2=paste0(" ",tag2)
+
     }else{
       tag2=""
     }
 
     if(!is.null(positionName)){
       tag3=add_Tag("positionName",positionName, hidden=TRUE)
+      tag3=paste0(" ",tag3)
     }else{
       tag3=""
     }
     if(!is.null(deliveryPoint)){
       tag4=add_Tag("deliveryPoint",deliveryPoint, hidden=TRUE)
+      tag4=paste0(" ",tag4)
     }else{
       tag4=""
     }
     if(!is.null(city)){
       tag5=add_Tag("city",city, hidden=TRUE)
+      tag5=paste0(" ",tag5)
     }else{
       tag5=""
     }
     if(!is.null(deliveryPoint)){
       tag6=add_Tag("deliveryPoint", deliveryPoint, hidden=TRUE)
+      tag6=paste0(" ",tag6)
     }else{
       tag6=""
     }
     if(!is.null(postalCode)){
       tag7=add_Tag("postalCode",postalCode, hidden=TRUE)
+      tag7=paste0(" ",tag7)
     }else{
       tag7=""
     }
-    if(!is.null(electonicMail)){
-      tag8=add_Tag("electonicMail",electonicMail, hidden=TRUE)
+    if(!is.null(electronicMail)){
+      tag8=add_Tag("electronicMail",electonicMail, hidden=TRUE)
+      tag8=paste0(" ",tag8)
     }else{
       tag8=""
     }
-    if(!is.null(order)){
-      tag9=add_Tag("creator", paste0(tag1,tag2,tag3,tag4,tag5,tag6,tag7,tag8, order), hidden=TRUE)
-    }else{
-      tag9=add_Tag("creator", paste0(tag1,tag2,tag3,tag4,tag5,tag6,tag7,tag8), hidden=TRUE)
-    }
+    tag9=add_Tag("creator", paste0(tag1,tag2,tag3,tag4,tag5,tag6,tag7,tag8), hidden=TRUE)
     tag9
   }
 }
