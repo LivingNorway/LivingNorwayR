@@ -4,7 +4,7 @@
 \alias{LN_intellectualRights}
 \title{intellectualRights}
 \usage{
-LN_intellectualRights(intellectualRights)
+LN_intellectualRights(intellectualRights, hidden = FALSE)
 }
 \value{
 Output: html tag

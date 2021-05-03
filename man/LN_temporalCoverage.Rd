@@ -4,7 +4,7 @@
 \alias{LN_temporalCoverage}
 \title{TemporalCoverage}
 \usage{
-LN_temporalCoverage(beginDate, endDate)
+LN_temporalCoverage(beginDate, endDate, hidden = FALSE)
 }
 \value{
 Output: html tag

@@ -8,7 +8,8 @@ LN_boundingCoordinates(
   westBoundingCoordinate,
   eastBoundingCoordinate,
   northBoundingCoordinate,
-  southBoundingCoordinate
+  southBoundingCoordinate,
+  hidden = FALSE
 )
 }
 \value{

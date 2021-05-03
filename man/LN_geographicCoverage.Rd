@@ -4,7 +4,11 @@
 \alias{LN_geographicCoverage}
 \title{geographicCoverage}
 \usage{
-LN_geographicCoverage(geographicDescription, boundingCoordinates)
+LN_geographicCoverage(
+  geographicDescription,
+  boundingCoordinates,
+  hidden = FALSE
+)
 }
 \value{
 Output: html tag

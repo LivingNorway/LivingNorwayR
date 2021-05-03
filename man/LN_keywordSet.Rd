@@ -4,11 +4,17 @@
 \alias{LN_keywordSet}
 \title{keywordSet}
 \usage{
-LN_keywordSet(keyword, keywordThesaurus = NULL)
+LN_keywordSet(keyword, keywordThesaurus = NULL, hidden = FALSE)
+
+LN_keywordSet(keyword, keywordThesaurus = NULL, hidden = FALSE)
 }
 \value{
 Output: html tag
+
+Output: html tag
 }
 \description{
+keywordSet
+
 keywordSet
 }

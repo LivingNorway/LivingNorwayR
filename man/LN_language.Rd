@@ -4,7 +4,7 @@
 \alias{LN_language}
 \title{language}
 \usage{
-LN_language(language)
+LN_language(language, hidden = FALSE)
 }
 \value{
 Output: html tag

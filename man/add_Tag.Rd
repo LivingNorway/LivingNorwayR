@@ -5,7 +5,7 @@
 \title{add_Tag
 Add metadata html tag (only run in RMarkdown)}
 \usage{
-add_Tag(tag, txt)
+add_Tag(tag, txt, hidden = FALSE)
 }
 \arguments{
 \item{txt}{The txt for the tag}

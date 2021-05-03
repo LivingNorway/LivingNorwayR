@@ -4,7 +4,7 @@
 \alias{LN_title}
 \title{LN_title}
 \usage{
-LN_title(title)
+LN_title(title, hidden = FALSE)
 }
 \value{
 Output: html tag
