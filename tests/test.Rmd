@@ -15,3 +15,5 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla non fringilla ex,
 The project was created by `r LivingNorwayR::LN_individualName("Matt", "Grainger")`
 
 The project is written in a hidden language `r LivingNorwayR::LN_language("Latin", hidden=TRUE)`
+
+`r LivingNorwayR::LN_creator(LivingNorwayR::LN_individualName("Matt", "Grainger"), "NINA")`
