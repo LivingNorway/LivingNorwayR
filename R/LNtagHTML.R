@@ -67,8 +67,8 @@ LNaddTag <- function(tagText, tagType, tagID = NA, parentID = NA, isHidden = FAL
       ">", curText, "</span>",
       sep = "")
   } else {
-    # If the output is not HTML then simply display the tag text without any HTML markup
-    outText <- curText
+    # If the output is not HTML then simply display the tag text without any HTML markup (unless the text is hidden, in which case don't display anything at all)
+    outText <- ifelse(curHidden, "", curText)
   }
   cat(outText)
   invisible(outText)
