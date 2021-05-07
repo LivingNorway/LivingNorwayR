@@ -1,490 +1,639 @@
-#' add_Tag
+#' LNaddTag
 #' Add metadata html tag (only run in RMarkdown)
+#' @param tagTxt The text for the tag
 #' @param tagtype The name of the EML element that will be tagged
-#' @param txt The txt for the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
 #' @return Output: html tag
 #' @export
 
-add_Tag<-function(tag,txt, hidden=FALSE){
-  #fmt="html_document"
-  #fmt <- rmarkdown::default_output_format(knitr::current_input())$name # this needs to be in the RMArkdown file
-  if(fmt=="html_document"){
-    if(hidden==FALSE){
-      LNtag=paste0("<span", " class=LN_",tag, ">", txt, "</span>")
-      LNtag
-    }else{
-      LNtag=paste0("<span"," style='display:none' ", "class=LN_",tag, ">", txt, "</span>")
-      LNtag
-      }
-      }else{
-    txt
-      }
+# ------ 1. TAG CREATION FUNCTION ------
+LNaddTag <- function(tagText, tagType, tagID = NA, parentID = NA, isHidden = FALSE) {
+  # ====== 1.1. Sanity check the inputs ======
+  # Function to sanity check the tag related inputs
+  checkArgText <- function(inArg, argName) {
+    outArg <- tryCatch(as.character(inArg), error = function(err) {
+      stop("error encountered whilst processing ", argName, " parameter: ", err)
+    })
+    if(length(outArg) <= 0) {
+      outArg <- NA
+    } else if(length(outArg) > 1) {
+      warning("parameter ", argName, " has a length greater than 1: only using the first element")
+      outArg <- outArg[1]
+    }
+    if(is.na(outArg)) {
+      outArg <- NA
+    } else if(grepl("\\s+", outArg, perl = TRUE)) {
+      stop("error encountered whilst processing ", argName, "parameter: whitespace is present")
+    }
+    outArg
   }
+  # Sanity check the input text
+  curText <- tryCatch(paste(as.character(tagText), collapse = " "), error = function(err) {
+    stop("error encountered whilst processing tagText parameter: ", err)
+  })
+  if(is.na(curText)) {
+    curText <- ""
+  }
+  # Sanity check the tag ID
+  curTagID <- checkArgText(tagID, "tagID")
+  if(is.na(curTagID)) {
+    # If the tag ID hasn't been provided then generate one with a UUID
+    curTagID <- uuid::UUIDgenerate()
+  }
+  # Sanity check the tag type
+  curTagType <- checkArgText(tagType, "tagType")
+  if(is.na(curTagType) || !(curTagType %in% names(getTagGenerationFunctions()))) {
+    stop("error encountered whilst processing tagType parameter: tag type not found")
+  }
+  # Sanity check the parent ID
+  curParentID <- checkArgText(parentID, "parentID")
+  # Sanity check the hidden parameter
+  curHidden <- tryCatch(as.logical(isHidden), error = function(err) {
+    stop("error encountered whilst processing isHidden parameter: ", err)
+  })
+  if(length(curHidden) < 0) {
+    stop("error encountered whilst processing isHidden parameter: vector length is zero")
+  } else if(length(curHidden) > 1) {
+    warning("parameter isHidden has a length greater than 1: only using the first element")
+    curHidden <- curHidden[1]
+  }
+  if(is.na(curHidden)) {
+    # Default to FALSE if the hidden input is NA
+    curHidden <- FALSE
+  }
+  outText <- ""
+  # ====== 1.2. Write the tag outputs ======
+  # Ascertain whether HTML output is being requested
+  isHTML <- knitr::is_html_output()
+  if(isHTML) {
+    # If the output is HTML then contain the text within a span tag
+    outText <- paste(
+      "<span id=\"LN", curTagID,
+      ifelse(is.na(curParentID), "", paste("_", curParentID, sep = "")),
+      " class=\"LNmetadata_", curTagType, "\"",
+      ifelse(curHidden, " style=\"display:none\"", ""),
+      ">", curText, "</span>",
+      sep = "")
+  } else {
+    # If the output is not HTML then simply display the tag text without any HTML markup (unless the text is hidden, in which case don't display anything at all)
+    outText <- ifelse(curHidden, "", curText)
+  }
+  cat(outText)
+  invisible(outText)
+}
 
-#add_Tag("Project", "ABC", hidden=TRUE)
+#' getTagGenerationFunctions
+#' Get full list of available LNtags
+#' @return list of available LivingNorwayR metadata tags
+#' @export
 
-#' LN_alternativeIdentifier
+
+getTagGenerationFunctions <- function() {
+  list(
+    "alternateIdentifier" = LNalternateIdentifier,
+    "taxonomicClassification"=LNtaxonomicClassification,
+    "commonName"=LNcommonName,
+    "taxonRankValue"=LNtaxonRankValue,
+    "taxonRankName"=LNtaxonRankName,
+    "calendarDate"=LNcalendarDate,
+    "northBoundingCoordinate"=LNnorthBoundingCoordinate,
+    "southBoundingCoordinate"=LNsouthBoundingCoordinate,
+    "eastBoundingCoordinate"=LNeastBoundingCoordinate,
+    "westBoundingCoordinate"=LNwestBoundingCoordinate,
+    "geographicDescription"=LNgeographicDescription ,
+    "intellectualRights"=LNintellectualRights,
+    "keywordThesaurus"=LNkeywordThesaurus,
+    "keyword"=LNkeyword,
+    "abstract"=LNabstract,
+    "language"=LNlanguage,
+    "pubDate"=LNpubDate,
+    "electronicMail"=LNelectronicMail,
+    "postalCode"=LNpostalCode,
+    "city"=LNcity,
+    "deliveryPoint"=LNdeliveryPoint,
+    "positionName"=LNpositionName,
+    "organizationName"=LNorganizationName,
+    "lastName"=LNlastName,
+    "firstName"=LNfirstName,
+    "title"=LNtitle,
+    "methodStep"=LNmethodStep,
+    "qualityControl"= LNqualityControl,
+    "sampling"=LNsampling,
+    "studyExtent"=LNstudyExtent,
+    "samplingDescription"=LNsamplingDescription,
+    "purpose"=LNpurpose,
+  )
+}
+
+#' LNalternativeIdentifier
 #' Add alternativeIdentifier metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
 #' @return Output: html tag
 #' @export
 
-LN_alternateIdentifier<-function(alternateIdentifier, hidden=FALSE){
-  if(hidden==FALSE){
-    add_Tag("alternateIdentifier", alternateIdentifier)
-  }else{
-    add_Tag("alternateIdentifier", alternateIdentifier, hidden=TRUE)
-  }
-
+LNalternateIdentifier <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "alternateIdentifier", tagID, parentID, isHidden))
 }
-#LN_alternateIdentifier(uuid::UUIDgenerate())
 
-#' LN_title
+
+#' LNtitle
 #' Add title metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
 #' @return Output: html tag
 #' @export
 
-LN_title<-function(title, hidden=FALSE){
-  if(hidden==FALSE){
-    add_Tag("title", title)
-  }else{
-    add_Tag("title", title, hidden = TRUE)
-  }
+LNtitle <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "title", tagID, parentID, isHidden))
 }
 
-#' LN_individualName
-#' Add individualName metadata html tag (only run in RMarkdown)
-#' @param firstName The givenName of the individual
-#' @param secondName The surName of the individual
+#######################################################################################################
+####################### individualName tag is firstName, lastName ############################################
+#######################################################################################################
+#' LNfirstName
+#' Add firstName metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
 #' @return Output: html tag
 #' @export
 
-LN_individualName=function(firstName,secondName, hidden=FALSE){
-  if(hidden==FALSE){
-    tag=add_Tag("individualName", paste0(firstName," ", secondName))
-    tag
-  }else{
-  tag=add_Tag("individualName", paste0(firstName," ", secondName), hidden=TRUE)
-  tag
-  }
-
+LNfirstName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "firstName", tagID, parentID, isHidden))
 }
 
-#' LN_creator
-#' Add creator metadata html tag (only run in RMarkdown)
+
+#' LNlastName
+#' Add lastName metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
 #' @return Output: html tag
 #' @export
 
-
-LN_creator=function(individualName, organizationName=NULL,
-                    positionName=NULL, deliveryPoint=NULL, city=NULL, postalCode=NULL,
-                    electronicMail=NULL, hidden=FALSE, includeOrganizationName=FALSE,
-                    includepositionName=FALSE, includedeliveryPoint=FALSE, includecity=FALSE, includepostalCode=FALSE,
-                    includeelectronicMail=FALSE){
-
-  if(hidden==FALSE){
-  #Need to have individualName
-  tag1=individualName
-
-    if (!is.null(organizationName))  {
-    #!is.null(organizationName) result is TRUE then, it will check for includeOrganizationName=TRUE
-    if (includeOrganizationName==TRUE)  {
-      #includeOrganizationName=TRUE result is TRUE, then these statements will be executed
-      tag2=add_Tag("organizationName",organizationName)
-      tag2=paste0(" ",tag2)
-    } else {
-      #includeOrganizationName=TRUE result is FALSE then, these statements will be executed
-      tag2=add_Tag("organizationName",organizationName,hidden = TRUE)
-      tag2=paste0(" ",tag2)
-      }
-      }else {
-      #If the !is.null(organizationName) result is FALSE, these statements will be executed
-      tag2=""
-    }
-
-if(!is.null(positionName)){
-    tag3=add_Tag("positionName",positionName)
-    tag3=paste0(" ",tag3)
-}else{
-  tag3=""
-}
-  if(!is.null(deliveryPoint)){
-    tag4=add_Tag("deliveryPoint",deliveryPoint)
-    tag4=paste0(" ",tag4)
-  }else{
-    tag4=""
-  }
-  if(!is.null(city)){
-    tag5=add_Tag("city",city)
-    tag5=paste0(" ",tag5)
-  }else{
-    tag5=""
-  }
-
-  if(!is.null(postalCode)){
-    tag7=add_Tag("postalCode",postalCode)
-    tag7=paste0(" ",tag7)
-  }else{
-    tag7=""
-  }
-  if(!is.null(electronicMail)){
-    tag8=add_Tag("electronicMail",electronicMail)
-    tag8=paste0(" ",tag8)
-  }else{
-        tag8=""
-      }
-  tag9=add_Tag("creator", paste0(tag1,tag2,tag3,tag4,tag5,tag6,tag7,tag8))
-  tag9
-
-
-
-  }else{
-    #Need to have individualName
-    tag1=individualName
-    if(!is.null(organizationName)){
-      tag2=add_Tag("organizationName",organizationName, hidden=TRUE)
-      tag2=paste0(" ",tag2)
-
-    }else{
-      tag2=""
-    }
-
-    if(!is.null(positionName)){
-      tag3=add_Tag("positionName",positionName, hidden=TRUE)
-      tag3=paste0(" ",tag3)
-    }else{
-      tag3=""
-    }
-    if(!is.null(deliveryPoint)){
-      tag4=add_Tag("deliveryPoint",deliveryPoint, hidden=TRUE)
-      tag4=paste0(" ",tag4)
-    }else{
-      tag4=""
-    }
-    if(!is.null(city)){
-      tag5=add_Tag("city",city, hidden=TRUE)
-      tag5=paste0(" ",tag5)
-    }else{
-      tag5=""
-    }
-    if(!is.null(deliveryPoint)){
-      tag6=add_Tag("deliveryPoint", deliveryPoint, hidden=TRUE)
-      tag6=paste0(" ",tag6)
-    }else{
-      tag6=""
-    }
-    if(!is.null(postalCode)){
-      tag7=add_Tag("postalCode",postalCode, hidden=TRUE)
-      tag7=paste0(" ",tag7)
-    }else{
-      tag7=""
-    }
-    if(!is.null(electronicMail)){
-      tag8=add_Tag("electronicMail",electonicMail, hidden=TRUE)
-      tag8=paste0(" ",tag8)
-    }else{
-      tag8=""
-    }
-    tag9=add_Tag("creator", paste0(tag1,tag2,tag3,tag4,tag5,tag6,tag7,tag8), hidden=TRUE)
-    tag9
-  }
+LNlastName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "lastName", tagID, parentID, isHidden))
 }
 
-#' metadataProvider
-#' Add metadataProvider metadata html tag (only run in RMarkdown)
+
+#######################################################################################################
+####################### creator tag is individualName, organizationName, positionName, ################
+####################### deliveryPoint, city, postalCode, electronicMail ###############################
+#######################################################################################################
+
+
+#' LNorganizationName
+#' Add organizationName metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
 #' @return Output: html tag
 #' @export
 
-
-LN_metadataProvider=function(individualName, organizationName=NULL,
-                             positionName=NULL, deliveryPoint=NULL, city=NULL, postalCode=NULL,
-                             electonicMail=NULL, userId=NULL, hidden=FALSE){
- if(hidden==FALSE){
-   #Need to have individualName
-  tag1=individualName
-if(!is.null(organizationName)){
-  tag2=add_Tag("organizationName",organizationName)
-}else{
-  tag2=""
-}
-if(!is.null(positionName)){
-  tag3=add_Tag("positionName",positionName)
-}else{
-  tag3=""
-}
-if(!is.null(deliveryPoint)){
-  tag4=add_Tag("deliveryPoint",deliveryPoint)
-}else{
-  tag4=""
-}
-if(!is.null(city)){
-  tag5=add_Tag("city",city)
-}else{
-  tag5=""
-}
-if(!is.null(deliveryPoint)){
-  tag6=add_Tag("deliveryPoint", deliveryPoint)
-}else{
-  tag6=""
-}
-if(!is.null(postalCode)){
-  tag7=add_Tag("postalCode",postalCode)
-}else{
-  tag7=""
-}
-if(!is.null(electonicMail)){
-  tag8=add_Tag("electonicMail",electonicMail)
-}else{
-  tag8=""
-}
-if(!is.null(userId)){
-  tag9=add_Tag("userID", paste0("directory =", userId))
-}else{
-  tag9=""
-}
-
-tag10=add_Tag("metadataProvider", paste0(tag1,tag2,tag3,tag4,tag5,tag6,tag7,tag8,tag9))
-tag10
- }else{
-   #Need to have individualName
-   tag1=individualName
-   if(!is.null(organizationName)){
-     tag2=add_Tag("organizationName",organizationName, hidden=TRUE)
-   }else{
-     tag2=""
-   }
-   if(!is.null(positionName)){
-     tag3=add_Tag("positionName",positionName, hidden=TRUE)
-   }else{
-     tag3=""
-   }
-   if(!is.null(deliveryPoint)){
-     tag4=add_Tag("deliveryPoint",deliveryPoint, hidden=TRUE)
-   }else{
-     tag4=""
-   }
-   if(!is.null(city)){
-     tag5=add_Tag("city",city, hidden=TRUE)
-   }else{
-     tag5=""
-   }
-   if(!is.null(deliveryPoint)){
-     tag6=add_Tag("deliveryPoint", deliveryPoint, hidden=TRUE)
-   }else{
-     tag6=""
-   }
-   if(!is.null(postalCode)){
-     tag7=add_Tag("postalCode",postalCode, hidden=TRUE)
-   }else{
-     tag7=""
-   }
-   if(!is.null(electonicMail)){
-     tag8=add_Tag("electonicMail",electonicMail, hidden=TRUE)
-   }else{
-     tag8=""
-   }
-   if(!is.null(userId)){
-     tag9=add_Tag("userID", paste0("directory =", userId), hidden=TRUE)
-   }else{
-     tag9=""
-   }
-
-   tag10=add_Tag("metadataProvider", paste0(tag1,tag2,tag3,tag4,tag5,tag6,tag7,tag8,tag9), hidden=TRUE)
-   tag10
- }
+LNorganizationName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "organizationName", tagID, parentID, isHidden))
 }
 
 
-#' pubDate
+#' LNpositionName
+#' Add positionName metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
+#' @return Output: html tag
+#' @export
+
+LNpositionName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "positionName", tagID, parentID, isHidden))
+}
+
+
+#' LNdeliveryPoint
+#' Add deliveryPoint metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
+#' @return Output: html tag
+#' @export
+
+LNdeliveryPoint <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "deliveryPoint", tagID, parentID, isHidden))
+}
+
+
+#' LNcity
+#' Add city metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
+#' @return Output: html tag
+#' @export
+
+LNcity <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "city", tagID, parentID, isHidden))
+}
+
+#' LNpostalCode
+#' Add postalCode metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
+#' @return Output: html tag
+#' @export
+
+LNpostalCode <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "postalCode", tagID, parentID, isHidden))
+}
+
+
+#' LNelectronicMail
+#' Add electronicMail metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
+#' @return Output: html tag
+#' @export
+
+LNelectronicMail <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "electronicMail", tagID, parentID, isHidden))
+}
+
+
+#######################################################################################################
+####################### metadataProvider tag is individualName, organizationName, positionName, ################
+####################### deliveryPoint, city, postalCode, electronicMail ###############################
+#######################################################################################################
+
+
+#' LNpubDate
 #' Add pubDate metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
 #' @return Output: html tag
 #' @export
 
-LN_pubDate=function(Date, hidden=FALSE){
-
-  if(hidden==FALSE){
-    #need to check format
-    add_Tag("pubDate", Date)
-  }else{
-    add_Tag("pubDate", Date, hidden=TRUE)
-  }
-
+LNpubDate <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "pubDate", tagID, parentID, isHidden))
 }
 
-#' language
+
+
+#' LNlanguage
 #' Add language metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
 #' @return Output: html tag
 #' @export
 
+LNlanguage <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(toupper(tagText), "language", tagID, parentID, isHidden))
+}
 
-LN_language=function(language, hidden=FALSE){
-  if(hidden==FALSE){
-  add_Tag("language", toupper(language))
-  }else{
-    add_Tag("language", toupper(language), hidden=TRUE)
-  }
-  }
-
-#' abstract
+#' LNabstract
 #' Add abstract metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
 #' @return Output: html tag
 #' @export
 
-LN_abstract=function(abstract, hidden=FALSE){
-  # need to check if abstract is text
-  if(is.character(abstract)==FALSE){
-    print("Error. The abstract needs to be text")
-  }else{
-    if(hidden==FALSE){
-  add_Tag("abstract", abstract)
-    }else{
-        add_Tag("abstract", abstract, hidden=TRUE)
-      }
-  }
-}
-
-
-#' keywordSet
-#' Add keywordSet metadata html tag (only run in RMarkdown)
-#' @return Output: html tag
-#' @export
-
-LN_keywordSet=function(keyword, keywordThesaurus=NULL, hidden=FALSE){
-  if(hidden==FALSE){
-    tag1=add_Tag("keyword",keyword)
-  if(!is.null(keywordThesaurus)){
-    tag2=add_Tag("keywordThesaurus", keywordThesaurus)
-  }else{
-    tag2=""
-  }
-  tag3=add_Tag("keywordSet", paste0(tag1,tag2))
-  tag3
-  }else{
-    tag3=add_Tag("keywordSet", paste0(tag1,tag2),hidden=TRUE)
-    tag3
-  }
+LNabstract <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "abstract", tagID, parentID, isHidden))
 }
 
 
 
+#######################################################################################################
+####################### keywordSet tag is keyword, keywordThesaurus   #################################
+#######################################################################################################
 
-#' intellectualRights
+
+#' LNkeyword
+#' Add keyword metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
+#' @return Output: html tag
+#' @export
+
+LNkeyword <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "keyword", tagID, parentID, isHidden))
+}
+
+
+
+#' LNkeywordThesaurus
+#' Add keywordThesaurus metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
+#' @return Output: html tag
+#' @export
+
+LNkeywordThesaurus <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "keywordThesaurus", tagID, parentID, isHidden))
+}
+
+#######################################################################################################
+#######################################################################################################
+
+#' LNintellectualRights
 #' Add intellectualRights metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
 #' @return Output: html tag
 #' @export
 
-LN_intellectualRights=function(intellectualRights, hidden=FALSE){
-  if(hidden==FALSE){
-  add_Tag("intellectualRights",intellectualRights )
-  }else{
-    add_Tag("intellectualRights",intellectualRights, hidden=TRUE )
-  }
-  }
+LNintellectualRights <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "intellectualRights", tagID, parentID, isHidden))
+}
+
+#######################################################################################################
+####################### coverage is geographicCoverage, temporalCoverage, taxonomicCoverage ###########
+#######################################################################################################
 
 
-##Coverage
 ### geographicCoverage
+#######################################################################################################
+####################### geographicCoverage is geographicDecription,boundingCoordinates ################
+#######################################################################################################
 
-#'boundingCoordinates
-#' Add boundingCoordinates metadata html tag (only run in RMarkdown)
+#'LNgeographicDescription
+#' Add geographicDescription  metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
 #' @return Output: html tag
 #' @export
 
-LN_boundingCoordinates=function(westBoundingCoordinate, eastBoundingCoordinate, northBoundingCoordinate,
-                                southBoundingCoordinate, hidden=FALSE){
-if(hidden==FALSE){
-  tag1=add_Tag("westBoundingCoordinate", westBoundingCoordinate)
-  tag2=add_Tag("eastBoundingCoordinate", eastBoundingCoordinate)
-  tag3=add_Tag("northBoundingCoordinate", southBoundingCoordinate)
-  tag4=add_Tag("southBoundingCoordinate", northBoundingCoordinate)
-
-  tag5=add_Tag("boundingCoordinates",  paste0(tag1,tag2,tag3,tag4))
-
-  tag5
-}else{
-  tag1=add_Tag("westBoundingCoordinate", westBoundingCoordinate, hidden=TRUE)
-  tag2=add_Tag("eastBoundingCoordinate", eastBoundingCoordinate, hidden=TRUE)
-  tag3=add_Tag("northBoundingCoordinate", southBoundingCoordinate, hidden=TRUE)
-  tag4=add_Tag("southBoundingCoordinate", northBoundingCoordinate, hidden=TRUE)
-
-  tag5=add_Tag("boundingCoordinates",  paste0(tag1,tag2,tag3,tag4), hidden=TRUE)
-
-  tag5
-}
+LNgeographicDescription  <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "geographicDescription", tagID, parentID, isHidden))
 }
 
-#' geographicCoverage
-#' Add geographicCoveragemetadata html tag (only run in RMarkdown)
+
+
+#######################################################################################################
+####################### boundingCoordinates is  westBoundingCoordinate, eastBoundingCoordinate, #######
+####################### northBoundingCoordinate,southBoundingCoordinate   #############################
+#######################################################################################################
+
+
+
+
+#'LNwestBoundingCoordinate
+#' Add westBoundingCoordinate metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
 #' @return Output: html tag
 #' @export
 
-LN_geographicCoverage=function(geographicDescription, boundingCoordinates, hidden=FALSE){
-if(hidden==FALSE){
-tag1=add_Tag("geographicDescription",geographicDescription)
-tag2=add_Tag("geographicCoverage", paste0(tag1, boundingCoordinates))
-}else{
-  tag1=add_Tag("geographicDescription",geographicDescription, hidden=TRUE)
-  tag2=add_Tag("geographicCoverage", paste0(tag1, boundingCoordinates, hidden=TRUE))
-
-}
+LNwestBoundingCoordinate <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "westBoundingCoordinate", tagID, parentID, isHidden))
 }
 
-#' TemporalCoverage
-#' Add TemporalCoverage html tag (only run in RMarkdown)
+
+#'LNeastBoundingCoordinate
+#' Add eastBoundingCoordinate metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
 #' @return Output: html tag
 #' @export
 
-LN_temporalCoverage=function(beginDate,endDate, hidden=FALSE){
-
-if(hidden==FALSE){
-  tag1=add_Tag("calendarDate", beginDate)
-  tag2=add_Tag("calendarDate", endDate)
-  tag3=add_Tag("beginDate", paste0(tag1))
-  tag4=add_Tag("endDate", paste0(tag2))
-  tag5=add_Tag("rangeOfDates", paste0(tag3, tag4))
-  tag5
-}else{
-  tag1=add_Tag("calendarDate", beginDate, hidden=TRUE)
-  tag2=add_Tag("calendarDate", endDate, hidden=TRUE)
-  tag3=add_Tag("beginDate", paste0(tag1), hidden=TRUE)
-  tag4=add_Tag("endDate", paste0(tag2), hidden=TRUE)
-  tag5=add_Tag("rangeOfDates", paste0(tag3, tag4), hidden=TRUE)
-  tag5
-  }
-
+LNeastBoundingCoordinate <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "eastBoundingCoordinate", tagID, parentID, isHidden))
 }
 
-#' TaxonomicCoverage
-#' Add TaxonomicCoverage html tag (only run in RMarkdown)
+
+#'LNsouthBoundingCoordinate
+#' Add southBoundingCoordinate metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
 #' @return Output: html tag
 #' @export
 
-LN_taxonomicCoverage=function(taxonRankName, taxonRankValue, commonName, hidden=FALSE){
-
-  if(hidden==FALSE){
-    tag1=add_Tag("taxonRankValue",taxonRankValue)
-    tag2=add_Tag("taxonRankName",taxonRankName)
-    tag3=add_Tag("commonName", commonName)
-    tag4=add_Tag("taxonomicClassification", paste0(tag2, tag1,tag3))
-    tag4
-  }else{
-  tag1=add_Tag("taxonRankValue",taxonRankValue, hidden=TRUE)
-  tag2=add_Tag("taxonRankName",taxonRankName, hidden=TRUE)
-  tag3=add_Tag("commonName", commonName, hidden=TRUE)
-  tag4=add_Tag("taxonomicClassification", paste0(tag2, tag1,tag3), hidden=TRUE)
-  tag4
-  }
+LNsouthBoundingCoordinate <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "southBoundingCoordinate", tagID, parentID, isHidden))
 }
-#' coverage
-#' Add coverage html tag (only run in RMarkdown)
+
+
+#'LNnorthBoundingCoordinate
+#' Add northBoundingCoordinate metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
 #' @return Output: html tag
 #' @export
 
-LN_coverage=function(geographicCoverage, temporalCoverage, taxonomicCoverage, hidden=FALSE){
-  if(hidden==FALSE){
-    tag1=add_Tag("coverage", paste0(geographicCoverage,temporalCoverage, temporalCoverage))
-    tag1
-  }else{
-    tag1=add_Tag("coverage", paste0(geographicCoverage,temporalCoverage, temporalCoverage), hidden=TRUE)
-    tag1
-    }
-  }
+LNnorthBoundingCoordinate <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "northBoundingCoordinate", tagID, parentID, isHidden))
+}
+
+
+
+#Temporal coverage
+
+#######################################################################################################
+####################### TemporalCoverage is  calenderDate (beginDate, endDate), rangeOfDates###########
+#######################################################################################################
+
+#######################################################################################################
+####################### beginDate is CalendarDate #####################################################
+#######################################################################################################
+
+#######################################################################################################
+####################### endDate is CalendarDate #######################################################
+#######################################################################################################
+
+
+#######################################################################################################
+####################### rangeOfDates is beginDate,endDate #############################################
+#######################################################################################################
+
+
+#' LNcalendarDate
+#' Add calendarDate metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
+#' @return Output: html tag
+#' @export
+
+LNcalendarDate <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "calendarDate", tagID, parentID, isHidden))
+}
+
+#Taxonomic coverage
+
+#######################################################################################################
+####################### TaxonomicCoverage is  taxonRankName, taxonRankValue, commonName, ##############
+####################### taxonomicClassification                                         ###############
+#######################################################################################################
+
+
+
+#' LNtaxonRankName
+#' Add taxonRankName metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
+#' @return Output: html tag
+#' @export
+
+LNtaxonRankName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "taxonRankName", tagID, parentID, isHidden))
+}
+
+
+#' LNtaxonRankValue
+#' Add taxonRankValue metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
+#' @return Output: html tag
+#' @export
+
+LNtaxonRankValue <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "taxonRankValue", tagID, parentID, isHidden))
+}
+
+#' LNcommonName
+#' Add commonName metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
+#' @return Output: html tag
+#' @export
+
+LNcommonName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "commonName", tagID, parentID, isHidden))
+}
+
+#' LNtaxonomicClassification
+#' Add taxonomicClassification metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
+#' @return Output: html tag
+#' @export
+
+LNtaxonomicClassification <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "taxonomicClassification", tagID, parentID, isHidden))
+}
+
+#' LNmethodStep
+#' Add methodStep metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
+#' @return Output: html tag
+#' @export
+
+LNmethodStep <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "methodStep", tagID, parentID, isHidden))
+}
+
+#' LNqualityControl
+#' Add qualityControl metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
+#' @return Output: html tag
+#' @export
+
+LNqualityControl <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "qualityControl", tagID, parentID, isHidden))
+}
+
+#' LNsampling
+#' Add sampling metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
+#' @return Output: html tag
+#' @export
+
+LNsampling <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "sampling", tagID, parentID, isHidden))
+}
+
+#' LNstudyExtent
+#' Add studyExtent metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
+#' @return Output: html tag
+#' @export
+
+LNstudyExtent <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "studyExtent", tagID, parentID, isHidden))
+}
+
+
+#' LNsamplingDescription
+#' Add samplingDescription metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
+#' @return Output: html tag
+#' @export
+
+LNsamplingDescription <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "samplingDescription", tagID, parentID, isHidden))
+}
+
+
+#' LNpurpose
+#' Add purpose metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
+#' @return Output: html tag
+#' @export
+
+LNpurpose <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "purpose", tagID, parentID, isHidden))
+}
+
