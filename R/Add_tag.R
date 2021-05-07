@@ -93,11 +93,6 @@ LNaddTag <- function(tagText, tagType, tagID = NA, parentID = NA, isHidden = FAL
 getTagGenerationFunctions <- function() {
   list(
     "alternateIdentifier" = LNalternateIdentifier,
-    "title"=LNtitle,
-    "firstName"=LNfirstName,
-    "lastName"= LNlastName,
-    "individualName"=LNindividualName,
-    "organizationName"=LNorganizationName,
     "taxonomicClassification"=LNtaxonomicClassification,
     "commonName"=LNcommonName,
     "taxonRankValue"=LNtaxonRankValue,
@@ -122,7 +117,12 @@ getTagGenerationFunctions <- function() {
     "organizationName"=LNorganizationName,
     "lastName"=LNlastName,
     "firstName"=LNfirstName,
-    "title"=LNtitle
+    "title"=LNtitle,
+    "methodStep"=LNmethodStep,
+    "qualityControl"= LNqualityControl,
+    "sampling"=LNsampling,
+    "studyExtent"=LNstudyExtent,
+    "samplingDescription"=LNsamplingDescription
   )
 }
 
@@ -213,7 +213,7 @@ LNorganizationName <- function(tagText, tagID = NA, parentID = NA, isHidden = FA
 #' @return Output: html tag
 #' @export
 
-LNpositonName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+LNpositionName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
   invisible(LNaddTag(tagText, "positionName", tagID, parentID, isHidden))
 }
 
@@ -555,4 +555,71 @@ LNcommonName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
 LNtaxonomicClassification <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
   invisible(LNaddTag(tagText, "taxonomicClassification", tagID, parentID, isHidden))
 }
+
+#' LNmethodStep
+#' Add methodStep metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
+#' @return Output: html tag
+#' @export
+
+LNmethodStep <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "methodStep", tagID, parentID, isHidden))
+}
+
+#' LNqualityControl
+#' Add qualityControl metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
+#' @return Output: html tag
+#' @export
+
+LNqualityControl <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "qualityControl", tagID, parentID, isHidden))
+}
+
+#' LNsampling
+#' Add sampling metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
+#' @return Output: html tag
+#' @export
+
+LNsampling <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "sampling", tagID, parentID, isHidden))
+}
+
+#' LNstudyExtent
+#' Add studyExtent metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
+#' @return Output: html tag
+#' @export
+
+LNstudyExtent <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "studyExtent", tagID, parentID, isHidden))
+}
+
+
+#' LNsamplingDescription
+#' Add samplingDescription metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
+#' @return Output: html tag
+#' @export
+
+LNsamplingDescription <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "samplingDescription", tagID, parentID, isHidden))
+}
+
 
