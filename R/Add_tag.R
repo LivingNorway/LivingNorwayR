@@ -122,7 +122,8 @@ getTagGenerationFunctions <- function() {
     "qualityControl"= LNqualityControl,
     "sampling"=LNsampling,
     "studyExtent"=LNstudyExtent,
-    "samplingDescription"=LNsamplingDescription
+    "samplingDescription"=LNsamplingDescription,
+    "purpose"=LNpurpose,
   )
 }
 
@@ -622,4 +623,17 @@ LNsamplingDescription <- function(tagText, tagID = NA, parentID = NA, isHidden =
   invisible(LNaddTag(tagText, "samplingDescription", tagID, parentID, isHidden))
 }
 
+
+#' LNpurpose
+#' Add purpose metadata html tag (only run in RMarkdown)
+#' @param tagText the text of the tag
+#' @param tagID Any unique ID of the tag
+#' @param parentID Any unique ID of the parent of the tag
+#' @param isHidden Hide the tag in the rendered html text
+#' @return Output: html tag
+#' @export
+
+LNpurpose <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
+  invisible(LNaddTag(tagText, "purpose", tagID, parentID, isHidden))
+}
 
