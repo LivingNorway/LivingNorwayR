@@ -1,6 +1,5 @@
-# pkgdown <img src="logos/leaf_LN.png" align="right" />
+# LivingNorwayR <img src="man/figures/logo.png" align="right" />
 
-# LivingNorwayR
 The LivingNorwayR package is in development. There will be many developments in the near future ***Watch this space!***
 
 ## Installation

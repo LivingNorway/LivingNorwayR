@@ -6,6 +6,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>How to initiate and organise a data project in ecology? • LivingNorwayR</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
@@ -13,6 +19,7 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="How to initiate and organise a data project in ecology?">
 <meta property="og:description" content="LivingNorwayR">
+<meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -140,8 +147,8 @@
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/collapsibleTree/man/collapsibleTree.html">collapsibleTree</a></span><span class="op">(</span> <span class="va">LivingNorway_project</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"V8"</span>, <span class="st">"V9"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">p</span></code></pre></div>
-<div id="htmlwidget-42e61853bebc89ebc521" style="width:700px;height:432.632880098888px;" class="collapsibleTree html-widget"></div>
-<script type="application/json" data-for="htmlwidget-42e61853bebc89ebc521">{"x":{"data":{"name":"LivingNorway_project","children":[{"name":"My_First_LivingNorway_prj","children":[{"name":"data"},{"name":"dmp"},{"name":"dwc_a"},{"name":"metadata"},{"name":"scripts"}]}]},"options":{"hierarchy":["V8","V9"],"input":null,"attribute":"leafCount","linkLength":null,"fontSize":10,"tooltip":false,"collapsed":true,"zoomable":true,"margin":{"top":20,"bottom":20,"left":125,"right":65},"fill":"lightsteelblue"}},"evals":[],"jsHooks":[]}</script><p>From the tree diagram you can explore the folder structure (click on the blue nodes to expand them). At the moment we have 5 folders in the top-most heirachy: data, dmp,meta_xml,minimum_metadata and scripts.</p>
+<div id="htmlwidget-4e16e74637775e9584f7" style="width:700px;height:432.632880098888px;" class="collapsibleTree html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4e16e74637775e9584f7">{"x":{"data":{"name":"LivingNorway_project","children":[{"name":"My_First_LivingNorway_prj","children":[{"name":"data"},{"name":"dmp"},{"name":"dwc_a"},{"name":"metadata"},{"name":"scripts"}]}]},"options":{"hierarchy":["V8","V9"],"input":null,"attribute":"leafCount","linkLength":null,"fontSize":10,"tooltip":false,"collapsed":true,"zoomable":true,"margin":{"top":20,"bottom":20,"left":125,"right":65},"fill":"lightsteelblue"}},"evals":[],"jsHooks":[]}</script><p>From the tree diagram you can explore the folder structure (click on the blue nodes to expand them). At the moment we have 5 folders in the top-most heirachy: data, dmp,meta_xml,minimum_metadata and scripts.</p>
 <div id="data" class="section level3">
 <h3 class="hasAnchor">
 <a href="#data" class="anchor"></a>data</h3>
