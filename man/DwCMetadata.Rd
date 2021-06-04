@@ -6,49 +6,54 @@
 \title{R6 class that represents metadata in DwC}
 \format{
 \code{\link{R6Class}} object.
-read_metadata
-read the metadata from a rmarkdown file
 }
 \description{
-@description
-The \code{DwCMetadata} class is the primary class for
-constructing metadata for DWC
+R6 class that represents metadata in DwC
+
+R6 class that represents metadata in DwC
+}
+\details{
+The \code{DwCMetadata} class exists as a handling class for the encapsulation and
+handling of metadata being presented
 }
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{DwCMetadata$new()}}
-\item \href{#method-getMetadata}{\code{DwCMetadata$getMetadata()}}
+\item \href{#method-importFromLivingNorwayHTML}{\code{DwCMetadata$importFromLivingNorwayHTML()}}
+\item \href{#method-importFromLivingNorwayRMD}{\code{DwCMetadata$importFromLivingNorwayRMD()}}
 \item \href{#method-clone}{\code{DwCMetadata$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
-\subsection{Method \code{new()}}{
+\if{html}{\out{<a id="method-importFromLivingNorwayHTML"></a>}}
+\if{latex}{\out{\hypertarget{method-importFromLivingNorwayHTML}{}}}
+\subsection{Method \code{importFromLivingNorwayHTML()}}{
+Retrieve metadata information from a HTML file that has been created with a
+Living Norway HTML tag schema
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DwCMetadata$new(metadata)}\if{html}{\out{</div>}}
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getMetadata"></a>}}
-\if{latex}{\out{\hypertarget{method-getMetadata}{}}}
-\subsection{Method \code{getMetadata()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DwCMetadata$getMetadata(filepath)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{DwCMetadata$importFromLivingNorwayHTML(fileLocation, fileEncoding = "")}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{filepath}}{a filepath to a RMarkdown file}
+\item{\code{fileLocation}}{A \code{character} scalar containing the location of the
+HTML file}
+
+\item{\code{fileEncoding}}{A character string. If non-empty, declares the encoding to be used on a file so the
+character data can be re-encoded as they are written}
 }
 \if{html}{\out{</div>}}
 }
-\subsection{Returns}{
-Output: text string of yaml information
 }
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-importFromLivingNorwayRMD"></a>}}
+\if{latex}{\out{\hypertarget{method-importFromLivingNorwayRMD}{}}}
+\subsection{Method \code{importFromLivingNorwayRMD()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DwCMetadata$importFromLivingNorwayRMD(fileLocation, fileEncoding)}\if{html}{\out{</div>}}
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
