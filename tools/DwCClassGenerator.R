@@ -1,5 +1,5 @@
 # This source file requires that a "WORKSPACE_LIVINGNORWAY_RPACKAGE" variable is included in your environment that specifies the location
-# of the source code for the Living Norway package.  You cna edit the environmental variables present when R loads by using the function
+# of the source code for the Living Norway package.  You can edit the environmental variables present when R loads by using the function
 # usethis::edit_r_environ()
 
 library(xml2)
