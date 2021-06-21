@@ -1,0 +1,31 @@
+---
+title: "Test Metadata"
+author: "Joseph Chipperfield"
+date: "20 6 2021"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(uuid)
+source(file.path(Sys.getenv("WORKSPACE_LIVINGNORWAY"), "R", "Add_tag.R"))
+```
+
+## Abstract
+
+`r LNabstract("A description of the dataset")` by `r LNfirstName("Joe", tagID = "Joe", parentID = "Chipperfield")` and a hidden surname `r LNlastName("Chipperfield", tagID = "Chipperfield", isHidden = TRUE)`
+
+`r LNcreator("JoeChip", individualName = list(), institution = list(isHidden = TRUE), orcid = )`
+
+`r LNelectronicMail("joseph.chipperfield@nina.no", parentID = "JoeChip")`
+`r LNindividualName("Joe", "Chipperfield", "TheIdiot", parentID = "JoeChip")` is an idiot
+
+`r LNboundary(tagID = "boundaryInfo")` The region has western boundary `r LNwestBoundary("0.3847843", parentID = "boundaryInfo")`
+
+Has boundary [`r LNboundary(westBoundary = list(tagText = "0.39944"), east = list(), delim = " ")`]
+
+`r LNwestBoundary(inDataFrame = )`
+
+Has boundary [`r LNboundary(westBoundary = list())`]

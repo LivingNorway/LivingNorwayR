@@ -9,7 +9,7 @@
 #' @export
 
 # ------ 1. TAG CREATION FUNCTION ------
-LNaddTag <- function(tagText, tagType, tagID = NA, parentID = NA, isHidden = FALSE) {
+LNaddTag <- function(tagText, tagType, tagID = NA, parentID = NA, isHidden = FALSE, ...) {
   # ====== 1.1. Sanity check the inputs ======
   # Function to sanity check the tag related inputs
   checkArgText <- function(inArg, argName) {
@@ -70,9 +70,9 @@ LNaddTag <- function(tagText, tagType, tagID = NA, parentID = NA, isHidden = FAL
   if(isHTML) {
     # If the output is HTML then contain the text within a span tag
     outText <- paste(
-      "<span id=\"LN", curTagID,
+      "<span id=\"LN", curTagType, "_", curTagID,
       ifelse(is.na(curParentID), "", paste("_", curParentID, sep = "")),
-      " class=\"LNmetadata_", curTagType, "\"",
+      "\" class=\"LNmetadata\"",
       ifelse(curHidden, " style=\"display:none\"", ""),
       ">", curText, "</span>",
       sep = "")
@@ -80,8 +80,7 @@ LNaddTag <- function(tagText, tagType, tagID = NA, parentID = NA, isHidden = FAL
     # If the output is not HTML then simply display the tag text without any HTML markup (unless the text is hidden, in which case don't display anything at all)
     outText <- ifelse(curHidden, "", curText)
   }
-  cat(outText)
-  invisible(outText)
+  outText
 }
 
 #' getTagGenerationFunctions
@@ -93,37 +92,37 @@ LNaddTag <- function(tagText, tagType, tagID = NA, parentID = NA, isHidden = FAL
 getTagGenerationFunctions <- function() {
   list(
     "alternateIdentifier" = LNalternateIdentifier,
-    "taxonomicClassification"=LNtaxonomicClassification,
-    "commonName"=LNcommonName,
-    "taxonRankValue"=LNtaxonRankValue,
-    "taxonRankName"=LNtaxonRankName,
-    "calendarDate"=LNcalendarDate,
-    "northBoundingCoordinate"=LNnorthBoundingCoordinate,
-    "southBoundingCoordinate"=LNsouthBoundingCoordinate,
-    "eastBoundingCoordinate"=LNeastBoundingCoordinate,
-    "westBoundingCoordinate"=LNwestBoundingCoordinate,
-    "geographicDescription"=LNgeographicDescription ,
-    "intellectualRights"=LNintellectualRights,
-    "keywordThesaurus"=LNkeywordThesaurus,
-    "keyword"=LNkeyword,
-    "abstract"=LNabstract,
-    "language"=LNlanguage,
-    "pubDate"=LNpubDate,
-    "electronicMail"=LNelectronicMail,
-    "postalCode"=LNpostalCode,
-    "city"=LNcity,
-    "deliveryPoint"=LNdeliveryPoint,
-    "positionName"=LNpositionName,
-    "organizationName"=LNorganizationName,
-    "lastName"=LNlastName,
-    "firstName"=LNfirstName,
-    "title"=LNtitle,
-    "methodStep"=LNmethodStep,
-    "qualityControl"= LNqualityControl,
-    "sampling"=LNsampling,
-    "studyExtent"=LNstudyExtent,
-    "samplingDescription"=LNsamplingDescription,
-    "purpose"=LNpurpose,
+    "taxonomicClassification" = LNtaxonomicClassification,
+    "commonName" = LNcommonName,
+    "taxonRankValue" = LNtaxonRankValue,
+    "taxonRankName" = LNtaxonRankName,
+    "calendarDate" = LNcalendarDate,
+    "northBoundingCoordinate" = LNnorthBoundingCoordinate,
+    "southBoundingCoordinate" = LNsouthBoundingCoordinate,
+    "eastBoundingCoordinate" = LNeastBoundingCoordinate,
+    "westBoundingCoordinate" = LNwestBoundingCoordinate,
+    "geographicDescription" = LNgeographicDescription ,
+    "intellectualRights" = LNintellectualRights,
+    "keywordThesaurus" = LNkeywordThesaurus,
+    "keyword" = LNkeyword,
+    "abstract" = LNabstract,
+    "language" = LNlanguage,
+    "pubDate" = LNpubDate,
+    "electronicMail" = LNelectronicMail,
+    "postalCode" = LNpostalCode,
+    "city" = LNcity,
+    "deliveryPoint" = LNdeliveryPoint,
+    "positionName" = LNpositionName,
+    "organizationName" = LNorganizationName,
+    "lastName" = LNlastName,
+    "firstName" = LNfirstName,
+    "title" = LNtitle,
+    "methodStep" = LNmethodStep,
+    "qualityControl" = LNqualityControl,
+    "sampling" = LNsampling,
+    "studyExtent" = LNstudyExtent,
+    "samplingDescription" = LNsamplingDescription,
+    "purpose" = LNpurpose
   )
 }
 
@@ -137,7 +136,7 @@ getTagGenerationFunctions <- function() {
 #' @export
 
 LNalternateIdentifier <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  invisible(LNaddTag(tagText, "alternateIdentifier", tagID, parentID, isHidden))
+  LNaddTag(tagText, "alternateIdentifier", tagID, parentID, isHidden)
 }
 
 
@@ -151,7 +150,7 @@ LNalternateIdentifier <- function(tagText, tagID = NA, parentID = NA, isHidden =
 #' @export
 
 LNtitle <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  invisible(LNaddTag(tagText, "title", tagID, parentID, isHidden))
+  LNaddTag(tagText, "title", tagID, parentID, isHidden)
 }
 
 #######################################################################################################
@@ -167,7 +166,7 @@ LNtitle <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
 #' @export
 
 LNfirstName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  invisible(LNaddTag(tagText, "firstName", tagID, parentID, isHidden))
+  LNaddTag(tagText, "firstName", tagID, parentID, isHidden)
 }
 
 
@@ -181,7 +180,7 @@ LNfirstName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
 #' @export
 
 LNlastName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  invisible(LNaddTag(tagText, "lastName", tagID, parentID, isHidden))
+  LNaddTag(tagText, "lastName", tagID, parentID, isHidden)
 }
 
 
@@ -201,7 +200,7 @@ LNlastName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
 #' @export
 
 LNorganizationName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  invisible(LNaddTag(tagText, "organizationName", tagID, parentID, isHidden))
+  LNaddTag(tagText, "organizationName", tagID, parentID, isHidden)
 }
 
 
@@ -215,7 +214,7 @@ LNorganizationName <- function(tagText, tagID = NA, parentID = NA, isHidden = FA
 #' @export
 
 LNpositionName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  invisible(LNaddTag(tagText, "positionName", tagID, parentID, isHidden))
+  LNaddTag(tagText, "positionName", tagID, parentID, isHidden)
 }
 
 
@@ -229,7 +228,7 @@ LNpositionName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE)
 #' @export
 
 LNdeliveryPoint <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  invisible(LNaddTag(tagText, "deliveryPoint", tagID, parentID, isHidden))
+  LNaddTag(tagText, "deliveryPoint", tagID, parentID, isHidden)
 }
 
 
@@ -243,7 +242,7 @@ LNdeliveryPoint <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE
 #' @export
 
 LNcity <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  invisible(LNaddTag(tagText, "city", tagID, parentID, isHidden))
+  LNaddTag(tagText, "city", tagID, parentID, isHidden)
 }
 
 #' LNpostalCode
@@ -256,7 +255,7 @@ LNcity <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
 #' @export
 
 LNpostalCode <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  invisible(LNaddTag(tagText, "postalCode", tagID, parentID, isHidden))
+  LNaddTag(tagText, "postalCode", tagID, parentID, isHidden)
 }
 
 
@@ -270,7 +269,7 @@ LNpostalCode <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
 #' @export
 
 LNelectronicMail <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  invisible(LNaddTag(tagText, "electronicMail", tagID, parentID, isHidden))
+  LNaddTag(tagText, "electronicMail", tagID, parentID, isHidden)
 }
 
 
@@ -290,7 +289,7 @@ LNelectronicMail <- function(tagText, tagID = NA, parentID = NA, isHidden = FALS
 #' @export
 
 LNpubDate <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  invisible(LNaddTag(tagText, "pubDate", tagID, parentID, isHidden))
+  LNaddTag(tagText, "pubDate", tagID, parentID, isHidden)
 }
 
 
@@ -305,7 +304,7 @@ LNpubDate <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
 #' @export
 
 LNlanguage <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  invisible(LNaddTag(toupper(tagText), "language", tagID, parentID, isHidden))
+  LNaddTag(toupper(tagText), "language", tagID, parentID, isHidden)
 }
 
 #' LNabstract
@@ -318,7 +317,7 @@ LNlanguage <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
 #' @export
 
 LNabstract <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  invisible(LNaddTag(tagText, "abstract", tagID, parentID, isHidden))
+  LNaddTag(tagText, "abstract", tagID, parentID, isHidden)
 }
 
 
@@ -338,7 +337,7 @@ LNabstract <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
 #' @export
 
 LNkeyword <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  invisible(LNaddTag(tagText, "keyword", tagID, parentID, isHidden))
+  LNaddTag(tagText, "keyword", tagID, parentID, isHidden)
 }
 
 
@@ -353,7 +352,7 @@ LNkeyword <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
 #' @export
 
 LNkeywordThesaurus <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  invisible(LNaddTag(tagText, "keywordThesaurus", tagID, parentID, isHidden))
+  LNaddTag(tagText, "keywordThesaurus", tagID, parentID, isHidden)
 }
 
 #######################################################################################################
@@ -369,7 +368,7 @@ LNkeywordThesaurus <- function(tagText, tagID = NA, parentID = NA, isHidden = FA
 #' @export
 
 LNintellectualRights <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  invisible(LNaddTag(tagText, "intellectualRights", tagID, parentID, isHidden))
+  LNaddTag(tagText, "intellectualRights", tagID, parentID, isHidden)
 }
 
 #######################################################################################################
@@ -392,7 +391,7 @@ LNintellectualRights <- function(tagText, tagID = NA, parentID = NA, isHidden = 
 #' @export
 
 LNgeographicDescription  <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  invisible(LNaddTag(tagText, "geographicDescription", tagID, parentID, isHidden))
+  LNaddTag(tagText, "geographicDescription", tagID, parentID, isHidden)
 }
 
 
@@ -415,7 +414,7 @@ LNgeographicDescription  <- function(tagText, tagID = NA, parentID = NA, isHidde
 #' @export
 
 LNwestBoundingCoordinate <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  invisible(LNaddTag(tagText, "westBoundingCoordinate", tagID, parentID, isHidden))
+  LNaddTag(tagText, "westBoundingCoordinate", tagID, parentID, isHidden)
 }
 
 
@@ -429,7 +428,7 @@ LNwestBoundingCoordinate <- function(tagText, tagID = NA, parentID = NA, isHidde
 #' @export
 
 LNeastBoundingCoordinate <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  invisible(LNaddTag(tagText, "eastBoundingCoordinate", tagID, parentID, isHidden))
+  LNaddTag(tagText, "eastBoundingCoordinate", tagID, parentID, isHidden)
 }
 
 
@@ -443,7 +442,7 @@ LNeastBoundingCoordinate <- function(tagText, tagID = NA, parentID = NA, isHidde
 #' @export
 
 LNsouthBoundingCoordinate <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  invisible(LNaddTag(tagText, "southBoundingCoordinate", tagID, parentID, isHidden))
+  LNaddTag(tagText, "southBoundingCoordinate", tagID, parentID, isHidden)
 }
 
 
@@ -457,7 +456,7 @@ LNsouthBoundingCoordinate <- function(tagText, tagID = NA, parentID = NA, isHidd
 #' @export
 
 LNnorthBoundingCoordinate <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  invisible(LNaddTag(tagText, "northBoundingCoordinate", tagID, parentID, isHidden))
+  LNaddTag(tagText, "northBoundingCoordinate", tagID, parentID, isHidden)
 }
 
 
@@ -492,7 +491,7 @@ LNnorthBoundingCoordinate <- function(tagText, tagID = NA, parentID = NA, isHidd
 #' @export
 
 LNcalendarDate <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  invisible(LNaddTag(tagText, "calendarDate", tagID, parentID, isHidden))
+  LNaddTag(tagText, "calendarDate", tagID, parentID, isHidden)
 }
 
 #Taxonomic coverage
@@ -514,7 +513,7 @@ LNcalendarDate <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE)
 #' @export
 
 LNtaxonRankName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  invisible(LNaddTag(tagText, "taxonRankName", tagID, parentID, isHidden))
+  LNaddTag(tagText, "taxonRankName", tagID, parentID, isHidden)
 }
 
 
@@ -528,7 +527,7 @@ LNtaxonRankName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE
 #' @export
 
 LNtaxonRankValue <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  invisible(LNaddTag(tagText, "taxonRankValue", tagID, parentID, isHidden))
+  LNaddTag(tagText, "taxonRankValue", tagID, parentID, isHidden)
 }
 
 #' LNcommonName
@@ -541,7 +540,7 @@ LNtaxonRankValue <- function(tagText, tagID = NA, parentID = NA, isHidden = FALS
 #' @export
 
 LNcommonName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  invisible(LNaddTag(tagText, "commonName", tagID, parentID, isHidden))
+  LNaddTag(tagText, "commonName", tagID, parentID, isHidden)
 }
 
 #' LNtaxonomicClassification
@@ -554,7 +553,7 @@ LNcommonName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
 #' @export
 
 LNtaxonomicClassification <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  invisible(LNaddTag(tagText, "taxonomicClassification", tagID, parentID, isHidden))
+  LNaddTag(tagText, "taxonomicClassification", tagID, parentID, isHidden)
 }
 
 #' LNmethodStep
@@ -567,7 +566,7 @@ LNtaxonomicClassification <- function(tagText, tagID = NA, parentID = NA, isHidd
 #' @export
 
 LNmethodStep <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  invisible(LNaddTag(tagText, "methodStep", tagID, parentID, isHidden))
+  LNaddTag(tagText, "methodStep", tagID, parentID, isHidden)
 }
 
 #' LNqualityControl
@@ -580,7 +579,7 @@ LNmethodStep <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
 #' @export
 
 LNqualityControl <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  invisible(LNaddTag(tagText, "qualityControl", tagID, parentID, isHidden))
+  LNaddTag(tagText, "qualityControl", tagID, parentID, isHidden)
 }
 
 #' LNsampling
@@ -593,7 +592,7 @@ LNqualityControl <- function(tagText, tagID = NA, parentID = NA, isHidden = FALS
 #' @export
 
 LNsampling <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  invisible(LNaddTag(tagText, "sampling", tagID, parentID, isHidden))
+  LNaddTag(tagText, "sampling", tagID, parentID, isHidden)
 }
 
 #' LNstudyExtent
@@ -606,7 +605,7 @@ LNsampling <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
 #' @export
 
 LNstudyExtent <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  invisible(LNaddTag(tagText, "studyExtent", tagID, parentID, isHidden))
+  LNaddTag(tagText, "studyExtent", tagID, parentID, isHidden)
 }
 
 
@@ -620,7 +619,7 @@ LNstudyExtent <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) 
 #' @export
 
 LNsamplingDescription <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  invisible(LNaddTag(tagText, "samplingDescription", tagID, parentID, isHidden))
+  LNaddTag(tagText, "samplingDescription", tagID, parentID, isHidden)
 }
 
 
@@ -634,6 +633,6 @@ LNsamplingDescription <- function(tagText, tagID = NA, parentID = NA, isHidden =
 #' @export
 
 LNpurpose <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  invisible(LNaddTag(tagText, "purpose", tagID, parentID, isHidden))
+  LNaddTag(tagText, "purpose", tagID, parentID, isHidden)
 }
 
