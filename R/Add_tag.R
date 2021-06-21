@@ -124,6 +124,19 @@ getTagGenerationFunctions <- function() {
     "samplingDescription" = LNsamplingDescription,
     "purpose" = LNpurpose
   )
+  ## individualName tag is: (firstName, lastName)
+  ## creator tag is: (individualName, organizationName, positionName, deliveryPoint, city, postalCode, electronicMail)
+  ## metadataProvider tag is: (individualName, organizationName, positionName, deliveryPoint, city, postalCode, electronicMail)
+  ## keywordSet tag is: (keyword, keywordThesaurus)
+  ## coverage tag is: (geographicCoverage, temporalCoverage, taxonomicCoverage)
+  ## geographicCoverage tag is: (geographicDecription,boundingCoordinates)
+  ## boundingCoordinates tag is: (westBoundingCoordinate, eastBoundingCoordinate,northBoundingCoordinate,southBoundingCoordinate)
+  ## TemporalCoverage tag is:  (calenderDate (beginDate, endDate), rangeOfDates)
+  ## beginDate tag is (calendarDate)##
+  ## endDate is (calendarDate) ##
+  ## rangeOfDates is: (beginDate,endDate)
+  ## TaxonomicCoverage is:  (taxonRankName, taxonRankValue, commonName, taxonomicClassification)
+
 }
 
 #' LNalternativeIdentifier
