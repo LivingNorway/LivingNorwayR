@@ -10,22 +10,9 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(uuid)
-source(file.path(Sys.getenv("WORKSPACE_LIVINGNORWAY"), "R", "Add_tag.R"))
+source(file.path(Sys.getenv("WORKSPACE_LIVINGNORWAY"), "R", "LNTagFunctions.R"))
 ```
 
 ## Abstract
 
-`r LNabstract("A description of the dataset")` by `r LNfirstName("Joe", tagID = "Joe", parentID = "Chipperfield")` and a hidden surname `r LNlastName("Chipperfield", tagID = "Chipperfield", isHidden = TRUE)`
-
-`r LNcreator("JoeChip", individualName = list(), institution = list(isHidden = TRUE), orcid = )`
-
-`r LNelectronicMail("joseph.chipperfield@nina.no", parentID = "JoeChip")`
-`r LNindividualName("Joe", "Chipperfield", "TheIdiot", parentID = "JoeChip")` is an idiot
-
-`r LNboundary(tagID = "boundaryInfo")` The region has western boundary `r LNwestBoundary("0.3847843", parentID = "boundaryInfo")`
-
-Has boundary [`r LNboundary(westBoundary = list(tagText = "0.39944"), east = list(), delim = " ")`]
-
-`r LNwestBoundary(inDataFrame = )`
-
-Has boundary [`r LNboundary(westBoundary = list())`]
+`r LNabstract("A description of the dataset")` created by `r LNcreator(tagID = "2ndCreator", individualName.firstName.tagText = "Erlend", individualName.lastName.tagText = "Nielsen")` (`r LNelectronicMail(parentID = "2ndCreator", tagText = "erlend.nielsen@nina.no")`).  There was also another creator`r LNcreator(tagID = "1stCreator")`: `r LNindividualName(parentID = "1stCreator", firstName.tagText = "Matthew", lastName.tagText = "Grainger")` who has an email address at `r LNelectronicMail(parentID = "1stCreator", tagText = "matthew.grainger@nina.no")`.  There was one more creator but his name his hidden because we are ashamed of him`r LNcreator(tagID = "hiddenCreator", individualName.firstName.tagText = "Joseph", individualName.lastName.tagText = "Chipperfield", electonicMail.tagText = "joechip90@googlemail.com", isHidden = TRUE)`.

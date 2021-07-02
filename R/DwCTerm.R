@@ -582,7 +582,7 @@ retrieveDwCClassSpecifications <- function(includeDeprecated = FALSE) {
 #'   \item{compositeTerms}{A \code{list} of \code{DwCTerm} objects for each term that is associated with
 #'   the class}
 #' }
-#' #'
+#'
 #' @seealso \code{\link[retrieveDwCTermSpecifications]{retrieveDwCTermSpecifications}}
 #' \code{\link[DwCTerm]{DwCTerm}}
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}

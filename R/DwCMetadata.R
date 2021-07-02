@@ -8,13 +8,14 @@
 #' @importFrom R6 R6Class
 #' @export
 #' @format \code{\link{R6Class}} object.
-
 DwCMetadata<-R6::R6Class(
   classname = "DwCMetadata",
   # ====== 1.1. Define private members of the generic class ======
   private = list(
     # An XML object containing the metadata according to the EML schema
-    xmlContent = NULL
+    xmlContent = NULL,
+    # A character vector containing the entire unprocessed longform metadata
+    longForm = character()
   ),
   public = list(
     # ====== 1.2. Import metadata from a Living Norway HTML file ======
@@ -133,31 +134,152 @@ DwCMetadata<-R6::R6Class(
         }
         inNode
       }
-      lapply(X = nodeList, FUN = makeChildren, fullIDs = fullIDs[!is.na(fullIDs[, 3]), , drop = FALSE])
-      write_xml(emlOut, "C:/Temp/emlOut.xml")
+      private$xmlContent <- lapply(X = nodeList, FUN = makeChildren, fullIDs = fullIDs[!is.na(fullIDs[, 3]), , drop = FALSE])
+      invisible(self)
     },
-    importFromLivingNorwayRMD = function(fileLocation, fileEncoding) {
-
+    # ====== 1.2. Import metadata from a Living Norway R markdown file ======
+    #' @description
+    #' Retrieve metadata information from a RMD file that has been created with a
+    #' Living Norway HTML tag schema
+    #' @param fileLocation A \code{character} scalar containing the location of the
+    #' RMD file
+    #' @param fileEncoding A character string. If non-empty, declares the encoding to be used on a file so the
+    #' character data can be re-encoded as they are written
+    importFromLivingNorwayRMD = function(fileLocation, fileEncoding = "") {
+      # Helper function for sanity checking
+      charSanityCheck <- function(inVal, paramName, defaultValue) {
+        proVal <- tryCatch(as.character(inVal), error = function(err, paramName = paramName) {
+          stop("error encountered processing ", paramName, " parameter: ", err)
+        })
+        if(length(proVal) <= 0) {
+          proVal <- defaultValue
+        } else if(length(proVal) > 1) {
+          warning("parameter ", paramName, " has length greater than one: only the first element will be used")
+          proVal <- proVal[1]
+        }
+        if(is.na(proVal) || proVal == "") {
+          proVal <- defaultValue
+        }
+        proVal
+      }
+      # Process the file encoding parameter
+      inFileEncoding <- charSanityCheck(fileEncoding, "fileEncoding", localeToCharset(Sys.getlocale("LC_CTYPE")))
+      # Process the file location parameter
+      inFileLocation <- charSanityCheck(fileLocation, "fileLocation", NA)
+      if(is.na(inFileLocation)) {
+        stop("error encountered processing fileLocation parameter: invalid parameter value (NA or vector is length zero)")
+      }
+      # Generate a temporary file to store the intermediate HTML output to
+      interLoc <- paste(tempfile(), ".html", sep = "")
+      # Knit the markdown file to HTML
+      rmarkdown::render(input = inFileLocation, output_file = interLoc, encoding = inFileEncoding, output_format = "html_document", quiet = TRUE)
+      # Retrieve all the EML metadata from the rendered HTML
+      self$importFromLivingNorwayHTML(interLoc, inFileEncoding)
+      # Delete the temporary file
+      unlink(interLoc)
+      invisible(self)
+    },
+    # ====== 1.3. Export the metadata as an EML file ======
+    #' @description
+    #' Export the metadata as an EML XML file
+    #' @param fileLocation A \code{character} scalar containing the location to store the EML fiøe
+    #' @param fileEncoding A character string. If non-empty, declares the encoding to be used on a file so the
+    #' character data can be re-encoded as they are written
+    exportToEML = function(fileLocation, fileEncoding = "") {
+      # Helper function for sanity checking
+      charSanityCheck <- function(inVal, paramName, defaultValue) {
+        proVal <- tryCatch(as.character(inVal), error = function(err, paramName = paramName) {
+          stop("error encountered processing ", paramName, " parameter: ", err)
+        })
+        if(length(proVal) <= 0) {
+          proVal <- defaultValue
+        } else if(length(proVal) > 1) {
+          warning("parameter ", paramName, " has length greater than one: only the first element will be used")
+          proVal <- proVal[1]
+        }
+        if(is.na(proVal) || proVal == "") {
+          proVal <- defaultValue
+        }
+        proVal
+      }
+      # Process the file encoding parameter
+      inFileEncoding <- charSanityCheck(fileEncoding, "fileEncoding", localeToCharset(Sys.getlocale("LC_CTYPE")))
+      # Process the file location parameter
+      inFileLocation <- charSanityCheck(fileLocation, "fileLocation", NA)
+      if(is.na(inFileLocation)) {
+        stop("error encountered processing fileLocation parameter: invalid parameter value (NA or vector is length zero)")
+      }
+      write_xml(private$xmlContent, inFileLocation, encoding = inFileEncoding)
+    },
+    # ====== 1.4. Initialise the metadata object ======
+    #' @description
+    #' Initialise a metadata object from an import file
+    #' @param fileLocation A \code{character} scalar containing the location of the import file
+    #' @param fileEncoding A \code{character} string. If non-empty, declares the encoding to be used on a file so the
+    #' character data can be re-encoded as they are written
+    #' @param fileType A \code{character} scalar stating the type of the file.  File type can be either
+    #' \code{"rmarkdown"}, \code{"html"}, \code{"eml"}, or \code{"darwincore"}. If \code{NA} then the
+    #' file type will be determined from the file extension
+    initialize = function(fileLocation, fileEncoding = "", fileType = NA) {
+      # Helper function for sanity checking
+      charSanityCheck <- function(inVal, paramName, defaultValue) {
+        proVal <- tryCatch(as.character(inVal), error = function(err, paramName = paramName) {
+          stop("error encountered processing ", paramName, " parameter: ", err)
+        })
+        if(length(proVal) <= 0) {
+          proVal <- defaultValue
+        } else if(length(proVal) > 1) {
+          warning("parameter ", paramName, " has length greater than one: only the first element will be used")
+          proVal <- proVal[1]
+        }
+        if(is.na(proVal) || proVal == "") {
+          proVal <- defaultValue
+        }
+        proVal
+      }
+      # Process the file encoding parameter
+      inFileEncoding <- charSanityCheck(fileEncoding, "fileEncoding", localeToCharset(Sys.getlocale("LC_CTYPE")))
+      # Process the file location parameter
+      inFileLocation <- charSanityCheck(fileLocation, "fileLocation", NA)
+      if(is.na(inFileLocation)) {
+        stop("error encountered processing fileLocation parameter: invalid parameter value (NA or vector is length zero)")
+      }
+      # Process the file type
+      inFileType <- charSanityCheck(fileType, "fileType", NA)
+      if(is.na(inFileType)) {
+        inFileType <- switch(tolower(gsub("^.*\\.", "", inFileLocation, perl = TRUE)),
+          rmd = "rmarkdown", md = "rmarkdown",
+          html = "html",
+          xml = "eml", eml = "eml",
+          zip = "darwincore",
+          NA)
+      }
+      inFileType <- tolower(inFileType)
+      if(inFileType == "rmarkdown") {
+        # Import file is an R markdown file
+        self$importFromLivingNorwayRMD(inFileLocation, inFileEncoding)
+      } else if(inFileType == "html") {
+        # Import file is a HTML file
+        self$importFromLivingNorwayHTML(inFileLocation, inFileEncoding)
+      } else {
+        stop("error encountered importing metadata: unknown import file type")
+      }
+      invisible(self)
     }
-  ))
+  )
+)
 
-#test<-DwCMetadata$new(metadata = NA)
-#test$getMetadata(filepath ="C:/Users/matthew.grainger/Documents/Projects_in_development/Test_the_dataPackage/Rock_ptarmigan/metadata/metadata/metadata.Rmd")
+# ------ 2. INITIALISATION FUNCTION ------
 
-# metadata=NA,
-# initialize=function(metadata){
-#  self$metadata<-metadata},
-# #' read_metadata
-# #' read the metadata from a rmarkdown file
-# #' @param filepath a filepath to a RMarkdown file
-# #' @return Output: text string of yaml information
-
-# getMetadata = function(filepath) {
-# x = readr::read_lines(filepath) # read markdown using readlines
-# rng = grep("^---$", x)
-# rng = rng + c(1, -1)
-# x = x[rng[1]:rng[2]]
-# names(x) = gsub("(.*):.*", "\\1", x)
-# x = gsub(".*: (.*)", "\\1", x)
-# return(as.list(x))
-# }
+#' Initialise a metadata object from an import file
+#' @param fileLocation A \code{character} scalar containing the location of the import file
+#' @param fileEncoding A \code{character} string. If non-empty, declares the encoding to be used on a file so the
+#' character data can be re-encoded as they are written
+#' @param fileType A \code{character} scalar stating the type of the file.  File type can be either
+#' \code{"rmarkdown"}, \code{"html"}, \code{"eml"}, or \code{"darwincore"}. If \code{NA} then the
+#' file type will be determined from the file extension
+#' @return A new \code{DwCMetadata} object
+#' @seealso \code{\link[DwCMetadata]{DwCMetadata}}
+initializeDwCMetadata <- function(fileLocation, fileEncoding = "", fileType = NA) {
+  DwCMetadata$new(fileLocation = fileLocation, fileEncoding = fileEncoding, fileType = fileType)
+}
