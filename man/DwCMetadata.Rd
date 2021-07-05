@@ -21,6 +21,8 @@ handling of metadata being presented
 \itemize{
 \item \href{#method-importFromLivingNorwayHTML}{\code{DwCMetadata$importFromLivingNorwayHTML()}}
 \item \href{#method-importFromLivingNorwayRMD}{\code{DwCMetadata$importFromLivingNorwayRMD()}}
+\item \href{#method-exportToEML}{\code{DwCMetadata$exportToEML()}}
+\item \href{#method-new}{\code{DwCMetadata$new()}}
 \item \href{#method-clone}{\code{DwCMetadata$clone()}}
 }
 }
@@ -50,10 +52,67 @@ character data can be re-encoded as they are written}
 \if{html}{\out{<a id="method-importFromLivingNorwayRMD"></a>}}
 \if{latex}{\out{\hypertarget{method-importFromLivingNorwayRMD}{}}}
 \subsection{Method \code{importFromLivingNorwayRMD()}}{
+Retrieve metadata information from a RMD file that has been created with a
+Living Norway HTML tag schema
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DwCMetadata$importFromLivingNorwayRMD(fileLocation, fileEncoding)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{DwCMetadata$importFromLivingNorwayRMD(fileLocation, fileEncoding = "")}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{fileLocation}}{A \code{character} scalar containing the location of the
+RMD file}
+
+\item{\code{fileEncoding}}{A character string. If non-empty, declares the encoding to be used on a file so the
+character data can be re-encoded as they are written}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-exportToEML"></a>}}
+\if{latex}{\out{\hypertarget{method-exportToEML}{}}}
+\subsection{Method \code{exportToEML()}}{
+Export the metadata as an EML XML file
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DwCMetadata$exportToEML(fileLocation, fileEncoding = "")}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{fileLocation}}{A \code{character} scalar containing the location to store the EML fiøe}
+
+\item{\code{fileEncoding}}{A character string. If non-empty, declares the encoding to be used on a file so the
+character data can be re-encoded as they are written}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
+\subsection{Method \code{new()}}{
+Initialise a metadata object from an import file
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DwCMetadata$new(fileLocation, fileEncoding = "", fileType = NA)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{fileLocation}}{A \code{character} scalar containing the location of the import file}
+
+\item{\code{fileEncoding}}{A \code{character} string. If non-empty, declares the encoding to be used on a file so the
+character data can be re-encoded as they are written}
+
+\item{\code{fileType}}{A \code{character} scalar stating the type of the file.  File type can be either
+\code{"rmarkdown"}, \code{"html"}, \code{"eml"}, or \code{"darwincore"}. If \code{NA} then the
+file type will be determined from the file extension}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

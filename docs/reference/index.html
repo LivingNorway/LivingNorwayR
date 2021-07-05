@@ -113,6 +113,9 @@
     <li>
       <a href="../articles/My_First_LivingNorway_prj/metadata/metadata/metadata.html">UNKNOWN TITLE</a>
     </li>
+    <li>
+      <a href="../articles/testMetadata.html">Test Metadata</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -377,6 +380,13 @@ This function builds the data folder structure in the working directory</p></td>
           <p><code><a href="GBIFVernacularName.html">GBIFVernacularName</a></code> </p>
         </td>
         <td><p>R6 class representing a data structure for a GBIF VernacularName augmented data table (based on the Dawrin core)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="generateID.html">generateID()</a></code> </p>
+        </td>
+        <td><p>Check tag ID
+Check values given as IDs for EML tag. It the entry is NA then a unique ID is generated</p></td>
       </tr><tr>
         
         <td>
@@ -766,8 +776,9 @@ This function builds the data folder structure in the working directory</p></td>
         <td>
           <p><code><a href="getTagGenerationFunctions.html">getTagGenerationFunctions()</a></code> </p>
         </td>
-        <td><p>getTagGenerationFunctions
-Get full list of available LNtags</p></td>
+        <td><p>Retrieve the tag generation functions
+Get a full list of functions that generate tags formatted so that metadata scraper can
+retrieve and collate the metadata</p></td>
       </tr><tr>
         
         <td>
@@ -817,6 +828,12 @@ Get temporal coverage from raw data / mapped data</p></td>
       </tr><tr>
         
         <td>
+          <p><code><a href="initializeDwCMetadata.html">initializeDwCMetadata()</a></code> </p>
+        </td>
+        <td><p>Initialise a metadata object from an import file</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="isDwCGeneric.html">isDwCGeneric()</a></code> </p>
         </td>
         <td><p>Test whether an object is derived from DwCGeneric</p></td>
@@ -825,225 +842,274 @@ Get temporal coverage from raw data / mapped data</p></td>
         <td>
           <p><code><a href="LNabstract.html">LNabstract()</a></code> </p>
         </td>
-        <td><p>LNabstract
-Add abstract metadata html tag (only run in RMarkdown)</p></td>
+        <td><p>Add a Living Norway metadata tag corresponding to the abstract EML element</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="LNaddTag.html">LNaddTag()</a></code> </p>
         </td>
-        <td><p>LNaddTag
-Add metadata html tag (only run in RMarkdown)</p></td>
+        <td><p>Generate a Living Norway metadata tag
+Add a metadata HTML tag.  This function is designed to be run in RMarkdown documents.  This function
+is not designed to be run directly by the users but serves as a utility functions for other
+HTML tag generation functions.</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="LNalternateIdentifier.html">LNalternateIdentifier()</a></code> </p>
         </td>
-        <td><p>LNalternativeIdentifier
-Add alternativeIdentifier metadata html tag (only run in RMarkdown)</p></td>
+        <td><p>Add a Living Norway metadata tag corresponding to the alternativeIdentifier EML element</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="LNbeginDate.html">LNbeginDate()</a></code> </p>
+        </td>
+        <td><p>Add a Living Norway metadata tag corresponding to the beginDate EML element</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="LNboundingCoordinates.html">LNboundingCoordinates()</a></code> </p>
+        </td>
+        <td><p>Add a Living Norway metadata tag corresponding to the boundingCoordinates EML element</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="LNcalendarDate.html">LNcalendarDate()</a></code> </p>
         </td>
-        <td><p>LNcalendarDate
-Add calendarDate metadata html tag (only run in RMarkdown)</p></td>
+        <td><p>Add a Living Norway metadata tag corresponding to the calendarDate EML element</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="LNcity.html">LNcity()</a></code> </p>
         </td>
-        <td><p>LNcity
-Add city metadata html tag (only run in RMarkdown)</p></td>
+        <td><p>Add a Living Norway metadata tag corresponding to the city EML element</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="LNcommonName.html">LNcommonName()</a></code> </p>
         </td>
-        <td><p>LNcommonName
-Add commonName metadata html tag (only run in RMarkdown)</p></td>
+        <td><p>Add a Living Norway metadata tag corresponding to the commonName EML element</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="LNcoverage.html">LNcoverage()</a></code> </p>
+        </td>
+        <td><p>Add a Living Norway metadata tag corresponding to the coverage EML element</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="LNcreator.html">LNcreator()</a></code> </p>
+        </td>
+        <td><p>Add a Living Norway metadata tag corresponding to the creator EML element</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="LNdeliveryPoint.html">LNdeliveryPoint()</a></code> </p>
         </td>
-        <td><p>LNdeliveryPoint
-Add deliveryPoint metadata html tag (only run in RMarkdown)</p></td>
+        <td><p>Add a Living Norway metadata tag corresponding to the deliveryPoint EML element</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="LNeastBoundingCoordinate.html">LNeastBoundingCoordinate()</a></code> </p>
         </td>
-        <td><p>LNeastBoundingCoordinate
-Add eastBoundingCoordinate metadata html tag (only run in RMarkdown)</p></td>
+        <td><p>Add a Living Norway metadata tag corresponding to the eastBoundingCoordinate EML element</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="LNelectronicMail.html">LNelectronicMail()</a></code> </p>
         </td>
-        <td><p>LNelectronicMail
-Add electronicMail metadata html tag (only run in RMarkdown)</p></td>
+        <td><p>Add a Living Norway metadata tag corresponding to the electronicMail EML element</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="LNendDate.html">LNendDate()</a></code> </p>
+        </td>
+        <td><p>Add a Living Norway metadata tag corresponding to the endDate EML element</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="LNfirstName.html">LNfirstName()</a></code> </p>
         </td>
-        <td><p>LNfirstName
-Add firstName metadata html tag (only run in RMarkdown)</p></td>
+        <td><p>Add a Living Norway metadata tag corresponding to the firstName EML element</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="LNgeographicCoverage.html">LNgeographicCoverage()</a></code> </p>
+        </td>
+        <td><p>Add a Living Norway metadata tag corresponding to the geographicCoverage EML element</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="LNgeographicDescription.html">LNgeographicDescription()</a></code> </p>
         </td>
-        <td><p>LNgeographicDescription
-Add geographicDescription  metadata html tag (only run in RMarkdown)</p></td>
+        <td><p>Add a Living Norway metadata tag corresponding to the geographicDescriprion EML element</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="LNindividualName.html">LNindividualName()</a></code> </p>
+        </td>
+        <td><p>Add a Living Norway metadata tag corresponding to the individualName EML element</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="LNintellectualRights.html">LNintellectualRights()</a></code> </p>
         </td>
-        <td><p>LNintellectualRights
-Add intellectualRights metadata html tag (only run in RMarkdown)</p></td>
+        <td><p>Add a Living Norway metadata tag corresponding to the intellectualRights EML element</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="LNkeyword.html">LNkeyword()</a></code> </p>
         </td>
-        <td><p>LNkeyword
-Add keyword metadata html tag (only run in RMarkdown)</p></td>
+        <td><p>Add a Living Norway metadata tag corresponding to the keyword EML element</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="LNkeywordSet.html">LNkeywordSet()</a></code> </p>
+        </td>
+        <td><p>Add a Living Norway metadata tag corresponding to the keywordSet EML element</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="LNkeywordThesaurus.html">LNkeywordThesaurus()</a></code> </p>
         </td>
-        <td><p>LNkeywordThesaurus
-Add keywordThesaurus metadata html tag (only run in RMarkdown)</p></td>
+        <td><p>Add a Living Norway metadata tag corresponding to the keyworkThesaurus EML element</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="LNlanguage.html">LNlanguage()</a></code> </p>
         </td>
-        <td><p>LNlanguage
-Add language metadata html tag (only run in RMarkdown)</p></td>
+        <td><p>Add a Living Norway metadata tag corresponding to the language EML element</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="LNlastName.html">LNlastName()</a></code> </p>
         </td>
-        <td><p>LNlastName
-Add lastName metadata html tag (only run in RMarkdown)</p></td>
+        <td><p>Add a Living Norway metadata tag corresponding to the lastName EML element</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="LNmetadataProvider.html">LNmetadataProvider()</a></code> </p>
+        </td>
+        <td><p>Add a Living Norway metadata tag corresponding to the metadataProvider EML element</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="LNmethodStep.html">LNmethodStep()</a></code> </p>
         </td>
-        <td><p>LNmethodStep
-Add methodStep metadata html tag (only run in RMarkdown)</p></td>
+        <td><p>Add a Living Norway metadata tag corresponding to the methodStep EML element</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="LNnorthBoundingCoordinate.html">LNnorthBoundingCoordinate()</a></code> </p>
         </td>
-        <td><p>LNnorthBoundingCoordinate
-Add northBoundingCoordinate metadata html tag (only run in RMarkdown)</p></td>
+        <td><p>Add a Living Norway metadata tag corresponding to the northBoundingCoordinate EML element</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="LNorganizationName.html">LNorganizationName()</a></code> </p>
         </td>
-        <td><p>LNorganizationName
-Add organizationName metadata html tag (only run in RMarkdown)</p></td>
+        <td><p>Add a Living Norway metadata tag corresponding to the organizationName EML element</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="LNpositionName.html">LNpositionName()</a></code> </p>
         </td>
-        <td><p>LNpositionName
-Add positionName metadata html tag (only run in RMarkdown)</p></td>
+        <td><p>Add a Living Norway metadata tag corresponding to the positionName EML element</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="LNpostalCode.html">LNpostalCode()</a></code> </p>
         </td>
-        <td><p>LNpostalCode
-Add postalCode metadata html tag (only run in RMarkdown)</p></td>
+        <td><p>Add a Living Norway metadata tag corresponding to the postalCode EML element</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="LNpubDate.html">LNpubDate()</a></code> </p>
         </td>
-        <td><p>LNpubDate
-Add pubDate metadata html tag (only run in RMarkdown)</p></td>
+        <td><p>Add a Living Norway metadata tag corresponding to the pubDate EML element</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="LNpurpose.html">LNpurpose()</a></code> </p>
+        </td>
+        <td><p>Add a Living Norway metadata tag corresponding to the purpose EML element</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="LNqualityControl.html">LNqualityControl()</a></code> </p>
         </td>
-        <td><p>LNqualityControl
-Add qualityControl metadata html tag (only run in RMarkdown)</p></td>
+        <td><p>Add a Living Norway metadata tag corresponding to the qualityControl EML element</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="LNrangeOfDates.html">LNrangeOfDates()</a></code> </p>
+        </td>
+        <td><p>Add a Living Norway metadata tag corresponding to the rangeOfDates EML element</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="LNsampling.html">LNsampling()</a></code> </p>
         </td>
-        <td><p>LNsampling
-Add sampling metadata html tag (only run in RMarkdown)</p></td>
+        <td><p>Add a Living Norway metadata tag corresponding to the sampling EML element</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="LNsamplingDescription.html">LNsamplingDescription()</a></code> </p>
         </td>
-        <td><p>LNsamplingDescription
-Add samplingDescription metadata html tag (only run in RMarkdown)</p></td>
+        <td><p>Add a Living Norway metadata tag corresponding to the samplingDescription EML element</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="LNsouthBoundingCoordinate.html">LNsouthBoundingCoordinate()</a></code> </p>
         </td>
-        <td><p>LNsouthBoundingCoordinate
-Add southBoundingCoordinate metadata html tag (only run in RMarkdown)</p></td>
+        <td><p>Add a Living Norway metadata tag corresponding to the southBoundingCoordinate EML element</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="LNstudyExtent.html">LNstudyExtent()</a></code> </p>
         </td>
-        <td><p>LNstudyExtent
-Add studyExtent metadata html tag (only run in RMarkdown)</p></td>
+        <td><p>Add a Living Norway metadata tag corresponding to the studyExtent EML element</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="LNtaxonomicClassification.html">LNtaxonomicClassification()</a></code> </p>
         </td>
-        <td><p>LNtaxonomicClassification
-Add taxonomicClassification metadata html tag (only run in RMarkdown)</p></td>
+        <td><p>Add a Living Norway metadata tag corresponding to the taxanomicClassification EML element</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="LNtaxonomicCoverage.html">LNtaxonomicCoverage()</a></code> </p>
+        </td>
+        <td><p>Add a Living Norway metadata tag corresponding to the taxonomicCoverage EML element</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="LNtaxonRankName.html">LNtaxonRankName()</a></code> </p>
         </td>
-        <td><p>LNtaxonRankName
-Add taxonRankName metadata html tag (only run in RMarkdown)</p></td>
+        <td><p>Add a Living Norway metadata tag corresponding to the taxonRankName EML element</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="LNtaxonRankValue.html">LNtaxonRankValue()</a></code> </p>
         </td>
-        <td><p>LNtaxonRankValue
-Add taxonRankValue metadata html tag (only run in RMarkdown)</p></td>
+        <td><p>Add a Living Norway metadata tag corresponding to the taxonRankValue EML element</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="LNtemporalCoverage.html">LNtemporalCoverage()</a></code> </p>
+        </td>
+        <td><p>Add a Living Norway metadata tag corresponding to the temporalCoverage EML element</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="LNtitle.html">LNtitle()</a></code> </p>
         </td>
-        <td><p>LNtitle
-Add title metadata html tag (only run in RMarkdown)</p></td>
+        <td><p>Add a Living Norway metadata tag corresponding to the title EML element</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="LNwestBoundingCoordinate.html">LNwestBoundingCoordinate()</a></code> </p>
         </td>
-        <td><p>LNwestBoundingCoordinate
-Add westBoundingCoordinate metadata html tag (only run in RMarkdown)</p></td>
+        <td><p>Add a Living Norway metadata tag corresponding to the westBoundingCoordinate EML element</p></td>
       </tr><tr>
         
         <td>
@@ -1058,6 +1124,13 @@ Get a list of files in the data folders</p></td>
         </td>
         <td><p>map_folders
 Get a list of files in the data folders</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="processChildArgs.html">processChildArgs()</a></code> </p>
+        </td>
+        <td><p>Process the child-parent metadata tags
+Create a series of child metadata tags based on a naming convention of <code>...</code> arguments</p></td>
       </tr><tr>
         
         <td>

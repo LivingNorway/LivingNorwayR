@@ -21,7 +21,6 @@ following named elements:
 \item{compositeTerms}{A \code{list} of \code{DwCTerm} objects for each term that is associated with
 the class}
 }
-#'
 }
 \description{
 Retrieve classes and their related terms used by GBIF

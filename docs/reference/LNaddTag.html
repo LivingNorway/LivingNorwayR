@@ -6,8 +6,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>LNaddTag
-Add metadata html tag (only run in RMarkdown) — LNaddTag • LivingNorwayR</title>
+<title>Generate a Living Norway metadata tag
+Add a metadata HTML tag.  This function is designed to be run in RMarkdown documents.  This function
+is not designed to be run directly by the users but serves as a utility functions for other
+HTML tag generation functions. — LNaddTag • LivingNorwayR</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -47,10 +49,14 @@ Add metadata html tag (only run in RMarkdown) — LNaddTag • LivingNorwayR</ti
 
 
 
-<meta property="og:title" content="LNaddTag
-Add metadata html tag (only run in RMarkdown) — LNaddTag" />
-<meta property="og:description" content="LNaddTag
-Add metadata html tag (only run in RMarkdown)" />
+<meta property="og:title" content="Generate a Living Norway metadata tag
+Add a metadata HTML tag.  This function is designed to be run in RMarkdown documents.  This function
+is not designed to be run directly by the users but serves as a utility functions for other
+HTML tag generation functions. — LNaddTag" />
+<meta property="og:description" content="Generate a Living Norway metadata tag
+Add a metadata HTML tag.  This function is designed to be run in RMarkdown documents.  This function
+is not designed to be run directly by the users but serves as a utility functions for other
+HTML tag generation functions." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -117,6 +123,9 @@ Add metadata html tag (only run in RMarkdown)" />
     <li>
       <a href="../articles/My_First_LivingNorway_prj/metadata/metadata/metadata.html">UNKNOWN TITLE</a>
     </li>
+    <li>
+      <a href="../articles/testMetadata.html">Test Metadata</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -135,47 +144,56 @@ Add metadata html tag (only run in RMarkdown)" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>LNaddTag
-Add metadata html tag (only run in RMarkdown)</h1>
+    <h1>Generate a Living Norway metadata tag
+Add a metadata HTML tag.  This function is designed to be run in RMarkdown documents.  This function
+is not designed to be run directly by the users but serves as a utility functions for other
+HTML tag generation functions.</h1>
     
     <div class="hidden name"><code>LNaddTag.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>LNaddTag
-Add metadata html tag (only run in RMarkdown)</p>
+    <p>Generate a Living Norway metadata tag
+Add a metadata HTML tag.  This function is designed to be run in RMarkdown documents.  This function
+is not designed to be run directly by the users but serves as a utility functions for other
+HTML tag generation functions.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>LNaddTag</span><span class='op'>(</span><span class='va'>tagText</span>, <span class='va'>tagType</span>, tagID <span class='op'>=</span> <span class='cn'>NA</span>, parentID <span class='op'>=</span> <span class='cn'>NA</span>, isHidden <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>LNaddTag</span><span class='op'>(</span><span class='va'>tagText</span>, <span class='va'>tagType</span>, tagID <span class='op'>=</span> <span class='cn'>NA</span>, parentID <span class='op'>=</span> <span class='cn'>NA</span>, isHidden <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>tagID</th>
-      <td><p>Any unique ID of the tag</p></td>
+      <td><p>A <code>character</code> scalar containing the unique ID of the tag</p></td>
     </tr>
     <tr>
       <th>parentID</th>
-      <td><p>Any unique ID of the parent of the tag</p></td>
+      <td><p>A <code>character</code> scalar containing the unique ID of the parent of the tag
+(if there is a parent)</p></td>
     </tr>
     <tr>
       <th>isHidden</th>
-      <td><p>Hide the tag in the rendered html text</p></td>
+      <td><p>A <code>logical</code> scalar determining whether the tag should appear in the rendered HTML text</p></td>
     </tr>
     <tr>
       <th>tagTxt</th>
-      <td><p>The text for the tag</p></td>
+      <td><p>A <code>character</code> scalar containing the text to be enclosed in the tag</p></td>
     </tr>
     <tr>
       <th>tagtype</th>
-      <td><p>The name of the EML element that will be tagged</p></td>
+      <td><p>A <code>character</code> scalar containing the name of the EML element that will be tagged</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Output: html tag</p>
+    <p>A <code>character</code> scalar containing the rendered output including any HTML tags if a
+HTML document is being knitted</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Joseph D. Chipperfield, <a href='mailto:joechip90@googlemail.com'>joechip90@googlemail.com</a>; Matthew Grainger, <a href='mailto:matthew.grainger@nina.no'>matthew.grainger@nina.no</a></p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
