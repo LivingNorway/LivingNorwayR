@@ -179,6 +179,45 @@ DwCMetadata<-R6::R6Class(
       unlink(interLoc)
       invisible(self)
     },
+
+    # ====== 1.2. Import metadata from an eml file ======
+    #' @description
+    #' Retrieve metadata information from an eml file that has been created externally (e.g. from GBIF)
+    #' @param fileLocation A \code{character} scalar containing the location of the
+    #' eml.xml file
+    #' @param fileEncoding A character string. If non-empty, declares the encoding to be used on a file so the
+    #' character data can be re-encoded as they are written
+
+    importFromLivingNorwayEML= function(fileLocation, fileEncoding = "") {
+      # Helper function for sanity checking
+      charSanityCheck <- function(inVal, paramName, defaultValue) {
+        proVal <- tryCatch(as.character(inVal), error = function(err, paramName = paramName) {
+          stop("error encountered processing ", paramName, " parameter: ", err)
+        })
+        if(length(proVal) <= 0) {
+          proVal <- defaultValue
+        } else if(length(proVal) > 1) {
+          warning("parameter ", paramName, " has length greater than one: only the first element will be used")
+          proVal <- proVal[1]
+        }
+        if(is.na(proVal) || proVal == "") {
+          proVal <- defaultValue
+        }
+        proVal
+      }
+      # Process the file encoding parameter
+      inFileEncoding <- charSanityCheck(fileEncoding, "fileEncoding", localeToCharset(Sys.getlocale("LC_CTYPE")))
+      # Process the file location parameter
+      inFileLocation <- charSanityCheck(fileLocation, "fileLocation", NA)
+      if(is.na(inFileLocation)) {
+        stop("error encountered processing fileLocation parameter: invalid parameter value (NA or vector is length zero)")
+      }
+      # Retrieve all the EML metadata from file locatio
+      private$xmlContent<- xml2::read_xml(fileLocation)
+      invisible(self)
+    },
+
+
     # ====== 1.3. Export the metadata as an EML file ======
     #' @description
     #' Export the metadata as an EML XML file
@@ -261,6 +300,9 @@ DwCMetadata<-R6::R6Class(
       } else if(inFileType == "html") {
         # Import file is a HTML file
         self$importFromLivingNorwayHTML(inFileLocation, inFileEncoding)
+      } else if(inFileType == "eml") {
+        # Import file is a eml
+        self$importFromLivingNorwayEML(inFileLocation, inFileEncoding)
       } else {
         stop("error encountered importing metadata: unknown import file type")
       }
