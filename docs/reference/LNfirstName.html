@@ -6,8 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>LNfirstName
-Add firstName metadata html tag (only run in RMarkdown) — LNfirstName • LivingNorwayR</title>
+<title>Add a Living Norway metadata tag corresponding to the firstName EML element — LNfirstName • LivingNorwayR</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -47,10 +46,8 @@ Add firstName metadata html tag (only run in RMarkdown) — LNfirstName • Livi
 
 
 
-<meta property="og:title" content="LNfirstName
-Add firstName metadata html tag (only run in RMarkdown) — LNfirstName" />
-<meta property="og:description" content="LNfirstName
-Add firstName metadata html tag (only run in RMarkdown)" />
+<meta property="og:title" content="Add a Living Norway metadata tag corresponding to the firstName EML element — LNfirstName" />
+<meta property="og:description" content="Add a Living Norway metadata tag corresponding to the firstName EML element" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -117,6 +114,9 @@ Add firstName metadata html tag (only run in RMarkdown)" />
     <li>
       <a href="../articles/My_First_LivingNorway_prj/metadata/metadata/metadata.html">UNKNOWN TITLE</a>
     </li>
+    <li>
+      <a href="../articles/testMetadata.html">Test Metadata</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -135,15 +135,13 @@ Add firstName metadata html tag (only run in RMarkdown)" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>LNfirstName
-Add firstName metadata html tag (only run in RMarkdown)</h1>
+    <h1>Add a Living Norway metadata tag corresponding to the firstName EML element</h1>
     
     <div class="hidden name"><code>LNfirstName.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>LNfirstName
-Add firstName metadata html tag (only run in RMarkdown)</p>
+    <p>Add a Living Norway metadata tag corresponding to the firstName EML element</p>
     </div>
 
     <pre class="usage"><span class='fu'>LNfirstName</span><span class='op'>(</span><span class='va'>tagText</span>, tagID <span class='op'>=</span> <span class='cn'>NA</span>, parentID <span class='op'>=</span> <span class='cn'>NA</span>, isHidden <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
@@ -153,25 +151,32 @@ Add firstName metadata html tag (only run in RMarkdown)</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>tagText</th>
-      <td><p>the text of the tag</p></td>
+      <td><p>A <code>character</code> scalar containing the text to encolse in the tag</p></td>
     </tr>
     <tr>
       <th>tagID</th>
-      <td><p>Any unique ID of the tag</p></td>
+      <td><p>A <code>character</code> scalar containing a unique identifier for the tag element. If
+the parameter is <code>NA</code> then a UUID will be generated</p></td>
     </tr>
     <tr>
       <th>parentID</th>
-      <td><p>Any unique ID of the parent of the tag</p></td>
+      <td><p>A <code>character</code> scalar containing the ID for the parent tag (if there is one).
+<code>NA</code> denotes that there is no parent for the tag</p></td>
     </tr>
     <tr>
       <th>isHidden</th>
-      <td><p>Hide the tag in the rendered html text</p></td>
+      <td><p>A <code>logical</code> scalar that, if <code>TRUE</code>, denotes that the text should be
+hidden when rendered</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Output: html tag</p>
+    <p>A <code>character</code> scalar containing the rendered output including any HTML tags if a
+HTML document is being knitted</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Joseph D. Chipperfield, <a href='mailto:joechip90@googlemail.com'>joechip90@googlemail.com</a>; Matthew Grainger, <a href='mailto:matthew.grainger@nina.no'>matthew.grainger@nina.no</a></p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

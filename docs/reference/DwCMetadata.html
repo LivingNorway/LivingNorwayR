@@ -47,9 +47,8 @@
 
 
 <meta property="og:title" content="R6 class that represents metadata in DwC — DwCMetadata" />
-<meta property="og:description" content="@description
-The DwCMetadata class is the primary class for
-constructing metadata for DWC" />
+<meta property="og:description" content="R6 class that represents metadata in DwC
+R6 class that represents metadata in DwC" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -116,6 +115,9 @@ constructing metadata for DWC" />
     <li>
       <a href="../articles/My_First_LivingNorway_prj/metadata/metadata/metadata.html">UNKNOWN TITLE</a>
     </li>
+    <li>
+      <a href="../articles/testMetadata.html">Test Metadata</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -140,47 +142,91 @@ constructing metadata for DWC" />
     </div>
 
     <div class="ref-description">
-    <p>@description
-The <code>DwCMetadata</code> class is the primary class for
-constructing metadata for DWC</p>
+    <p>R6 class that represents metadata in DwC</p>
+<p>R6 class that represents metadata in DwC</p>
     </div>
 
 
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p><code>R6Class</code> object.
-read_metadata
-read the metadata from a rmarkdown file</p>
+    <p><code>R6Class</code> object.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The <code>DwCMetadata</code> class exists as a handling class for the encapsulation and
+handling of metadata being presented</p>
     <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
 
     
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Public methods</h3>
 
 <ul>
+<li><p><a href='#method-importFromLivingNorwayHTML'><code>DwCMetadata$importFromLivingNorwayHTML()</code></a></p></li>
+<li><p><a href='#method-importFromLivingNorwayRMD'><code>DwCMetadata$importFromLivingNorwayRMD()</code></a></p></li>
+<li><p><a href='#method-exportToEML'><code>DwCMetadata$exportToEML()</code></a></p></li>
 <li><p><a href='#method-new'><code>DwCMetadata$new()</code></a></p></li>
-<li><p><a href='#method-getMetadata'><code>DwCMetadata$getMetadata()</code></a></p></li>
 <li><p><a href='#method-clone'><code>DwCMetadata$clone()</code></a></p></li>
 </ul>
 <p><hr>
-<a id="method-new"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>new()</code></h3>
-
-<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
-<p><div class="r"></p><pre><span class='va'>DwCMetadata</span><span class='op'>$</span><span class='fu'>new</span><span class='op'>(</span><span class='va'>metadata</span><span class='op'>)</span></pre><p></div></p>
-
-<p><hr>
-<a id="method-getMetadata"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>getMetadata()</code></h3>
-
-<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
-<p><div class="r"></p><pre><span class='va'>DwCMetadata</span><span class='op'>$</span><span class='fu'>getMetadata</span><span class='op'>(</span><span class='va'>filepath</span><span class='op'>)</span></pre><p></div></p>
+<a id="method-importFromLivingNorwayHTML"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>importFromLivingNorwayHTML()</code></h3>
+<p>Retrieve metadata information from a HTML file that has been created with a
+Living Norway HTML tag schema</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>DwCMetadata</span><span class='op'>$</span><span class='fu'>importFromLivingNorwayHTML</span><span class='op'>(</span><span class='va'>fileLocation</span>, fileEncoding <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span></pre><p></div></p>
 
 <h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
 <p><div class="arguments"></p><dl>
-<dt><code>filepath</code></dt><dd><p>a filepath to a RMarkdown file</p></dd>
+<dt><code>fileLocation</code></dt><dd><p>A <code>character</code> scalar containing the location of the
+HTML file</p></dd>
+
+<dt><code>fileEncoding</code></dt><dd><p>A character string. If non-empty, declares the encoding to be used on a file so the
+character data can be re-encoded as they are written</p></dd>
 
 </dl><p></div></p>
-<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Returns</h4>
-<p>Output: text string of yaml information</p>
+<p><hr>
+<a id="method-importFromLivingNorwayRMD"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>importFromLivingNorwayRMD()</code></h3>
+<p>Retrieve metadata information from a RMD file that has been created with a
+Living Norway HTML tag schema</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>DwCMetadata</span><span class='op'>$</span><span class='fu'>importFromLivingNorwayRMD</span><span class='op'>(</span><span class='va'>fileLocation</span>, fileEncoding <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
+<dt><code>fileLocation</code></dt><dd><p>A <code>character</code> scalar containing the location of the
+RMD file</p></dd>
+
+<dt><code>fileEncoding</code></dt><dd><p>A character string. If non-empty, declares the encoding to be used on a file so the
+character data can be re-encoded as they are written</p></dd>
+
+</dl><p></div></p>
+<p><hr>
+<a id="method-exportToEML"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>exportToEML()</code></h3>
+<p>Export the metadata as an EML XML file</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>DwCMetadata</span><span class='op'>$</span><span class='fu'>exportToEML</span><span class='op'>(</span><span class='va'>fileLocation</span>, fileEncoding <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
+<dt><code>fileLocation</code></dt><dd><p>A <code>character</code> scalar containing the location to store the EML fiøe</p></dd>
+
+<dt><code>fileEncoding</code></dt><dd><p>A character string. If non-empty, declares the encoding to be used on a file so the
+character data can be re-encoded as they are written</p></dd>
+
+</dl><p></div></p>
+<p><hr>
+<a id="method-new"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>new()</code></h3>
+<p>Initialise a metadata object from an import file</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>DwCMetadata</span><span class='op'>$</span><span class='fu'>new</span><span class='op'>(</span><span class='va'>fileLocation</span>, fileEncoding <span class='op'>=</span> <span class='st'>""</span>, fileType <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
+<dt><code>fileLocation</code></dt><dd><p>A <code>character</code> scalar containing the location of the import file</p></dd>
+
+<dt><code>fileEncoding</code></dt><dd><p>A <code>character</code> string. If non-empty, declares the encoding to be used on a file so the
+character data can be re-encoded as they are written</p></dd>
+
+<dt><code>fileType</code></dt><dd><p>A <code>character</code> scalar stating the type of the file.  File type can be either
+<code>"rmarkdown"</code>, <code>"html"</code>, <code>"eml"</code>, or <code>"darwincore"</code>. If <code>NA</code> then the
+file type will be determined from the file extension</p></dd>
+
+</dl><p></div></p>
 <p><hr>
 <a id="method-clone"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>clone()</code></h3>
 <p>The objects of this class are cloneable with this method.</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
