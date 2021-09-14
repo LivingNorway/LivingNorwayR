@@ -1,18 +1,30 @@
 Package: LivingNorwayR
-Title: Creates a data archive (a data package) for biodiversity/ecology data
-Version: 0.0.0.9000
-Authors@R: 
-    person(given = "First",
-           family = "Last",
+Title: Creates a Darwin Core Standard compliant data archive ("a data package") for biodiversity data
+Version: 0.1.0.0
+Authors@R: c(person(given = "Joseph",
+           family = "Chipperfield",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: The package creates a folder structure in a project directory and provides a workflow for creating a data archive including all raw data, data management plans, protocols, mapped data (maniupulated for analysis), analysis scripts, reports, etc. Facilitates ease of sharing data and uploading on to data repositories e.g. GBIF
+           email = "joechip90@googlemail.com",
+           comment = c(ORCID = "")),
+    person(given = "Matthew",
+           family = "Grainger",
+           role = c("aut"),
+           email = "matthewjamesgrainger@gmail.com",
+           comment = c(ORCID = "0000-0001-8426-6495")),
+    person(given = "Erlend",
+           family = "Nilsen",
+           role = c("aut"),
+           email = "",
+           comment = c(ORCID = "0000-0002-5119-8331")),
+    person("Norsk institutt for naturforskning (NINA)", role = c("cph", "fnd"))
+           )
+Description: The package provides a workflow for creating a Darwin Core Standard compliant data archive ( "a data package"). This facilitates FAIR (Findable, Accessible, Interoperable, Reusable; https://www.go-fair.org/fair-principles/) data sharing and uploading Darwin Core Archieves (data packages) to repositories such as GBIF.
+URL: https://github.com/LivingNorway/LivingNorwayR
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Imports: dplyr,leaflet,sf,R6,readr
 Suggests:
     knitr,
