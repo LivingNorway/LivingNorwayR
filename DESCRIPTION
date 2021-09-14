@@ -20,9 +20,10 @@ Authors@R: c(person(given = "Joseph",
            )
 Description: The package provides a workflow for creating a Darwin Core Standard compliant data archive ( "a data package"). This facilitates FAIR (Findable, Accessible, Interoperable, Reusable; https://www.go-fair.org/fair-principles/) data sharing and uploading Darwin Core Archieves (data packages) to repositories such as GBIF.
 URL: https://github.com/LivingNorway/LivingNorwayR
+BugReports: https://github.com/LivingNorway/LivingNorwayR/issues
 License: GPL-3
 Encoding: UTF-8
-LazyData: true
+LazyData: TRUE
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 Imports: dplyr,leaflet,sf,R6,readr
@@ -33,3 +34,4 @@ Suggests:
 VignetteBuilder: knitr
 Depends: 
     R (>= 2.10)
+RoxygenNote: 7.1.2
