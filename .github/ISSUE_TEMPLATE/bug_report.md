@@ -18,9 +18,10 @@ A clear and concise description of what you expected to happen.
 
 
 **Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
+ - Operating System: [e.g. Mac, Windows, Linux, etc.]
+ - R Version
+-  (Browser [e.g. chrome, safari] - if related to issues with the Shiny App)
+
 
 **Additional context**
 Add any other context about the problem here.
