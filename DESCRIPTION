@@ -5,7 +5,7 @@ Authors@R: c(person(given = "Joseph",
            family = "Chipperfield",
            role = c("aut", "cre"),
            email = "joechip90@googlemail.com",
-           comment = c(ORCID = "")),
+           comment = c(ORCID = "0000-0003-3314-0846")),
     person(given = "Matthew",
            family = "Grainger",
            role = c("aut"),
@@ -18,7 +18,12 @@ Authors@R: c(person(given = "Joseph",
            comment = c(ORCID = "0000-0002-5119-8331")),
     person("Norsk institutt for naturforskning (NINA)", role = c("cph", "fnd"))
            )
-Description: The package provides a workflow for creating a Darwin Core Standard compliant data archive ( "a data package"). This facilitates FAIR (Findable, Accessible, Interoperable, Reusable; https://www.go-fair.org/fair-principles/) data sharing and uploading Darwin Core Archieves (data packages) to repositories such as GBIF.
+Description: The package provides a workflow for creating a Darwin Core standard-compliant data archive ("a data package").
+    This facilitates FAIR (Findable, Accessible, Interoperable, Reusable; https://www.go-fair.org/fair-principles/) data
+    sharing and uploading of Darwin Core archives (data packages) to repositories such as GBIF.  The Living Norway package
+    also provides tools for the processing and manipulation of metadata associated with Darwin Core archives and for the
+    import and export of metadata according to the EML (Ecological Metadata Language; https://eml.ecoinformatics.org/)
+    standard.
 URL: https://github.com/LivingNorway/LivingNorwayR
 BugReports: https://github.com/LivingNorway/LivingNorwayR/issues
 License: GPL-3
