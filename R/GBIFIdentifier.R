@@ -61,12 +61,12 @@ GBIFIdentifier <- R6Class("GBIFIdentifier",
 		#' @seealso \code{\link[DwCTerm]{DwCTerm}} \code{\link[getGBIFIdentifierMembers]{getGBIFIdentifierMembers}}
 		initialize = function(objectData, idColumnInfo, nameAutoMap = FALSE, defDateFormat = "YYYY-MM-DD", ...) {
 			super$initialize(
-				getGBIFIdentifierTerm(),
-				getGBIFIdentifierMembers(),
-				objectData,
-				idColumnInfo,
-				nameAutoMap,
-				defDateFormat,
+				classTermInfo = getGBIFIdentifierTerm(),
+				associatedTerms = getGBIFIdentifierMembers(),
+				objectData = objectData,
+				idColumnInfo = idColumnInfo,
+				nameAutoMap = nameAutoMap,
+				defDateFormat = defDateFormat,
 				...
 			)
 			invisible(self)

@@ -61,12 +61,12 @@ GBIFMultimedia <- R6Class("GBIFMultimedia",
 		#' @seealso \code{\link[DwCTerm]{DwCTerm}} \code{\link[getGBIFMultimediaMembers]{getGBIFMultimediaMembers}}
 		initialize = function(objectData, idColumnInfo, nameAutoMap = FALSE, defDateFormat = "YYYY-MM-DD", ...) {
 			super$initialize(
-				getGBIFMultimediaTerm(),
-				getGBIFMultimediaMembers(),
-				objectData,
-				idColumnInfo,
-				nameAutoMap,
-				defDateFormat,
+				classTermInfo = getGBIFMultimediaTerm(),
+				associatedTerms = getGBIFMultimediaMembers(),
+				objectData = objectData,
+				idColumnInfo = idColumnInfo,
+				nameAutoMap = nameAutoMap,
+				defDateFormat = defDateFormat,
 				...
 			)
 			invisible(self)

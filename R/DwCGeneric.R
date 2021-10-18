@@ -251,14 +251,13 @@ DwCGeneric <- R6::R6Class("DwCGeneric",
       self$setTableName(classTermInfo$getTermName())
       invisible(self)
     },
-
     # ====== 1.6. Function to get the name of the Darwin core class that the object holds ======
     #' @description
     #' Retrieve the name of the class used in Darwin core
     #' @return A \code{character} scalar contining the name of the Darwin core class
     getDwCClassName = function() {
       private$classTermInfo$getQualifiedName()
-      },
+    },
     # ====== 1.7. Function to retrieve the term information of the Darwin core class ======
     #' @description
     #' Retrieve the term information of thee Darwin core class of the object
@@ -402,6 +401,13 @@ DwCGeneric <- R6::R6Class("DwCGeneric",
     #' @return A \code{character} scalar containing the default date format
     getDefaultYearFormat = function() {
       private$defaultDateFormat
+    },
+    # ====== 1.17. Get the term name for the table ======
+    #' @description
+    #' Retrieve the term name for the table
+    #' @return A \code{character} scalar containing the name to the term defining the table
+    getTableTermName = function() {
+      private$classTermInfo$getTermName()
     }
   )
 )

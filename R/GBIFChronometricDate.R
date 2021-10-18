@@ -61,12 +61,12 @@ GBIFChronometricDate <- R6Class("GBIFChronometricDate",
 		#' @seealso \code{\link[DwCTerm]{DwCTerm}} \code{\link[getGBIFChronometricDateMembers]{getGBIFChronometricDateMembers}}
 		initialize = function(objectData, idColumnInfo, nameAutoMap = FALSE, defDateFormat = "YYYY-MM-DD", ...) {
 			super$initialize(
-				getGBIFChronometricDateTerm(),
-				getGBIFChronometricDateMembers(),
-				objectData,
-				idColumnInfo,
-				nameAutoMap,
-				defDateFormat,
+				classTermInfo = getGBIFChronometricDateTerm(),
+				associatedTerms = getGBIFChronometricDateMembers(),
+				objectData = objectData,
+				idColumnInfo = idColumnInfo,
+				nameAutoMap = nameAutoMap,
+				defDateFormat = defDateFormat,
 				...
 			)
 			invisible(self)

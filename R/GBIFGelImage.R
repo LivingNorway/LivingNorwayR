@@ -61,12 +61,12 @@ GBIFGelImage <- R6Class("GBIFGelImage",
 		#' @seealso \code{\link[DwCTerm]{DwCTerm}} \code{\link[getGBIFGelImageMembers]{getGBIFGelImageMembers}}
 		initialize = function(objectData, idColumnInfo, nameAutoMap = FALSE, defDateFormat = "YYYY-MM-DD", ...) {
 			super$initialize(
-				getGBIFGelImageTerm(),
-				getGBIFGelImageMembers(),
-				objectData,
-				idColumnInfo,
-				nameAutoMap,
-				defDateFormat,
+				classTermInfo = getGBIFGelImageTerm(),
+				associatedTerms = getGBIFGelImageMembers(),
+				objectData = objectData,
+				idColumnInfo = idColumnInfo,
+				nameAutoMap = nameAutoMap,
+				defDateFormat = defDateFormat,
 				...
 			)
 			invisible(self)

@@ -61,12 +61,12 @@ GBIFGermplasmAccession <- R6Class("GBIFGermplasmAccession",
 		#' @seealso \code{\link[DwCTerm]{DwCTerm}} \code{\link[getGBIFGermplasmAccessionMembers]{getGBIFGermplasmAccessionMembers}}
 		initialize = function(objectData, idColumnInfo, nameAutoMap = FALSE, defDateFormat = "YYYY-MM-DD", ...) {
 			super$initialize(
-				getGBIFGermplasmAccessionTerm(),
-				getGBIFGermplasmAccessionMembers(),
-				objectData,
-				idColumnInfo,
-				nameAutoMap,
-				defDateFormat,
+				classTermInfo = getGBIFGermplasmAccessionTerm(),
+				associatedTerms = getGBIFGermplasmAccessionMembers(),
+				objectData = objectData,
+				idColumnInfo = idColumnInfo,
+				nameAutoMap = nameAutoMap,
+				defDateFormat = defDateFormat,
 				...
 			)
 			invisible(self)

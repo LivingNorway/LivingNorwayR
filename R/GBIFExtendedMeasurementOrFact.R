@@ -61,12 +61,12 @@ GBIFExtendedMeasurementOrFact <- R6Class("GBIFExtendedMeasurementOrFact",
 		#' @seealso \code{\link[DwCTerm]{DwCTerm}} \code{\link[getGBIFExtendedMeasurementOrFactMembers]{getGBIFExtendedMeasurementOrFactMembers}}
 		initialize = function(objectData, idColumnInfo, nameAutoMap = FALSE, defDateFormat = "YYYY-MM-DD", ...) {
 			super$initialize(
-				getGBIFExtendedMeasurementOrFactTerm(),
-				getGBIFExtendedMeasurementOrFactMembers(),
-				objectData,
-				idColumnInfo,
-				nameAutoMap,
-				defDateFormat,
+				classTermInfo = getGBIFExtendedMeasurementOrFactTerm(),
+				associatedTerms = getGBIFExtendedMeasurementOrFactMembers(),
+				objectData = objectData,
+				idColumnInfo = idColumnInfo,
+				nameAutoMap = nameAutoMap,
+				defDateFormat = defDateFormat,
 				...
 			)
 			invisible(self)

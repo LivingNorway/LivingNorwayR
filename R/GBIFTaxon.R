@@ -61,12 +61,12 @@ GBIFTaxon <- R6Class("GBIFTaxon",
 		#' @seealso \code{\link[DwCTerm]{DwCTerm}} \code{\link[getGBIFTaxonMembers]{getGBIFTaxonMembers}}
 		initialize = function(objectData, idColumnInfo, nameAutoMap = FALSE, defDateFormat = "YYYY-MM-DD", ...) {
 			super$initialize(
-				getGBIFTaxonTerm(),
-				getGBIFTaxonMembers(),
-				objectData,
-				idColumnInfo,
-				nameAutoMap,
-				defDateFormat,
+				classTermInfo = getGBIFTaxonTerm(),
+				associatedTerms = getGBIFTaxonMembers(),
+				objectData = objectData,
+				idColumnInfo = idColumnInfo,
+				nameAutoMap = nameAutoMap,
+				defDateFormat = defDateFormat,
 				...
 			)
 			invisible(self)

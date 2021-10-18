@@ -14,8 +14,65 @@ DwCMetadata<-R6::R6Class(
   private = list(
     # An XML object containing the metadata according to the EML schema
     xmlContent = NULL,
-    # A character vector containing the entire unprocessed longform metadata
-    longForm = character()
+    # A character vector containing the entire unprocessed long-form metadata (if any)
+    longForm = character(),
+    # ---- 1.1.1. Validate the EML against a schema ----
+    validateEML = function(fileEncoding = "") {
+      inFileEncoding <- private$charSanityCheck(fileEncoding, "fileEncoding", localeToCharset(Sys.getlocale("LC_CTYPE")))
+      # Call the EML validator in the 'emld' package (this will parse the validation schema and return any validation errors)
+      outValue <- emld::eml_validate(private$xmlContent, inFileEncoding, NULL)
+      # Retrieve any errors encountered during the validation
+      errorMsgs <- attr(outValue, "errors")
+      if(!is.null(errorMsgs) && length(errorMsgs) > 0) {
+        # Display the validation errors as warning messages
+        sapply(X = as.character(errorMsgs), FUN = warning)
+      }
+      outValue
+    },
+    # ---- 1.1.2. Helper function for sanity checking ----
+    # Helper function for sanity checking
+    charSanityCheck = function(inVal, paramName, defaultValue) {
+      proVal <- tryCatch(as.character(inVal), error = function(err, paramName = paramName) {
+        stop("error encountered processing ", paramName, " parameter: ", err)
+      })
+      if(length(proVal) <= 0) {
+        proVal <- defaultValue
+      } else if(length(proVal) > 1) {
+        warning("parameter ", paramName, " has length greater than one: only the first element will be used")
+        proVal <- proVal[1]
+      }
+      if(is.na(proVal) || proVal == "") {
+        proVal <- defaultValue
+      }
+      proVal
+    },
+    # ---- 1.1.3. Helper function for language-based EML traversal ----
+    # Return node-set that match the language specification
+    retrieveLangNodes = function(xmlPath,lang) {
+      # Sanity check the language and XPath arguments
+      inLang <- private$charSanityCheck(lang, "lang", NA)
+      xmlPath <- private$charSanityCheck(xmlPath, "xmlPath", "//*")
+      outNodes <- NULL
+      if(!is.null(private$xmlContent)) {
+        if(is.na(inLang)) {
+          # If a language specification isn't set then select the nodes according to XPath
+          outNodes <- xml_find_all(private$xmlContent, xmlPath)
+        } else {
+          # If a language specification is set then only select the node or "value" tagged
+          # children of the XPath matching nodes that have language attributes that match
+          outNodes <- xml_find_all(private$xmlContent, paste(
+            xmlPath, "[@lang=\"", inLang, "\" or @xml:lang=\"", inLang, "\"]|",
+            xmlPath, "/value[@lang=\"", inLang, "\" or @xml:lang=\"", inLang, "\"]",
+            sep = ""))
+          # If no elements could be found of the correct language then look for the default
+          # entries instead
+          if(length(outNodes) <= 0) {
+            outNodes <- xml_find_all(private$xmlContent, xmlPath)
+          }
+        }
+      }
+      outNodes
+    }
   ),
   public = list(
     # ====== 1.2. Import metadata from a Living Norway HTML file ======
@@ -24,29 +81,19 @@ DwCMetadata<-R6::R6Class(
     #' Living Norway HTML tag schema
     #' @param fileLocation A \code{character} scalar containing the location of the
     #' HTML file
-    #' @param fileEncoding A character string. If non-empty, declares the encoding to be used on a file so the
+    #' @param fileEncoding A \code{character} scalar. If non-empty, declares the encoding to be used on a file so the
     #' character data can be re-encoded as they are written
-    importFromLivingNorwayHTML = function(fileLocation, fileEncoding = "") {
-      # Helper function for sanity checking
-      charSanityCheck <- function(inVal, paramName, defaultValue) {
-        proVal <- tryCatch(as.character(inVal), error = function(err, paramName = paramName) {
-          stop("error encountered processing ", paramName, " parameter: ", err)
-        })
-        if(length(proVal) <= 0) {
-          proVal <- defaultValue
-        } else if(length(proVal) > 1) {
-          warning("parameter ", paramName, " has length greater than one: only the first element will be used")
-          proVal <- proVal[1]
-        }
-        if(is.na(proVal) || proVal == "") {
-          proVal <- defaultValue
-        }
-        proVal
-      }
+    #' @param ... A set of arguments to be passed to the \code{\link[xml2::xml_new_root]{xml_new_root}}
+    #' function to define namespace information.  The values returned by the helper function
+    #' \code{\link[getDefaultEMLDefinitionInfo]{getDefaultEMLDefinitionInfo}} will be used unless
+    #' overwritten by user input here.  In addition, arguments required by the EML standard but
+    #' not provided here (such as the \link[https://ediorg.github.io/data-package-best-practices/EMLmetadata/Root-element.html]{packageID}
+    #' attribute) will be otherwise auto-generated
+    importFromLivingNorwayHTML = function(fileLocation, fileEncoding = "", ...) {
       # Process the file encoding parameter
-      inFileEncoding <- charSanityCheck(fileEncoding, "fileEncoding", localeToCharset(Sys.getlocale("LC_CTYPE")))
+      inFileEncoding <- private$charSanityCheck(fileEncoding, "fileEncoding", localeToCharset(Sys.getlocale("LC_CTYPE")))
       # Process the file location parameter
-      inFileLocation <- charSanityCheck(fileLocation, "fileLocation", NA)
+      inFileLocation <- private$charSanityCheck(fileLocation, "fileLocation", NA)
       if(is.na(inFileLocation)) {
         stop("error encountered processing fileLocation parameter: invalid parameter value (NA or vector is length zero)")
       }
@@ -81,7 +128,7 @@ DwCMetadata<-R6::R6Class(
             }
             outVal
           })
-          # If there are valid metadat parents then set the nearest in the hierarchy to be the parent ID
+          # If there are valid metadata parents then set the nearest in the hierarchy to be the parent ID
           if(any(!is.na(parIDs))) {
             outVector[3] <- parIDs[!is.na(parIDs)][1]
           }
@@ -99,15 +146,26 @@ DwCMetadata<-R6::R6Class(
       if(anyDuplicated(fullIDs[, 2])) {
         stop("error encountered processing metadata ID codes: tag IDs are not unique")
       }
+      # Initialise a set of attributes for the EML root tag
+      initParams <- c(list(
+        ".value" = "eml:eml"
+      ), as.list(getDefaultEMLDefinitionInfo()), list(
+        "packageID" = uuid::UUIDgenerate(),
+        ".encoding" = inFileEncoding
+      ))
+      # Retrieve the parameters provided as extra arguments to the functions
+      inputParams <- list(...)
+      # Override the initialised parameters with those provided as arguments
+      initParams[names(inputParams)] <- inputParams
+      initParams <- setNames(lapply(X = initParams, FUN = function(curParam) {
+        outVal <- private$charSanityCheck(curParam, "EML initialisation parameter", "")
+        if(gsub(" ", "", outVal, fixed = TRUE) == "") {
+          stop("invalid value given for an EML initialisation parameter")
+        }
+        outVal
+      }), names(initParams))
       # Generate an EML structure
-      emlOut <- xml_new_root("eml:eml",
-        packageId = "eml.1.1",
-        system = "knb",
-        "xmlns:eml"="eml://ecoinformatics.org/eml-2.1.1",
-        "xmlns:xsi"="http://www.w3.org/2001/XMLSchema-instance",
-        "xsi:schemaLocation"="eml://ecoinformatics.org/eml-2.1.1 eml.xsd",
-        # TODO: add language attribute options (use xml:lang attribute to set the default language of the document)
-        .encoding = inFileEncoding)
+      emlOut <- do.call(xml_new_root, initParams)
       # Create the base set of nodes
       nodeList <- apply(X = fullIDs[is.na(fullIDs[, 3]), , drop = FALSE], FUN = function(curRow, emlOut) {
         outNode <- xml_add_child(emlOut, curRow[1], id = curRow[2])
@@ -135,6 +193,10 @@ DwCMetadata<-R6::R6Class(
         inNode
       }
       private$xmlContent <- lapply(X = nodeList, FUN = makeChildren, fullIDs = fullIDs[!is.na(fullIDs[, 3]), , drop = FALSE])
+      # Validate the EML
+      if(!private$validateEML(fileEncoding = inFileEncoding)) {
+        stop("EML is not valid according to the selected EML schema")
+      }
       invisible(self)
     },
     # ====== 1.2. Import metadata from a Living Norway R markdown file ======
@@ -145,27 +207,17 @@ DwCMetadata<-R6::R6Class(
     #' RMD file
     #' @param fileEncoding A character string. If non-empty, declares the encoding to be used on a file so the
     #' character data can be re-encoded as they are written
-    importFromLivingNorwayRMD = function(fileLocation, fileEncoding = "") {
-      # Helper function for sanity checking
-      charSanityCheck <- function(inVal, paramName, defaultValue) {
-        proVal <- tryCatch(as.character(inVal), error = function(err, paramName = paramName) {
-          stop("error encountered processing ", paramName, " parameter: ", err)
-        })
-        if(length(proVal) <= 0) {
-          proVal <- defaultValue
-        } else if(length(proVal) > 1) {
-          warning("parameter ", paramName, " has length greater than one: only the first element will be used")
-          proVal <- proVal[1]
-        }
-        if(is.na(proVal) || proVal == "") {
-          proVal <- defaultValue
-        }
-        proVal
-      }
+    #' @param ... A set of arguments to be passed to the \code{\link[xml2::xml_new_root]{xml_new_root}}
+    #' function to define namespace information.  The values returned by the helper function
+    #' \code{\link[getDefaultEMLDefinitionInfo]{getDefaultEMLDefinitionInfo}} will be used unless
+    #' overwritten by user input here.  In addition, arguments required by the EML standard but
+    #' not provided here (such as the \link[https://ediorg.github.io/data-package-best-practices/EMLmetadata/Root-element.html]{packageID}
+    #' attribute) will be otherwise auto-generated
+    importFromLivingNorwayRMD = function(fileLocation, fileEncoding = "", ...) {
       # Process the file encoding parameter
-      inFileEncoding <- charSanityCheck(fileEncoding, "fileEncoding", localeToCharset(Sys.getlocale("LC_CTYPE")))
+      inFileEncoding <- private$charSanityCheck(fileEncoding, "fileEncoding", localeToCharset(Sys.getlocale("LC_CTYPE")))
       # Process the file location parameter
-      inFileLocation <- charSanityCheck(fileLocation, "fileLocation", NA)
+      inFileLocation <- private$charSanityCheck(fileLocation, "fileLocation", NA)
       if(is.na(inFileLocation)) {
         stop("error encountered processing fileLocation parameter: invalid parameter value (NA or vector is length zero)")
       }
@@ -174,44 +226,95 @@ DwCMetadata<-R6::R6Class(
       # Knit the markdown file to HTML
       rmarkdown::render(input = inFileLocation, output_file = interLoc, encoding = inFileEncoding, output_format = "html_document", quiet = TRUE)
       # Retrieve all the EML metadata from the rendered HTML
-      self$importFromLivingNorwayHTML(interLoc, inFileEncoding)
+      self$importFromLivingNorwayHTML(fileLocation = interLoc, fileEncoding = inFileEncoding, ...)
       # Delete the temporary file
       unlink(interLoc)
+      # Validate the EML
+      if(!private$validateEML(fileEncoding = inFileEncoding)) {
+        stop("EML is not valid according to the selected EML schema")
+      }
       invisible(self)
     },
-    # ====== 1.3. Export the metadata as an EML file ======
+    # ====== 1.3. Import metadata from an EML file ======
+    #' @description
+    #' Retrieve metadata information from an Ecological Metadata Language (EML) file
+    #' @param fileLocation A \code{character} scalar containing the location of the
+    #' RMD file
+    #' @param fileEncoding A character string. If non-empty, declares the encoding to be used on a file so the
+    #' character data can be re-encoded as they are written
+    importFromEML = function(fileLocation, fileEncoding = "") {
+      # Process the file encoding parameter
+      inFileEncoding <- private$charSanityCheck(fileEncoding, "fileEncoding", localeToCharset(Sys.getlocale("LC_CTYPE")))
+      # Process the file location parameter
+      inFileLocation <- private$charSanityCheck(fileLocation, "fileLocation", NA)
+      if(is.na(inFileLocation)) {
+        stop("error encountered processing fileLocation parameter: invalid parameter value (NA or vector is length zero)")
+      }
+      private$xmlContent <- read_xml(inFileLocation, inFileEncoding)
+      # Validate the EML according to the schema
+      if(!private$validateEML(fileEncoding = inFileEncoding)) {
+        stop("EML is not valid according to the selected EML schema")
+      }
+      invisible(self)
+    },
+    # ====== 1.4. Import metadata from a Darwin Core archive ======
+    #' @description
+    #' Retrieve metadata information from a Darwin Core archive file
+    #' @param fileLocation A \code{character} scalar containing the location of the
+    #' RMD file
+    #' @param fileEncoding A character string. If non-empty, declares the encoding to be used on a file so the
+    #' character data can be re-encoded as they are written
+    importFromDwCArchive = function(fileLocation, fileEncoding = "") {
+      # Process the file encoding parameter
+      inFileEncoding <- private$charSanityCheck(fileEncoding, "fileEncoding", localeToCharset(Sys.getlocale("LC_CTYPE")))
+      # Process the file location parameter
+      inFileLocation <- private$charSanityCheck(fileLocation, "fileLocation", NA)
+      if(is.na(inFileLocation)) {
+        stop("error encountered processing fileLocation parameter: invalid parameter value (NA or vector is length zero)")
+      }
+      # Create a temporary directory to store the contents of the unzipped file
+      tempLoc <- file.path(tempdir(), "LNimportDir")
+      if(dir.exists(tempLoc)) {
+        unlink(tempLoc, recursive = TRUE)
+      }
+      dir.create(tempLoc, recursive = TRUE)
+      # Unzip the contents of the Darwin core archive
+      unzip(inFileLocation, NULL, exdir = tempLoc)
+      # Test to see whether the meta file exists
+      if(!file.exists(file.path(tempLoc, "meta.xml"))) {
+        stop("error encountered importing Darwin core archive: no meta file in archive")
+      }
+      # Retrieve the metafile attributes
+      metaFileAttributes <- xml_attrs(read_xml(file.path(tempLoc, "meta.xml"), inFileEncoding))
+      metadataLoc <- file.path(tempLoc, "eml.xml")
+      if(is.null(names(metaFileAttributes)) || !("metadata" %in% names(metaFileAttributes))) {
+        warning("metadata EML file not specified in the meta.xml document: searching for an \'eml.xml\' file instead")
+      } else {
+        # Read the location of the metadata file from the meta.xml file
+        metadataLoc <- file.path(tempLoc, metaFileAttributes["metadata"])
+      }
+      # Import the metadata information from the metadata file
+      self$importFromEML(metadataLoc, inFileEncoding)
+      unlink(tempLoc)
+      invisible(self)
+    },
+    # ====== 1.5. Export the metadata as an EML file ======
     #' @description
     #' Export the metadata as an EML XML file
     #' @param fileLocation A \code{character} scalar containing the location to store the EML fiøe
     #' @param fileEncoding A character string. If non-empty, declares the encoding to be used on a file so the
     #' character data can be re-encoded as they are written
     exportToEML = function(fileLocation, fileEncoding = "") {
-      # Helper function for sanity checking
-      charSanityCheck <- function(inVal, paramName, defaultValue) {
-        proVal <- tryCatch(as.character(inVal), error = function(err, paramName = paramName) {
-          stop("error encountered processing ", paramName, " parameter: ", err)
-        })
-        if(length(proVal) <= 0) {
-          proVal <- defaultValue
-        } else if(length(proVal) > 1) {
-          warning("parameter ", paramName, " has length greater than one: only the first element will be used")
-          proVal <- proVal[1]
-        }
-        if(is.na(proVal) || proVal == "") {
-          proVal <- defaultValue
-        }
-        proVal
-      }
       # Process the file encoding parameter
-      inFileEncoding <- charSanityCheck(fileEncoding, "fileEncoding", localeToCharset(Sys.getlocale("LC_CTYPE")))
+      inFileEncoding <- private$charSanityCheck(fileEncoding, "fileEncoding", localeToCharset(Sys.getlocale("LC_CTYPE")))
       # Process the file location parameter
-      inFileLocation <- charSanityCheck(fileLocation, "fileLocation", NA)
+      inFileLocation <- private$charSanityCheck(fileLocation, "fileLocation", NA)
       if(is.na(inFileLocation)) {
         stop("error encountered processing fileLocation parameter: invalid parameter value (NA or vector is length zero)")
       }
       write_xml(private$xmlContent, inFileLocation, encoding = inFileEncoding)
     },
-    # ====== 1.4. Initialise the metadata object ======
+    # ====== 1.6. Initialise the metadata object ======
     #' @description
     #' Initialise a metadata object from an import file
     #' @param fileLocation A \code{character} scalar containing the location of the import file
@@ -220,32 +323,22 @@ DwCMetadata<-R6::R6Class(
     #' @param fileType A \code{character} scalar stating the type of the file.  File type can be either
     #' \code{"rmarkdown"}, \code{"html"}, \code{"eml"}, or \code{"darwincore"}. If \code{NA} then the
     #' file type will be determined from the file extension
-    initialize = function(fileLocation, fileEncoding = "", fileType = NA) {
-      # Helper function for sanity checking
-      charSanityCheck <- function(inVal, paramName, defaultValue) {
-        proVal <- tryCatch(as.character(inVal), error = function(err, paramName = paramName) {
-          stop("error encountered processing ", paramName, " parameter: ", err)
-        })
-        if(length(proVal) <= 0) {
-          proVal <- defaultValue
-        } else if(length(proVal) > 1) {
-          warning("parameter ", paramName, " has length greater than one: only the first element will be used")
-          proVal <- proVal[1]
-        }
-        if(is.na(proVal) || proVal == "") {
-          proVal <- defaultValue
-        }
-        proVal
-      }
+    #' @param ... A set of arguments to be passed to the \code{\link[xml2::xml_new_root]{xml_new_root}}
+    #' function to define namespace information.  The values returned by the helper function
+    #' \code{\link[getDefaultEMLDefinitionInfo]{getDefaultEMLDefinitionInfo}} will be used unless
+    #' overwritten by user input here.  In addition, arguments required by the EML standard but
+    #' not provided here (such as the \link[https://ediorg.github.io/data-package-best-practices/EMLmetadata/Root-element.html]{packageID}
+    #' attribute) will be otherwise auto-generated
+    initialize = function(fileLocation, fileEncoding = "", fileType = NA, ...) {
       # Process the file encoding parameter
-      inFileEncoding <- charSanityCheck(fileEncoding, "fileEncoding", localeToCharset(Sys.getlocale("LC_CTYPE")))
+      inFileEncoding <- private$charSanityCheck(fileEncoding, "fileEncoding", localeToCharset(Sys.getlocale("LC_CTYPE")))
       # Process the file location parameter
-      inFileLocation <- charSanityCheck(fileLocation, "fileLocation", NA)
+      inFileLocation <- private$charSanityCheck(fileLocation, "fileLocation", NA)
       if(is.na(inFileLocation)) {
         stop("error encountered processing fileLocation parameter: invalid parameter value (NA or vector is length zero)")
       }
       # Process the file type
-      inFileType <- charSanityCheck(fileType, "fileType", NA)
+      inFileType <- private$charSanityCheck(fileType, "fileType", NA)
       if(is.na(inFileType)) {
         inFileType <- switch(tolower(gsub("^.*\\.", "", inFileLocation, perl = TRUE)),
           rmd = "rmarkdown", md = "rmarkdown",
@@ -257,14 +350,143 @@ DwCMetadata<-R6::R6Class(
       inFileType <- tolower(inFileType)
       if(inFileType == "rmarkdown") {
         # Import file is an R markdown file
-        self$importFromLivingNorwayRMD(inFileLocation, inFileEncoding)
+        self$importFromLivingNorwayRMD(fileLocation = inFileLocation, fileEncoding = inFileEncoding, ...)
       } else if(inFileType == "html") {
         # Import file is a HTML file
-        self$importFromLivingNorwayHTML(inFileLocation, inFileEncoding)
+        self$importFromLivingNorwayHTML(fileLocation = inFileLocation, fileEncoding = inFileEncoding, ...)
+      } else if(inFileType == "eml") {
+        # Import file is an EML file
+        self$importFromEML(inFileLocation, inFileEncoding)
+      } else if(inFileType == "darwincore") {
+        # Import file is a Darwin Core archive
+        self$importFromDwCArchive(inFileLocation, inFileEncoding)
       } else {
         stop("error encountered importing metadata: unknown import file type")
       }
       invisible(self)
+    },
+    # ====== 1.7. Print the metadata information to the console ======
+    #' @description
+    #' Print the metadata information to the console
+    print = function() {
+      titleText <- self$getTitle()
+      creatorInfo <- self$getCreatorInfo()
+      abstractText <- self$getAbstract()
+      if(!is.na(titleText)) {
+        # Print the title of the dataset
+        cat("Title: ", titleText, "\n", sep = "")
+      }
+      # Print the names and affiliations of the dataset creators
+      if(length(creatorInfo) > 0) {
+        cat("Creator")
+        if(length(creatorInfo) > 1) {
+          cat("s")
+        }
+        cat(": ")
+        cat(paste(sapply(X = creatorInfo, FUN = function(curCreator) {
+          outText <- ""
+          if("individualName" %in% names(curCreator)) {
+            # Creator is an individual
+            if("givenName" %in% names(curCreator$individualName)) {
+              outText <- paste(outText, curCreator$individualName$givenName, " ", sep = "")
+            }
+            if("surName" %in% names(curCreator$individualName)) {
+              outText <- paste(outText, curCreator$individualName$surName, sep = "")
+            }
+            if("organizationName" %in% names(curCreator)) {
+              outText <- paste(outText, " (", curCreator$organizationName, ")", sep = "")
+            }
+          } else if("organizationName" %in% names(curCreator)) {
+            # Creator is an organization
+            outText <- paste(outText, curCreator$organizationName, sep = "")
+          }
+          outText
+        }), collapse = ", "), "\n", sep = "")
+      }
+      # Print the abstract of the dataset
+      if(!is.na(abstractText)) {
+        cat("Abstract: ", abstractText, "\n", sep = "")
+      }
+    },
+    # ====== 1.8. Retrieve the title of the dataset ======
+    #' @description
+    #' Retrieve the title of the dataset
+    #' @param lang A \code{character} scalar that specifies the language of the title to return.  This
+    #' is useful when the title has multiple translations in the metadata
+    getTitle = function(lang = NA) {
+      outValue <- NA
+      if(!is.null(private$xmlContent)) {
+        # Retrieve all the "title" nodes that are of the specified language type
+        titleNodes <- private$retrieveLangNodes("//dataset/title", lang)
+        titleNames <- ""
+        if(!is.null(titleNodes)) {
+          # Retrieve the text of the respective elements
+          titleNames <- xml_text(xml_find_all(titleNodes, "text()"), trim = TRUE)
+        }
+        # Remove any empty strings
+        titleNames <- titleNames[!is.na(titleNames) && titleNames != ""]
+        if(length(titleNames) > 0) {
+          outValue <- paste(titleNames, collapse = " ")
+        }
+      }
+      outValue
+    },
+    # ====== 1.9. Retrieve the information of the dataset creators ======
+    #' @description
+    #' Retrieve the information of the dataset creators
+    #' @param lang A \code{character} scalar that specifies the language of the elements to return.  This
+    #' is useful when the elements have multiple translations in the metadata
+    getCreatorInfo = function(lang = NA) {
+      # Helper function to retrieve information from nodeset
+      retrieveAsList <- function(curNode, lang) {
+        outVal <- list()
+        # Retrieve the output node
+        langNode <- private$retrieveLangNodes(xml_path(curNode), lang)
+        # Get the children of the current node
+        curChildren <- xml_children(langNode[[1]])
+        if(length(curChildren) > 0) {
+          # If there are children then call the function recursively
+          outVal <- setNames(lapply(X = curChildren, FUN = retrieveAsList, lang = lang), xml_name(curChildren))
+        } else {
+          # Otherwise return the text associated with the element (after tidying up whitespace)
+          outVal <- xml_text(curNode, trim = TRUE)
+          outVal <- outVal[!is.na(outVal) && outVal != ""]
+          outVal <- paste(outVal, collapse = " ")
+        }
+        outVal
+      }
+      outValue <- list()
+      if(!is.null(private$xmlContent)) {
+        # Retrieve all the creator nodes
+        creatorNodes <- xml_find_all(private$xmlContent, "//dataset/creator")
+        if(length(creatorNodes) > 0) {
+          outValue <- lapply(X = creatorNodes, FUN = retrieveAsList, lang = lang)
+        }
+      }
+      outValue
+    },
+    # ====== 1.10. Retrieve the abstract of the dataset ======
+    #' @description
+    #' Retrieve the dataset abstract
+    #' @param lang A \code{character} scalar that specifies the language of the elements to return.  This
+    #' is useful when the elements have multiple translations in the metadata
+    getAbstract = function(lang = NA) {
+      outValue <- NA
+      if(!is.null(private$xmlContent)) {
+        # Retrieve all the "abstract" nodes that are of the specified language type
+        abstractNodes <- private$retrieveLangNodes("//dataset/abstract", lang)
+       absText <- ""
+        if(!is.null(abstractNodes)) {
+          # Retrieve the text of the respective elements
+          absText <- xml_text(abstractNodes, trim = TRUE)
+        }
+        # Remove any empty strings
+        absText <- absText[!is.na(absText) && absText != ""]
+        if(length(absText) > 0) {
+          outValue <- paste(absText, collapse = "\n\n")
+        }
+      }
+      outValue
     }
   )
 )
@@ -278,8 +500,32 @@ DwCMetadata<-R6::R6Class(
 #' @param fileType A \code{character} scalar stating the type of the file.  File type can be either
 #' \code{"rmarkdown"}, \code{"html"}, \code{"eml"}, or \code{"darwincore"}. If \code{NA} then the
 #' file type will be determined from the file extension
+#' @param ... A set of arguments to be passed to the \code{\link[xml2::xml_new_root]{xml_new_root}}
+#' function to define namespace information.  The values returned by the helper function
+#' \code{\link[getDefaultEMLDefinitionInfo]{getDefaultEMLDefinitionInfo}} will be used unless
+#' overwritten by user input here.  In addition, arguments required by the EML standard but
+#' not provided here (such as the \link[https://ediorg.github.io/data-package-best-practices/EMLmetadata/Root-element.html]{packageID}
+#' attribute) will be otherwise auto-generated
 #' @return A new \code{DwCMetadata} object
 #' @seealso \code{\link[DwCMetadata]{DwCMetadata}}
-initializeDwCMetadata <- function(fileLocation, fileEncoding = "", fileType = NA) {
-  DwCMetadata$new(fileLocation = fileLocation, fileEncoding = fileEncoding, fileType = fileType)
+initializeDwCMetadata <- function(fileLocation, fileEncoding = "", fileType = NA, ...) {
+  DwCMetadata$new(fileLocation = fileLocation, fileEncoding = fileEncoding, fileType = fileType, ...)
+}
+
+# ------ 3. EML HANDLING FUNCTIONS ------
+
+# ====== 3.1. Retrieve EML definition information ======
+#' Retrieve the default namespace definition information used for EML document
+#' initialisation
+#' @return A \code{character} vector containing named elements that will be added to the
+#' call of the \code{\link[xml2::xml_new_root]{}} function when initialising new
+#' EML documents from Living Norway metadata documents
+getDefaultEMLDefinitionInfo <- function() {
+  unlist(list(
+    "xmlns:eml" = "eml://ecoinformatics.org/eml-2.1.1",
+    "xmlns:xsi" = "http://www.w3.org/2001/XMLSchema-instance",
+    "xmlns:dc" = "http://purl.org/dc/terms/",
+    "xsi:schemaLocation" = "eml://ecoinformatics.org/eml-2.1.1 eml.xsd",
+    "xml:lang" = "eng"
+  ))
 }

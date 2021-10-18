@@ -61,12 +61,12 @@ GBIFOccurrence <- R6Class("GBIFOccurrence",
 		#' @seealso \code{\link[DwCTerm]{DwCTerm}} \code{\link[getGBIFOccurrenceMembers]{getGBIFOccurrenceMembers}}
 		initialize = function(objectData, idColumnInfo, nameAutoMap = FALSE, defDateFormat = "YYYY-MM-DD", ...) {
 			super$initialize(
-				getGBIFOccurrenceTerm(),
-				getGBIFOccurrenceMembers(),
-				objectData,
-				idColumnInfo,
-				nameAutoMap,
-				defDateFormat,
+				classTermInfo = getGBIFOccurrenceTerm(),
+				associatedTerms = getGBIFOccurrenceMembers(),
+				objectData = objectData,
+				idColumnInfo = idColumnInfo,
+				nameAutoMap = nameAutoMap,
+				defDateFormat = defDateFormat,
 				...
 			)
 			invisible(self)

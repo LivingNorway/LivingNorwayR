@@ -61,12 +61,12 @@ GBIFVernacularName <- R6Class("GBIFVernacularName",
 		#' @seealso \code{\link[DwCTerm]{DwCTerm}} \code{\link[getGBIFVernacularNameMembers]{getGBIFVernacularNameMembers}}
 		initialize = function(objectData, idColumnInfo, nameAutoMap = FALSE, defDateFormat = "YYYY-MM-DD", ...) {
 			super$initialize(
-				getGBIFVernacularNameTerm(),
-				getGBIFVernacularNameMembers(),
-				objectData,
-				idColumnInfo,
-				nameAutoMap,
-				defDateFormat,
+				classTermInfo = getGBIFVernacularNameTerm(),
+				associatedTerms = getGBIFVernacularNameMembers(),
+				objectData = objectData,
+				idColumnInfo = idColumnInfo,
+				nameAutoMap = nameAutoMap,
+				defDateFormat = defDateFormat,
 				...
 			)
 			invisible(self)

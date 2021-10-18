@@ -61,12 +61,12 @@ GBIFMaterialSample <- R6Class("GBIFMaterialSample",
 		#' @seealso \code{\link[DwCTerm]{DwCTerm}} \code{\link[getGBIFMaterialSampleMembers]{getGBIFMaterialSampleMembers}}
 		initialize = function(objectData, idColumnInfo, nameAutoMap = FALSE, defDateFormat = "YYYY-MM-DD", ...) {
 			super$initialize(
-				getGBIFMaterialSampleTerm(),
-				getGBIFMaterialSampleMembers(),
-				objectData,
-				idColumnInfo,
-				nameAutoMap,
-				defDateFormat,
+				classTermInfo = getGBIFMaterialSampleTerm(),
+				associatedTerms = getGBIFMaterialSampleMembers(),
+				objectData = objectData,
+				idColumnInfo = idColumnInfo,
+				nameAutoMap = nameAutoMap,
+				defDateFormat = defDateFormat,
 				...
 			)
 			invisible(self)

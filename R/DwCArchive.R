@@ -12,8 +12,10 @@ DwCArchive <- R6Class("DwCArchive",
     coreObject = NULL,
     # A list of DwCGeneric objects (or a derived class) that contains the extensions
     extObjects = list(),
+    # A DwCMetadata object containing the metadata specification
+    metadata = NULL,
     # ====== 1.2. Generate a metafile XML object ======
-    generateMetafileXML = function(sep = ",", eol = "\n", na = "NA", fileEncoding = "") {
+    generateMetafileXML = function(sep = ",", eol = "\n", na = "NA", fileEncoding = "", emlLocation = "eml.xml") {
       # ------ 1.2.1. Sanity test the inputs ------
       # Helper function for sanity checking
       charSanityCheck <- function(inVal, paramName, defaultValue) {
@@ -38,6 +40,7 @@ DwCArchive <- R6Class("DwCArchive",
       inSep <- resolveSpecialChars(charSanityCheck(sep, "sep", ","))
       inEol <- resolveSpecialChars(charSanityCheck(eol, "eol", "\n"))
       inEncoding <- charSanityCheck(fileEncoding, "fileEncoding", localeToCharset(Sys.getlocale("LC_CTYPE")))
+      inEMLLocation <- charSanityCheck(emlLocation, "emlLocation", "eml.xml")
       # ------ 1.2.2. Create a new XML document and root node ------
       # Create a archive base node
       xmlOutput <- xml_new_root(
@@ -46,6 +49,7 @@ DwCArchive <- R6Class("DwCArchive",
         "xmlns:xsi" = "http://www.w3.org/2001/XMLSchema-instance",
         "xmlns:xs" = "http://www.w3.org/2001/XMLSchema",
         "xsi:schemaLocation" = "http://rs.tdwg.org/dwc/text/ http://rs.tdwg.org/dwc/text/tdwg_dwc_text.xsd",
+        metadata = iNEMLLocation,
         .version = "1.0",
         .encoding = "UTF-8"
       )
@@ -89,8 +93,9 @@ DwCArchive <- R6Class("DwCArchive",
     },
     # ====== 1.3. Print table information ======
     printTableInfo = function(tabToPrint) {
-      cat("Table name: ", tabToPrint$getTableName(), "\tID column: ", tabToPrint$getIDIndex(),
-        ifelse(is.na(tabToPrint$getIDName()), "", paste(" - \"", tabToPrint$getIDName(), "\"", sep = "")), "\n", sep = "")
+      cat("Table name: ", tabToPrint$getTableName(), " | ID column: ", tabToPrint$getIDIndex(),
+        ifelse(is.na(tabToPrint$getIDName()), "", paste(" - \"", tabToPrint$getIDName(), "\"", sep = "")),
+        " | Table class: ", tabToPrint$getTableTermName(), "\n", sep = "")
       tabTermMap <- tabToPrint$getTermMapping()
       print(tabTermMap[!is.na(tabTermMap$columnIndex), ])
       print(head(tabToPrint$exportAsDataFrame()))
@@ -142,6 +147,16 @@ DwCArchive <- R6Class("DwCArchive",
         stop("error encountered importing Darwin core archive: no meta file in archive")
       }
       metaFileContents <- read_xml(file.path(tempLoc, "meta.xml"), inFileEncoding)
+      # Retrieve the metafile attributes
+      metaFileAttributes <- xml_attrs(metaFileContents)
+      metadataLoc <- file.path(tempLoc, "eml.xml")
+      if(!is.null(names(metaFileAttributes)) && !("metadata" %in% names(metaFileAttributes))) {
+        warning("metadata EML file not specified in the meta.xml document: searching for an \'eml.xml\' file instead")
+      } else {
+        # Read the location of the metadata file from the meta.xml file
+        metadataLoc <- file.path(tempLoc, metaFileAttributes["metadata"])
+      }
+      private$metadata <- initializeDwCMetadata(fileLocation = metadataLoc, fileEncoding = inFileEncoding, fileType = "eml")
       # Make a list of augmented data tables
       fileList <- lapply(X = xml_children(metaFileContents), FUN = function(curChild, tempLoc) {
         # Function to return special characters
@@ -317,6 +332,7 @@ DwCArchive <- R6Class("DwCArchive",
       self$initialize(fileList[[coreIndex]], fileList[-coreIndex])
       # Remove the temporary directory
       unlist(tempLoc, recursive = TRUE)
+      invisible(self)
     }
   ),
   public = list(
@@ -382,11 +398,12 @@ DwCArchive <- R6Class("DwCArchive",
     #' backslash, or \code{"double"}, in which case it is doubled
     #' @param fileEncoding A character string. If non-empty, declares the encoding to be used on a file so the
     #' character data can be re-encoded as they are written
-    exportAsDwCArchive = function(fileName, quote = TRUE, sep = "\t", eol = "\n", na = "", dec = ".", qmethod = "escape", fileEncoding = "") {
+    #' @param emlLocation The location to store the EML metadata in the Darwin Core archive
+    exportAsDwCArchive = function(fileName, quote = TRUE, sep = "\t", eol = "\n", na = "", dec = ".", qmethod = "escape", fileEncoding = "", emlLocation = "eml.xml") {
       # Find the temporary location to place the files temporarily (before compressing them)
       tempLoc <- file.path(tempdir(), "LNexportDir")
       if(dir.exists(tempLoc)) {
-        unlist(tempLoc, recursive = TRUE)
+        unlink(tempLoc, recursive = TRUE)
       }
       dir.create(tempLoc, recursive = TRUE)
       # Locations of the table files
@@ -404,23 +421,45 @@ DwCArchive <- R6Class("DwCArchive",
         }, quote = quote, sep = sep, eol = eol, na = na, dec = dec, qmethod = qmethod, fileEncoding = fileEncoding, tempLoc = tempLoc)
       }
       # Produce the Darwin core meta file
-      outXML <- private$generateMetafileXML(sep, eol, na, fileEncoding)
-      inFileEncoding <- fileEncoding
+      outXML <- private$generateMetafileXML(sep, eol, na, fileEncoding, emlLocation)
+      inFileEncoding <- tryCatch(as.character(fileEncoding), error = function(err) {
+        stop("error encountered whilst processing the file encoding parameter: ", err)
+      })
       if(length(inFileEncoding) <= 0 || is.na(inFileEncoding) || inFileEncoding == "") {
         # Use the default system file encoding if it is not set by the function
         inFileEncoding <- localeToCharset(Sys.getlocale("LC_CTYPE"))
+      } else if(length(inFileEncoding) > 1) {
+        warning("file encoding parameter has length greater than one: only the first element will be used")
+        inFileEncoding <- inFileEncoding[1]
       }
       write_xml(outXML, metafileLoc, encoding = inFileEncoding)
+      # Produce the EML metadata file
+      inEMLLocation <- tryCatch(as.character(emlLocation), error = function(err) {
+        stop("error encountered whilst processing the EML location parameter: ", err)
+      })
+      if(length(inEMLLocation) <= 0 || is.na(inEMLLocation) || inEMLLocation == "") {
+        # Use the default system file encoding if it is not set by the function
+        inEMLLocation <- "eml.xml"
+      } else if(length(inEMLLocation) > 1) {
+        warning("EML location parameter has length greater than one: only the first element will be used")
+        inEMLLocation <- inEMLLocation[1]
+      }
+      metadataLoc <- file.path(tempLoc, inEMLLocation)
+      private$metadata$exportToEML(fileLocation = metadataLoc, fileEncoding = inFileEncoding)
       # Zip all the files together
-      zip::zip(fileName, c(coreLoc, extLocs, metafileLoc), mode = "cherry-pick")
+      zip::zip(fileName, c(coreLoc, extLocs, metafileLoc, metadataLoc), mode = "cherry-pick")
       # Remove the temporary directory
-      unlist(tempLoc, recursive = TRUE)
+      unlink(tempLoc, recursive = TRUE)
       invisible(self)
     },
     # ====== 1.6. Function to print the object to the console ======
     #' @description
     #' Print the archive information
     print = function() {
+      # Display the metadata summary
+      cat("METADATA\n\n")
+      print(private$metadata)
+      cat("\n\n")
       # Display a summary of the core table
       cat("CORE TABLE\n\n")
       private$printTableInfo(private$coreObject)
@@ -492,6 +531,29 @@ DwCArchive <- R6Class("DwCArchive",
         })
       }
       outVals
+    },
+    # ====== 1.10. Retrieve the metadata for the archive ======
+    #' @description
+    #' Retrieve the metadata for the archive
+    #' @return A \code{DwCMetadata} object that contains the metadata of the archive
+    getMetadata = function() {
+      private$metadata$clone()
     }
   )
 )
+
+# ------ 2. DARWIN CORE ARCHIVE INITIALIZATION FUNCTION ------
+#' Create a new \code{DwCAchive} object
+#' @param coreDwC Either a \code{DwCGeneric} (or derived class) object that represents the
+#' table that corresponds to the 'core' table.  Alternatively, this parameter can be
+#' \code{character} scalar giving the location of the Darwin core archive file to
+#' initialize the object from
+#' @param extDwC A \code{list} of \code{DwCGeneric} (or derived class) objects that represent
+#' the tables used as extension objects in the Darwin Core archive.  If \code{coreDwC}
+#' is a character scalar then \code{extDwC} can also be a character scalar that contains the
+#' default file encodings for the files in the Darwin core archive
+#' @return A new \code{DwCArchive} object
+#' @seealso \code{\link[DwCGeneric]{DwCGeneric}}
+initializeDwCArchive = function(coreDwC, extDwC = NULL) {
+  DwCArchive$new(coreDwC = coreDwC, extDwC = extDwC)
+}

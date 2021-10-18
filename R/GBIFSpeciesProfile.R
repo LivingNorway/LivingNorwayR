@@ -61,12 +61,12 @@ GBIFSpeciesProfile <- R6Class("GBIFSpeciesProfile",
 		#' @seealso \code{\link[DwCTerm]{DwCTerm}} \code{\link[getGBIFSpeciesProfileMembers]{getGBIFSpeciesProfileMembers}}
 		initialize = function(objectData, idColumnInfo, nameAutoMap = FALSE, defDateFormat = "YYYY-MM-DD", ...) {
 			super$initialize(
-				getGBIFSpeciesProfileTerm(),
-				getGBIFSpeciesProfileMembers(),
-				objectData,
-				idColumnInfo,
-				nameAutoMap,
-				defDateFormat,
+				classTermInfo = getGBIFSpeciesProfileTerm(),
+				associatedTerms = getGBIFSpeciesProfileMembers(),
+				objectData = objectData,
+				idColumnInfo = idColumnInfo,
+				nameAutoMap = nameAutoMap,
+				defDateFormat = defDateFormat,
 				...
 			)
 			invisible(self)

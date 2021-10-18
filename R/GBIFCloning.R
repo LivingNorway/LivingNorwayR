@@ -61,12 +61,12 @@ GBIFCloning <- R6Class("GBIFCloning",
 		#' @seealso \code{\link[DwCTerm]{DwCTerm}} \code{\link[getGBIFCloningMembers]{getGBIFCloningMembers}}
 		initialize = function(objectData, idColumnInfo, nameAutoMap = FALSE, defDateFormat = "YYYY-MM-DD", ...) {
 			super$initialize(
-				getGBIFCloningTerm(),
-				getGBIFCloningMembers(),
-				objectData,
-				idColumnInfo,
-				nameAutoMap,
-				defDateFormat,
+				classTermInfo = getGBIFCloningTerm(),
+				associatedTerms = getGBIFCloningMembers(),
+				objectData = objectData,
+				idColumnInfo = idColumnInfo,
+				nameAutoMap = nameAutoMap,
+				defDateFormat = defDateFormat,
 				...
 			)
 			invisible(self)

@@ -61,12 +61,12 @@ GBIFAmplification <- R6Class("GBIFAmplification",
 		#' @seealso \code{\link[DwCTerm]{DwCTerm}} \code{\link[getGBIFAmplificationMembers]{getGBIFAmplificationMembers}}
 		initialize = function(objectData, idColumnInfo, nameAutoMap = FALSE, defDateFormat = "YYYY-MM-DD", ...) {
 			super$initialize(
-				getGBIFAmplificationTerm(),
-				getGBIFAmplificationMembers(),
-				objectData,
-				idColumnInfo,
-				nameAutoMap,
-				defDateFormat,
+				classTermInfo = getGBIFAmplificationTerm(),
+				associatedTerms = getGBIFAmplificationMembers(),
+				objectData = objectData,
+				idColumnInfo = idColumnInfo,
+				nameAutoMap = nameAutoMap,
+				defDateFormat = defDateFormat,
 				...
 			)
 			invisible(self)

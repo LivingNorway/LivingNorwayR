@@ -61,12 +61,12 @@ GBIFReleve <- R6Class("GBIFReleve",
 		#' @seealso \code{\link[DwCTerm]{DwCTerm}} \code{\link[getGBIFReleveMembers]{getGBIFReleveMembers}}
 		initialize = function(objectData, idColumnInfo, nameAutoMap = FALSE, defDateFormat = "YYYY-MM-DD", ...) {
 			super$initialize(
-				getGBIFReleveTerm(),
-				getGBIFReleveMembers(),
-				objectData,
-				idColumnInfo,
-				nameAutoMap,
-				defDateFormat,
+				classTermInfo = getGBIFReleveTerm(),
+				associatedTerms = getGBIFReleveMembers(),
+				objectData = objectData,
+				idColumnInfo = idColumnInfo,
+				nameAutoMap = nameAutoMap,
+				defDateFormat = defDateFormat,
 				...
 			)
 			invisible(self)

@@ -61,12 +61,12 @@ GBIFResourceRelationship <- R6Class("GBIFResourceRelationship",
 		#' @seealso \code{\link[DwCTerm]{DwCTerm}} \code{\link[getGBIFResourceRelationshipMembers]{getGBIFResourceRelationshipMembers}}
 		initialize = function(objectData, idColumnInfo, nameAutoMap = FALSE, defDateFormat = "YYYY-MM-DD", ...) {
 			super$initialize(
-				getGBIFResourceRelationshipTerm(),
-				getGBIFResourceRelationshipMembers(),
-				objectData,
-				idColumnInfo,
-				nameAutoMap,
-				defDateFormat,
+				classTermInfo = getGBIFResourceRelationshipTerm(),
+				associatedTerms = getGBIFResourceRelationshipMembers(),
+				objectData = objectData,
+				idColumnInfo = idColumnInfo,
+				nameAutoMap = nameAutoMap,
+				defDateFormat = defDateFormat,
 				...
 			)
 			invisible(self)

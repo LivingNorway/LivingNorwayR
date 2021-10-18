@@ -61,12 +61,12 @@ GBIFLoan <- R6Class("GBIFLoan",
 		#' @seealso \code{\link[DwCTerm]{DwCTerm}} \code{\link[getGBIFLoanMembers]{getGBIFLoanMembers}}
 		initialize = function(objectData, idColumnInfo, nameAutoMap = FALSE, defDateFormat = "YYYY-MM-DD", ...) {
 			super$initialize(
-				getGBIFLoanTerm(),
-				getGBIFLoanMembers(),
-				objectData,
-				idColumnInfo,
-				nameAutoMap,
-				defDateFormat,
+				classTermInfo = getGBIFLoanTerm(),
+				associatedTerms = getGBIFLoanMembers(),
+				objectData = objectData,
+				idColumnInfo = idColumnInfo,
+				nameAutoMap = nameAutoMap,
+				defDateFormat = defDateFormat,
 				...
 			)
 			invisible(self)

@@ -688,3 +688,15 @@ retrieveGBIFClassSpecifications <- function(classOption = "all", includeDeprecat
 isDwCTerm <- function(inOb) {
   any(class(inOb) == "DwCTerm")
 }
+
+# TODO: document GBIF core class retrieval function
+getGBIFCoreClasses <- function() {
+  setNames(lapply(X = GBIFCoreClassList, FUN = function(curClass) {curClass$termInfo}),
+    paste("GBIF", sapply(X = GBIFCoreClassList, FUN = function(curClass) {curClass$termInfo$getTermName()}), sep = ""))
+}
+
+# TODO: document GBIF extension class retrieval function
+getGBIFExtensionClasses <- function() {
+  setNames(lapply(X = GBIFExtClassList, FUN = function(curClass) {curClass$termInfo}),
+           paste("GBIF", sapply(X = GBIFExtClassList, FUN = function(curClass) {curClass$termInfo$getTermName()}), sep = ""))
+}

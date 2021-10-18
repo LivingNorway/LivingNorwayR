@@ -61,12 +61,12 @@ GBIFMeasurementScore <- R6Class("GBIFMeasurementScore",
 		#' @seealso \code{\link[DwCTerm]{DwCTerm}} \code{\link[getGBIFMeasurementScoreMembers]{getGBIFMeasurementScoreMembers}}
 		initialize = function(objectData, idColumnInfo, nameAutoMap = FALSE, defDateFormat = "YYYY-MM-DD", ...) {
 			super$initialize(
-				getGBIFMeasurementScoreTerm(),
-				getGBIFMeasurementScoreMembers(),
-				objectData,
-				idColumnInfo,
-				nameAutoMap,
-				defDateFormat,
+				classTermInfo = getGBIFMeasurementScoreTerm(),
+				associatedTerms = getGBIFMeasurementScoreMembers(),
+				objectData = objectData,
+				idColumnInfo = idColumnInfo,
+				nameAutoMap = nameAutoMap,
+				defDateFormat = defDateFormat,
 				...
 			)
 			invisible(self)
