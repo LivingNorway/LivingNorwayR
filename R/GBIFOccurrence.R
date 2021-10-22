@@ -59,6 +59,7 @@ GBIFOccurrence <- R6Class("GBIFOccurrence",
 		#' term. Mappable terms can be found using: \code{sapply(X = getGBIFOccurrenceMembers(), FUN = function(curTerm) { curTerm$getTermName() })}
 		#' @return A new \code{GBIFOccurrence} object
 		#' @seealso \code{\link[DwCTerm]{DwCTerm}} \code{\link[getGBIFOccurrenceMembers]{getGBIFOccurrenceMembers}}
+		#' @export
 		initialize = function(objectData, idColumnInfo, nameAutoMap = FALSE, defDateFormat = "YYYY-MM-DD", ...) {
 			super$initialize(
 				classTermInfo = getGBIFOccurrenceTerm(),
@@ -94,6 +95,8 @@ t#' @param idColumnInfo Either a \code{character} scalar containing the column n
 #' term. Mappable terms can be found using: \code{sapply(X = getGBIFOccurrenceMembers(), FUN = function(curTerm) { curTerm$getTermName() })}
 #' @return A new \code{GBIFOccurrence} object
 #' @seealso \code{\link[DwCTerm]{DwCTerm}} \code{\link[getGBIFOccurrenceMembers]{getGBIFOccurrenceMembers}}
+#' @export
+
 initializeGBIFOccurrence <- function(objectData, idColumnInfo, nameAutoMap = FALSE, defDateFormat = "YYYY-MM-DD", ...) {
 	GBIFOccurrence$new(objectData = objectData, idColumnInfo = idColumnInfo, nameAutoMap = nameAutoMap, defDateFormat = defDateFormat, ...)
 }
