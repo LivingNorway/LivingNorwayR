@@ -95,6 +95,8 @@ t#' @param idColumnInfo Either a \code{character} scalar containing the column n
 #' term. Mappable terms can be found using: \code{sapply(X = getGBIFEventMembers(), FUN = function(curTerm) { curTerm$getTermName() })}
 #' @return A new \code{GBIFEvent} object
 #' @seealso \code{\link[DwCTerm]{DwCTerm}} \code{\link[getGBIFEventMembers]{getGBIFEventMembers}}
+#' @export
+#'
 initializeGBIFEvent <- function(objectData, idColumnInfo, nameAutoMap = FALSE, defDateFormat = "YYYY-MM-DD", ...) {
 	GBIFEvent$new(objectData = objectData, idColumnInfo = idColumnInfo, nameAutoMap = nameAutoMap, defDateFormat = defDateFormat, ...)
 }
