@@ -588,7 +588,7 @@ retrieveDwCClassSpecifications <- function(includeDeprecated = FALSE) {
 #' @seealso \code{\link[retrieveDwCTermSpecifications]{retrieveDwCTermSpecifications}}
 #' \code{\link[DwCTerm]{DwCTerm}}
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}
-#'
+#' @export
 retrieveGBIFClassSpecifications <- function(classOption = "all", includeDeprecated = FALSE) {
   # ====== 4.1. Retrieve terms from the GBIF list of used terms ======
   termList <- retrieveDwCTermSpecifications(TRUE, includeDeprecated)
@@ -692,6 +692,9 @@ isDwCTerm <- function(inOb) {
 }
 
 # TODO: document GBIF core class retrieval function
+#' Class retrieval function
+#' @export
+#
 getGBIFCoreClasses <- function() {
   setNames(lapply(X = GBIFCoreClassList, FUN = function(curClass) {curClass$termInfo}),
     paste("GBIF", sapply(X = GBIFCoreClassList, FUN = function(curClass) {curClass$termInfo$getTermName()}), sep = ""))
