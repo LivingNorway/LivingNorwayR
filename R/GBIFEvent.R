@@ -17,6 +17,7 @@ getGBIFEventTerm <- function() {
 #' @return A \code{list} of \code{DwCTerm} objects, one for each member of the the
 #' GBIF Event class
 #' @seealso \code{\link[DwCTerm]{DwCTerm}}
+#' @export
 getGBIFEventMembers <- function() {
 	outValue <- NULL
 	if("http://rs.tdwg.org/dwc/terms/Event" %in% names(GBIFCoreClassList)) {
