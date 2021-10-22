@@ -3,6 +3,7 @@
 #' @description Return the information of the term associated with the GBIF Amplification class
 #' @return A \code{DwCTerm} object containing the term information
 #' @seealso \code{\link[DwCTerm]{DwCTerm}}
+#' @export
 getGBIFAmplificationTerm <- function() {
 	outValue <- NULL
 	if("http://data.ggbn.org/schemas/ggbn/terms/Amplification" %in% names(GBIFCoreClassList)) {
@@ -18,6 +19,7 @@ getGBIFAmplificationTerm <- function() {
 #' @return A \code{list} of \code{DwCTerm} objects, one for each member of the the
 #' GBIF Amplification class
 #' @seealso \code{\link[DwCTerm]{DwCTerm}}
+#' @export
 getGBIFAmplificationMembers <- function() {
 	outValue <- NULL
 	if("http://data.ggbn.org/schemas/ggbn/terms/Amplification" %in% names(GBIFCoreClassList)) {

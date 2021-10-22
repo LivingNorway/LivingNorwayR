@@ -90,6 +90,7 @@ DwCMetadata<-R6::R6Class(
     #' overwritten by user input here.  In addition, arguments required by the EML standard but
     #' not provided here (such as the \link[https://ediorg.github.io/data-package-best-practices/EMLmetadata/Root-element.html]{packageID}
     #' attribute) will be otherwise auto-generated
+    #' @export
     importFromLivingNorwayHTML = function(fileLocation, fileEncoding = "", ...) {
       # Process the file encoding parameter
       inFileEncoding <- private$charSanityCheck(fileEncoding, "fileEncoding", localeToCharset(Sys.getlocale("LC_CTYPE")))
@@ -214,6 +215,7 @@ DwCMetadata<-R6::R6Class(
     #' overwritten by user input here.  In addition, arguments required by the EML standard but
     #' not provided here (such as the \link[https://ediorg.github.io/data-package-best-practices/EMLmetadata/Root-element.html]{packageID}
     #' attribute) will be otherwise auto-generated
+    #' @export
     importFromLivingNorwayRMD = function(fileLocation, fileEncoding = "", ...) {
       # Process the file encoding parameter
       inFileEncoding <- private$charSanityCheck(fileEncoding, "fileEncoding", localeToCharset(Sys.getlocale("LC_CTYPE")))
@@ -243,6 +245,7 @@ DwCMetadata<-R6::R6Class(
     #' RMD file
     #' @param fileEncoding A character string. If non-empty, declares the encoding to be used on a file so the
     #' character data can be re-encoded as they are written
+    #' @export
     importFromEML = function(fileLocation, fileEncoding = "") {
       # Process the file encoding parameter
       inFileEncoding <- private$charSanityCheck(fileEncoding, "fileEncoding", localeToCharset(Sys.getlocale("LC_CTYPE")))
@@ -265,6 +268,7 @@ DwCMetadata<-R6::R6Class(
     #' RMD file
     #' @param fileEncoding A character string. If non-empty, declares the encoding to be used on a file so the
     #' character data can be re-encoded as they are written
+    #' @export
     importFromDwCArchive = function(fileLocation, fileEncoding = "") {
       # Process the file encoding parameter
       inFileEncoding <- private$charSanityCheck(fileEncoding, "fileEncoding", localeToCharset(Sys.getlocale("LC_CTYPE")))
@@ -305,6 +309,7 @@ DwCMetadata<-R6::R6Class(
     #' @param fileLocation A \code{character} scalar containing the location to store the EML fiøe
     #' @param fileEncoding A character string. If non-empty, declares the encoding to be used on a file so the
     #' character data can be re-encoded as they are written
+    #' @export
     exportToEML = function(fileLocation, fileEncoding = "") {
       # Process the file encoding parameter
       inFileEncoding <- private$charSanityCheck(fileEncoding, "fileEncoding", localeToCharset(Sys.getlocale("LC_CTYPE")))
@@ -330,6 +335,7 @@ DwCMetadata<-R6::R6Class(
     #' overwritten by user input here.  In addition, arguments required by the EML standard but
     #' not provided here (such as the \link[https://ediorg.github.io/data-package-best-practices/EMLmetadata/Root-element.html]{packageID}
     #' attribute) will be otherwise auto-generated
+    #' @export
     initialize = function(fileLocation, fileEncoding = "", fileType = NA, ...) {
       # Process the file encoding parameter
       inFileEncoding <- private$charSanityCheck(fileEncoding, "fileEncoding", localeToCharset(Sys.getlocale("LC_CTYPE")))
@@ -414,6 +420,7 @@ DwCMetadata<-R6::R6Class(
     #' Retrieve the title of the dataset
     #' @param lang A \code{character} scalar that specifies the language of the title to return.  This
     #' is useful when the title has multiple translations in the metadata
+    #' @export
     getTitle = function(lang = NA) {
       outValue <- NA
       if(!is.null(private$xmlContent)) {
@@ -437,6 +444,7 @@ DwCMetadata<-R6::R6Class(
     #' Retrieve the information of the dataset creators
     #' @param lang A \code{character} scalar that specifies the language of the elements to return.  This
     #' is useful when the elements have multiple translations in the metadata
+    #' @export
     getCreatorInfo = function(lang = NA) {
       # Helper function to retrieve information from nodeset
       retrieveAsList <- function(curNode, lang) {
@@ -471,6 +479,8 @@ DwCMetadata<-R6::R6Class(
     #' Retrieve the dataset abstract
     #' @param lang A \code{character} scalar that specifies the language of the elements to return.  This
     #' is useful when the elements have multiple translations in the metadata
+    #' @export
+
     getAbstract = function(lang = NA) {
       outValue <- NA
       if(!is.null(private$xmlContent)) {
@@ -509,6 +519,7 @@ DwCMetadata<-R6::R6Class(
 #' attribute) will be otherwise auto-generated
 #' @return A new \code{DwCMetadata} object
 #' @seealso \code{\link[DwCMetadata]{DwCMetadata}}
+#' @export
 initializeDwCMetadata <- function(fileLocation, fileEncoding = "", fileType = NA, ...) {
   DwCMetadata$new(fileLocation = fileLocation, fileEncoding = fileEncoding, fileType = fileType, ...)
 }
@@ -521,6 +532,7 @@ initializeDwCMetadata <- function(fileLocation, fileEncoding = "", fileType = NA
 #' @return A \code{character} vector containing named elements that will be added to the
 #' call of the \code{\link[xml2::xml_new_root]{}} function when initialising new
 #' EML documents from Living Norway metadata documents
+#' @export
 getDefaultEMLDefinitionInfo <- function() {
   unlist(list(
     "xmlns:eml" = "eml://ecoinformatics.org/eml-2.1.1",
