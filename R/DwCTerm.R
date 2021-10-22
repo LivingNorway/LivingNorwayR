@@ -701,6 +701,8 @@ getGBIFCoreClasses <- function() {
 }
 
 # TODO: document GBIF extension class retrieval function
+#' Extention retrieval function
+#' @export
 getGBIFExtensionClasses <- function() {
   setNames(lapply(X = GBIFExtClassList, FUN = function(curClass) {curClass$termInfo}),
            paste("GBIF", sapply(X = GBIFExtClassList, FUN = function(curClass) {curClass$termInfo$getTermName()}), sep = ""))

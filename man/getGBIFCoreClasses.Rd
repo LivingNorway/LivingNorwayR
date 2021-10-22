@@ -2,10 +2,10 @@
 % Please edit documentation in R/DwCTerm.R
 \name{getGBIFCoreClasses}
 \alias{getGBIFCoreClasses}
-\title{Class retriveal function}
+\title{Class retrieval function}
 \usage{
 getGBIFCoreClasses()
 }
 \description{
-Class retriveal function
+Class retrieval function
 }
