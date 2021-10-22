@@ -17,6 +17,7 @@ getGBIFOccurrenceTerm <- function() {
 #' @return A \code{list} of \code{DwCTerm} objects, one for each member of the the
 #' GBIF Occurrence class
 #' @seealso \code{\link[DwCTerm]{DwCTerm}}
+#' @export
 getGBIFOccurrenceMembers <- function() {
 	outValue <- NULL
 	if("http://rs.tdwg.org/dwc/terms/Occurrence" %in% names(GBIFCoreClassList)) {
