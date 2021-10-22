@@ -3,13 +3,11 @@
 \docType{class}
 \name{DwCMetadata}
 \alias{DwCMetadata}
-\title{R6 class that represents metadata in DwC}
+\title{R6 metadata class}
 \format{
 \code{\link{R6Class}} object.
 }
 \description{
-R6 class that represents metadata in DwC
-
 R6 class that represents metadata in DwC
 }
 \details{
@@ -21,8 +19,14 @@ handling of metadata being presented
 \itemize{
 \item \href{#method-importFromLivingNorwayHTML}{\code{DwCMetadata$importFromLivingNorwayHTML()}}
 \item \href{#method-importFromLivingNorwayRMD}{\code{DwCMetadata$importFromLivingNorwayRMD()}}
+\item \href{#method-importFromEML}{\code{DwCMetadata$importFromEML()}}
+\item \href{#method-importFromDwCArchive}{\code{DwCMetadata$importFromDwCArchive()}}
 \item \href{#method-exportToEML}{\code{DwCMetadata$exportToEML()}}
 \item \href{#method-new}{\code{DwCMetadata$new()}}
+\item \href{#method-print}{\code{DwCMetadata$print()}}
+\item \href{#method-getTitle}{\code{DwCMetadata$getTitle()}}
+\item \href{#method-getCreatorInfo}{\code{DwCMetadata$getCreatorInfo()}}
+\item \href{#method-getAbstract}{\code{DwCMetadata$getAbstract()}}
 \item \href{#method-clone}{\code{DwCMetadata$clone()}}
 }
 }
@@ -33,7 +37,7 @@ handling of metadata being presented
 Retrieve metadata information from a HTML file that has been created with a
 Living Norway HTML tag schema
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DwCMetadata$importFromLivingNorwayHTML(fileLocation, fileEncoding = "")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{DwCMetadata$importFromLivingNorwayHTML(fileLocation, fileEncoding = "", ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -42,8 +46,15 @@ Living Norway HTML tag schema
 \item{\code{fileLocation}}{A \code{character} scalar containing the location of the
 HTML file}
 
-\item{\code{fileEncoding}}{A character string. If non-empty, declares the encoding to be used on a file so the
+\item{\code{fileEncoding}}{A \code{character} scalar. If non-empty, declares the encoding to be used on a file so the
 character data can be re-encoded as they are written}
+
+\item{\code{...}}{A set of arguments to be passed to the \code{\link[xml2::xml_new_root]{xml_new_root}}
+function to define namespace information.  The values returned by the helper function
+\code{\link[getDefaultEMLDefinitionInfo]{getDefaultEMLDefinitionInfo}} will be used unless
+overwritten by user input here.  In addition, arguments required by the EML standard but
+not provided here (such as the \link[https://ediorg.github.io/data-package-best-practices/EMLmetadata/Root-element.html]{packageID}
+attribute) will be otherwise auto-generated}
 }
 \if{html}{\out{</div>}}
 }
@@ -55,7 +66,56 @@ character data can be re-encoded as they are written}
 Retrieve metadata information from a RMD file that has been created with a
 Living Norway HTML tag schema
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DwCMetadata$importFromLivingNorwayRMD(fileLocation, fileEncoding = "")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{DwCMetadata$importFromLivingNorwayRMD(fileLocation, fileEncoding = "", ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{fileLocation}}{A \code{character} scalar containing the location of the
+RMD file}
+
+\item{\code{fileEncoding}}{A character string. If non-empty, declares the encoding to be used on a file so the
+character data can be re-encoded as they are written}
+
+\item{\code{...}}{A set of arguments to be passed to the \code{\link[xml2::xml_new_root]{xml_new_root}}
+function to define namespace information.  The values returned by the helper function
+\code{\link[getDefaultEMLDefinitionInfo]{getDefaultEMLDefinitionInfo}} will be used unless
+overwritten by user input here.  In addition, arguments required by the EML standard but
+not provided here (such as the \link[https://ediorg.github.io/data-package-best-practices/EMLmetadata/Root-element.html]{packageID}
+attribute) will be otherwise auto-generated}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-importFromEML"></a>}}
+\if{latex}{\out{\hypertarget{method-importFromEML}{}}}
+\subsection{Method \code{importFromEML()}}{
+Retrieve metadata information from an Ecological Metadata Language (EML) file
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DwCMetadata$importFromEML(fileLocation, fileEncoding = "")}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{fileLocation}}{A \code{character} scalar containing the location of the
+RMD file}
+
+\item{\code{fileEncoding}}{A character string. If non-empty, declares the encoding to be used on a file so the
+character data can be re-encoded as they are written}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-importFromDwCArchive"></a>}}
+\if{latex}{\out{\hypertarget{method-importFromDwCArchive}{}}}
+\subsection{Method \code{importFromDwCArchive()}}{
+Retrieve metadata information from a Darwin Core archive file
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DwCMetadata$importFromDwCArchive(fileLocation, fileEncoding = "")}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -96,7 +156,7 @@ character data can be re-encoded as they are written}
 \subsection{Method \code{new()}}{
 Initialise a metadata object from an import file
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DwCMetadata$new(fileLocation, fileEncoding = "", fileType = NA)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{DwCMetadata$new(fileLocation, fileEncoding = "", fileType = NA, ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -110,6 +170,77 @@ character data can be re-encoded as they are written}
 \item{\code{fileType}}{A \code{character} scalar stating the type of the file.  File type can be either
 \code{"rmarkdown"}, \code{"html"}, \code{"eml"}, or \code{"darwincore"}. If \code{NA} then the
 file type will be determined from the file extension}
+
+\item{\code{...}}{A set of arguments to be passed to the \code{\link[xml2::xml_new_root]{xml_new_root}}
+function to define namespace information.  The values returned by the helper function
+\code{\link[getDefaultEMLDefinitionInfo]{getDefaultEMLDefinitionInfo}} will be used unless
+overwritten by user input here.  In addition, arguments required by the EML standard but
+not provided here (such as the \link[https://ediorg.github.io/data-package-best-practices/EMLmetadata/Root-element.html]{packageID}
+attribute) will be otherwise auto-generated}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-print"></a>}}
+\if{latex}{\out{\hypertarget{method-print}{}}}
+\subsection{Method \code{print()}}{
+Print the metadata information to the console
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DwCMetadata$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-getTitle"></a>}}
+\if{latex}{\out{\hypertarget{method-getTitle}{}}}
+\subsection{Method \code{getTitle()}}{
+Retrieve the title of the dataset
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DwCMetadata$getTitle(lang = NA)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{lang}}{A \code{character} scalar that specifies the language of the title to return.  This
+is useful when the title has multiple translations in the metadata}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-getCreatorInfo"></a>}}
+\if{latex}{\out{\hypertarget{method-getCreatorInfo}{}}}
+\subsection{Method \code{getCreatorInfo()}}{
+Retrieve the information of the dataset creators
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DwCMetadata$getCreatorInfo(lang = NA)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{lang}}{A \code{character} scalar that specifies the language of the elements to return.  This
+is useful when the elements have multiple translations in the metadata}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-getAbstract"></a>}}
+\if{latex}{\out{\hypertarget{method-getAbstract}{}}}
+\subsection{Method \code{getAbstract()}}{
+Retrieve the dataset abstract
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DwCMetadata$getAbstract(lang = NA)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{lang}}{A \code{character} scalar that specifies the language of the elements to return.  This
+is useful when the elements have multiple translations in the metadata}
 }
 \if{html}{\out{</div>}}
 }

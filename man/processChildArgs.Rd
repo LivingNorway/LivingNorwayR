@@ -30,3 +30,4 @@ Create a series of child metadata tags based on a naming convention of \code{...
 \author{
 Joseph D. Chipperfield, \email{joechip90@googlemail.com}; Matthew Grainger, \email{matthew.grainger@nina.no}
 }
+\keyword{internal}

@@ -1,10 +1,14 @@
 # ------ 1. DARWIN CORE ARCHIVE CLASS ------
-#' R6 class representing a complete data structure for a Darwin Core archive
+#' R6 DwC archive class
+#' @description R6 class representing a complete data structure for a Darwin Core archive
 #'
-#' The \code{DwcArchive} class serves a base class to all Darwin Core archive file types. This class supports
+#' @details The \code{DwcArchive} class serves a base class to all Darwin Core archive file types. This class supports
 #' all kinds of Darwin Core archive files but may miss some of the specialised functionality of the more specialist
 #' classes. See \url{https://dwc.tdwg.org/text/}{the Darwin core archive guide} for more information on the
 #' structure of Darwin core archive files.
+#' @importFrom R6 R6Class
+#' @export
+#' @format \code{\link{R6Class}} object.
 DwCArchive <- R6Class("DwCArchive",
   # ====== 1.1. Define private members of the archive class ======
   private = list(
@@ -554,6 +558,7 @@ DwCArchive <- R6Class("DwCArchive",
 #' default file encodings for the files in the Darwin core archive
 #' @return A new \code{DwCArchive} object
 #' @seealso \code{\link[DwCGeneric]{DwCGeneric}}
+#' @export
 initializeDwCArchive = function(coreDwC, extDwC = NULL) {
   DwCArchive$new(coreDwC = coreDwC, extDwC = extDwC)
 }

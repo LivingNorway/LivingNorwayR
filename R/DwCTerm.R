@@ -1,4 +1,6 @@
 # ------ 1. A DWCTERM CLASS TO HOLD INFORMATION ON DARWIN CORE TERMS ------
+#' DWCTerm object
+#' @description R6 class to hold information on DWC terms
 #' @importFrom R6 R6Class
 #' @export
 #' @format \code{\link{R6Class}} object.

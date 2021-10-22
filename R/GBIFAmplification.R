@@ -1,5 +1,6 @@
 # ------ 1. AMPLIFICATION TERM INFORMATION ------
-#' Return the information of the term associated with the GBIF Amplification class
+#' Amplification term information
+#' @description Return the information of the term associated with the GBIF Amplification class
 #' @return A \code{DwCTerm} object containing the term information
 #' @seealso \code{\link[DwCTerm]{DwCTerm}}
 getGBIFAmplificationTerm <- function() {
@@ -75,7 +76,8 @@ GBIFAmplification <- R6Class("GBIFAmplification",
 )
 
 # ------ 4. INITIALISATION FUNCTION ------
-#' Initialize a new GBIF Amplification object
+#' initializeGBIFAmplification
+#' @description Initialize a new GBIF Amplification object
 #' @param objectData A \code{data.frame} containing the data to import into the object
 t#' @param idColumnInfo Either a \code{character} scalar containing the column name of
 #' \code{objectData} or an \code{integer} scalar giving the index of the column of

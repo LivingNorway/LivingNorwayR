@@ -2,10 +2,11 @@
 % Please edit documentation in R/DwCArchive.R
 \name{DwCArchive}
 \alias{DwCArchive}
-\title{R6 class representing a complete data structure for a Darwin Core archive}
+\title{R6 DwC archive class}
+\format{
+\code{\link{R6Class}} object.
+}
 \description{
-R6 class representing a complete data structure for a Darwin Core archive
-
 R6 class representing a complete data structure for a Darwin Core archive
 }
 \details{
@@ -23,6 +24,7 @@ structure of Darwin core archive files.
 \item \href{#method-getNumberExtensions}{\code{DwCArchive$getNumberExtensions()}}
 \item \href{#method-getCoreTable}{\code{DwCArchive$getCoreTable()}}
 \item \href{#method-getExtensionTables}{\code{DwCArchive$getExtensionTables()}}
+\item \href{#method-getMetadata}{\code{DwCArchive$getMetadata()}}
 \item \href{#method-clone}{\code{DwCArchive$clone()}}
 }
 }
@@ -65,7 +67,8 @@ Export the archive as a Darwin core archive file
   na = "",
   dec = ".",
   qmethod = "escape",
-  fileEncoding = ""
+  fileEncoding = "",
+  emlLocation = "eml.xml"
 )}\if{html}{\out{</div>}}
 }
 
@@ -93,6 +96,8 @@ backslash, or \code{"double"}, in which case it is doubled}
 
 \item{\code{fileEncoding}}{A character string. If non-empty, declares the encoding to be used on a file so the
 character data can be re-encoded as they are written}
+
+\item{\code{emlLocation}}{The location to store the EML metadata in the Darwin Core archive}
 }
 \if{html}{\out{</div>}}
 }
@@ -155,6 +160,19 @@ retrieved}
 \subsection{Returns}{
 A \code{list} of objects derived from \code{DwCGeneric} that contains the extension table
 information
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-getMetadata"></a>}}
+\if{latex}{\out{\hypertarget{method-getMetadata}{}}}
+\subsection{Method \code{getMetadata()}}{
+Retrieve the metadata for the archive
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DwCArchive$getMetadata()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+A \code{DwCMetadata} object that contains the metadata of the archive
 }
 }
 \if{html}{\out{<hr>}}

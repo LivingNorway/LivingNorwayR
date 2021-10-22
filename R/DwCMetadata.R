@@ -1,7 +1,8 @@
 # ------ 1. METADATA HANDLING CLASS ------
-#' R6 class that represents metadata in DwC
+#' R6 metadata class
+#' @description R6 class that represents metadata in DwC
 #'
-#' The \code{DwCMetadata} class exists as a handling class for the encapsulation and
+#' @details The \code{DwCMetadata} class exists as a handling class for the encapsulation and
 #' handling of metadata being presented
 #'
 #' @docType class

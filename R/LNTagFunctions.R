@@ -8,7 +8,7 @@
 #'
 #' @seealso \code{\link[uuid::UUIDgenerate]{UUIDgenerate}}
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
-#' @keyword internal
+#' @keywords internal
 #' @export
 #'
 generateID <- function(tagID) {
@@ -47,7 +47,7 @@ generateID <- function(tagID) {
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
-#' @keyword internal
+#' @keywords  internal
 #' @export
 #'
 LNaddTag <- function(tagText, tagType, tagID = NA, parentID = NA, isHidden = FALSE, ...) {
@@ -134,7 +134,7 @@ LNaddTag <- function(tagText, tagType, tagID = NA, parentID = NA, isHidden = FAL
 #' retrieve and collate the metadata
 #' @return \code{List} of functions for each of the available Living Norway metadata tags
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
-#' @keyword internal
+#' @keywords  internal
 #' @export
 #'
 getTagGenerationFunctions <- function() {
@@ -201,7 +201,7 @@ getTagGenerationFunctions <- function() {
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
-#' @keyword internal
+#' @keywords  internal
 #' @export
 #'
 processChildArgs <- function(parentID, sep = sep, isHiddenDefault = FALSE, ...) {
