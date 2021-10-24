@@ -2,6 +2,7 @@
 #' Return the information of the term associated with the GBIF Taxon class
 #' @return A \code{DwCTerm} object containing the term information
 #' @seealso \code{\link[DwCTerm]{DwCTerm}}
+
 getGBIFTaxonTerm <- function() {
 	outValue <- NULL
 	if("http://rs.tdwg.org/dwc/terms/Taxon" %in% names(GBIFCoreClassList)) {
@@ -17,6 +18,7 @@ getGBIFTaxonTerm <- function() {
 #' @return A \code{list} of \code{DwCTerm} objects, one for each member of the the
 #' GBIF Taxon class
 #' @seealso \code{\link[DwCTerm]{DwCTerm}}
+
 getGBIFTaxonMembers <- function() {
 	outValue <- NULL
 	if("http://rs.tdwg.org/dwc/terms/Taxon" %in% names(GBIFCoreClassList)) {
@@ -76,8 +78,10 @@ GBIFTaxon <- R6Class("GBIFTaxon",
 
 # ------ 4. INITIALISATION FUNCTION ------
 #' Initialize a new GBIF Taxon object
+#' @description Initializes a new GBIF Taxon object
+#' @details Takes a dataframe and initialises a taxon object from it
 #' @param objectData A \code{data.frame} containing the data to import into the object
-t#' @param idColumnInfo Either a \code{character} scalar containing the column name of
+#' @param idColumnInfo Either a \code{character} scalar containing the column name of
 #' \code{objectData} or an \code{integer} scalar giving the index of the column of
 #' \code{objectData} that corresponds to the ID variable.  Alternatively, this parameter
 #' may be the qualified name of the Darwin core term for which the appropriately mapped column

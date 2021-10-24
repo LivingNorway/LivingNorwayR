@@ -2,15 +2,14 @@
 % Please edit documentation in R/GBIFTypesAndSpecimen.R
 \name{GBIFTypesAndSpecimen}
 \alias{GBIFTypesAndSpecimen}
-\title{R6 class representing a data structure for a GBIF TypesAndSpecimen augmented data table (based on the Dawrin core)}
+\title{GBIF Types and specimen R6 Class}
 \description{
 R6 class representing a data structure for a GBIF TypesAndSpecimen augmented data table (based on the Dawrin core)
 
-R6 class representing a data structure for a GBIF TypesAndSpecimen augmented data table (based on the Dawrin core)
-}
-\details{
 The \code{GBIFTypesAndSpecimen} class allows for the specification of data tables that comply with the TypesAndSpecimen
 \url{http://rs.gbif.org/terms/1.0/TypesAndSpecimen}{class specification} of GBIF.
+
+Initialisation function for types and specimens
 }
 \seealso{
 \code{\link[DwCTerm]{DwCTerm}} \code{\link[getGBIFTypesAndSpecimenMembers]{getGBIFTypesAndSpecimenMembers}}
@@ -87,6 +86,10 @@ term. Mappable terms can be found using: \code{sapply(X = getGBIFTypesAndSpecime
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Details}{
+Define an initialization function for the GBIF TypesAndSpecimen class
+}
+
 \subsection{Returns}{
 A new \code{GBIFTypesAndSpecimen} object
 }

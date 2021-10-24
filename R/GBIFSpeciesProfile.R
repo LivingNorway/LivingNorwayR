@@ -2,6 +2,7 @@
 #' Return the information of the term associated with the GBIF SpeciesProfile class
 #' @return A \code{DwCTerm} object containing the term information
 #' @seealso \code{\link[DwCTerm]{DwCTerm}}
+
 getGBIFSpeciesProfileTerm <- function() {
 	outValue <- NULL
 	if("http://rs.gbif.org/terms/1.0/SpeciesProfile" %in% names(GBIFCoreClassList)) {
@@ -32,6 +33,7 @@ getGBIFSpeciesProfileMembers <- function() {
 #'
 #' The \code{GBIFSpeciesProfile} class allows for the specification of data tables that comply with the SpeciesProfile
 #' \url{http://rs.gbif.org/terms/1.0/SpeciesProfile}{class specification} of GBIF.
+
 GBIFSpeciesProfile <- R6Class("GBIFSpeciesProfile",
 	inherit = DwCGeneric,
 	# ====== 3.1. Define private members of the GBIF SpeciesProfile class ======
@@ -76,8 +78,10 @@ GBIFSpeciesProfile <- R6Class("GBIFSpeciesProfile",
 
 # ------ 4. INITIALISATION FUNCTION ------
 #' Initialize a new GBIF SpeciesProfile object
+#' @description Initializes a new GBIF SpeciesProfile object
+#' @details Takes dataframe import and converts to speciesProfile object
 #' @param objectData A \code{data.frame} containing the data to import into the object
-t#' @param idColumnInfo Either a \code{character} scalar containing the column name of
+#' @param idColumnInfo Either a \code{character} scalar containing the column name of
 #' \code{objectData} or an \code{integer} scalar giving the index of the column of
 #' \code{objectData} that corresponds to the ID variable.  Alternatively, this parameter
 #' may be the qualified name of the Darwin core term for which the appropriately mapped column

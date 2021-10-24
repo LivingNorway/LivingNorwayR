@@ -2,7 +2,7 @@
 % Please edit documentation in R/GBIFVernacularName.R
 \name{getGBIFVernacularNameMembers}
 \alias{getGBIFVernacularNameMembers}
-\title{Return a list of properties associated with the GBIF VernacularName class}
+\title{Vernacular name member information}
 \usage{
 getGBIFVernacularNameMembers()
 }

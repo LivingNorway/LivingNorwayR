@@ -76,8 +76,10 @@ GBIFPreservation <- R6Class("GBIFPreservation",
 
 # ------ 4. INITIALISATION FUNCTION ------
 #' Initialize a new GBIF Preservation object
+#' @description Initializes a new GBIF Preservation object
+#' @details converts dataframe to GBIF Preservation object
 #' @param objectData A \code{data.frame} containing the data to import into the object
-t#' @param idColumnInfo Either a \code{character} scalar containing the column name of
+#' @param idColumnInfo Either a \code{character} scalar containing the column name of
 #' \code{objectData} or an \code{integer} scalar giving the index of the column of
 #' \code{objectData} that corresponds to the ID variable.  Alternatively, this parameter
 #' may be the qualified name of the Darwin core term for which the appropriately mapped column

@@ -2,10 +2,6 @@ pandoc: 2.7.3
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
-  Data_file_structure: Data_file_structure.html
-  introduction: introduction.html
-  LivingNorwayR_start_example: LivingNorwayR_start_example.html
-  My_First_LivingNorway_prj/metadata/metadata/metadata: metadata.html
-  testMetadata: testMetadata.html
-last_built: 2021-09-21T12:56Z
+  LNWorkshopExample_TOV-E: LNWorkshopExample_TOV-E.html
+last_built: 2021-10-24T15:09Z
 

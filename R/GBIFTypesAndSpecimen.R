@@ -1,5 +1,6 @@
 # ------ 1. TYPESANDSPECIMEN TERM INFORMATION ------
-#' Return the information of the term associated with the GBIF TypesAndSpecimen class
+#' Types and specimen term information
+#' @description Return the information of the term associated with the GBIF TypesAndSpecimen class
 #' @return A \code{DwCTerm} object containing the term information
 #' @seealso \code{\link[DwCTerm]{DwCTerm}}
 getGBIFTypesAndSpecimenTerm <- function() {
@@ -13,10 +14,12 @@ getGBIFTypesAndSpecimenTerm <- function() {
 }
 
 # ------ 2. TYPESANDSPECIMEN MEMBER INFORMATION ------
-#' Return a list of properties associated with the GBIF TypesAndSpecimen class
+#' Types and specimen member information
+#' @description Return a list of properties associated with the GBIF TypesAndSpecimen class
 #' @return A \code{list} of \code{DwCTerm} objects, one for each member of the the
 #' GBIF TypesAndSpecimen class
 #' @seealso \code{\link[DwCTerm]{DwCTerm}}
+
 getGBIFTypesAndSpecimenMembers <- function() {
 	outValue <- NULL
 	if("http://rs.gbif.org/terms/1.0/TypesAndSpecimen" %in% names(GBIFCoreClassList)) {
@@ -28,10 +31,12 @@ getGBIFTypesAndSpecimenMembers <- function() {
 }
 
 # ------ 3. GBIF TYPESANDSPECIMEN CLASS ------
-#' R6 class representing a data structure for a GBIF TypesAndSpecimen augmented data table (based on the Dawrin core)
+#' GBIF Types and specimen R6 Class
+#' @description R6 class representing a data structure for a GBIF TypesAndSpecimen augmented data table (based on the Dawrin core)
 #'
 #' The \code{GBIFTypesAndSpecimen} class allows for the specification of data tables that comply with the TypesAndSpecimen
 #' \url{http://rs.gbif.org/terms/1.0/TypesAndSpecimen}{class specification} of GBIF.
+#'
 GBIFTypesAndSpecimen <- R6Class("GBIFTypesAndSpecimen",
 	inherit = DwCGeneric,
 	# ====== 3.1. Define private members of the GBIF TypesAndSpecimen class ======
@@ -39,8 +44,9 @@ GBIFTypesAndSpecimen <- R6Class("GBIFTypesAndSpecimen",
 	),
 	public = list(
 		# ====== 3.2. Define an initialization function for the GBIF TypesAndSpecimen class ======
-		#' @description
-		#' Create a new GBIFTypesAndSpecimen object
+		#' Initialisation function for types and specimens
+		#' @description Create a new GBIFTypesAndSpecimen object
+		#' @details Define an initialization function for the GBIF TypesAndSpecimen class
 		#' @param objectData A \code{data.frame} containing the data to import into the object
 		#' @param idColumnInfo Either a \code{character} scalar containing the column name of
 		#' \code{objectData} or an \code{integer} scalar giving the index of the column of
@@ -76,8 +82,10 @@ GBIFTypesAndSpecimen <- R6Class("GBIFTypesAndSpecimen",
 
 # ------ 4. INITIALISATION FUNCTION ------
 #' Initialize a new GBIF TypesAndSpecimen object
+#' @description Initializes a new GBIF TypesAndSpecimen object
+#' @details Initialisation function for GBIFTypesAndSpecimen
 #' @param objectData A \code{data.frame} containing the data to import into the object
-t#' @param idColumnInfo Either a \code{character} scalar containing the column name of
+#' @param idColumnInfo Either a \code{character} scalar containing the column name of
 #' \code{objectData} or an \code{integer} scalar giving the index of the column of
 #' \code{objectData} that corresponds to the ID variable.  Alternatively, this parameter
 #' may be the qualified name of the Darwin core term for which the appropriately mapped column

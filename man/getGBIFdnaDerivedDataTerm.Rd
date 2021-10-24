@@ -2,7 +2,7 @@
 % Please edit documentation in R/GBIFdnaDerivedData.R
 \name{getGBIFdnaDerivedDataTerm}
 \alias{getGBIFdnaDerivedDataTerm}
-\title{Return the information of the term associated with the GBIF dnaDerivedData class}
+\title{DNA Derived data Term Information}
 \usage{
 getGBIFdnaDerivedDataTerm()
 }

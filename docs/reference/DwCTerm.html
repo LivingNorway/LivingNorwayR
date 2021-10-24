@@ -6,8 +6,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>DwCTerm Class — DwCTerm • LivingNorwayR</title>
+<title>DWCTerm object — DwCTerm • LivingNorwayR</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -39,9 +46,9 @@
 
 
 
-<meta property="og:title" content="DwCTerm Class — DwCTerm" />
-<meta property="og:description" content="DwCTerm Class
-DwCTerm Class" />
+<meta property="og:title" content="DWCTerm object — DwCTerm" />
+<meta property="og:description" content="R6 class to hold information on DWC terms" />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -73,7 +80,7 @@ DwCTerm Class" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">LivingNorwayR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.0</span>
       </span>
     </div>
 
@@ -96,22 +103,18 @@ DwCTerm Class" />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Data_file_structure.html">Data Package Structure for Legacy and Raw data</a>
-    </li>
-    <li>
-      <a href="../articles/introduction.html">introduction</a>
-    </li>
-    <li>
-      <a href="../articles/LivingNorwayR_start_example.html">How to initiate and organise a data project in ecology?</a>
-    </li>
-    <li>
-      <a href="../articles/My_First_LivingNorway_prj/metadata/metadata/metadata.html">UNKNOWN TITLE</a>
+      <a href="../articles/LNWorkshopExample_TOV-E.html">Handling Darwin Core Files With Living Norway:  Example Using the TOV-E Dataset</a>
     </li>
   </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/LivingNorway/LivingNorwayR/">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -125,14 +128,13 @@ DwCTerm Class" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>DwCTerm Class</h1>
-    
+    <h1>DWCTerm object</h1>
+    <small class="dont-index">Source: <a href='https://github.com/LivingNorway/LivingNorwayR/blob/master/R/DwCTerm.R'><code>R/DwCTerm.R</code></a></small>
     <div class="hidden name"><code>DwCTerm.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>DwCTerm Class</p>
-<p>DwCTerm Class</p>
+    <p>R6 class to hold information on DWC terms</p>
     </div>
 
 
@@ -425,7 +427,7 @@ term is described</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by First Last.</p>
+  <p>Developed by Joseph Chipperfield, Matthew Grainger, Erlend Nilsen, Norsk institutt for naturforskning (NINA).</p>
 </div>
 
 <div class="pkgdown">

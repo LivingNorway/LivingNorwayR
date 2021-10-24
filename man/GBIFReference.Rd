@@ -11,6 +11,9 @@ R6 class representing a data structure for a GBIF Reference augmented data table
 \details{
 The \code{GBIFReference} class allows for the specification of data tables that comply with the Reference
 \url{http://rs.gbif.org/terms/1.0/Reference}{class specification} of GBIF.
+Define an initialization function for the GBIF Reference class
+
+defines a new GBIFReference object from a dataframe
 }
 \seealso{
 \code{\link[DwCTerm]{DwCTerm}} \code{\link[getGBIFReferenceMembers]{getGBIFReferenceMembers}}

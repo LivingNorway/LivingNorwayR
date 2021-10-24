@@ -32,6 +32,7 @@ getGBIFResourceRelationshipMembers <- function() {
 #'
 #' The \code{GBIFResourceRelationship} class allows for the specification of data tables that comply with the ResourceRelationship
 #' \url{http://rs.tdwg.org/dwc/terms/ResourceRelationship}{class specification} of GBIF.
+
 GBIFResourceRelationship <- R6Class("GBIFResourceRelationship",
 	inherit = DwCGeneric,
 	# ====== 3.1. Define private members of the GBIF ResourceRelationship class ======
@@ -39,8 +40,9 @@ GBIFResourceRelationship <- R6Class("GBIFResourceRelationship",
 	),
 	public = list(
 		# ====== 3.2. Define an initialization function for the GBIF ResourceRelationship class ======
-		#' @description
-		#' Create a new GBIFResourceRelationship object
+		#' Define an initialization function for the GBIF ResourceRelationship class
+		#' @description Create a new GBIFResourceRelationship object
+		#' @details takes a dataframe and converts it to a GBIFResourceRelationship object
 		#' @param objectData A \code{data.frame} containing the data to import into the object
 		#' @param idColumnInfo Either a \code{character} scalar containing the column name of
 		#' \code{objectData} or an \code{integer} scalar giving the index of the column of
@@ -75,9 +77,11 @@ GBIFResourceRelationship <- R6Class("GBIFResourceRelationship",
 )
 
 # ------ 4. INITIALISATION FUNCTION ------
-#' Initialize a new GBIF ResourceRelationship object
+#' Initalise GBIF ResourceRelationship object
+#' @description Initialize a new GBIF ResourceRelationship object
+#' @details R6 object created from a dataframe. Results in a GBIF ResourceRelationship object
 #' @param objectData A \code{data.frame} containing the data to import into the object
-t#' @param idColumnInfo Either a \code{character} scalar containing the column name of
+#' @param idColumnInfo Either a \code{character} scalar containing the column name of
 #' \code{objectData} or an \code{integer} scalar giving the index of the column of
 #' \code{objectData} that corresponds to the ID variable.  Alternatively, this parameter
 #' may be the qualified name of the Darwin core term for which the appropriately mapped column

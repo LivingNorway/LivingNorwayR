@@ -11,6 +11,9 @@ R6 class representing a data structure for a GBIF ResourceRelationship augmented
 \details{
 The \code{GBIFResourceRelationship} class allows for the specification of data tables that comply with the ResourceRelationship
 \url{http://rs.tdwg.org/dwc/terms/ResourceRelationship}{class specification} of GBIF.
+Define an initialization function for the GBIF ResourceRelationship class
+
+takes a dataframe and converts it to a GBIFResourceRelationship object
 }
 \seealso{
 \code{\link[DwCTerm]{DwCTerm}} \code{\link[getGBIFResourceRelationshipMembers]{getGBIFResourceRelationshipMembers}}

@@ -2,15 +2,12 @@
 % Please edit documentation in R/GBIFVernacularName.R
 \name{GBIFVernacularName}
 \alias{GBIFVernacularName}
-\title{R6 class representing a data structure for a GBIF VernacularName augmented data table (based on the Dawrin core)}
+\title{GBIF Vernacular name class object}
 \description{
 R6 class representing a data structure for a GBIF VernacularName augmented data table (based on the Dawrin core)
-
-R6 class representing a data structure for a GBIF VernacularName augmented data table (based on the Dawrin core)
-}
-\details{
 The \code{GBIFVernacularName} class allows for the specification of data tables that comply with the VernacularName
 \url{http://rs.gbif.org/terms/1.0/VernacularName}{class specification} of GBIF.
+Initialization function for the GBIF VernacularName class
 }
 \seealso{
 \code{\link[DwCTerm]{DwCTerm}} \code{\link[getGBIFVernacularNameMembers]{getGBIFVernacularNameMembers}}
@@ -50,7 +47,7 @@ The \code{GBIFVernacularName} class allows for the specification of data tables 
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
-Create a new GBIFVernacularName object
+Creates a new GBIFVernacularName object
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{GBIFVernacularName$new(
   objectData,
@@ -80,7 +77,7 @@ to their respective Darwin core terms based on the column names}
 data table.  See the \url{https://dwc.tdwg.org/text/#1-introduction}{Darwin Core text guide} for expected values
 for this string.}
 
-\item{\code{...}}{A named set of paramaeters corresponding to Darwin core terms associated with the GBIFVernacularName
+\item{\code{...}}{A named set of parameters corresponding to Darwin core terms associated with the GBIFVernacularName
 class type.  Each is either a \code{character} scalar containing the column name of \code{objectData}
 or an \code{integer} scalar giving the index of the column of \code{objectData} that corresponds to the
 term. Mappable terms can be found using: \code{sapply(X = getGBIFVernacularNameMembers(), FUN = function(curTerm) { curTerm$getTermName() })}}

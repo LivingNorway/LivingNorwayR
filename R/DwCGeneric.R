@@ -149,7 +149,7 @@ DwCGeneric <- R6::R6Class("DwCGeneric",
     # ====== 1.2. Function to set the name of the file in the Darwin core archive ======
     #' @description
     #' Set the name of the file that the data will print to when preparing the Darwin core archive
-    #' @param inFileName A character scalar giving the name to give the data file in a Darwin core archive
+    #' @param inTableName A character scalar giving the name to give the data file in a Darwin core archive
     setTableName = function(inTableName) {
       private$objectName <- tryCatch(as.character(inTableName), error = function(err) {
         stop("error encountered whilst processing file name: ", err)
@@ -291,6 +291,7 @@ DwCGeneric <- R6::R6Class("DwCGeneric",
     # ====== 1.10. Function to print the object to the console ======
     #' Print object to console
     #' @description Print the term information
+    #' @details Prints private object
     print = function() {
       cat(toupper(private$objectName), "CLASS INFORMATION\n")
       private$classTermInfo$print()

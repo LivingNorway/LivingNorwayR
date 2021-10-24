@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>R6 class representing a data structure for a GBIF TypesAndSpecimen augmented data table (based on the Dawrin core) — GBIFTypesAndSpecimen • LivingNorwayR</title>
+<title>GBIF Types and specimen R6 Class — GBIFTypesAndSpecimen • LivingNorwayR</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,11 @@
 
 
 
-<meta property="og:title" content="R6 class representing a data structure for a GBIF TypesAndSpecimen augmented data table (based on the Dawrin core) — GBIFTypesAndSpecimen" />
+<meta property="og:title" content="GBIF Types and specimen R6 Class — GBIFTypesAndSpecimen" />
 <meta property="og:description" content="R6 class representing a data structure for a GBIF TypesAndSpecimen augmented data table (based on the Dawrin core)
-R6 class representing a data structure for a GBIF TypesAndSpecimen augmented data table (based on the Dawrin core)" />
+The GBIFTypesAndSpecimen class allows for the specification of data tables that comply with the TypesAndSpecimen
+http://rs.gbif.org/terms/1.0/TypesAndSpecimenclass specification of GBIF.
+Initialisation function for types and specimens" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -104,19 +106,7 @@ R6 class representing a data structure for a GBIF TypesAndSpecimen augmented dat
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Data_file_structure.html">Data Package Structure for Legacy and Raw data</a>
-    </li>
-    <li>
-      <a href="../articles/introduction.html">introduction</a>
-    </li>
-    <li>
-      <a href="../articles/LivingNorwayR_start_example.html">How to initiate and organise a data project in ecology?</a>
-    </li>
-    <li>
-      <a href="../articles/My_First_LivingNorway_prj/metadata/metadata/metadata.html">UNKNOWN TITLE</a>
-    </li>
-    <li>
-      <a href="../articles/testMetadata.html">Test Metadata</a>
+      <a href="../articles/LNWorkshopExample_TOV-E.html">Handling Darwin Core Files With Living Norway:  Example Using the TOV-E Dataset</a>
     </li>
   </ul>
 </li>
@@ -141,22 +131,20 @@ R6 class representing a data structure for a GBIF TypesAndSpecimen augmented dat
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>R6 class representing a data structure for a GBIF TypesAndSpecimen augmented data table (based on the Dawrin core)</h1>
+    <h1>GBIF Types and specimen R6 Class</h1>
     <small class="dont-index">Source: <a href='https://github.com/LivingNorway/LivingNorwayR/blob/master/R/GBIFTypesAndSpecimen.R'><code>R/GBIFTypesAndSpecimen.R</code></a></small>
     <div class="hidden name"><code>GBIFTypesAndSpecimen.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>R6 class representing a data structure for a GBIF TypesAndSpecimen augmented data table (based on the Dawrin core)</p>
-<p>R6 class representing a data structure for a GBIF TypesAndSpecimen augmented data table (based on the Dawrin core)</p>
+<p>The <code>GBIFTypesAndSpecimen</code> class allows for the specification of data tables that comply with the TypesAndSpecimen
+<a href='http://rs.gbif.org/terms/1.0/TypesAndSpecimen'>http://rs.gbif.org/terms/1.0/TypesAndSpecimen</a>class specification of GBIF.</p>
+<p>Initialisation function for types and specimens</p>
     </div>
 
 
 
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>The <code>GBIFTypesAndSpecimen</code> class allows for the specification of data tables that comply with the TypesAndSpecimen
-<a href='http://rs.gbif.org/terms/1.0/TypesAndSpecimen'>http://rs.gbif.org/terms/1.0/TypesAndSpecimen</a>class specification of GBIF.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code>DwCTerm</code> <code>getGBIFTypesAndSpecimenMembers</code></p></div>
@@ -183,6 +171,7 @@ R6 class representing a data structure for a GBIF TypesAndSpecimen augmented dat
 <li><p><span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="getIDIndex"><a href='../../LivingNorwayR/html/DwCGeneric.html#method-getIDIndex'><code>LivingNorwayR::DwCGeneric$getIDIndex()</code></a></span></p></li>
 <li><p><span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="getIDName"><a href='../../LivingNorwayR/html/DwCGeneric.html#method-getIDName'><code>LivingNorwayR::DwCGeneric$getIDName()</code></a></span></p></li>
 <li><p><span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="getTableName"><a href='../../LivingNorwayR/html/DwCGeneric.html#method-getTableName'><code>LivingNorwayR::DwCGeneric$getTableName()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="getTableTermName"><a href='../../LivingNorwayR/html/DwCGeneric.html#method-getTableTermName'><code>LivingNorwayR::DwCGeneric$getTableTermName()</code></a></span></p></li>
 <li><p><span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="getTermMapping"><a href='../../LivingNorwayR/html/DwCGeneric.html#method-getTermMapping'><code>LivingNorwayR::DwCGeneric$getTermMapping()</code></a></span></p></li>
 <li><p><span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="importDataTable"><a href='../../LivingNorwayR/html/DwCGeneric.html#method-importDataTable'><code>LivingNorwayR::DwCGeneric$importDataTable()</code></a></span></p></li>
 <li><p><span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="print"><a href='../../LivingNorwayR/html/DwCGeneric.html#method-print'><code>LivingNorwayR::DwCGeneric$print()</code></a></span></p></li>
@@ -226,6 +215,9 @@ or an <code>integer</code> scalar giving the index of the column of <code>object
 term. Mappable terms can be found using: <code><a href='https://rdrr.io/r/base/lapply.html'>sapply(X = getGBIFTypesAndSpecimenMembers(), FUN = function(curTerm) { curTerm$getTermName() })</a></code></p></dd>
 
 </dl><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
+<p>Define an initialization function for the GBIF TypesAndSpecimen class</p>
+
 <h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Returns</h4>
 <p>A new <code>GBIFTypesAndSpecimen</code> object</p>
 <p><hr>

@@ -2,7 +2,7 @@
 % Please edit documentation in R/GBIFTypesAndSpecimen.R
 \name{getGBIFTypesAndSpecimenMembers}
 \alias{getGBIFTypesAndSpecimenMembers}
-\title{Return a list of properties associated with the GBIF TypesAndSpecimen class}
+\title{Types and specimen member information}
 \usage{
 getGBIFTypesAndSpecimenMembers()
 }

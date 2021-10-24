@@ -13,7 +13,8 @@ getGBIFVernacularNameTerm <- function() {
 }
 
 # ------ 2. VERNACULARNAME MEMBER INFORMATION ------
-#' Return a list of properties associated with the GBIF VernacularName class
+#' Vernacular name member information
+#' @description  Return a list of properties associated with the GBIF VernacularName class
 #' @return A \code{list} of \code{DwCTerm} objects, one for each member of the the
 #' GBIF VernacularName class
 #' @seealso \code{\link[DwCTerm]{DwCTerm}}
@@ -28,8 +29,8 @@ getGBIFVernacularNameMembers <- function() {
 }
 
 # ------ 3. GBIF VERNACULARNAME CLASS ------
-#' R6 class representing a data structure for a GBIF VernacularName augmented data table (based on the Dawrin core)
-#'
+#' GBIF Vernacular name class object
+#' @description  R6 class representing a data structure for a GBIF VernacularName augmented data table (based on the Dawrin core)
 #' The \code{GBIFVernacularName} class allows for the specification of data tables that comply with the VernacularName
 #' \url{http://rs.gbif.org/terms/1.0/VernacularName}{class specification} of GBIF.
 GBIFVernacularName <- R6Class("GBIFVernacularName",
@@ -39,8 +40,9 @@ GBIFVernacularName <- R6Class("GBIFVernacularName",
 	),
 	public = list(
 		# ====== 3.2. Define an initialization function for the GBIF VernacularName class ======
-		#' @description
-		#' Create a new GBIFVernacularName object
+		#' Initialization function for the GBIF VernacularName class
+		#' @description Creates a new GBIFVernacularName object
+		#' @details
 		#' @param objectData A \code{data.frame} containing the data to import into the object
 		#' @param idColumnInfo Either a \code{character} scalar containing the column name of
 		#' \code{objectData} or an \code{integer} scalar giving the index of the column of
@@ -53,7 +55,7 @@ GBIFVernacularName <- R6Class("GBIFVernacularName",
 		#' @param defDateFormat A \code{character} scalar providing the default format for strings denoting dates in the
 		#' data table.  See the \url{https://dwc.tdwg.org/text/#1-introduction}{Darwin Core text guide} for expected values
 		#' for this string.
-		#' @param ... A named set of paramaeters corresponding to Darwin core terms associated with the GBIFVernacularName
+		#' @param ... A named set of parameters corresponding to Darwin core terms associated with the GBIFVernacularName
 		#' class type.  Each is either a \code{character} scalar containing the column name of \code{objectData}
 		#' or an \code{integer} scalar giving the index of the column of \code{objectData} that corresponds to the
 		#' term. Mappable terms can be found using: \code{sapply(X = getGBIFVernacularNameMembers(), FUN = function(curTerm) { curTerm$getTermName() })}
@@ -76,8 +78,9 @@ GBIFVernacularName <- R6Class("GBIFVernacularName",
 
 # ------ 4. INITIALISATION FUNCTION ------
 #' Initialize a new GBIF VernacularName object
+#' @description Initialization of vernacularName R6 Object
 #' @param objectData A \code{data.frame} containing the data to import into the object
-t#' @param idColumnInfo Either a \code{character} scalar containing the column name of
+#' @param idColumnInfo Either a \code{character} scalar containing the column name of
 #' \code{objectData} or an \code{integer} scalar giving the index of the column of
 #' \code{objectData} that corresponds to the ID variable.  Alternatively, this parameter
 #' may be the qualified name of the Darwin core term for which the appropriately mapped column

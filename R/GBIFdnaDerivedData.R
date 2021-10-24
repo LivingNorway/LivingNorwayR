@@ -1,5 +1,6 @@
 # ------ 1. DNADERIVEDDATA TERM INFORMATION ------
-#' Return the information of the term associated with the GBIF dnaDerivedData class
+#' DNA Derived data Term Information
+#' @description Return the information of the term associated with the GBIF dnaDerivedData class
 #' @return A \code{DwCTerm} object containing the term information
 #' @seealso \code{\link[DwCTerm]{DwCTerm}}
 getGBIFdnaDerivedDataTerm <- function() {
@@ -76,8 +77,9 @@ GBIFdnaDerivedData <- R6Class("GBIFdnaDerivedData",
 
 # ------ 4. INITIALISATION FUNCTION ------
 #' Initialize a new GBIF dnaDerivedData object
+#' @description Initializes a new GBIF dnaDerivedData object
 #' @param objectData A \code{data.frame} containing the data to import into the object
-t#' @param idColumnInfo Either a \code{character} scalar containing the column name of
+#' @param idColumnInfo Either a \code{character} scalar containing the column name of
 #' \code{objectData} or an \code{integer} scalar giving the index of the column of
 #' \code{objectData} that corresponds to the ID variable.  Alternatively, this parameter
 #' may be the qualified name of the Darwin core term for which the appropriately mapped column
@@ -88,7 +90,7 @@ t#' @param idColumnInfo Either a \code{character} scalar containing the column n
 #' @param defDateFormat A \code{character} scalar providing the default format for strings denoting dates in the
 #' data table.  See the \url{https://dwc.tdwg.org/text/#1-introduction}{Darwin Core text guide} for expected values
 #' for this string.
-#' @param ... A named set of paramaeters corresponding to Darwin core terms associated with the GBIFdnaDerivedData
+#' @param ... A named set of parameters corresponding to Darwin core terms associated with the GBIFdnaDerivedData
 #' class type.  Each is either a \code{character} scalar containing the column name of \code{objectData}
 #' or an \code{integer} scalar giving the index of the column of \code{objectData} that corresponds to the
 #' term. Mappable terms can be found using: \code{sapply(X = getGBIFdnaDerivedDataMembers(), FUN = function(curTerm) { curTerm$getTermName() })}

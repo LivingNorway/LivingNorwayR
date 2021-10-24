@@ -2,6 +2,7 @@
 #' Return the information of the term associated with the GBIF Reference class
 #' @return A \code{DwCTerm} object containing the term information
 #' @seealso \code{\link[DwCTerm]{DwCTerm}}
+
 getGBIFReferenceTerm <- function() {
 	outValue <- NULL
 	if("http://rs.gbif.org/terms/1.0/Reference" %in% names(GBIFCoreClassList)) {
@@ -17,6 +18,7 @@ getGBIFReferenceTerm <- function() {
 #' @return A \code{list} of \code{DwCTerm} objects, one for each member of the the
 #' GBIF Reference class
 #' @seealso \code{\link[DwCTerm]{DwCTerm}}
+
 getGBIFReferenceMembers <- function() {
 	outValue <- NULL
 	if("http://rs.gbif.org/terms/1.0/Reference" %in% names(GBIFCoreClassList)) {
@@ -32,6 +34,7 @@ getGBIFReferenceMembers <- function() {
 #'
 #' The \code{GBIFReference} class allows for the specification of data tables that comply with the Reference
 #' \url{http://rs.gbif.org/terms/1.0/Reference}{class specification} of GBIF.
+
 GBIFReference <- R6Class("GBIFReference",
 	inherit = DwCGeneric,
 	# ====== 3.1. Define private members of the GBIF Reference class ======
@@ -39,8 +42,9 @@ GBIFReference <- R6Class("GBIFReference",
 	),
 	public = list(
 		# ====== 3.2. Define an initialization function for the GBIF Reference class ======
-		#' @description
-		#' Create a new GBIFReference object
+		#' Define an initialization function for the GBIF Reference class
+		#' @description Create a new GBIFReference object
+		#' @details defines a new GBIFReference object from a dataframe
 		#' @param objectData A \code{data.frame} containing the data to import into the object
 		#' @param idColumnInfo Either a \code{character} scalar containing the column name of
 		#' \code{objectData} or an \code{integer} scalar giving the index of the column of
@@ -76,6 +80,8 @@ GBIFReference <- R6Class("GBIFReference",
 
 # ------ 4. INITIALISATION FUNCTION ------
 #' Initialize a new GBIF Reference object
+#' @description Initializes a new GBIF Reference object
+#' @details Creates a new GBIF Reference object from a dataframe
 #' @param objectData A \code{data.frame} containing the data to import into the object
 t#' @param idColumnInfo Either a \code{character} scalar containing the column name of
 #' \code{objectData} or an \code{integer} scalar giving the index of the column of

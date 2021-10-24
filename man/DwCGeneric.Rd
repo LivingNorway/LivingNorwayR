@@ -54,7 +54,7 @@ Set the name of the file that the data will print to when preparing the Darwin c
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{inFileName}}{A character scalar giving the name to give the data file in a Darwin core archive}
+\item{\code{inTableName}}{A character scalar giving the name to give the data file in a Darwin core archive}
 }
 \if{html}{\out{</div>}}
 }
@@ -210,6 +210,10 @@ Print object to console
 Print the term information
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DwCGeneric$print()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Prints private object
 }
 
 }

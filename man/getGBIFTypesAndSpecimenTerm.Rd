@@ -2,7 +2,7 @@
 % Please edit documentation in R/GBIFTypesAndSpecimen.R
 \name{getGBIFTypesAndSpecimenTerm}
 \alias{getGBIFTypesAndSpecimenTerm}
-\title{Return the information of the term associated with the GBIF TypesAndSpecimen class}
+\title{Types and specimen term information}
 \usage{
 getGBIFTypesAndSpecimenTerm()
 }
