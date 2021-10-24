@@ -13,7 +13,7 @@ devtools::install_github("LivingNorway/LivingNorwayR")
 
 ## For a basic example of the workflow please see::
 
-To Be Updated 
+https://livingnorway.github.io/LivingNorwayR/articles/LNWorkshopExample_TOV-E.html
 
 ## Join us at the next Living Norway colloquium see::
 
