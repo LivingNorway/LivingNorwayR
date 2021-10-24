@@ -33,6 +33,7 @@ getGBIFOccurrenceMembers <- function() {
 #'
 #' The \code{GBIFOccurrence} class allows for the specification of data tables that comply with the Occurrence
 #' \url{http://rs.tdwg.org/dwc/terms/Occurrence}{class specification} of GBIF.
+#' @export
 GBIFOccurrence <- R6Class("GBIFOccurrence",
 	inherit = DwCGeneric,
 	# ====== 3.1. Define private members of the GBIF Occurrence class ======
