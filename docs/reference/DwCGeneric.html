@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>R6 class representing a generic data structure for a Darwin Core archive file — DwCGeneric • LivingNorwayR</title>
+<title>R6 DwC Generic class — DwCGeneric • LivingNorwayR</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,8 @@
 
 
 
-<meta property="og:title" content="R6 class representing a generic data structure for a Darwin Core archive file — DwCGeneric" />
-<meta property="og:description" content="R6 class representing a generic data structure for a Darwin Core archive file
-R6 class representing a generic data structure for a Darwin Core archive file" />
+<meta property="og:title" content="R6 DwC Generic class — DwCGeneric" />
+<meta property="og:description" content="R6 class representing a generic data structure for a Darwin Core archive file" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -104,19 +103,10 @@ R6 class representing a generic data structure for a Darwin Core archive file" /
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Data_file_structure.html">Data Package Structure for Legacy and Raw data</a>
+      <a href="../articles/LNWorkshopExample_TOV-E.html">Handling Darwin Core Files With Living Norway:  Example Using the TOV-E Dataset</a>
     </li>
     <li>
-      <a href="../articles/introduction.html">introduction</a>
-    </li>
-    <li>
-      <a href="../articles/LivingNorwayR_start_example.html">How to initiate and organise a data project in ecology?</a>
-    </li>
-    <li>
-      <a href="../articles/My_First_LivingNorway_prj/metadata/metadata/metadata.html">UNKNOWN TITLE</a>
-    </li>
-    <li>
-      <a href="../articles/testMetadata.html">Test Metadata</a>
+      <a href="../articles/LNWorkshopExample_TOV-E_Metadata.html">TOV-E Bird monitoring sampling data</a>
     </li>
   </ul>
 </li>
@@ -141,14 +131,13 @@ R6 class representing a generic data structure for a Darwin Core archive file" /
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>R6 class representing a generic data structure for a Darwin Core archive file</h1>
+    <h1>R6 DwC Generic class</h1>
     <small class="dont-index">Source: <a href='https://github.com/LivingNorway/LivingNorwayR/blob/master/R/DwCGeneric.R'><code>R/DwCGeneric.R</code></a></small>
     <div class="hidden name"><code>DwCGeneric.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>R6 class representing a generic data structure for a Darwin Core archive file</p>
-<p>R6 class representing a generic data structure for a Darwin Core archive file</p>
     </div>
 
 
@@ -187,6 +176,7 @@ supported by them.</p>
 <li><p><a href='#method-getIDName'><code>DwCGeneric$getIDName()</code></a></p></li>
 <li><p><a href='#method-setDefaultYearFormat'><code>DwCGeneric$setDefaultYearFormat()</code></a></p></li>
 <li><p><a href='#method-getDefaultYearFormat'><code>DwCGeneric$getDefaultYearFormat()</code></a></p></li>
+<li><p><a href='#method-getTableTermName'><code>DwCGeneric$getTableTermName()</code></a></p></li>
 <li><p><a href='#method-clone'><code>DwCGeneric$clone()</code></a></p></li>
 </ul>
 <p><hr>
@@ -297,11 +287,10 @@ table and <code>columnName</code> containg the name of the column</p>
 
 <h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Returns</h4>
 <p>A <code>list</code> of <code>DwCTerm</code> objects containing the term information
-Print the term information</p>
+Print object to console</p>
 <p><hr>
 <a id="method-print"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code><a href='https://rdrr.io/r/base/print.html'>print()</a></code></h3>
-
-<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p>Print the term information</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
 <p><div class="r"></p><pre><span class='va'>DwCGeneric</span><span class='op'>$</span><span class='fu'>print</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
@@ -393,6 +382,13 @@ for this string.</p></dd>
 
 <h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Returns</h4>
 <p>A <code>character</code> scalar containing the default date format</p>
+<p><hr>
+<a id="method-getTableTermName"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>getTableTermName()</code></h3>
+<p>Retrieve the term name for the table</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>DwCGeneric</span><span class='op'>$</span><span class='fu'>getTableTermName</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Returns</h4>
+<p>A <code>character</code> scalar containing the name to the term defining the table</p>
 <p><hr>
 <a id="method-clone"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>clone()</code></h3>
 <p>The objects of this class are cloneable with this method.</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>

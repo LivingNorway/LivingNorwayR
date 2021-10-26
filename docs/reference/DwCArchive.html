@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>R6 class representing a complete data structure for a Darwin Core archive — DwCArchive • LivingNorwayR</title>
+<title>R6 DwC archive class — DwCArchive • LivingNorwayR</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,8 @@
 
 
 
-<meta property="og:title" content="R6 class representing a complete data structure for a Darwin Core archive — DwCArchive" />
-<meta property="og:description" content="R6 class representing a complete data structure for a Darwin Core archive
-R6 class representing a complete data structure for a Darwin Core archive" />
+<meta property="og:title" content="R6 DwC archive class — DwCArchive" />
+<meta property="og:description" content="R6 class representing a complete data structure for a Darwin Core archive" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -104,19 +103,10 @@ R6 class representing a complete data structure for a Darwin Core archive" />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Data_file_structure.html">Data Package Structure for Legacy and Raw data</a>
+      <a href="../articles/LNWorkshopExample_TOV-E.html">Handling Darwin Core Files With Living Norway:  Example Using the TOV-E Dataset</a>
     </li>
     <li>
-      <a href="../articles/introduction.html">introduction</a>
-    </li>
-    <li>
-      <a href="../articles/LivingNorwayR_start_example.html">How to initiate and organise a data project in ecology?</a>
-    </li>
-    <li>
-      <a href="../articles/My_First_LivingNorway_prj/metadata/metadata/metadata.html">UNKNOWN TITLE</a>
-    </li>
-    <li>
-      <a href="../articles/testMetadata.html">Test Metadata</a>
+      <a href="../articles/LNWorkshopExample_TOV-E_Metadata.html">TOV-E Bird monitoring sampling data</a>
     </li>
   </ul>
 </li>
@@ -141,18 +131,20 @@ R6 class representing a complete data structure for a Darwin Core archive" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>R6 class representing a complete data structure for a Darwin Core archive</h1>
+    <h1>R6 DwC archive class</h1>
     <small class="dont-index">Source: <a href='https://github.com/LivingNorway/LivingNorwayR/blob/master/R/DwCArchive.R'><code>R/DwCArchive.R</code></a></small>
     <div class="hidden name"><code>DwCArchive.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>R6 class representing a complete data structure for a Darwin Core archive</p>
-<p>R6 class representing a complete data structure for a Darwin Core archive</p>
     </div>
 
 
 
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p><code>R6Class</code> object.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The <code>DwcArchive</code> class serves a base class to all Darwin Core archive file types. This class supports
@@ -171,12 +163,13 @@ structure of Darwin core archive files.</p>
 <li><p><a href='#method-getNumberExtensions'><code>DwCArchive$getNumberExtensions()</code></a></p></li>
 <li><p><a href='#method-getCoreTable'><code>DwCArchive$getCoreTable()</code></a></p></li>
 <li><p><a href='#method-getExtensionTables'><code>DwCArchive$getExtensionTables()</code></a></p></li>
+<li><p><a href='#method-getMetadata'><code>DwCArchive$getMetadata()</code></a></p></li>
 <li><p><a href='#method-clone'><code>DwCArchive$clone()</code></a></p></li>
 </ul>
 <p><hr>
 <a id="method-new"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>new()</code></h3>
 <p>Create a new <code>DwCAchive</code> object</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
-<p><div class="r"></p><pre><span class='va'>DwCArchive</span><span class='op'>$</span><span class='fu'>new</span><span class='op'>(</span><span class='va'>coreDwC</span>, extDwC <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre><p></div></p>
+<p><div class="r"></p><pre><span class='va'>DwCArchive</span><span class='op'>$</span><span class='fu'>new</span><span class='op'>(</span><span class='va'>coreDwC</span>, extDwC <span class='op'>=</span> <span class='cn'>NULL</span>, metadata <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre><p></div></p>
 
 <h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
 <p><div class="arguments"></p><dl>
@@ -190,6 +183,8 @@ the tables used as extension objects in the Darwin Core archive.  If <code>coreD
 is a character scalar then <code>extDwC</code> can also be a character scalar that contains the
 default file encodings for the files in the Darwin core archive</p></dd>
 
+<dt><code>metadata</code></dt><dd><p>A <code>DwCMetadata</code> object that contains the metadata for the archive</p></dd>
+
 </dl><p></div></p>
 <p><hr>
 <a id="method-exportAsDwCArchive"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>exportAsDwCArchive()</code></h3>
@@ -202,7 +197,8 @@ default file encodings for the files in the Darwin core archive</p></dd>
   na <span class='op'>=</span> <span class='st'>""</span>,
   dec <span class='op'>=</span> <span class='st'>"."</span>,
   qmethod <span class='op'>=</span> <span class='st'>"escape"</span>,
-  fileEncoding <span class='op'>=</span> <span class='st'>""</span>
+  fileEncoding <span class='op'>=</span> <span class='st'>""</span>,
+  emlLocation <span class='op'>=</span> <span class='st'>"eml.xml"</span>
 <span class='op'>)</span></pre><p></div></p>
 
 <h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
@@ -228,6 +224,8 @@ backslash, or <code>"double"</code>, in which case it is doubled</p></dd>
 
 <dt><code>fileEncoding</code></dt><dd><p>A character string. If non-empty, declares the encoding to be used on a file so the
 character data can be re-encoded as they are written</p></dd>
+
+<dt><code>emlLocation</code></dt><dd><p>The location to store the EML metadata in the Darwin Core archive</p></dd>
 
 </dl><p></div></p>
 <p><hr>
@@ -265,6 +263,13 @@ retrieved</p></dd>
 <h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Returns</h4>
 <p>A <code>list</code> of objects derived from <code>DwCGeneric</code> that contains the extension table
 information</p>
+<p><hr>
+<a id="method-getMetadata"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>getMetadata()</code></h3>
+<p>Retrieve the metadata for the archive</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>DwCArchive</span><span class='op'>$</span><span class='fu'>getMetadata</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Returns</h4>
+<p>A <code>DwCMetadata</code> object that contains the metadata of the archive</p>
 <p><hr>
 <a id="method-clone"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>clone()</code></h3>
 <p>The objects of this class are cloneable with this method.</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
