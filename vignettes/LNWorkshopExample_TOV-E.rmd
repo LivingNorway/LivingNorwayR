@@ -257,11 +257,11 @@ However, these methods assume that the researcher already has an EML file that c
 
 R markdown is a simple text-based documentation language and can be thought of as an extension of simple text files with some extra support for formatting and display of text elements.  In addition R markdown allows for the embedding of R code within the document which can be used to draw figures or make tables from data.  This can be very useful for describing or displaying aspects of data sets.
 
-A very simple minimal example of the use of markdown to generate create metadata documentation can be found at the [Living Norway Git Repository](https://raw.githubusercontent.com/LivingNorway/LivingNorwayR/master/vignettes/WorkshopExamples/LNWorkshopExample_TOV-E_Metadata.rmd).
+A very simple minimal example of the use of markdown to generate create metadata documentation can be found at the [Living Norway Git Repository](https://raw.githubusercontent.com/LivingNorway/LivingNorwayR/master/vignettes/LNWorkshopExample_TOV-E_Metadata.rmd).
 
 ```{r CreateMetadata2}
 # Initialise the metadata from the R markdown file hosted at TODO
-download.file("https://raw.githubusercontent.com/LivingNorway/LivingNorwayR/master/vignettes/WorkshopExamples/LNWorkshopExample_TOV-E_Metadata.rmd",
+download.file("https://raw.githubusercontent.com/LivingNorway/LivingNorwayR/master/vignettes/LNWorkshopExample_TOV-E_Metadata.rmd",
   file.path(tempDirLoc, "LNWorkshopExample_Metadata.rmd"))
 createdTOVEMetadata <- initializeDwCMetadata(file.path(tempDirLoc, "LNWorkshopExample_Metadata.rmd"),
   fileType = "rmarkdown" # This line is not required if the file has the ".rmd" or ".md" file extension
