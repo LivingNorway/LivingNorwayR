@@ -17,6 +17,7 @@ getGBIFEventTerm <- function() {
 #' @return A \code{list} of \code{DwCTerm} objects, one for each member of the the
 #' GBIF Event class
 #' @seealso \code{\link[DwCTerm]{DwCTerm}}
+#' @export
 getGBIFEventMembers <- function() {
 	outValue <- NULL
 	if("http://rs.tdwg.org/dwc/terms/Event" %in% names(GBIFCoreClassList)) {
@@ -94,6 +95,7 @@ GBIFEvent <- R6Class("GBIFEvent",
 #' term. Mappable terms can be found using: \code{sapply(X = getGBIFEventMembers(), FUN = function(curTerm) { curTerm$getTermName() })}
 #' @return A new \code{GBIFEvent} object
 #' @seealso \code{\link[DwCTerm]{DwCTerm}} \code{\link[getGBIFEventMembers]{getGBIFEventMembers}}
+#' @export
 initializeGBIFEvent <- function(objectData, idColumnInfo, nameAutoMap = FALSE, defDateFormat = "YYYY-MM-DD", ...) {
 	GBIFEvent$new(objectData = objectData, idColumnInfo = idColumnInfo, nameAutoMap = nameAutoMap, defDateFormat = defDateFormat, ...)
 }

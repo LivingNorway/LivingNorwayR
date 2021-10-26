@@ -13,7 +13,7 @@ devtools::install_github("LivingNorway/LivingNorwayR")
 
 ## For a basic example of the workflow please see::
 
-To Be Updated 
+https://livingnorway.github.io/LivingNorwayR/
 
 ## Join us at the next Living Norway colloquium see::
 
