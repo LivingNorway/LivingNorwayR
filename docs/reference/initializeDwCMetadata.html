@@ -103,19 +103,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Data_file_structure.html">Data Package Structure for Legacy and Raw data</a>
+      <a href="../articles/LNWorkshopExample_TOV-E.html">Handling Darwin Core Files With Living Norway:  Example Using the TOV-E Dataset</a>
     </li>
     <li>
-      <a href="../articles/introduction.html">introduction</a>
-    </li>
-    <li>
-      <a href="../articles/LivingNorwayR_start_example.html">How to initiate and organise a data project in ecology?</a>
-    </li>
-    <li>
-      <a href="../articles/My_First_LivingNorway_prj/metadata/metadata/metadata.html">UNKNOWN TITLE</a>
-    </li>
-    <li>
-      <a href="../articles/testMetadata.html">Test Metadata</a>
+      <a href="../articles/LNWorkshopExample_TOV-E_Metadata.html">TOV-E Bird monitoring sampling data</a>
     </li>
   </ul>
 </li>
@@ -149,7 +140,7 @@
     <p>Initialise a metadata object from an import file</p>
     </div>
 
-    <pre class="usage"><span class='fu'>initializeDwCMetadata</span><span class='op'>(</span><span class='va'>fileLocation</span>, fileEncoding <span class='op'>=</span> <span class='st'>""</span>, fileType <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>initializeDwCMetadata</span><span class='op'>(</span><span class='va'>fileLocation</span>, fileEncoding <span class='op'>=</span> <span class='st'>""</span>, fileType <span class='op'>=</span> <span class='cn'>NA</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -168,6 +159,15 @@ character data can be re-encoded as they are written</p></td>
       <td><p>A <code>character</code> scalar stating the type of the file.  File type can be either
 <code>"rmarkdown"</code>, <code>"html"</code>, <code>"eml"</code>, or <code>"darwincore"</code>. If <code>NA</code> then the
 file type will be determined from the file extension</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>A set of arguments to be passed to the <code>xml_new_root</code>
+function to define namespace information.  The values returned by the helper function
+<code>getDefaultEMLDefinitionInfo</code> will be used unless
+overwritten by user input here.  In addition, arguments required by the EML standard but
+not provided here (such as the packageID
+attribute) will be otherwise auto-generated</p></td>
     </tr>
     </table>
 

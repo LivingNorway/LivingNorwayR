@@ -112,19 +112,10 @@ HTML tag generation functions." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Data_file_structure.html">Data Package Structure for Legacy and Raw data</a>
+      <a href="../articles/LNWorkshopExample_TOV-E.html">Handling Darwin Core Files With Living Norway:  Example Using the TOV-E Dataset</a>
     </li>
     <li>
-      <a href="../articles/introduction.html">introduction</a>
-    </li>
-    <li>
-      <a href="../articles/LivingNorwayR_start_example.html">How to initiate and organise a data project in ecology?</a>
-    </li>
-    <li>
-      <a href="../articles/My_First_LivingNorway_prj/metadata/metadata/metadata.html">UNKNOWN TITLE</a>
-    </li>
-    <li>
-      <a href="../articles/testMetadata.html">Test Metadata</a>
+      <a href="../articles/LNWorkshopExample_TOV-E_Metadata.html">TOV-E Bird monitoring sampling data</a>
     </li>
   </ul>
 </li>
@@ -164,7 +155,15 @@ is not designed to be run directly by the users but serves as a utility function
 HTML tag generation functions.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>LNaddTag</span><span class='op'>(</span><span class='va'>tagText</span>, <span class='va'>tagType</span>, tagID <span class='op'>=</span> <span class='cn'>NA</span>, parentID <span class='op'>=</span> <span class='cn'>NA</span>, isHidden <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>LNaddTag</span><span class='op'>(</span>
+  <span class='va'>tagText</span>,
+  <span class='va'>tagType</span>,
+  tagID <span class='op'>=</span> <span class='cn'>NA</span>,
+  parentID <span class='op'>=</span> <span class='cn'>NA</span>,
+  isHidden <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  lang <span class='op'>=</span> <span class='cn'>NA</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -181,6 +180,12 @@ HTML tag generation functions.</p>
     <tr>
       <th>isHidden</th>
       <td><p>A <code>logical</code> scalar determining whether the tag should appear in the rendered HTML text</p></td>
+    </tr>
+    <tr>
+      <th>lang</th>
+      <td><p>A <code>character</code> scalar defining the language attribute to set for the tag. See
+<a href='https://www.w3.org/International/articles/language-tags/'>https://www.w3.org/International/articles/language-tags/</a>the W3C guide to language tags for the
+best format to use for this attribute.  A value <code>NA</code> indicates that no langauge attribute will be set.</p></td>
     </tr>
     <tr>
       <th>tagTxt</th>
