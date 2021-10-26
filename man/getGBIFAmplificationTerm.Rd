@@ -2,7 +2,7 @@
 % Please edit documentation in R/GBIFAmplification.R
 \name{getGBIFAmplificationTerm}
 \alias{getGBIFAmplificationTerm}
-\title{Return the information of the term associated with the GBIF Amplification class}
+\title{Amplification term information}
 \usage{
 getGBIFAmplificationTerm()
 }

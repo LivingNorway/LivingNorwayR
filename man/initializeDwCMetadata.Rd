@@ -4,7 +4,7 @@
 \alias{initializeDwCMetadata}
 \title{Initialise a metadata object from an import file}
 \usage{
-initializeDwCMetadata(fileLocation, fileEncoding = "", fileType = NA)
+initializeDwCMetadata(fileLocation, fileEncoding = "", fileType = NA, ...)
 }
 \arguments{
 \item{fileLocation}{A \code{character} scalar containing the location of the import file}
@@ -15,6 +15,13 @@ character data can be re-encoded as they are written}
 \item{fileType}{A \code{character} scalar stating the type of the file.  File type can be either
 \code{"rmarkdown"}, \code{"html"}, \code{"eml"}, or \code{"darwincore"}. If \code{NA} then the
 file type will be determined from the file extension}
+
+\item{...}{A set of arguments to be passed to the \code{\link[xml2::xml_new_root]{xml_new_root}}
+function to define namespace information.  The values returned by the helper function
+\code{\link[getDefaultEMLDefinitionInfo]{getDefaultEMLDefinitionInfo}} will be used unless
+overwritten by user input here.  In addition, arguments required by the EML standard but
+not provided here (such as the \link[https://ediorg.github.io/data-package-best-practices/EMLmetadata/Root-element.html]{packageID}
+attribute) will be otherwise auto-generated}
 }
 \value{
 A new \code{DwCMetadata} object

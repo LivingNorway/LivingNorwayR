@@ -1,7 +1,8 @@
 # ------ 1. GENERIC DARWIN CORE FILE CLASS ------
-#' R6 class representing a generic data structure for a Darwin Core archive file
+#' R6 DwC Generic class
+#' @description R6 class representing a generic data structure for a Darwin Core archive file
 #'
-#' The \code{DwcGeneric} class serves a base class to all Darwin Core archive file types. This class supports all kinds of Darwin Core
+#' @details The \code{DwcGeneric} class serves a base class to all Darwin Core archive file types. This class supports all kinds of Darwin Core
 #' archive files but may miss some of the specialised functionality of the more specialist classes.
 #' See \url{https://dwc.tdwg.org/terms/}{the Darwin core reference guide} for more information on Darwin core classes and the terms
 #' supported by them.
@@ -288,7 +289,8 @@ DwCGeneric <- R6::R6Class("DwCGeneric",
       lapply(X = private$associatedTerms, FUN = function(curEl) { curEl$clone() })
     },
     # ====== 1.10. Function to print the object to the console ======
-    #' Print the term information
+    #' Print object to console
+    #' @description Print the term information
     print = function() {
       cat(toupper(private$objectName), "CLASS INFORMATION\n")
       private$classTermInfo$print()

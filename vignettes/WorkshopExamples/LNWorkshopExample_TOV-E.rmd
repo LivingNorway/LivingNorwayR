@@ -9,7 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## What is Darwin Core?
 
-Darwin Core can best be thought of as a set of terms for describing information about biodiversity data that are given special significance so that their meaning is comparable between different data sets.  Every data set in the ecological science is unique and every one will have some features about it that will require some explanation when providing this data to other parties.  The Darwin Core standard is a way of describing features of your data set using a controlled vocabulary such that when you talk about feature 'x' in your data set, that this 'x' can be understood to mean a particular well-defined and standardised thing.  Darwin Core is not the only standard used for the description of biological data, there are plenty of others and many, including Darwin Core itself, are maintained by working groups associated with [TDWG](https://www.tdwg.org/) a Biodiveristy Information Standards voluntary organization (formally called the Taxonomic Databases Working Group).  Darwin Core is the standard that forms the basis for the [Global Biodiversity Information Facility](https://www.gbif.org/) and, for many researchers, GBIF will represent the most common way to make their data findable and sharable with the wider community.
+Darwin Core can best be thought of as a set of terms for describing information about biodiversity data that are given special significance so that their meaning is comparable between different data sets.  Every data set in the ecological science is unique and every one will have some features about it that will require some explanation when providing this data to other parties.  The Darwin Core standard is a way of describing features of your data set using a controlled vocabulary such that when you talk about feature 'x' in your data set, that this 'x' can be understood to mean a particular well-defined and standardised thing.  Darwin Core is not the only standard used for the description of biological data, there are plenty of others and many, including Darwin Core itself, are maintained by working groups associated with [TDWG](https://www.tdwg.org/) a Biodiversity Information Standards voluntary organization (formally called the Taxonomic Databases Working Group).  Darwin Core is the standard that forms the basis for the [Global Biodiversity Information Facility](https://www.gbif.org/) and, for many researchers, GBIF will represent the most common way to make their data findable and sharable with the wider community.
 
 ## Darwin Core Archive Files
 
@@ -39,14 +39,15 @@ Before we can use any of the functions contained within the Living Norway packag
 
 ```{r LNInstall, results="hide", message=FALSE, warning=FALSE}
 # TODO: Replace this section with call to devtools::install_github
-library(R6)
+library(LivingNorwayR)
+# library(R6)
 library(xml2)
-library(uuid)
-library(zip)
-library(emld)
-rFilesLoc <- file.path(Sys.getenv("WORKSPACE_LIVINGNORWAY"), "R")
-importSourceFiles <- sapply(X = file.path(rFilesLoc, dir(rFilesLoc, "*.R")), FUN = source)
-load(file.path(rFilesLoc, "sysdata.rda"))
+# library(uuid)
+# library(zip)
+# library(emld)
+# rFilesLoc <- file.path(Sys.getenv("WORKSPACE_LIVINGNORWAY"), "R")
+# importSourceFiles <- sapply(X = file.path(rFilesLoc, dir(rFilesLoc, "*.R")), FUN = source)
+# load(file.path(rFilesLoc, "sysdata.rda"))
 ```
 
 Once the Living Norway package is installed and loaded, a number of classes are added to R that allow for the easier manipulation of Darwin Core archive data and the terms associated with them.  What do we mean by 'classes'?  All variables in R belong to a particular class of object.  You will already be familiar with some R's base classes that can used for the handling of information such as data frames, lists, and vectors.  The Living Norway package simply contains more class definitions that allow for easier manipulation of the information in Darin Core archive files:

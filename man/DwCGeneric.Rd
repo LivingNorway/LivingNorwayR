@@ -2,13 +2,11 @@
 % Please edit documentation in R/DwCGeneric.R
 \name{DwCGeneric}
 \alias{DwCGeneric}
-\title{R6 class representing a generic data structure for a Darwin Core archive file}
+\title{R6 DwC Generic class}
 \format{
 \code{\link{R6Class}} object.
 }
 \description{
-R6 class representing a generic data structure for a Darwin Core archive file
-
 R6 class representing a generic data structure for a Darwin Core archive file
 }
 \details{
@@ -40,6 +38,7 @@ supported by them.
 \item \href{#method-getIDName}{\code{DwCGeneric$getIDName()}}
 \item \href{#method-setDefaultYearFormat}{\code{DwCGeneric$setDefaultYearFormat()}}
 \item \href{#method-getDefaultYearFormat}{\code{DwCGeneric$getDefaultYearFormat()}}
+\item \href{#method-getTableTermName}{\code{DwCGeneric$getTableTermName()}}
 \item \href{#method-clone}{\code{DwCGeneric$clone()}}
 }
 }
@@ -201,13 +200,14 @@ Retrieve the terms associated with the Darwin core class of the object
 
 \subsection{Returns}{
 A \code{list} of \code{DwCTerm} objects containing the term information
-Print the term information
+Print object to console
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-print"></a>}}
 \if{latex}{\out{\hypertarget{method-print}{}}}
 \subsection{Method \code{print()}}{
+Print the term information
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DwCGeneric$print()}\if{html}{\out{</div>}}
 }
@@ -338,6 +338,19 @@ Retrieve the default date format
 
 \subsection{Returns}{
 A \code{character} scalar containing the default date format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-getTableTermName"></a>}}
+\if{latex}{\out{\hypertarget{method-getTableTermName}{}}}
+\subsection{Method \code{getTableTermName()}}{
+Retrieve the term name for the table
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DwCGeneric$getTableTermName()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+A \code{character} scalar containing the name to the term defining the table
 }
 }
 \if{html}{\out{<hr>}}

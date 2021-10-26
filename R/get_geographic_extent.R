@@ -7,7 +7,6 @@
 #' @param lon longitude column indicated by data$lon
 #' @param add_map add a map (default is "yes")
 #' @return A leaflet map of the coordinates and the minimum and maximum of the latitude and longitude
-#' @example #get_geographic_extent(lat = raw_data$Latitude, lon = raw_data$Longitude) #use example from our own examples package
 #' @export
 
 
@@ -53,7 +52,6 @@ get_geographic_extent<-function(df,lon,lat, add_map="no"){
 #' @param Y longitude column indicated by data$Y
 #' @param Code Code to convert UTM to lat lon
 #' @return A ggplot map of the coordinates
-#' @example
 #' @export
 
 get_NOR_geographic_extent<-function(df,X,Y,Code, add_map="no"){

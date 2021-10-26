@@ -3,10 +3,6 @@
 #'
 #' @param project_name The name of the project (it can not contain spaces; use "_" instead)
 #' @return A set of folders and a rmarkdown metadata template
-#'@example
-#'\dontrun{
-#'build_folder_structure(project_name = "My_first_LN_Project")
-#'}
 #' @export
 
 
