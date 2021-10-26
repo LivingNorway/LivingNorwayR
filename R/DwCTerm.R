@@ -367,14 +367,14 @@ retrieveDwCTermSpecifications <- function(includeExtensions = TRUE, includeDepre
   # TODO: add in some error handling if a conection to the server can't be made
   # ====== 2.1. Retrieve terms from Darwin core standard =====
   # Download terms defined by the Darwin Core standard
-  termNodes <- xml_find_all(read_html("https://dwc.tdwg.org/list/"), "//h2[@id=\"4-vocabulary\"]/following-sibling::table")
+  termNodes <- xml2::xml_find_all(xml2::read_html("https://dwc.tdwg.org/list/"), "//h2[@id=\"4-vocabulary\"]/following-sibling::table")
   termList <- lapply(X = termNodes, FUN = function(curNode) {
     # Initialise an output data.frame for the term entry
     outList <- data.frame(
       # Retrieve the name of the term as defined (and its namespace)
-      termName = gsub("^.*\\:([\\w\\-]+)\\s*$", "\\1", xml_text(xml_find_first(curNode, ".//thead")),perl = TRUE),
+      termName = gsub("^.*\\:([\\w\\-]+)\\s*$", "\\1", xml2::xml_text(xml2::xml_find_first(curNode, ".//thead")),perl = TRUE),
       namespaceName = switch(
-        gsub("^.*\\s([\\w\\-]+)\\:[\\w\\-]+\\s*$", "\\1", xml_text(xml_find_first(curNode, ".//thead")), perl = TRUE),
+        gsub("^.*\\s([\\w\\-]+)\\:[\\w\\-]+\\s*$", "\\1", xml2::xml_text(xml2::xml_find_first(curNode, ".//thead")), perl = TRUE),
         "dwc" = "http://rs.tdwg.org/dwc/terms/",
         "dwciri" = "http://rs.tdwg.org/dwc/iri/",
         "dc" = "http://purl.org/dc/elements/1.1/",
@@ -398,10 +398,10 @@ retrieveDwCTermSpecifications <- function(includeExtensions = TRUE, includeDepre
       stringsAsFactors = FALSE
     )
     # Look through the table of attributes for the term and populate the list
-    for(infoNode in xml_find_all(curNode, ".//tbody/tr")) {
-      colNodes <- xml_find_all(infoNode, ".//td")
-      attrName <- xml_text(colNodes[1])
-      attrVal <- xml_text(colNodes[2])
+    for(infoNode in xml2::xml_find_all(curNode, ".//tbody/tr")) {
+      colNodes <- xml2::xml_find_all(infoNode, ".//td")
+      attrName <- xml2::xml_text(colNodes[1])
+      attrVal <- xml2::xml_text(colNodes[2])
       colName <- switch(attrName,
                         "Term IRI" = "termIRI",
                         "Term version IRI" = "termVersionIRI",
@@ -437,47 +437,47 @@ retrieveDwCTermSpecifications <- function(includeExtensions = TRUE, includeDepre
     retrieveXMLSpecs <- function(specAddress) {
       # Function to read the GBIF XML file
       readGBIFXML <- function(specAddress) {
-        curDoc <- read_xml(specAddress)
+        curDoc <- xml2::read_xml(specAddress)
         # Class name
-        className <- switch(xml_attr(curDoc, "rowType"),
+        className <- switch(xml2::xml_attr(curDoc, "rowType"),
           "http://data.ggbn.org/schemas/ggbn/terms/Cloning" = "Cloning",   # Cloning class has the 'Amplification' name.  Manually need to over-ride that here
-          xml_attr(curDoc, "name"))
+          xml2::xml_attr(curDoc, "name"))
         # Convert each of the child nodes of the xml specification to terms objects
-        append(lapply(X = xml_children(curDoc), FUN = function(curNode, curDoc) {
+        append(lapply(X = xml2::xml_children(curDoc), FUN = function(curNode, curDoc) {
           DwCTerm$new(
-            termName = xml_attr(curNode, "name"),
-            namespaceName = xml_attr(curNode, "namespace"),
-            termIRI = xml_attr(curNode, "rowType"),
-            termVersionIRI = xml_attr(curNode, "rowType"),
-            dateModified = xml_attr(curDoc, "issued"),
-            label = xml_attr(curNode, "name"),
+            termName = xml2::xml_attr(curNode, "name"),
+            namespaceName = xml2::xml_attr(curNode, "namespace"),
+            termIRI = xml2::xml_attr(curNode, "rowType"),
+            termVersionIRI = xml2::xml_attr(curNode, "rowType"),
+            dateModified = xml2::xml_attr(curDoc, "issued"),
+            label = xml2::xml_attr(curNode, "name"),
             isReplacedBy = "",
-            definition = xml_attr(curNode, "description"),
-            notes = xml_attr(curNode, "description"),
-            type = xml_name(curNode),
-            examples = xml_attr(curNode, "examples"),
+            definition = xml2::xml_attr(curNode, "description"),
+            notes = xml2::xml_attr(curNode, "description"),
+            type = xml2::xml_name(curNode),
+            examples = xml2::xml_attr(curNode, "examples"),
             termInformationLN = "",
             execCommitteeDecisions = "",
-            miscInformation = paste("GBIF sub-class designation: ", ifelse(is.na(xml_attr(curNode, "group")), "unknown", xml_attr(curNode, "group")), sep = ""),
-            vocabularyURI = xml_attr(curNode, "thesaurus")
+            miscInformation = paste("GBIF sub-class designation: ", ifelse(is.na(xml2::xml_attr(curNode, "group")), "unknown", xml2::xml_attr(curNode, "group")), sep = ""),
+            vocabularyURI = xml2::xml_attr(curNode, "thesaurus")
           )
         }, curDoc = curDoc), list(
           # Convert the countaining class to a a terms object
           DwCTerm$new(
             termName = className,
-            namespaceName = xml_attr(curDoc, "namespace"),
-            termIRI = xml_attr(curDoc, "rowType"),
-            termVersionIRI = xml_attr(curDoc, "rowType"),
-            dateModified = xml_attr(curDoc, "issued"),
+            namespaceName = xml2::xml_attr(curDoc, "namespace"),
+            termIRI = xml2::xml_attr(curDoc, "rowType"),
+            termVersionIRI = xml2::xml_attr(curDoc, "rowType"),
+            dateModified = xml2::xml_attr(curDoc, "issued"),
             label = className,
             isReplacedBy = "",
-            definition = xml_attr(curDoc, "description"),
-            notes = xml_attr(curDoc, "description"),
+            definition = xml2::xml_attr(curDoc, "description"),
+            notes = xml2::xml_attr(curDoc, "description"),
             type = "class",
             examples = "",
             termInformationLN = "",
             miscInformation = paste("GBIF core/extension class"),
-            vocabularyURI = xml_attr(curDoc, "relation")
+            vocabularyURI = xml2::xml_attr(curDoc, "relation")
           )
         ))
       }
@@ -485,8 +485,8 @@ retrieveDwCTermSpecifications <- function(includeExtensions = TRUE, includeDepre
       if(!grepl("/$", specAddress, perl = TRUE)) {
         specAddress <- paste(specAddress, "/", sep = "")
       }
-      aNodes <- xml_find_all(read_html(specAddress), "//td/a")
-      aLinks <- sapply(X = aNodes[2:length(aNodes)], FUN = xml_attr, attr = "href")
+      aNodes <- xml2::xml_find_all(xml2::read_html(specAddress), "//td/a")
+      aLinks <- sapply(X = aNodes[2:length(aNodes)], FUN = xml2::xml_attr, attr = "href")
       # Go through each of the links and process each entry
       unlist(lapply(X = aLinks, FUN = function(curLink, curBaseAddress) {
         outVals <- list()
@@ -550,7 +550,7 @@ retrieveDwCClassSpecifications <- function(includeDeprecated = FALSE) {
   # ====== 3.2. Retrieve classes from the Darwin core standard ======
   classList <- termList[sapply(X = termList, FUN = function(curOb) { curOb$getType() == "Class" })]
   # Download the landuage terms defined by the Darwin Core standard
-  langNodes <- xml_find_all(read_html("https://dwc.tdwg.org/list/"), "//p[preceding-sibling::h3[@id=\"31-index-by-term-name\"] and following-sibling::h3[@id=\"32-index-by-label\"]]")
+  langNodes <- xml2::xml_find_all(xml2::read_html("https://dwc.tdwg.org/list/"), "//p[preceding-sibling::h3[@id=\"31-index-by-term-name\"] and following-sibling::h3[@id=\"32-index-by-label\"]]")
   setNames(lapply(X = classList, FUN = function(curClassInfo, langNodes, termList) {
     # Initialise an output list
     outList <- list(
@@ -558,10 +558,10 @@ retrieveDwCClassSpecifications <- function(includeDeprecated = FALSE) {
       compositeTerms = list()
     )
     # Lookup the HTML node containing the specification for the class
-    nodeIndex <- which(xml_text(langNodes) == outList$termInfo$getLabel())
+    nodeIndex <- which(xml2::xml_text(langNodes) == outList$termInfo$getLabel())
     if(length(nodeIndex) > 0) {
       # Get the terms associated with the class
-      termLabels <- strsplit(xml_text(langNodes)[nodeIndex[1] + 1], "\\s*\\|\\s*", perl = TRUE)[[1]]
+      termLabels <- strsplit(xml2::xml_text(langNodes)[nodeIndex[1] + 1], "\\s*\\|\\s*", perl = TRUE)[[1]]
       termLabels <- termLabels[termLabels %in% names(termList)]
       outList$compositeTerms <- termList[termLabels]
     }
@@ -626,18 +626,18 @@ retrieveGBIFClassSpecifications <- function(classOption = "all", includeDeprecat
         }
         outText
       }
-      curDoc <- read_xml(specAddress)
+      curDoc <- xml2::read_xml(specAddress)
       # Get the qualified names of each of the members of the class
-      memberTerms <- sapply(X = xml_children(curDoc), FUN = function(curNode) {
-        paste(addTrailingDir(xml_attr(curNode, "namespace")), xml_attr(curNode, "name"), sep = "")
+      memberTerms <- sapply(X = xml2::xml_children(curDoc), FUN = function(curNode) {
+        paste(addTrailingDir(xml2::xml_attr(curNode, "namespace")), xml2::xml_attr(curNode, "name"), sep = "")
       })
       memberTerms <- memberTerms[memberTerms %in% names(termList)]
       # Format the output object into a list of terms for the class
       list(
-        termInfo = termList[[paste(addTrailingDir(xml_attr(curDoc, "namespace")),
+        termInfo = termList[[paste(addTrailingDir(xml2::xml_attr(curDoc, "namespace")),
           switch(specAddress,
             "https://rs.gbif.org/extension/ggbn/cloning.xml" = "Cloning",    # Cloning class been given an incorrect name in the GBIF API so need to over-ride it here
-            xml_attr(curDoc, "name")
+            xml2::xml_attr(curDoc, "name")
           ),
           sep = "")]],
         compositeTerms = termList[memberTerms]
@@ -647,8 +647,8 @@ retrieveGBIFClassSpecifications <- function(classOption = "all", includeDeprecat
     if(!grepl("/$", specAddress, perl = TRUE)) {
       specAddress <- paste(specAddress, "/", sep = "")
     }
-    aNodes <- xml_find_all(read_html(specAddress), "//td/a")
-    aLinks <- sapply(X = aNodes[2:length(aNodes)], FUN = xml_attr, attr = "href")
+    aNodes <- xml2::xml_find_all(xml2::read_html(specAddress), "//td/a")
+    aLinks <- sapply(X = aNodes[2:length(aNodes)], FUN = xml2::xml_attr, attr = "href")
     # Retrieve the links that are directories
     dirLinks <- aLinks[grepl("/$", aLinks, perl = TRUE)]
     # For the links that are XML files: make sure the links are only the most recently defined

@@ -258,7 +258,9 @@ A very simple minimal example of the use of markdown to generate create metadata
 
 ```{r CreateMetadata2}
 # Initialise the metadata from the R markdown file hosted at TODO
-createdTOVEMetadata <- initializeDwCMetadata("https://raw.githubusercontent.com/LivingNorway/LivingNorwayR/master/vignettes/WorkshopExamples/LNWorkshopExample_TOV-E_Metadata.rmd",
+download.file("https://raw.githubusercontent.com/LivingNorway/LivingNorwayR/master/vignettes/WorkshopExamples/LNWorkshopExample_TOV-E_Metadata.rmd",
+  file.path(tempDirLoc, "LNWorkshopExample_Metadata.rmd"))
+createdTOVEMetadata <- initializeDwCMetadata(file.path(tempDirLoc, "LNWorkshopExample_Metadata.rmd"),
   fileType = "rmarkdown" # This line is not required if the file has the ".rmd" or ".md" file extension
 )
 # Export the newly created metadata as an EML file
@@ -268,7 +270,7 @@ createdTOVEMetadata$exportToEML(file.path(tempDirLoc, "newMetadata.xml"))
 and again the created metadata can be viewed in a browser using the following command:
 
 ```{r ViewEML2, eval=FALSE}
-browseURL(file.path(tempDirLoc, "eml.xml"))
+browseURL(file.path(tempDirLoc, "newMetadata.xml"))
 ```
 
 ### Putting it All Together

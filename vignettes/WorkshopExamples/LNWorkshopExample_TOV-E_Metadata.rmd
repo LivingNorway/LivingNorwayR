@@ -1,9 +1,9 @@
 ---
 title: "TOV-E Bird monitoring sampling data"
 output:
-  pdf_document: default
   html_document:
     df_print: paged
+  pdf_document: default
 ---
 
 ## A Mini-Introduction to R Markdown

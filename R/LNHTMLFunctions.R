@@ -52,6 +52,6 @@ retrieveEMLSchema <- function(schema) {
   }
   sapply(X = inSchema, FUN = function(curSchema) {
     # Import the XML
-    inXML <- read_xml(curSchema, encoding = "UTF-8")
+    inXML <- xml2::read_xml(curSchema, encoding = "UTF-8")
   })
 }

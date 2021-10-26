@@ -57,18 +57,18 @@ DwCMetadata<-R6::R6Class(
       if(!is.null(private$xmlContent)) {
         if(is.na(inLang)) {
           # If a language specification isn't set then select the nodes according to XPath
-          outNodes <- xml_find_all(private$xmlContent, xmlPath)
+          outNodes <- xml2::xml_find_all(private$xmlContent, xmlPath)
         } else {
           # If a language specification is set then only select the node or "value" tagged
           # children of the XPath matching nodes that have language attributes that match
-          outNodes <- xml_find_all(private$xmlContent, paste(
+          outNodes <- xml2::xml_find_all(private$xmlContent, paste(
             xmlPath, "[@lang=\"", inLang, "\" or @xml:lang=\"", inLang, "\"]|",
             xmlPath, "/value[@lang=\"", inLang, "\" or @xml:lang=\"", inLang, "\"]",
             sep = ""))
           # If no elements could be found of the correct language then look for the default
           # entries instead
           if(length(outNodes) <= 0) {
-            outNodes <- xml_find_all(private$xmlContent, xmlPath)
+            outNodes <- xml2::xml_find_all(private$xmlContent, xmlPath)
           }
         }
       }
@@ -100,15 +100,15 @@ DwCMetadata<-R6::R6Class(
         stop("error encountered processing fileLocation parameter: invalid parameter value (NA or vector is length zero)")
       }
       # Import the HTML file into an XML object
-      inXML <- tryCatch(read_html(as.character(inFileLocation)), error = function(err) {
+      inXML <- tryCatch(xml2::read_html(as.character(inFileLocation)), error = function(err) {
         stop("error importing HTML file: ", err)
       })
       # Search the document for any span tags that have the "LNmetadata" class
-      metadataNodes <- xml_find_all(inXML, "//span[@class=\"LNmetadata\"]")
+      metadataNodes <- xml2::xml_find_all(inXML, "//span[@class=\"LNmetadata\"]")
       # Retrieve the full formatted IDs of each of the metadata tags
       fullIDs <- t(sapply(X = metadataNodes, FUN = function(curNode) {
         # Complete ID string giving hierarchy and attribute information
-        completeIDStr <- tryCatch(as.character(xml_attr(curNode, "id")), error = function(err) {
+        completeIDStr <- tryCatch(as.character(xml2::xml_attr(curNode, "id")), error = function(err) {
           stop("invalid ID code encountered when processing Living Norway HTML tags")
         })
         if(length(completeIDStr) <= 0) {
@@ -143,11 +143,11 @@ DwCMetadata<-R6::R6Class(
         outVector <- setNames(c(gsub("^LN", "", idComponents[1], perl = TRUE), idComponents[2], ifelse(length(idComponents) > 2, idComponents[3], NA), NA, attrStr), c("type", "id", "parent", "text", "attributes"))
         if(is.na(outVector[3])) {
           # Node does not have a parent specified - check the nestedness of the tag to see if it does have a parent
-          parIDs <- sapply(X = xml_parents(curNode), FUN = function(curParNode) {
+          parIDs <- sapply(X = xml2::xml_parents(curNode), FUN = function(curParNode) {
             outVal <- NA
-            if(xml_name(curParNode) == "span" && xml_attr(curParNode, "class") == "LNmetadata") {
+            if(xml2::xml_name(curParNode) == "span" && xml2::xml_attr(curParNode, "class") == "LNmetadata") {
               # Retrieve the components of the ID of the parent node if it is of the correct node type
-              idComponents <- strsplit(gsub("__.*$", "", xml_attr(curParNode, "id"), perl = TRUE), "_", fixed = TRUE)[[1]]
+              idComponents <- strsplit(gsub("__.*$", "", xml2::xml_attr(curParNode, "id"), perl = TRUE), "_", fixed = TRUE)[[1]]
               # Test to ensure that the ID is formatted correctly
               if(length(idComponents) < 2) {
                 stop("error encountered processing metadata ID codes: invalid ID format")
@@ -161,7 +161,7 @@ DwCMetadata<-R6::R6Class(
             outVector[3] <- parIDs[!is.na(parIDs)][1]
           }
         }
-        nodeText <- xml_text(curNode)
+        nodeText <- xml2::xml_text(curNode)
         if(length(nodeText) <= 0 | any(is.na(nodeText))) {
           nodeText <-NA
         } else {
@@ -193,7 +193,7 @@ DwCMetadata<-R6::R6Class(
         outVal
       }), names(initParams))
       # Generate an EML structure
-      emlOut <- do.call(xml_new_root, initParams)
+      emlOut <- do.call(xml2::xml_new_root, initParams)
       # Function to populate children of a node from an ID list
       makeChildren <- function(curParent, curNode, fullIDs) {
         idMatch <- rep(FALSE, nrow(fullIDs))
@@ -206,7 +206,7 @@ DwCMetadata<-R6::R6Class(
           apply(X = fullIDs[idMatch, , drop = FALSE], FUN = function(curRow, curNode) {
             # Add a child node
             if(is.na(curRow[5])) {
-              outNode <- xml_add_child(curNode, curRow[1])
+              outNode <- xml2::xml_add_child(curNode, curRow[1])
             } else {
               # If the node has attributes then set those
               attrVec <- strsplit(curRow[5], " ", fixed = TRUE)[[1]]
@@ -214,11 +214,11 @@ DwCMetadata<-R6::R6Class(
                 gsub("^.*=", "", attrVec, perl = TRUE),
                 gsub("=.*$", "", attrVec, perl = TRUE)
               )
-              outNode <- do.call(xml_add_child, c(list(.x = curNode, .value = curRow[1]), as.list(attrVec)))
+              outNode <- do.call(xml2::xml_add_child, c(list(.x = curNode, .value = curRow[1]), as.list(attrVec)))
             }
             # Add text to the node if it has it
             if(!is.na(curRow[4])) {
-              xml_text(outNode) <- curRow[4]
+              xml2::xml_text(outNode) <- curRow[4]
             }
             # Call the function recursively to populate any further children
             makeChildren(curRow[2], outNode, fullIDs)
@@ -282,7 +282,7 @@ DwCMetadata<-R6::R6Class(
       if(is.na(inFileLocation)) {
         stop("error encountered processing fileLocation parameter: invalid parameter value (NA or vector is length zero)")
       }
-      private$xmlContent <- read_xml(inFileLocation, inFileEncoding)
+      private$xmlContent <- xml2::read_xml(inFileLocation, inFileEncoding)
       # Validate the EML according to the schema
       if(!private$validateEML(fileEncoding = inFileEncoding)) {
         stop("EML is not valid according to the selected EML schema")
@@ -312,13 +312,13 @@ DwCMetadata<-R6::R6Class(
       }
       dir.create(tempLoc, recursive = TRUE)
       # Unzip the contents of the Darwin core archive
-      unzip(inFileLocation, NULL, exdir = tempLoc)
+      zip::unzip(inFileLocation, NULL, exdir = tempLoc)
       # Test to see whether the meta file exists
       if(!file.exists(file.path(tempLoc, "meta.xml"))) {
         stop("error encountered importing Darwin core archive: no meta file in archive")
       }
       # Retrieve the metafile attributes
-      metaFileAttributes <- xml_attrs(read_xml(file.path(tempLoc, "meta.xml"), inFileEncoding))
+      metaFileAttributes <- xml2::xml_attrs(xml2::read_xml(file.path(tempLoc, "meta.xml"), inFileEncoding))
       metadataLoc <- file.path(tempLoc, "eml.xml")
       if(is.null(names(metaFileAttributes)) || !("metadata" %in% names(metaFileAttributes))) {
         warning("metadata EML file not specified in the meta.xml document: searching for an \'eml.xml\' file instead")
@@ -346,7 +346,7 @@ DwCMetadata<-R6::R6Class(
       if(is.na(inFileLocation)) {
         stop("error encountered processing fileLocation parameter: invalid parameter value (NA or vector is length zero)")
       }
-      write_xml(private$xmlContent, inFileLocation, encoding = inFileEncoding)
+      xml2::write_xml(private$xmlContent, inFileLocation, encoding = inFileEncoding)
     },
     # ====== 1.6. Initialise the metadata object ======
     #' @description
@@ -457,7 +457,7 @@ DwCMetadata<-R6::R6Class(
         titleNames <- ""
         if(!is.null(titleNodes)) {
           # Retrieve the text of the respective elements
-          titleNames <- xml_text(xml_find_all(titleNodes, "text()"), trim = TRUE)
+          titleNames <- xml2::xml_text(xml2::xml_find_all(titleNodes, "text()"), trim = TRUE)
         }
         # Remove any empty strings
         titleNames <- titleNames[!is.na(titleNames) && titleNames != ""]
@@ -478,15 +478,15 @@ DwCMetadata<-R6::R6Class(
       retrieveAsList <- function(curNode, lang) {
         outVal <- list()
         # Retrieve the output node
-        langNode <- private$retrieveLangNodes(xml_path(curNode), lang)
+        langNode <- private$retrieveLangNodes(xml2::xml_path(curNode), lang)
         # Get the children of the current node
-        curChildren <- xml_children(langNode[[1]])
+        curChildren <- xml2::xml_children(langNode[[1]])
         if(length(curChildren) > 0) {
           # If there are children then call the function recursively
-          outVal <- setNames(lapply(X = curChildren, FUN = retrieveAsList, lang = lang), xml_name(curChildren))
+          outVal <- setNames(lapply(X = curChildren, FUN = retrieveAsList, lang = lang), xml2::xml_name(curChildren))
         } else {
           # Otherwise return the text associated with the element (after tidying up whitespace)
-          outVal <- xml_text(curNode, trim = TRUE)
+          outVal <- xml2::xml_text(curNode, trim = TRUE)
           outVal <- outVal[!is.na(outVal) && outVal != ""]
           outVal <- paste(outVal, collapse = " ")
         }
@@ -495,7 +495,7 @@ DwCMetadata<-R6::R6Class(
       outValue <- list()
       if(!is.null(private$xmlContent)) {
         # Retrieve all the creator nodes
-        creatorNodes <- xml_find_all(private$xmlContent, "//dataset/creator")
+        creatorNodes <- xml2::xml_find_all(private$xmlContent, "//dataset/creator")
         if(length(creatorNodes) > 0) {
           outValue <- lapply(X = creatorNodes, FUN = retrieveAsList, lang = lang)
         }
@@ -508,7 +508,6 @@ DwCMetadata<-R6::R6Class(
     #' @param lang A \code{character} scalar that specifies the language of the elements to return.  This
     #' is useful when the elements have multiple translations in the metadata
     #' @export
-
     getAbstract = function(lang = NA) {
       outValue <- NA
       if(!is.null(private$xmlContent)) {
@@ -517,7 +516,7 @@ DwCMetadata<-R6::R6Class(
        absText <- ""
         if(!is.null(abstractNodes)) {
           # Retrieve the text of the respective elements
-          absText <- xml_text(abstractNodes, trim = TRUE)
+          absText <- xml2::xml_text(abstractNodes, trim = TRUE)
         }
         # Remove any empty strings
         absText <- absText[!is.na(absText) && absText != ""]

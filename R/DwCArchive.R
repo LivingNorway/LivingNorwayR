@@ -47,7 +47,7 @@ DwCArchive <- R6Class("DwCArchive",
       inEMLLocation <- charSanityCheck(emlLocation, "emlLocation", "eml.xml")
       # ------ 1.2.2. Create a new XML document and root node ------
       # Create a archive base node
-      xmlOutput <- xml_new_root(
+      xmlOutput <- xml2::xml_new_root(
         .value = "archive",
         xmlns = "http://rs.tdwg.org/dwc/text/",
         "xmlns:xsi" = "http://www.w3.org/2001/XMLSchema-instance",
@@ -61,7 +61,7 @@ DwCArchive <- R6Class("DwCArchive",
       # Helper function to generate XML for child nodes
       makeXMLNodes <- function(inObject, rootNode, obType, inSep, inEol, inEncoding) {
         # Create the child node of the relevant type (core or extension)
-        childNode <- xml_add_child(rootNode, .value = obType,
+        childNode <- xml2::xml_add_child(rootNode, .value = obType,
           rowType = inObject$getDwCTermInfo()$getTermIRI(),
           fieldsTerminatedBy = inSep,
           linesTerminatedBy = inEol,
@@ -70,9 +70,9 @@ DwCArchive <- R6Class("DwCArchive",
           ignoreHeaderLines = "1"
         )
         # Create the files elements of the child node
-        xml_add_child(xml_add_child(childNode, .value = "files"), .value = "location", paste(inObject$getTableName(), ".txt", sep = ""))
+        xml2::xml_add_child(xml2::xml_add_child(childNode, .value = "files"), .value = "location", paste(inObject$getTableName(), ".txt", sep = ""))
         # Create the ID elements of the child node
-        xml_add_child(childNode, .value = ifelse(obType == "core", "id", "coreid"), index = as.character(inObject$getIDIndex() - 1))
+        xml2::xml_add_child(childNode, .value = ifelse(obType == "core", "id", "coreid"), index = as.character(inObject$getIDIndex() - 1))
         # Create the field elements of the child node
         outMapFrame <- inObject$getTermMapping()
         outMapFrame <- outMapFrame[!is.na(outMapFrame$columnIndex), ]
@@ -80,9 +80,9 @@ DwCArchive <- R6Class("DwCArchive",
           # Retrieve the current term
           curTerm <- associatedTerms[[curRow[1]]]
           if(length(curTerm$getVocabularyURI()) <= 0 || is.na(curTerm$getVocabularyURI()) || curTerm$getVocabularyURI() == "") {
-            xml_add_child(childNode, .value = "field", index = as.character(as.integer(curRow[2]) - 1), term = curTerm$getTermIRI())
+            xml2::xml_add_child(childNode, .value = "field", index = as.character(as.integer(curRow[2]) - 1), term = curTerm$getTermIRI())
           } else {
-            xml_add_child(childNode, .value = "field", index = as.character(as.integer(curRow[2]) - 1), term = curTerm$getTermIRI(), vocabulary = curTerm$getVocabularyURI())
+            xml2::xml_add_child(childNode, .value = "field", index = as.character(as.integer(curRow[2]) - 1), term = curTerm$getTermIRI(), vocabulary = curTerm$getVocabularyURI())
           }
         }, childNode = childNode, associatedTerms = inObject$getAssociatedTerms(), MARGIN = 1)
         childNode
@@ -145,14 +145,14 @@ DwCArchive <- R6Class("DwCArchive",
       }
       dir.create(tempLoc, recursive = TRUE)
       # Unzip the contents of the Darwin core archive
-      unzip(inLocation, NULL, exdir = tempLoc)
+      zip::unzip(inLocation, NULL, exdir = tempLoc)
       # Test to see whether the meta file exists
       if(!file.exists(file.path(tempLoc, "meta.xml"))) {
         stop("error encountered importing Darwin core archive: no meta file in archive")
       }
-      metaFileContents <- read_xml(file.path(tempLoc, "meta.xml"), inFileEncoding)
+      metaFileContents <- xml2::read_xml(file.path(tempLoc, "meta.xml"), inFileEncoding)
       # Retrieve the metafile attributes
-      metaFileAttributes <- xml_attrs(metaFileContents)
+      metaFileAttributes <- xml2::xml_attrs(metaFileContents)
       metadataLoc <- file.path(tempLoc, "eml.xml")
       if(!is.null(names(metaFileAttributes)) && !("metadata" %in% names(metaFileAttributes))) {
         warning("metadata EML file not specified in the meta.xml document: searching for an \'eml.xml\' file instead")
@@ -162,13 +162,13 @@ DwCArchive <- R6Class("DwCArchive",
       }
       private$metadata <- initializeDwCMetadata(fileLocation = metadataLoc, fileEncoding = inFileEncoding, fileType = "eml")
       # Make a list of augmented data tables
-      fileList <- lapply(X = xml_children(metaFileContents), FUN = function(curChild, tempLoc) {
+      fileList <- lapply(X = xml2::xml_children(metaFileContents), FUN = function(curChild, tempLoc) {
         # Function to return special characters
         returnSpecialChars <- function(inChar) {
           gsub("\\t", "\t", gsub("\\r", "\r", gsub("\\n", "\n", inChar, fixed = TRUE), fixed = TRUE), fixed = TRUE)
         }
         # Retrieve the relevant attributes from the metafile
-        qualName <- xml_attr(curChild, "rowType")
+        qualName <- xml2::xml_attr(curChild, "rowType")
         if(is.na(qualName)) {
           stop("error encountered importing Darwin core archive: unspecified table type")
         }
@@ -178,44 +178,44 @@ DwCArchive <- R6Class("DwCArchive",
           stop("error encountered importing Darwin core archive: unknown class type specified in meta file")
         }
         # Retrieve the information relating to the formatting of the data files
-        fieldTerm <- xml_attr(curChild, "fieldsTerminatedBy")
+        fieldTerm <- xml2::xml_attr(curChild, "fieldsTerminatedBy")
         if(is.na(fieldTerm)) {
           fieldTerm <- ","
         } else {
           fieldTerm <- returnSpecialChars(fieldTerm)
         }
-        lineTerm <- xml_attr(curChild, "linesTerminatedBy")
+        lineTerm <- xml2::xml_attr(curChild, "linesTerminatedBy")
         if(is.na(lineTerm)) {
           lineTerm <- "\n"
         } else {
           lineTerm <- returnSpecialChars(lineTerm)
         }
-        fieldEnc <- xml_attr(curChild, "fieldsEnclosedBy")
+        fieldEnc <- xml2::xml_attr(curChild, "fieldsEnclosedBy")
         if(is.na(fieldEnc)) {
           fieldEnc <- "\""
         } else {
           fieldEnc <- returnSpecialChars(fieldEnc)
         }
-        fileEnc <- xml_attr(curChild, "encoding")
+        fileEnc <- xml2::xml_attr(curChild, "encoding")
         if(is.na(fileEnc)) {
           fileEnc <- "UTF-8"
         }
-        headIgnore <- xml_attr(curChild, "ignoreHeaderLines")
+        headIgnore <- xml2::xml_attr(curChild, "ignoreHeaderLines")
         if(is.na(headIgnore)) {
           headIgnore <- 0
         } else {
           headIgnore <- as.integer(headIgnore)
         }
-        dateFormat <- xml_attr(curChild, "dateFormat")
+        dateFormat <- xml2::xml_attr(curChild, "dateFormat")
         if(is.na(dateFormat)) {
           dateFormat <- "YYYY-MM-DD"
         }
         # Find the location of any file names in the current node
-        tableName <- unlist(lapply(X = xml_children(curChild), FUN = function(curNode) {
+        tableName <- unlist(lapply(X = xml2::xml_children(curChild), FUN = function(curNode) {
           filePaths <- c()
-          if(xml_name(curNode) == "files") {
-            filePaths <- sapply(X = xml_children(curNode), FUN = function(fileNode) {
-              xml_text(fileNode)
+          if(xml2::xml_name(curNode) == "files") {
+            filePaths <- sapply(X = xml2::xml_children(curNode), FUN = function(fileNode) {
+              xml2::xml_text(fileNode)
             })
           }
           filePaths
@@ -231,15 +231,15 @@ DwCArchive <- R6Class("DwCArchive",
           stop("error encountered importing Darwin core archive: specified file for core or extension table does not exist in the archive")
         }
         # Sanity check the node type
-        fileType <- xml_name(curChild)
+        fileType <- xml2::xml_name(curChild)
         if(!(fileType %in% c("core", "extension"))) {
           stop("error encountered importing Darwin core archive: file type is not core or extension in meta XML specifiction")
         }
         # Retrieve the index of the id column (if it exists)
-        idIndex <- unlist(lapply(X = xml_children(curChild), FUN = function(curNode, idText) {
+        idIndex <- unlist(lapply(X = xml2::xml_children(curChild), FUN = function(curNode, idText) {
           outIndex <- c()
-          if(xml_name(curNode) == idText) {
-            outIndex <- as.integer(xml_attr(curNode, "index")) + 1
+          if(xml2::xml_name(curNode) == idText) {
+            outIndex <- as.integer(xml2::xml_attr(curNode, "index")) + 1
           }
           outIndex
         }, idText = ifelse(fileType == "core", "id", "coreid")))
@@ -250,15 +250,15 @@ DwCArchive <- R6Class("DwCArchive",
           stop("error encountered importing Darwin core archive: multiple ID column specifications in meta XML specification")
         }
         # Retrieve the set of Darwin core mapped terms
-        mappedTerms <- lapply(X = xml_children(curChild), FUN = function(curNode) {
+        mappedTerms <- lapply(X = xml2::xml_children(curChild), FUN = function(curNode) {
           outMap <- NULL
-          if(xml_name(curNode) == "field") {
+          if(xml2::xml_name(curNode) == "field") {
             # Retrieve the attributes associated with the current node
             outMap <- list(
-              term = xml_attr(curNode, "term"),
-              default = xml_attr(curNode, "default"),
-              index = as.integer(xml_attr(curNode, "index")) + 1,
-              vocabulary = xml_attr(curNode, "vocabulary"),
+              term = xml2::xml_attr(curNode, "term"),
+              default = xml2::xml_attr(curNode, "default"),
+              index = as.integer(xml2::xml_attr(curNode, "index")) + 1,
+              vocabulary = xml2::xml_attr(curNode, "vocabulary"),
               shortName = NA
             )
             # Sanity check the term attribute
@@ -444,7 +444,7 @@ DwCArchive <- R6Class("DwCArchive",
         warning("file encoding parameter has length greater than one: only the first element will be used")
         inFileEncoding <- inFileEncoding[1]
       }
-      write_xml(outXML, metafileLoc, encoding = inFileEncoding)
+      xml2::write_xml(outXML, metafileLoc, encoding = inFileEncoding)
       # Produce the EML metadata file
       inEMLLocation <- tryCatch(as.character(emlLocation), error = function(err) {
         stop("error encountered whilst processing the EML location parameter: ", err)
