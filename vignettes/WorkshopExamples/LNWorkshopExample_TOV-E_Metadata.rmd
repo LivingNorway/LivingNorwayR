@@ -16,15 +16,8 @@ Code can included in R markdown documents in 'chunks' such as the one shown belo
 # This is setup code that is not displayed in the rendered HTML file but includes packages
 # needed for producing the metadata document
 knitr::opts_chunk$set(echo = TRUE)
-# TODO: Replace this section with call to devtools::install_github
-library(R6)
-library(xml2)
-library(uuid)
-library(zip)
-library(emld)
-rFilesLoc <- file.path(Sys.getenv("WORKSPACE_LIVINGNORWAY"), "R")
-importSourceFiles <- sapply(X = file.path(rFilesLoc, dir(rFilesLoc, "*.R")), FUN = source)
-load(file.path(rFilesLoc, "sysdata.rda"))
+# Import the Living Norway tools into R
+library(LivingNorwayR)
 ```
 
 However, you will only see this code chunk in the original markdown text.  At the top of the code chunk you will see the line `input=FALSE`.  This means that the code is run but that neither the code itself or the results of the code is printed when rendering the document to HTML or any other output format.  This is useful when you want to set up things in the background that you don't want rendered into the document.  In this example the code chunk above calls the libraries that our markdown document will use so we don't need to have that code rendered to the HTML output.  We can also make the code chunks print to the rendered document by removing the `include=FALSE` term.  Sometimes, you might only want the result to be created in the rendered document.  For example, when producing figures, we often do not want the code that produces the figure in the rendered document, just the figure itself.  By setting `echo=FALSE` in the code chunk options then the code itself will not be rendered in the output document.  For example the code chunk below will appear as code in the markdown document but will be replaced by a figure in the rendered document.

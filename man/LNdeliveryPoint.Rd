@@ -4,7 +4,13 @@
 \alias{LNdeliveryPoint}
 \title{Add a Living Norway metadata tag corresponding to the deliveryPoint EML element}
 \usage{
-LNdeliveryPoint(tagText, tagID = NA, parentID = NA, isHidden = FALSE)
+LNdeliveryPoint(
+  tagText,
+  tagID = NA,
+  parentID = NA,
+  isHidden = FALSE,
+  lang = NA
+)
 }
 \arguments{
 \item{tagText}{A \code{character} scalar containing the text to encolse in the tag}
@@ -17,6 +23,10 @@ the parameter is \code{NA} then a UUID will be generated}
 
 \item{isHidden}{A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 hidden when rendered}
+
+\item{lang}{A \code{character} scalar defining the language attribute to set for the tag. See
+\url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.}
 }
 \value{
 A \code{character} scalar containing the rendered output including any HTML tags if a

@@ -4,7 +4,7 @@
 \alias{initializeDwCArchive}
 \title{Create a new \code{DwCAchive} object}
 \usage{
-initializeDwCArchive(coreDwC, extDwC = NULL)
+initializeDwCArchive(coreDwC, extDwC = NULL, metadata = NULL)
 }
 \arguments{
 \item{coreDwC}{Either a \code{DwCGeneric} (or derived class) object that represents the
@@ -16,6 +16,8 @@ initialize the object from}
 the tables used as extension objects in the Darwin Core archive.  If \code{coreDwC}
 is a character scalar then \code{extDwC} can also be a character scalar that contains the
 default file encodings for the files in the Darwin core archive}
+
+\item{metadata}{A \code{DwCMetadata} object that contains the metadata for the archive}
 }
 \value{
 A new \code{DwCArchive} object
@@ -24,5 +26,5 @@ A new \code{DwCArchive} object
 Create a new \code{DwCAchive} object
 }
 \seealso{
-\code{\link[DwCGeneric]{DwCGeneric}}
+\code{\link[DwCGeneric]{DwCGeneric}} \code{\link[DwCMetadata]{DwCMetadata}}
 }

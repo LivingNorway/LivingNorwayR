@@ -77,7 +77,7 @@ GBIFSpeciesProfile <- R6Class("GBIFSpeciesProfile",
 # ------ 4. INITIALISATION FUNCTION ------
 #' Initialize a new GBIF SpeciesProfile object
 #' @param objectData A \code{data.frame} containing the data to import into the object
-t#' @param idColumnInfo Either a \code{character} scalar containing the column name of
+#' @param idColumnInfo Either a \code{character} scalar containing the column name of
 #' \code{objectData} or an \code{integer} scalar giving the index of the column of
 #' \code{objectData} that corresponds to the ID variable.  Alternatively, this parameter
 #' may be the qualified name of the Darwin core term for which the appropriately mapped column

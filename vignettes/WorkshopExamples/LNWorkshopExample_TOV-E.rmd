@@ -38,16 +38,10 @@ To make it easier to both create and manipulate the contents of Darwin Core arch
 Before we can use any of the functions contained within the Living Norway package we must first install it.  At the current time the easiest way to install the Living Norway package is to import the [devtools](https://cran.r-project.org/web/packages/devtools/index.html) package and use the "install_github" function to install the package directly from the project's [GitHub repository](https://github.com/LivingNorway/LivingNorwayR).  We hope to distribute future releases of the Living Norway package over [CRAN](https://cran.r-project.org/) and, once this is achieved, then installation of the Living Norway package will follow that standard R package installation procedure.  In the meantime, the following code will install the necessary packages:
 
 ```{r LNInstall, results="hide", message=FALSE, warning=FALSE}
-# TODO: Replace this section with call to devtools::install_github
+# Install the Living Norway package from the Git repository
+devtools::install_github("https://github.com/LivingNorway/LivingNorwayR")
+# Import the tools into R
 library(LivingNorwayR)
-# library(R6)
-library(xml2)
-# library(uuid)
-# library(zip)
-# library(emld)
-# rFilesLoc <- file.path(Sys.getenv("WORKSPACE_LIVINGNORWAY"), "R")
-# importSourceFiles <- sapply(X = file.path(rFilesLoc, dir(rFilesLoc, "*.R")), FUN = source)
-# load(file.path(rFilesLoc, "sysdata.rda"))
 ```
 
 Once the Living Norway package is installed and loaded, a number of classes are added to R that allow for the easier manipulation of Darwin Core archive data and the terms associated with them.  What do we mean by 'classes'?  All variables in R belong to a particular class of object.  You will already be familiar with some R's base classes that can used for the handling of information such as data frames, lists, and vectors.  The Living Norway package simply contains more class definitions that allow for easier manipulation of the information in Darin Core archive files:
@@ -260,11 +254,11 @@ However, these methods assume that the researcher already has an EML file that c
 
 R markdown is a simple text-based documentation language and can be thought of as an extension of simple text files with some extra support for formatting and display of text elements.  In addition R markdown allows for the embedding of R code within the document which can be used to draw figures or make tables from data.  This can be very useful for describing or displaying aspects of data sets.
 
-A very simple minimal example of the use of markdown to generate create metadata documentation can be found at
+A very simple minimal example of the use of markdown to generate create metadata documentation can be found at the [Living Norway Git Repository](https://raw.githubusercontent.com/LivingNorway/LivingNorwayR/master/vignettes/WorkshopExamples/LNWorkshopExample_TOV-E_Metadata.rmd).
 
 ```{r CreateMetadata2}
 # Initialise the metadata from the R markdown file hosted at TODO
-createdTOVEMetadata <- initializeDwCMetadata("C:/Users/joseph.chipperfield/OneDrive - NINA/Work/LivingNorway/LivingNorwayR_GitHub/vignettes/WorkshopExamples/LNWorkshopExample_TOV-E_Metadata.rmd",
+createdTOVEMetadata <- initializeDwCMetadata("https://raw.githubusercontent.com/LivingNorway/LivingNorwayR/master/vignettes/WorkshopExamples/LNWorkshopExample_TOV-E_Metadata.rmd",
   fileType = "rmarkdown" # This line is not required if the file has the ".rmd" or ".md" file extension
 )
 # Export the newly created metadata as an EML file

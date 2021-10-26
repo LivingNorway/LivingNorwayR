@@ -17,7 +17,6 @@ getGBIFEventTerm <- function() {
 #' @return A \code{list} of \code{DwCTerm} objects, one for each member of the the
 #' GBIF Event class
 #' @seealso \code{\link[DwCTerm]{DwCTerm}}
-#' @export
 getGBIFEventMembers <- function() {
 	outValue <- NULL
 	if("http://rs.tdwg.org/dwc/terms/Event" %in% names(GBIFCoreClassList)) {
@@ -78,7 +77,7 @@ GBIFEvent <- R6Class("GBIFEvent",
 # ------ 4. INITIALISATION FUNCTION ------
 #' Initialize a new GBIF Event object
 #' @param objectData A \code{data.frame} containing the data to import into the object
-t#' @param idColumnInfo Either a \code{character} scalar containing the column name of
+#' @param idColumnInfo Either a \code{character} scalar containing the column name of
 #' \code{objectData} or an \code{integer} scalar giving the index of the column of
 #' \code{objectData} that corresponds to the ID variable.  Alternatively, this parameter
 #' may be the qualified name of the Darwin core term for which the appropriately mapped column
@@ -95,8 +94,6 @@ t#' @param idColumnInfo Either a \code{character} scalar containing the column n
 #' term. Mappable terms can be found using: \code{sapply(X = getGBIFEventMembers(), FUN = function(curTerm) { curTerm$getTermName() })}
 #' @return A new \code{GBIFEvent} object
 #' @seealso \code{\link[DwCTerm]{DwCTerm}} \code{\link[getGBIFEventMembers]{getGBIFEventMembers}}
-#' @export
-#'
 initializeGBIFEvent <- function(objectData, idColumnInfo, nameAutoMap = FALSE, defDateFormat = "YYYY-MM-DD", ...) {
 	GBIFEvent$new(objectData = objectData, idColumnInfo = idColumnInfo, nameAutoMap = nameAutoMap, defDateFormat = defDateFormat, ...)
 }

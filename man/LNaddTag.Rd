@@ -7,7 +7,15 @@ Add a metadata HTML tag.  This function is designed to be run in RMarkdown docum
 is not designed to be run directly by the users but serves as a utility functions for other
 HTML tag generation functions.}
 \usage{
-LNaddTag(tagText, tagType, tagID = NA, parentID = NA, isHidden = FALSE, ...)
+LNaddTag(
+  tagText,
+  tagType,
+  tagID = NA,
+  parentID = NA,
+  isHidden = FALSE,
+  lang = NA,
+  ...
+)
 }
 \arguments{
 \item{tagID}{A \code{character} scalar containing the unique ID of the tag}
@@ -16,6 +24,10 @@ LNaddTag(tagText, tagType, tagID = NA, parentID = NA, isHidden = FALSE, ...)
 (if there is a parent)}
 
 \item{isHidden}{A \code{logical} scalar determining whether the tag should appear in the rendered HTML text}
+
+\item{lang}{A \code{character} scalar defining the language attribute to set for the tag. See
+\url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.}
 
 \item{tagTxt}{A \code{character} scalar containing the text to be enclosed in the tag}
 

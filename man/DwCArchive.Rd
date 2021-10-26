@@ -34,7 +34,7 @@ structure of Darwin core archive files.
 \subsection{Method \code{new()}}{
 Create a new \code{DwCAchive} object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DwCArchive$new(coreDwC, extDwC = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{DwCArchive$new(coreDwC, extDwC = NULL, metadata = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -49,6 +49,8 @@ initialize the object from}
 the tables used as extension objects in the Darwin Core archive.  If \code{coreDwC}
 is a character scalar then \code{extDwC} can also be a character scalar that contains the
 default file encodings for the files in the Darwin core archive}
+
+\item{\code{metadata}}{A \code{DwCMetadata} object that contains the metadata for the archive}
 }
 \if{html}{\out{</div>}}
 }

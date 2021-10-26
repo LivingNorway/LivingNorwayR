@@ -17,7 +17,6 @@ getGBIFOccurrenceTerm <- function() {
 #' @return A \code{list} of \code{DwCTerm} objects, one for each member of the the
 #' GBIF Occurrence class
 #' @seealso \code{\link[DwCTerm]{DwCTerm}}
-#' @export
 getGBIFOccurrenceMembers <- function() {
 	outValue <- NULL
 	if("http://rs.tdwg.org/dwc/terms/Occurrence" %in% names(GBIFCoreClassList)) {
@@ -33,7 +32,6 @@ getGBIFOccurrenceMembers <- function() {
 #'
 #' The \code{GBIFOccurrence} class allows for the specification of data tables that comply with the Occurrence
 #' \url{http://rs.tdwg.org/dwc/terms/Occurrence}{class specification} of GBIF.
-#' @export
 GBIFOccurrence <- R6Class("GBIFOccurrence",
 	inherit = DwCGeneric,
 	# ====== 3.1. Define private members of the GBIF Occurrence class ======
@@ -61,7 +59,6 @@ GBIFOccurrence <- R6Class("GBIFOccurrence",
 		#' term. Mappable terms can be found using: \code{sapply(X = getGBIFOccurrenceMembers(), FUN = function(curTerm) { curTerm$getTermName() })}
 		#' @return A new \code{GBIFOccurrence} object
 		#' @seealso \code{\link[DwCTerm]{DwCTerm}} \code{\link[getGBIFOccurrenceMembers]{getGBIFOccurrenceMembers}}
-		#' @export
 		initialize = function(objectData, idColumnInfo, nameAutoMap = FALSE, defDateFormat = "YYYY-MM-DD", ...) {
 			super$initialize(
 				classTermInfo = getGBIFOccurrenceTerm(),
@@ -80,7 +77,7 @@ GBIFOccurrence <- R6Class("GBIFOccurrence",
 # ------ 4. INITIALISATION FUNCTION ------
 #' Initialize a new GBIF Occurrence object
 #' @param objectData A \code{data.frame} containing the data to import into the object
-t#' @param idColumnInfo Either a \code{character} scalar containing the column name of
+#' @param idColumnInfo Either a \code{character} scalar containing the column name of
 #' \code{objectData} or an \code{integer} scalar giving the index of the column of
 #' \code{objectData} that corresponds to the ID variable.  Alternatively, this parameter
 #' may be the qualified name of the Darwin core term for which the appropriately mapped column
@@ -97,8 +94,6 @@ t#' @param idColumnInfo Either a \code{character} scalar containing the column n
 #' term. Mappable terms can be found using: \code{sapply(X = getGBIFOccurrenceMembers(), FUN = function(curTerm) { curTerm$getTermName() })}
 #' @return A new \code{GBIFOccurrence} object
 #' @seealso \code{\link[DwCTerm]{DwCTerm}} \code{\link[getGBIFOccurrenceMembers]{getGBIFOccurrenceMembers}}
-#' @export
-
 initializeGBIFOccurrence <- function(objectData, idColumnInfo, nameAutoMap = FALSE, defDateFormat = "YYYY-MM-DD", ...) {
 	GBIFOccurrence$new(objectData = objectData, idColumnInfo = idColumnInfo, nameAutoMap = nameAutoMap, defDateFormat = defDateFormat, ...)
 }
