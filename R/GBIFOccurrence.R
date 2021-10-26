@@ -17,6 +17,7 @@ getGBIFOccurrenceTerm <- function() {
 #' @return A \code{list} of \code{DwCTerm} objects, one for each member of the the
 #' GBIF Occurrence class
 #' @seealso \code{\link[DwCTerm]{DwCTerm}}
+#' @export
 getGBIFOccurrenceMembers <- function() {
 	outValue <- NULL
 	if("http://rs.tdwg.org/dwc/terms/Occurrence" %in% names(GBIFCoreClassList)) {
@@ -94,6 +95,7 @@ GBIFOccurrence <- R6Class("GBIFOccurrence",
 #' term. Mappable terms can be found using: \code{sapply(X = getGBIFOccurrenceMembers(), FUN = function(curTerm) { curTerm$getTermName() })}
 #' @return A new \code{GBIFOccurrence} object
 #' @seealso \code{\link[DwCTerm]{DwCTerm}} \code{\link[getGBIFOccurrenceMembers]{getGBIFOccurrenceMembers}}
+#' @export
 initializeGBIFOccurrence <- function(objectData, idColumnInfo, nameAutoMap = FALSE, defDateFormat = "YYYY-MM-DD", ...) {
 	GBIFOccurrence$new(objectData = objectData, idColumnInfo = idColumnInfo, nameAutoMap = nameAutoMap, defDateFormat = defDateFormat, ...)
 }

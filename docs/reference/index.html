@@ -102,19 +102,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Data_file_structure.html">Data Package Structure for Legacy and Raw data</a>
+      <a href="../articles/LNWorkshopExample_TOV-E.html">Handling Darwin Core Files With Living Norway:  Example Using the TOV-E Dataset</a>
     </li>
     <li>
-      <a href="../articles/introduction.html">introduction</a>
-    </li>
-    <li>
-      <a href="../articles/LivingNorwayR_start_example.html">How to initiate and organise a data project in ecology?</a>
-    </li>
-    <li>
-      <a href="../articles/My_First_LivingNorway_prj/metadata/metadata/metadata.html">UNKNOWN TITLE</a>
-    </li>
-    <li>
-      <a href="../articles/testMetadata.html">Test Metadata</a>
+      <a href="../articles/LNWorkshopExample_TOV-E_Metadata.html">TOV-E Bird monitoring sampling data</a>
     </li>
   </ul>
 </li>
@@ -174,19 +165,25 @@ This function builds the data folder structure in the working directory</p></td>
         <td>
           <p><code><a href="DwCArchive.html">DwCArchive</a></code> </p>
         </td>
-        <td><p>R6 class representing a complete data structure for a Darwin Core archive</p></td>
+        <td><p>R6 DwC archive class</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="DwCGeneric.html">DwCGeneric</a></code> </p>
         </td>
-        <td><p>R6 class representing a generic data structure for a Darwin Core archive file</p></td>
+        <td><p>R6 DwC Generic class</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="DwCMetadata.html">DwCMetadata</a></code> </p>
         </td>
-        <td><p>R6 class that represents metadata in DwC</p></td>
+        <td><p>R6 metadata class</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="DwCTerm.html">DwCTerm</a></code> </p>
+        </td>
+        <td><p>DWCTerm object</p></td>
       </tr><tr>
         
         <td>
@@ -229,6 +226,24 @@ This function builds the data folder structure in the working directory</p></td>
           <p><code><a href="GBIFDistribution.html">GBIFDistribution</a></code> </p>
         </td>
         <td><p>R6 class representing a data structure for a GBIF Distribution augmented data table (based on the Dawrin core)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="GBIFdnaDerivedData.html">GBIFdnaDerivedData</a></code> </p>
+        </td>
+        <td><p>R6 class representing a data structure for a GBIF dnaDerivedData augmented data table (based on the Dawrin core)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="GBIFEOLMediaExtension.html">GBIFEOLMediaExtension</a></code> </p>
+        </td>
+        <td><p>R6 class representing a data structure for a GBIF EOLMediaExtension augmented data table (based on the Dawrin core)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="GBIFEOLReferencesExtension.html">GBIFEOLReferencesExtension</a></code> </p>
+        </td>
+        <td><p>R6 class representing a data structure for a GBIF EOLReferencesExtension augmented data table (based on the Dawrin core)</p></td>
       </tr><tr>
         
         <td>
@@ -388,10 +403,17 @@ This function builds the data folder structure in the working directory</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="generateID.html">generateID()</a></code> </p>
+          <p><code><a href="generateTagID.html">generateTagID()</a></code> </p>
         </td>
         <td><p>Check tag ID
 Check values given as IDs for EML tag. It the entry is NA then a unique ID is generated</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="getDefaultEMLDefinitionInfo.html">getDefaultEMLDefinitionInfo()</a></code> </p>
+        </td>
+        <td><p>Retrieve the default namespace definition information used for EML document
+initialisation</p></td>
       </tr><tr>
         
         <td>
@@ -443,6 +465,12 @@ Check values given as IDs for EML tag. It the entry is NA then a unique ID is ge
       </tr><tr>
         
         <td>
+          <p><code><a href="getGBIFCoreClasses.html">getGBIFCoreClasses()</a></code> </p>
+        </td>
+        <td><p>Class retrieval function</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="getGBIFDescriptionMembers.html">getGBIFDescriptionMembers()</a></code> </p>
         </td>
         <td><p>Return a list of properties associated with the GBIF Description class</p></td>
@@ -467,6 +495,42 @@ Check values given as IDs for EML tag. It the entry is NA then a unique ID is ge
       </tr><tr>
         
         <td>
+          <p><code><a href="getGBIFdnaDerivedDataMembers.html">getGBIFdnaDerivedDataMembers()</a></code> </p>
+        </td>
+        <td><p>Return a list of properties associated with the GBIF dnaDerivedData class</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="getGBIFdnaDerivedDataTerm.html">getGBIFdnaDerivedDataTerm()</a></code> </p>
+        </td>
+        <td><p>Return the information of the term associated with the GBIF dnaDerivedData class</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="getGBIFEOLMediaExtensionMembers.html">getGBIFEOLMediaExtensionMembers()</a></code> </p>
+        </td>
+        <td><p>Return a list of properties associated with the GBIF EOLMediaExtension class</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="getGBIFEOLMediaExtensionTerm.html">getGBIFEOLMediaExtensionTerm()</a></code> </p>
+        </td>
+        <td><p>Return the information of the term associated with the GBIF EOLMediaExtension class</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="getGBIFEOLReferencesExtensionMembers.html">getGBIFEOLReferencesExtensionMembers()</a></code> </p>
+        </td>
+        <td><p>Return a list of properties associated with the GBIF EOLReferencesExtension class</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="getGBIFEOLReferencesExtensionTerm.html">getGBIFEOLReferencesExtensionTerm()</a></code> </p>
+        </td>
+        <td><p>Return the information of the term associated with the GBIF EOLReferencesExtension class</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="getGBIFEventMembers.html">getGBIFEventMembers()</a></code> </p>
         </td>
         <td><p>Return a list of properties associated with the GBIF Event class</p></td>
@@ -488,6 +552,12 @@ Check values given as IDs for EML tag. It the entry is NA then a unique ID is ge
           <p><code><a href="getGBIFExtendedMeasurementOrFactTerm.html">getGBIFExtendedMeasurementOrFactTerm()</a></code> </p>
         </td>
         <td><p>Return the information of the term associated with the GBIF ExtendedMeasurementOrFact class</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="getGBIFExtensionClasses.html">getGBIFExtensionClasses()</a></code> </p>
+        </td>
+        <td><p>Extention retrieval function</p></td>
       </tr><tr>
         
         <td>
@@ -779,14 +849,6 @@ Check values given as IDs for EML tag. It the entry is NA then a unique ID is ge
       </tr><tr>
         
         <td>
-          <p><code><a href="getTagGenerationFunctions.html">getTagGenerationFunctions()</a></code> </p>
-        </td>
-        <td><p>Retrieve the tag generation functions
-Get a full list of functions that generate tags formatted so that metadata scraper can
-retrieve and collate the metadata</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="get_data_metadata.html">get_data_metadata()</a></code> </p>
         </td>
         <td><p>get_data_metadata
@@ -800,7 +862,7 @@ read the metadata from a rmarkdown file</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="get_NOR_geographic_extent.html">get_NOR_geographic_extent()</a></code> <code><a href="get_NOR_geographic_extent.html">get_NOR_geographic_extent()</a></code> </p>
+          <p><code><a href="get_NOR_geographic_extent.html">get_NOR_geographic_extent()</a></code> </p>
         </td>
         <td><p>Get the geographic extent of a dataframe with geographic UTM XY coordinates</p></td>
       </tr><tr>
@@ -827,6 +889,12 @@ Get temporal coverage from raw data / mapped data</p></td>
       </tr><tr>
         
         <td>
+          <p><code><a href="initializeDwCArchive.html">initializeDwCArchive()</a></code> </p>
+        </td>
+        <td><p>Create a new <code>DwCAchive</code> object</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="initializeDwCGeneric.html">initializeDwCGeneric()</a></code> </p>
         </td>
         <td><p>Initialize a new DwCGeneric object</p></td>
@@ -836,6 +904,216 @@ Get temporal coverage from raw data / mapped data</p></td>
           <p><code><a href="initializeDwCMetadata.html">initializeDwCMetadata()</a></code> </p>
         </td>
         <td><p>Initialise a metadata object from an import file</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFAmplification.html">initializeGBIFAmplification()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF Amplification object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFChronometricAge.html">initializeGBIFChronometricAge()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF ChronometricAge object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFChronometricDate.html">initializeGBIFChronometricDate()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF ChronometricDate object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFCloning.html">initializeGBIFCloning()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF Cloning object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFDescription.html">initializeGBIFDescription()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF Description object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFDistribution.html">initializeGBIFDistribution()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF Distribution object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFdnaDerivedData.html">initializeGBIFdnaDerivedData()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF dnaDerivedData object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFEOLMediaExtension.html">initializeGBIFEOLMediaExtension()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF EOLMediaExtension object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFEOLReferencesExtension.html">initializeGBIFEOLReferencesExtension()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF EOLReferencesExtension object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFEvent.html">initializeGBIFEvent()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF Event object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFExtendedMeasurementOrFact.html">initializeGBIFExtendedMeasurementOrFact()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF ExtendedMeasurementOrFact object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFGelImage.html">initializeGBIFGelImage()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF GelImage object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFGermplasmAccession.html">initializeGBIFGermplasmAccession()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF GermplasmAccession object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFGermplasmSample.html">initializeGBIFGermplasmSample()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF GermplasmSample object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFIdentification.html">initializeGBIFIdentification()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF Identification object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFIdentifier.html">initializeGBIFIdentifier()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF Identifier object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFImage.html">initializeGBIFImage()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF Image object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFLoan.html">initializeGBIFLoan()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF Loan object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFMaterialSample.html">initializeGBIFMaterialSample()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF MaterialSample object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFMeasurementOrFact.html">initializeGBIFMeasurementOrFact()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF MeasurementOrFact object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFMeasurementScore.html">initializeGBIFMeasurementScore()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF MeasurementScore object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFMeasurementTrait.html">initializeGBIFMeasurementTrait()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF MeasurementTrait object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFMeasurementTrial.html">initializeGBIFMeasurementTrial()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF MeasurementTrial object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFMultimedia.html">initializeGBIFMultimedia()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF Multimedia object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFOccurrence.html">initializeGBIFOccurrence()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF Occurrence object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFPermit.html">initializeGBIFPermit()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF Permit object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFPreparation.html">initializeGBIFPreparation()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF Preparation object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFPreservation.html">initializeGBIFPreservation()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF Preservation object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFReference.html">initializeGBIFReference()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF Reference object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFReleve.html">initializeGBIFReleve()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF Releve object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFResourceRelationship.html">initializeGBIFResourceRelationship()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF ResourceRelationship object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFSpeciesProfile.html">initializeGBIFSpeciesProfile()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF SpeciesProfile object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFTaxon.html">initializeGBIFTaxon()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF Taxon object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFTypesAndSpecimen.html">initializeGBIFTypesAndSpecimen()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF TypesAndSpecimen object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initializeGBIFVernacularName.html">initializeGBIFVernacularName()</a></code> </p>
+        </td>
+        <td><p>Initialize a new GBIF VernacularName object</p></td>
       </tr><tr>
         
         <td>
@@ -851,12 +1129,9 @@ Get temporal coverage from raw data / mapped data</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="LNaddTag.html">LNaddTag()</a></code> </p>
+          <p><code><a href="LNaddTranslation.html">LNaddTranslation()</a></code> </p>
         </td>
-        <td><p>Generate a Living Norway metadata tag
-Add a metadata HTML tag.  This function is designed to be run in RMarkdown documents.  This function
-is not designed to be run directly by the users but serves as a utility functions for other
-HTML tag generation functions.</p></td>
+        <td><p>Add a translation to a data tag</p></td>
       </tr><tr>
         
         <td>
@@ -896,6 +1171,12 @@ HTML tag generation functions.</p></td>
       </tr><tr>
         
         <td>
+          <p><code><a href="LNcontact.html">LNcontact()</a></code> </p>
+        </td>
+        <td><p>Add a Living Norway metadata tag corresponding to the contact EML element</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="LNcoverage.html">LNcoverage()</a></code> </p>
         </td>
         <td><p>Add a Living Norway metadata tag corresponding to the coverage EML element</p></td>
@@ -905,6 +1186,12 @@ HTML tag generation functions.</p></td>
           <p><code><a href="LNcreator.html">LNcreator()</a></code> </p>
         </td>
         <td><p>Add a Living Norway metadata tag corresponding to the creator EML element</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="LNdataset.html">LNdataset()</a></code> </p>
+        </td>
+        <td><p>Add a Living Norway metadata tag corresponding to the dataset EML element</p></td>
       </tr><tr>
         
         <td>
@@ -920,21 +1207,15 @@ HTML tag generation functions.</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="LNelectronicMail.html">LNelectronicMail()</a></code> </p>
+          <p><code><a href="LNelectronicMailAddress.html">LNelectronicMailAddress()</a></code> </p>
         </td>
-        <td><p>Add a Living Norway metadata tag corresponding to the electronicMail EML element</p></td>
+        <td><p>Add a Living Norway metadata tag corresponding to the electronicMailAddress EML element</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="LNendDate.html">LNendDate()</a></code> </p>
         </td>
         <td><p>Add a Living Norway metadata tag corresponding to the endDate EML element</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="LNfirstName.html">LNfirstName()</a></code> </p>
-        </td>
-        <td><p>Add a Living Norway metadata tag corresponding to the firstName EML element</p></td>
       </tr><tr>
         
         <td>
@@ -947,6 +1228,12 @@ HTML tag generation functions.</p></td>
           <p><code><a href="LNgeographicDescription.html">LNgeographicDescription()</a></code> </p>
         </td>
         <td><p>Add a Living Norway metadata tag corresponding to the geographicDescriprion EML element</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="LNgivenName.html">LNgivenName()</a></code> </p>
+        </td>
+        <td><p>Add a Living Norway metadata tag corresponding to the givenName EML element</p></td>
       </tr><tr>
         
         <td>
@@ -983,12 +1270,6 @@ HTML tag generation functions.</p></td>
           <p><code><a href="LNlanguage.html">LNlanguage()</a></code> </p>
         </td>
         <td><p>Add a Living Norway metadata tag corresponding to the language EML element</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="LNlastName.html">LNlastName()</a></code> </p>
-        </td>
-        <td><p>Add a Living Norway metadata tag corresponding to the lastName EML element</p></td>
       </tr><tr>
         
         <td>
@@ -1076,6 +1357,12 @@ HTML tag generation functions.</p></td>
       </tr><tr>
         
         <td>
+          <p><code><a href="LNsurName.html">LNsurName()</a></code> </p>
+        </td>
+        <td><p>Add a Living Norway metadata tag corresponding to the surName EML element</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="LNtaxonomicClassification.html">LNtaxonomicClassification()</a></code> </p>
         </td>
         <td><p>Add a Living Norway metadata tag corresponding to the taxanomicClassification EML element</p></td>
@@ -1132,13 +1419,6 @@ Get a list of files in the data folders</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="processChildArgs.html">processChildArgs()</a></code> </p>
-        </td>
-        <td><p>Process the child-parent metadata tags
-Create a series of child metadata tags based on a naming convention of <code>...</code> arguments</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="retrieveDwCClassSpecifications.html">retrieveDwCClassSpecifications()</a></code> </p>
         </td>
         <td><p>Retrieve classes and their related terms used by Darwin core</p></td>
@@ -1148,6 +1428,13 @@ Create a series of child metadata tags based on a naming convention of <code>...
           <p><code><a href="retrieveDwCTermSpecifications.html">retrieveDwCTermSpecifications()</a></code> </p>
         </td>
         <td><p>Retrieve terms used by Darwin core</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="retrieveEMLSchema.html">retrieveEMLSchema()</a></code> </p>
+        </td>
+        <td><p>Retrieve an EML schema and convert it into an R list that can be used for
+creation of metadata functions</p></td>
       </tr><tr>
         
         <td>
