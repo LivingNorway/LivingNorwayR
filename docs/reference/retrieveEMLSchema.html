@@ -6,8 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Process the child-parent metadata tags
-Create a series of child metadata tags based on a naming convention of ... arguments — processChildArgs • LivingNorwayR</title>
+<title>Retrieve an EML schema and convert it into an R list that can be used for
+creation of metadata functions — retrieveEMLSchema • LivingNorwayR</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -47,10 +47,10 @@ Create a series of child metadata tags based on a naming convention of ... argum
 
 
 
-<meta property="og:title" content="Process the child-parent metadata tags
-Create a series of child metadata tags based on a naming convention of ... arguments — processChildArgs" />
-<meta property="og:description" content="Process the child-parent metadata tags
-Create a series of child metadata tags based on a naming convention of ... arguments" />
+<meta property="og:title" content="Retrieve an EML schema and convert it into an R list that can be used for
+creation of metadata functions — retrieveEMLSchema" />
+<meta property="og:description" content="Retrieve an EML schema and convert it into an R list that can be used for
+creation of metadata functions" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -134,47 +134,31 @@ Create a series of child metadata tags based on a naming convention of ... argum
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Process the child-parent metadata tags
-Create a series of child metadata tags based on a naming convention of <code>...</code> arguments</h1>
-    <small class="dont-index">Source: <a href='https://github.com/LivingNorway/LivingNorwayR/blob/master/R/LNTagFunctions.R'><code>R/LNTagFunctions.R</code></a></small>
-    <div class="hidden name"><code>processChildArgs.Rd</code></div>
+    <h1>Retrieve an EML schema and convert it into an R list that can be used for
+creation of metadata functions</h1>
+    <small class="dont-index">Source: <a href='https://github.com/LivingNorway/LivingNorwayR/blob/master/R/LNHTMLFunctions.R'><code>R/LNHTMLFunctions.R</code></a></small>
+    <div class="hidden name"><code>retrieveEMLSchema.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Process the child-parent metadata tags
-Create a series of child metadata tags based on a naming convention of <code>...</code> arguments</p>
+    <p>Retrieve an EML schema and convert it into an R list that can be used for
+creation of metadata functions</p>
     </div>
 
-    <pre class="usage"><span class='fu'>processChildArgs</span><span class='op'>(</span><span class='va'>parentID</span>, sep <span class='op'>=</span> <span class='va'>sep</span>, isHiddenDefault <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>retrieveEMLSchema</span><span class='op'>(</span><span class='va'>schema</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>parentID</th>
-      <td><p>A <code>character</code> scalar containing the unique ID of the parent of the tag
-(if there is a parent)</p></td>
-    </tr>
-    <tr>
-      <th>sep</th>
-      <td><p>A <code>character</code> scalar providing the delimiter to use between the child tags</p></td>
-    </tr>
-    <tr>
-      <th>isHiddenDefault</th>
-      <td><p>A <code>logical</code> scalar that set the default <code>isHidden</code> parameter
-for each of the child tags</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>A series of parameters defining the child tags to generate and the parameters of the
-generation functions</p></td>
+      <th>schema</th>
+      <td><p>A <code>character</code> scalar with the location of the EML schema to import</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>character</code> scalar containing the rendered output including any HTML tags if a
-HTML document is being knitted</p>
+    <p>A <code>list</code> containing the schema elements</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Joseph D. Chipperfield, <a href='mailto:joechip90@googlemail.com'>joechip90@googlemail.com</a>; Matthew Grainger, <a href='mailto:matthew.grainger@nina.no'>matthew.grainger@nina.no</a></p>
