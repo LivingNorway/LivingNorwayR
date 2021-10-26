@@ -20,7 +20,7 @@ DwCMetadata<-R6::R6Class(
     validateEML = function(fileEncoding = "") {
       inFileEncoding <- private$charSanityCheck(fileEncoding, "fileEncoding", localeToCharset(Sys.getlocale("LC_CTYPE")))
       # Call the EML validator in the 'emld' package (this will parse the validation schema and return any validation errors)
-      outValue <- emld::eml_validate(private$xmlContent, inFileEncoding, NULL)
+      outValue <- emld::eml_validate(private$xmlContent, inFileEncoding)
       # Retrieve any errors encountered during the validation
       errorMsgs <- attr(outValue, "errors")
       if(!is.null(errorMsgs) && length(errorMsgs) > 0) {
@@ -105,21 +105,47 @@ DwCMetadata<-R6::R6Class(
       metadataNodes <- xml_find_all(inXML, "//span[@class=\"LNmetadata\"]")
       # Retrieve the full formatted IDs of each of the metadata tags
       fullIDs <- t(sapply(X = metadataNodes, FUN = function(curNode) {
+        # Complete ID string giving hierarchy and attribute information
+        completeIDStr <- tryCatch(as.character(xml_attr(curNode, "id")), error = function(err) {
+          stop("invalid ID code encountered when processing Living Norway HTML tags")
+        })
+        if(length(completeIDStr) <= 0) {
+          stop("invalid ID code encountered when processing Living Norway HTML tags")
+        } else if(length(completeIDStr) > 1) {
+          warning("ID code in Living Norway HTML tag has length greater than one: only the first entry will be used")
+          completeIDStr <- completeIDStr[1]
+        }
+        if(is.na(completeIDStr) || completeIDStr == "") {
+          stop("invalid ID code encountered when processing Living Norway HTML tags")
+        }
+        # Initialise a string to hold the attribute information
+        attrStr <- NA
+        if(grepl("__", completeIDStr, fixed = TRUE)) {
+          # If there is a double underscore then some attribute information is being included in the tag
+          # too:
+          #   The first section of text is the standard extended ID code
+          #   Everything after the first is a set of attribute and value pairs
+          tokenisedIDStr <- strsplit(completeIDStr, "__", fixed = TRUE)[[1]]
+          completeIDStr <- tokenisedIDStr[1]
+          attrStr <- paste(sapply(X = tokenisedIDStr[2:length(tokenisedIDStr)], FUN = function(curAttr) {
+            gsub("_", "=", curAttr, fixed = TRUE)
+          }), collapse = " ")
+        }
         # Retrieve the components of the ID
-        idComponents <- strsplit(xml_attr(curNode, "id"), "_", fixed = TRUE)[[1]]
+        idComponents <- strsplit(completeIDStr, "_", fixed = TRUE)[[1]]
         # Test to ensure that the ID is formatted correctly
         if(length(idComponents) < 2) {
           stop("error encountered processing metadata ID codes: invalid ID format")
         }
         # Initialise an output vector with the ID code formatted to allow easier traversal
-        outVector <- setNames(c(gsub("^LN", "", idComponents[1], perl = TRUE), idComponents[2], ifelse(length(idComponents) > 2, idComponents[3], NA), NA), c("type", "id", "parent", "text"))
+        outVector <- setNames(c(gsub("^LN", "", idComponents[1], perl = TRUE), idComponents[2], ifelse(length(idComponents) > 2, idComponents[3], NA), NA, attrStr), c("type", "id", "parent", "text", "attributes"))
         if(is.na(outVector[3])) {
           # Node does not have a parent specified - check the nestedness of the tag to see if it does have a parent
           parIDs <- sapply(X = xml_parents(curNode), FUN = function(curParNode) {
             outVal <- NA
             if(xml_name(curParNode) == "span" && xml_attr(curParNode, "class") == "LNmetadata") {
               # Retrieve the components of the ID of the parent node if it is of the correct node type
-              idComponents <- strsplit(xml_attr(curParNode, "id"), "_", fixed = TRUE)[[1]]
+              idComponents <- strsplit(gsub("__.*$", "", xml_attr(curParNode, "id"), perl = TRUE), "_", fixed = TRUE)[[1]]
               # Test to ensure that the ID is formatted correctly
               if(length(idComponents) < 2) {
                 stop("error encountered processing metadata ID codes: invalid ID format")
@@ -150,7 +176,7 @@ DwCMetadata<-R6::R6Class(
       initParams <- c(list(
         ".value" = "eml:eml"
       ), as.list(getDefaultEMLDefinitionInfo()), list(
-        "packageID" = uuid::UUIDgenerate(),
+        "packageId" = uuid::UUIDgenerate(),
         ".encoding" = inFileEncoding
       ))
       # Retrieve the parameters provided as extra arguments to the functions
@@ -166,37 +192,43 @@ DwCMetadata<-R6::R6Class(
       }), names(initParams))
       # Generate an EML structure
       emlOut <- do.call(xml_new_root, initParams)
-      # Create the base set of nodes
-      nodeList <- apply(X = fullIDs[is.na(fullIDs[, 3]), , drop = FALSE], FUN = function(curRow, emlOut) {
-        outNode <- xml_add_child(emlOut, curRow[1], id = curRow[2])
-        if(!is.na(curRow[4])) {
-          xml_text(outNode) <- curRow[4]
+      # Function to populate children of a node from an ID list
+      makeChildren <- function(curParent, curNode, fullIDs) {
+        idMatch <- rep(FALSE, nrow(fullIDs))
+        if(is.na(curParent)) {
+          idMatch <- is.na(fullIDs[, 3])
+        } else {
+          idMatch <- !is.na(fullIDs[, 3]) & curParent == fullIDs[, 3]
         }
-        outNode
-      }, emlOut = emlOut, MARGIN = 1)
-      # Function to populate children of a node from the ID list
-      makeChildren <- function(inNode, fullIDs) {
-        # For each entry in the ID list that has a parent ID that matches the ID of the current node then add a child
-        idMatch <- xml_attr(inNode, "id") == fullIDs[, 3]
         if(any(idMatch)) {
-          apply(X = fullIDs[idMatch, , drop = FALSE], FUN = function(curRow, fullIDs, inNode) {
+          apply(X = fullIDs[idMatch, , drop = FALSE], FUN = function(curRow, curNode) {
             # Add a child node
-            outNode <- xml_add_child(inNode, curRow[1], id = curRow[2])
+            if(is.na(curRow[5])) {
+              outNode <- xml_add_child(curNode, curRow[1])
+            } else {
+              # If the node has attributes then set those
+              attrVec <- strsplit(curRow[5], " ", fixed = TRUE)[[1]]
+              attrVec <- setNames(
+                gsub("^.*=", "", attrVec, perl = TRUE),
+                gsub("=.*$", "", attrVec, perl = TRUE)
+              )
+              outNode <- do.call(xml_add_child, c(list(.x = curNode, .value = curRow[1]), as.list(attrVec)))
+            }
+            # Add text to the node if it has it
             if(!is.na(curRow[4])) {
               xml_text(outNode) <- curRow[4]
             }
-            # Call the function recursively to populate any children of the new created child node
-            makeChildren(outNode, fullIDs)
-            outNode
-          }, MARGIN = 1, fullIDs = fullIDs, inNode = inNode)
+            # Call the function recursively to populate any further children
+            makeChildren(curRow[2], outNode, fullIDs)
+          }, MARGIN = 1, curNode = curNode)
         }
-        inNode
       }
-      private$xmlContent <- lapply(X = nodeList, FUN = makeChildren, fullIDs = fullIDs[!is.na(fullIDs[, 3]), , drop = FALSE])
+      makeChildren(NA, emlOut, fullIDs)
+      private$xmlContent <- emlOut
       # Validate the EML
-      if(!private$validateEML(fileEncoding = inFileEncoding)) {
-        stop("EML is not valid according to the selected EML schema")
-      }
+      #if(!private$validateEML(fileEncoding = inFileEncoding)) {
+      #  stop("EML is not valid according to the selected EML schema")
+      #}
       invisible(self)
     },
     # ====== 1.2. Import metadata from a Living Norway R markdown file ======
@@ -229,10 +261,6 @@ DwCMetadata<-R6::R6Class(
       self$importFromLivingNorwayHTML(fileLocation = interLoc, fileEncoding = inFileEncoding, ...)
       # Delete the temporary file
       unlink(interLoc)
-      # Validate the EML
-      if(!private$validateEML(fileEncoding = inFileEncoding)) {
-        stop("EML is not valid according to the selected EML schema")
-      }
       invisible(self)
     },
     # ====== 1.3. Import metadata from an EML file ======
@@ -522,10 +550,11 @@ initializeDwCMetadata <- function(fileLocation, fileEncoding = "", fileType = NA
 #' EML documents from Living Norway metadata documents
 getDefaultEMLDefinitionInfo <- function() {
   unlist(list(
-    "xmlns:eml" = "eml://ecoinformatics.org/eml-2.1.1",
+    "xmlns:eml" = "https://eml.ecoinformatics.org/eml-2.2.0",
     "xmlns:xsi" = "http://www.w3.org/2001/XMLSchema-instance",
-    "xmlns:dc" = "http://purl.org/dc/terms/",
-    "xsi:schemaLocation" = "eml://ecoinformatics.org/eml-2.1.1 eml.xsd",
-    "xml:lang" = "eng"
+    "xmlns:stmml" = "http://www.xml-cml.org/schema/stmml-1.1",
+    "xsi:schemaLocation" = "https://eml.ecoinformatics.org/eml-2.2.0 xsd/eml.xsd",
+    "xml:lang" = "eng",
+    "system" = "undefined"
   ))
 }

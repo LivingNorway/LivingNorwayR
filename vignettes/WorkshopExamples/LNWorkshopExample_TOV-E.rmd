@@ -255,4 +255,39 @@ newTOVEMetadata <- initializeDwCMetadata(localDataLoc,
 )
 ```
 
-However, these methods assume that the researcher already has an EML file that can be used for initialisation of the metadata object.  In many instances, the researcher will not have the EML readily available, and in situations where the researcher is unfamiliar with the standard, the process to create an EML can be rather laborious.  To help alleviate this, the Living Norway adds a number of functions to aid in the creation of EML files.  Instead of formatting the metadata according to the EML standard, the research can instead use [R markdown](https://rmarkdown.rstudio.com/) to create a text document describing the dataset.  In this text document the researcher can simply add tagging functions to sections of text that they wish to be exported to the EML file.
+However, these methods assume that the researcher already has an EML file that can be used for initialisation of the metadata object.  In many instances, the researcher will not have the EML readily available, and in situations where the researcher is unfamiliar with the standard, the process to create an EML can be rather laborious.  To help alleviate this, the Living Norway adds a number of functions to aid in the creation of EML files.  Instead of formatting the metadata according to the EML standard, the researcher can instead use [R markdown](https://rmarkdown.rstudio.com/) to create a text document describing the dataset.  In this text document the researcher can simply add tagging functions to sections of text that they wish to be exported to the EML file.
+
+R markdown is a simple text-based documentation language and can be thought of as an extension of simple text files with some extra support for formatting and display of text elements.  In addition R markdown allows for the embedding of R code within the document which can be used to draw figures or make tables from data.  This can be very useful for describing or displaying aspects of data sets.
+
+A very simple minimal example of the use of markdown to generate create metadata documentation can be found at
+
+```{r CreateMetadata2}
+# Initialise the metadata from the R markdown file hosted at TODO
+createdTOVEMetadata <- initializeDwCMetadata("C:/Users/joseph.chipperfield/OneDrive - NINA/Work/LivingNorway/LivingNorwayR_GitHub/vignettes/WorkshopExamples/LNWorkshopExample_TOV-E_Metadata.rmd",
+  fileType = "rmarkdown" # This line is not required if the file has the ".rmd" or ".md" file extension
+)
+# Export the newly created metadata as an EML file
+createdTOVEMetadata$exportToEML(file.path(tempDirLoc, "newMetadata.xml"))
+```
+
+and again the created metadata can be viewed in a browser using the following command:
+
+```{r ViewEML2, eval=FALSE}
+browseURL(file.path(tempDirLoc, "eml.xml"))
+```
+
+### Putting it All Together
+
+Now we have all the components that we need to package the data tables and the metadata together into one Darwin Core archive object.  This can be done through calling the `initializeDwCArchive` function giving the core table as the first argument, a list of all the extension tables as the second argument, and a `DwCMetadata` object as the third argument.
+
+```{r MakeDwCArchive}
+newTOVEArchive <- initializeDwCArchive(newTOVEEventTable, list(newTOVEOccTable), newTOVEMetadata)
+```
+
+Finally, we can then export it as a to whichever location we wish to store it to.
+
+```{r ExportDwCArchive}
+newTOVEArchive$exportAsDwCArchive(file.path(tempDirLoc, "newDwCArchive.zip"))
+```
+
+This Darwin Core archive file can now serve as a useful interchange format that ensures that all the data and metadata are packaged together and that they are both described used known biodiversity standards.  Thus satisfying the basic tenants of FAIR data sharing and allowing your data to be indexed by biodiversity databases such as GBIF.

@@ -26,7 +26,7 @@ generateID <- function(tagID) {
   } else if(grepl("\\s+", outArg, perl = TRUE)) {
     stop("error encountered whilst processing tag ID: whitespace is present")
   }
-  if(!is.na(outArg)) {
+  if(is.na(outArg)) {
     # If the tag ID is NA then generate a unique tag code from the UUID package
     outArg <- uuid::UUIDgenerate()
   }
@@ -44,13 +44,16 @@ generateID <- function(tagID) {
 #' @param parentID A \code{character} scalar containing the unique ID of the parent of the tag
 #' (if there is a parent)
 #' @param isHidden A \code{logical} scalar determining whether the tag should appear in the rendered HTML text
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @keyword internal
 #' @export
 #'
-LNaddTag <- function(tagText, tagType, tagID = NA, parentID = NA, isHidden = FALSE, ...) {
+LNaddTag <- function(tagText, tagType, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA, ...) {
   # Function to sanity check the tag related inputs
   checkArgText <- function(inArg, argName) {
     outArg <- tryCatch(as.character(inArg), error = function(err) {
@@ -80,9 +83,11 @@ LNaddTag <- function(tagText, tagType, tagID = NA, parentID = NA, isHidden = FAL
   curTagID <- generateID(tagID)
   # Sanity check the tag type
   curTagType <- checkArgText(tagType, "tagType")
-  if(is.na(curTagType) || !(curTagType %in% names(getTagGenerationFunctions()))) {
+  if(is.na(curTagType) || !(curTagType %in% c(names(getTagGenerationFunctions()), "value"))) {
     stop("error encountered whilst processing tagType parameter: tag type not found")
   }
+  # Sanity check the language attribute
+  curLang <- checkArgText(lang, "lang")
   # Sanity check the parent ID
   curParentID <- checkArgText(parentID, "parentID")
   # Sanity check the hidden parameter
@@ -110,6 +115,7 @@ LNaddTag <- function(tagText, tagType, tagID = NA, parentID = NA, isHidden = FAL
         ifelse(is.na(curParentID), "", paste("_", curParentID, sep = "")),
         "\" class=\"LNmetadata\"",
         ifelse(curHidden, " style=\"display:none\"", ""),
+        ifelse(is.na(curLang), "", paste(" xml:lang=\"", curLang, "\"", sep = "")),
         ">", curText, "</span>",
         sep = "")
     } else {
@@ -118,6 +124,7 @@ LNaddTag <- function(tagText, tagType, tagID = NA, parentID = NA, isHidden = FAL
         ifelse(is.na(curParentID), "", paste("_", curParentID, sep = "")),
         "\" class=\"LNmetadata\"",
         ifelse(curHidden, " style=\"display:none\"", ""),
+        ifelse(is.na(curLang), "", paste(" xml:lang=\"", curLang, "\"", sep = "")),
         "/>",
         sep = "")
     }
@@ -157,14 +164,14 @@ getTagGenerationFunctions <- function() {
     "abstract" = LNabstract,
     "language" = LNlanguage,
     "pubDate" = LNpubDate,
-    "electronicMail" = LNelectronicMail,
+    "electronicMailAddress" = LNelectronicMailAddress,
     "postalCode" = LNpostalCode,
     "city" = LNcity,
     "deliveryPoint" = LNdeliveryPoint,
     "positionName" = LNpositionName,
     "organizationName" = LNorganizationName,
-    "lastName" = LNlastName,
-    "firstName" = LNfirstName,
+    "givenName" = LNgivenName,
+    "surName" = LNsurName,
     "title" = LNtitle,
     "methodStep" = LNmethodStep,
     "qualityControl" = LNqualityControl,
@@ -184,7 +191,9 @@ getTagGenerationFunctions <- function() {
     "beginDate" = LNbeginDate,                       # beginDate tag is: (calendarDate)
     "endDate" = LNendDate,                           # endDate is: (calendarDate)
     "rangeOfDates" = LNrangeOfDates,                 # rangeOfDates is: (beginDate, endDate)
-    "taxonomicCoverage" = LNtaxonomicCoverage        # taxonomicCoverage is: (taxonRankName, taxonRankValue, commonName, taxonomicClassification)
+    "taxonomicCoverage" = LNtaxonomicCoverage,       # taxonomicCoverage is: (taxonRankName, taxonRankValue, commonName, taxonomicClassification)
+    "dataset" = LNdataset,
+    "contact" = LNcontact
   )
 }
 
@@ -231,6 +240,27 @@ processChildArgs <- function(parentID, sep = sep, isHiddenDefault = FALSE, ...) 
   })
 }
 
+# ====== 1.5. Add translation ======
+#' Add a translation to a data tag
+#' @param tagText A \code{character} scalar containing the translated text to enclose in the tag
+#' @param lang A \code{character} scalar specifying the language attribute to mark the translation text as.  See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute
+#' @param parentID A \code{character} scalar containing the ID for the parent tag (if there is one).
+#' \code{NA} denotes that there is no parent for the tag
+#' @param tagID A \code{character} scalar containing a unique identifier for the tag element. If
+#' the parameter is \code{NA} then a UUID will be generated
+#' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
+#' hidden when rendered
+#' @return A \code{character} scalar containing the rendered output including any HTML tags if a
+#' HTML document is being knitted
+#' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
+#' @export
+#'
+LNaddTranslation <- function(tagText = NA, lang = "en-US", parentID = NA, tagID = NA, isHidden = TRUE) {
+  LNaddTag(tagText = tagText, tagType = "value", tagID = tagID, parentID = parentID, isHidden = isHidden, lang = lang)
+}
+
 # ------ 2. TAG GENERATION FUNCTIONS ------
 
 # ====== 2.1. LNindividualName tag ======
@@ -242,6 +272,9 @@ processChildArgs <- function(parentID, sep = sep, isHiddenDefault = FALSE, ...) 
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @param sep A \code{character} scalar providing the delimiter to use between the child tags
 #' @param ... A series of parameters defining the child tags to generate and the parameters of the
 #' generation functions
@@ -250,12 +283,12 @@ processChildArgs <- function(parentID, sep = sep, isHiddenDefault = FALSE, ...) 
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNindividualName <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = FALSE, sep = " ", ...) {
+LNindividualName <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA, sep = " ", ...) {
   # Retrieve the tag for the function
   curID <- generateID(tagID)
   paste(
     # Format the collection tag
-    LNaddTag(tagText, "individualName", curID, parentID, isHidden),
+    LNaddTag(tagText, "individualName", curID, parentID, isHidden, lang),
     # Format the children tags (if provided)
     processChildArgs(curID, sep, isHidden, ...),
     sep = "")
@@ -270,6 +303,9 @@ LNindividualName <- function(tagText = NA, tagID = NA, parentID = NA, isHidden =
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @param sep A \code{character} scalar providing the delimiter to use between the child tags
 #' @param ... A series of parameters defining the child tags to generate and the parameters of the
 #' generation functions
@@ -278,12 +314,12 @@ LNindividualName <- function(tagText = NA, tagID = NA, parentID = NA, isHidden =
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNcreator <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = FALSE, sep = " ", ...) {
+LNcreator <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA, sep = " ", ...) {
   # Retrieve the tag for the function
   curID <- generateID(tagID)
   paste(
     # Format the collection tag
-    LNaddTag(tagText, "individualName", curID, parentID, isHidden),
+    LNaddTag(tagText, "creator", curID, parentID, isHidden, lang),
     # Format the children tags (if provided)
     processChildArgs(curID, sep, isHidden, ...),
     sep = "")
@@ -298,6 +334,9 @@ LNcreator <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = FALSE,
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @param sep A \code{character} scalar providing the delimiter to use between the child tags
 #' @param ... A series of parameters defining the child tags to generate and the parameters of the
 #' generation functions
@@ -306,12 +345,12 @@ LNcreator <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = FALSE,
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNmetadataProvider <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = FALSE, sep = " ", ...) {
+LNmetadataProvider <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA, sep = " ", ...) {
   # Retrieve the tag for the function
   curID <- generateID(tagID)
   paste(
     # Format the collection tag
-    LNaddTag(tagText, "individualName", curID, parentID, isHidden),
+    LNaddTag(tagText, "metadataProvider", curID, parentID, isHidden, lang),
     # Format the children tags (if provided)
     processChildArgs(curID, sep, isHidden, ...),
     sep = "")
@@ -326,6 +365,9 @@ LNmetadataProvider <- function(tagText = NA, tagID = NA, parentID = NA, isHidden
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @param sep A \code{character} scalar providing the delimiter to use between the child tags
 #' @param ... A series of parameters defining the child tags to generate and the parameters of the
 #' generation functions
@@ -334,12 +376,12 @@ LNmetadataProvider <- function(tagText = NA, tagID = NA, parentID = NA, isHidden
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNkeywordSet <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = FALSE, sep = " ", ...) {
+LNkeywordSet <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA, sep = " ", ...) {
   # Retrieve the tag for the function
   curID <- generateID(tagID)
   paste(
     # Format the collection tag
-    LNaddTag(tagText, "individualName", curID, parentID, isHidden),
+    LNaddTag(tagText, "keywordSet", curID, parentID, isHidden, lang),
     # Format the children tags (if provided)
     processChildArgs(curID, sep, isHidden, ...),
     sep = "")
@@ -354,6 +396,9 @@ LNkeywordSet <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = FAL
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @param sep A \code{character} scalar providing the delimiter to use between the child tags
 #' @param ... A series of parameters defining the child tags to generate and the parameters of the
 #' generation functions
@@ -362,12 +407,12 @@ LNkeywordSet <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = FAL
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNcoverage <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = FALSE, sep = " ", ...) {
+LNcoverage <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA, sep = " ", ...) {
   # Retrieve the tag for the function
   curID <- generateID(tagID)
   paste(
     # Format the collection tag
-    LNaddTag(tagText, "individualName", curID, parentID, isHidden),
+    LNaddTag(tagText, "coverage", curID, parentID, isHidden, lang),
     # Format the children tags (if provided)
     processChildArgs(curID, sep, isHidden, ...),
     sep = "")
@@ -382,6 +427,9 @@ LNcoverage <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = FALSE
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @param sep A \code{character} scalar providing the delimiter to use between the child tags
 #' @param ... A series of parameters defining the child tags to generate and the parameters of the
 #' generation functions
@@ -390,12 +438,12 @@ LNcoverage <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = FALSE
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNgeographicCoverage <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = FALSE, sep = " ", ...) {
+LNgeographicCoverage <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA, sep = " ", ...) {
   # Retrieve the tag for the function
   curID <- generateID(tagID)
   paste(
     # Format the collection tag
-    LNaddTag(tagText, "individualName", curID, parentID, isHidden),
+    LNaddTag(tagText, "geographicCoverage", curID, parentID, isHidden, lang),
     # Format the children tags (if provided)
     processChildArgs(curID, sep, isHidden, ...),
     sep = "")
@@ -410,6 +458,9 @@ LNgeographicCoverage <- function(tagText = NA, tagID = NA, parentID = NA, isHidd
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @param sep A \code{character} scalar providing the delimiter to use between the child tags
 #' @param ... A series of parameters defining the child tags to generate and the parameters of the
 #' generation functions
@@ -418,12 +469,12 @@ LNgeographicCoverage <- function(tagText = NA, tagID = NA, parentID = NA, isHidd
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNboundingCoordinates <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = FALSE, sep = " ", ...) {
+LNboundingCoordinates <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA, sep = " ", ...) {
   # Retrieve the tag for the function
   curID <- generateID(tagID)
   paste(
     # Format the collection tag
-    LNaddTag(tagText, "individualName", curID, parentID, isHidden),
+    LNaddTag(tagText, "boundingCoordinates", curID, parentID, isHidden, lang),
     # Format the children tags (if provided)
     processChildArgs(curID, sep, isHidden, ...),
     sep = "")
@@ -438,6 +489,9 @@ LNboundingCoordinates <- function(tagText = NA, tagID = NA, parentID = NA, isHid
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @param sep A \code{character} scalar providing the delimiter to use between the child tags
 #' @param ... A series of parameters defining the child tags to generate and the parameters of the
 #' generation functions
@@ -446,12 +500,12 @@ LNboundingCoordinates <- function(tagText = NA, tagID = NA, parentID = NA, isHid
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNtemporalCoverage <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = FALSE, sep = " ", ...) {
+LNtemporalCoverage <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA, sep = " ", ...) {
   # Retrieve the tag for the function
   curID <- generateID(tagID)
   paste(
     # Format the collection tag
-    LNaddTag(tagText, "individualName", curID, parentID, isHidden),
+    LNaddTag(tagText, "temporalCoverage", curID, parentID, isHidden, lang),
     # Format the children tags (if provided)
     processChildArgs(curID, sep, isHidden, ...),
     sep = "")
@@ -466,6 +520,9 @@ LNtemporalCoverage <- function(tagText = NA, tagID = NA, parentID = NA, isHidden
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @param sep A \code{character} scalar providing the delimiter to use between the child tags
 #' @param ... A series of parameters defining the child tags to generate and the parameters of the
 #' generation functions
@@ -474,12 +531,12 @@ LNtemporalCoverage <- function(tagText = NA, tagID = NA, parentID = NA, isHidden
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNbeginDate <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = FALSE, sep = " ", ...) {
+LNbeginDate <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA, sep = " ", ...) {
   # Retrieve the tag for the function
   curID <- generateID(tagID)
   paste(
     # Format the collection tag
-    LNaddTag(tagText, "individualName", curID, parentID, isHidden),
+    LNaddTag(tagText, "beginDate", curID, parentID, isHidden, lang),
     # Format the children tags (if provided)
     processChildArgs(curID, sep, isHidden, ...),
     sep = "")
@@ -494,6 +551,9 @@ LNbeginDate <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = FALS
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @param sep A \code{character} scalar providing the delimiter to use between the child tags
 #' @param ... A series of parameters defining the child tags to generate and the parameters of the
 #' generation functions
@@ -502,12 +562,12 @@ LNbeginDate <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = FALS
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNendDate <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = FALSE, sep = " ", ...) {
+LNendDate <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA, sep = " ", ...) {
   # Retrieve the tag for the function
   curID <- generateID(tagID)
   paste(
     # Format the collection tag
-    LNaddTag(tagText, "individualName", curID, parentID, isHidden),
+    LNaddTag(tagText, "endDate", curID, parentID, isHidden, lang),
     # Format the children tags (if provided)
     processChildArgs(curID, sep, isHidden, ...),
     sep = "")
@@ -522,6 +582,9 @@ LNendDate <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = FALSE,
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @param sep A \code{character} scalar providing the delimiter to use between the child tags
 #' @param ... A series of parameters defining the child tags to generate and the parameters of the
 #' generation functions
@@ -530,12 +593,12 @@ LNendDate <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = FALSE,
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNrangeOfDates <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = FALSE, sep = " ", ...) {
+LNrangeOfDates <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA, sep = " ", ...) {
   # Retrieve the tag for the function
   curID <- generateID(tagID)
   paste(
     # Format the collection tag
-    LNaddTag(tagText, "individualName", curID, parentID, isHidden),
+    LNaddTag(tagText, "rangeOfDates", curID, parentID, isHidden, lang),
     # Format the children tags (if provided)
     processChildArgs(curID, sep, isHidden, ...),
     sep = "")
@@ -550,6 +613,9 @@ LNrangeOfDates <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = F
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @param sep A \code{character} scalar providing the delimiter to use between the child tags
 #' @param ... A series of parameters defining the child tags to generate and the parameters of the
 #' generation functions
@@ -558,12 +624,74 @@ LNrangeOfDates <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = F
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNtaxonomicCoverage <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = FALSE, sep = " ", ...) {
+LNtaxonomicCoverage <- function(tagText = NA, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA, sep = " ", ...) {
   # Retrieve the tag for the function
   curID <- generateID(tagID)
   paste(
     # Format the collection tag
-    LNaddTag(tagText, "individualName", curID, parentID, isHidden),
+    LNaddTag(tagText, "taxonomicCoverage", curID, parentID, isHidden, lang),
+    # Format the children tags (if provided)
+    processChildArgs(curID, sep, isHidden, ...),
+    sep = "")
+}
+
+# ====== 2.12.1 LNdataset tag ======
+#' Add a Living Norway metadata tag corresponding to the dataset EML element
+#' @param tagText A \code{character} scalar containing the text to encolse in the tag
+#' @param tagID A \code{character} scalar containing a unique identifier for the tag element. If
+#' the parameter is \code{NA} then a UUID will be generated
+#' @param parentID A \code{character} scalar containing the ID for the parent tag (if there is one).
+#' \code{NA} denotes that there is no parent for the tag
+#' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
+#' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
+#' @param sep A \code{character} scalar providing the delimiter to use between the child tags
+#' @param ... A series of parameters defining the child tags to generate and the parameters of the
+#' generation functions
+#' @return A \code{character} scalar containing the rendered output including any HTML tags if a
+#' HTML document is being knitted
+#' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
+#' @export
+#'
+LNdataset <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA, sep = " ", ...) {
+  # Retrieve the tag for the function
+  curID <- generateID(tagID)
+  paste(
+    # Format the collection tag
+    LNaddTag(tagText, "dataset", curID, parentID, isHidden, lang),
+    # Format the children tags (if provided)
+    processChildArgs(curID, sep, isHidden, ...),
+    sep = "")
+}
+
+# ====== 2.12.2 LNcontact tag ======
+#' Add a Living Norway metadata tag corresponding to the contact EML element
+#' @param tagText A \code{character} scalar containing the text to encolse in the tag
+#' @param tagID A \code{character} scalar containing a unique identifier for the tag element. If
+#' the parameter is \code{NA} then a UUID will be generated
+#' @param parentID A \code{character} scalar containing the ID for the parent tag (if there is one).
+#' \code{NA} denotes that there is no parent for the tag
+#' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
+#' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
+#' @param sep A \code{character} scalar providing the delimiter to use between the child tags
+#' @param ... A series of parameters defining the child tags to generate and the parameters of the
+#' generation functions
+#' @return A \code{character} scalar containing the rendered output including any HTML tags if a
+#' HTML document is being knitted
+#' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
+#' @export
+#'
+LNcontact <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA, sep = " ", ...) {
+  # Retrieve the tag for the function
+  curID <- generateID(tagID)
+  paste(
+    # Format the collection tag
+    LNaddTag(tagText, "contact", curID, parentID, isHidden, lang),
     # Format the children tags (if provided)
     processChildArgs(curID, sep, isHidden, ...),
     sep = "")
@@ -578,13 +706,16 @@ LNtaxonomicCoverage <- function(tagText = NA, tagID = NA, parentID = NA, isHidde
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNalternateIdentifier <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  LNaddTag(tagText, "alternateIdentifier", tagID, parentID, isHidden)
+LNalternateIdentifier <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA) {
+  LNaddTag(tagText, "alternateIdentifier", tagID, parentID, isHidden, lang)
 }
 
 # ====== 2.14. LNtitle tag ======
@@ -596,17 +727,20 @@ LNalternateIdentifier <- function(tagText, tagID = NA, parentID = NA, isHidden =
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNtitle <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  LNaddTag(tagText, "title", tagID, parentID, isHidden)
+LNtitle <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA) {
+  LNaddTag(tagText, "title", tagID, parentID, isHidden, lang)
 }
 
-# ====== 2.15. LNfirstName tag ======
-#' Add a Living Norway metadata tag corresponding to the firstName EML element
+# ====== 2.15. LNgivenName tag ======
+#' Add a Living Norway metadata tag corresponding to the givenName EML element
 #' @param tagText A \code{character} scalar containing the text to encolse in the tag
 #' @param tagID A \code{character} scalar containing a unique identifier for the tag element. If
 #' the parameter is \code{NA} then a UUID will be generated
@@ -614,17 +748,20 @@ LNtitle <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNfirstName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  LNaddTag(tagText, "firstName", tagID, parentID, isHidden)
+LNgivenName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA) {
+  LNaddTag(tagText, "givenName", tagID, parentID, isHidden, lang)
 }
 
-# ====== 2.16. LNlastName tag ======
-#' Add a Living Norway metadata tag corresponding to the lastName EML element
+# ====== 2.16. LNsurName tag ======
+#' Add a Living Norway metadata tag corresponding to the surName EML element
 #' @param tagText A \code{character} scalar containing the text to encolse in the tag
 #' @param tagID A \code{character} scalar containing a unique identifier for the tag element. If
 #' the parameter is \code{NA} then a UUID will be generated
@@ -632,13 +769,16 @@ LNfirstName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNlastName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  LNaddTag(tagText, "lastName", tagID, parentID, isHidden)
+LNsurName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA) {
+  LNaddTag(tagText, "surName", tagID, parentID, isHidden, lang)
 }
 
 # ====== 2.17. LNorganizationName tag ======
@@ -650,13 +790,16 @@ LNlastName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNorganizationName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  LNaddTag(tagText, "organizationName", tagID, parentID, isHidden)
+LNorganizationName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA) {
+  LNaddTag(tagText, "organizationName", tagID, parentID, isHidden, lang)
 }
 
 # ====== 2.18. LNpositionName tag ======
@@ -668,13 +811,16 @@ LNorganizationName <- function(tagText, tagID = NA, parentID = NA, isHidden = FA
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNpositionName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  LNaddTag(tagText, "positionName", tagID, parentID, isHidden)
+LNpositionName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA) {
+  LNaddTag(tagText, "positionName", tagID, parentID, isHidden, lang)
 }
 
 # ====== 2.19. LNdeliveryPoint tag ======
@@ -686,13 +832,16 @@ LNpositionName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE)
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNdeliveryPoint <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  LNaddTag(tagText, "deliveryPoint", tagID, parentID, isHidden)
+LNdeliveryPoint <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA) {
+  LNaddTag(tagText, "deliveryPoint", tagID, parentID, isHidden, lang)
 }
 
 # ====== 2.20. LNcity tag ======
@@ -704,13 +853,16 @@ LNdeliveryPoint <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNcity <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  LNaddTag(tagText, "city", tagID, parentID, isHidden)
+LNcity <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA) {
+  LNaddTag(tagText, "city", tagID, parentID, isHidden, lang)
 }
 
 # ====== 2.21. LNpostalCode tag ======
@@ -722,17 +874,20 @@ LNcity <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNpostalCode <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  LNaddTag(tagText, "postalCode", tagID, parentID, isHidden)
+LNpostalCode <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA) {
+  LNaddTag(tagText, "postalCode", tagID, parentID, isHidden, lang)
 }
 
-# ====== 2.22. LNelectronicMail tag ======
-#' Add a Living Norway metadata tag corresponding to the electronicMail EML element
+# ====== 2.22. LNelectronicMailAddress tag ======
+#' Add a Living Norway metadata tag corresponding to the electronicMailAddress EML element
 #' @param tagText A \code{character} scalar containing the text to encolse in the tag
 #' @param tagID A \code{character} scalar containing a unique identifier for the tag element. If
 #' the parameter is \code{NA} then a UUID will be generated
@@ -740,13 +895,16 @@ LNpostalCode <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNelectronicMail <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  LNaddTag(tagText, "electronicMail", tagID, parentID, isHidden)
+LNelectronicMailAddress <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA) {
+  LNaddTag(tagText, "electronicMailAddress", tagID, parentID, isHidden, lang)
 }
 
 # ====== 2.23. LNpubDate tag ======
@@ -758,13 +916,16 @@ LNelectronicMail <- function(tagText, tagID = NA, parentID = NA, isHidden = FALS
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNpubDate <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  LNaddTag(tagText, "pubDate", tagID, parentID, isHidden)
+LNpubDate <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA) {
+  LNaddTag(tagText, "pubDate", tagID, parentID, isHidden, lang)
 }
 
 # ====== 2.24. LNlanguage tag ======
@@ -776,13 +937,16 @@ LNpubDate <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNlanguage <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  LNaddTag(toupper(tagText), "language", tagID, parentID, isHidden)
+LNlanguage <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA) {
+  LNaddTag(toupper(tagText), "language", tagID, parentID, isHidden, lang)
 }
 
 # ====== 2.25. LNabstract tag ======
@@ -794,13 +958,16 @@ LNlanguage <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNabstract <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  LNaddTag(tagText, "abstract", tagID, parentID, isHidden)
+LNabstract <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA) {
+  LNaddTag(tagText, "abstract", tagID, parentID, isHidden, lang)
 }
 
 # ====== 2.26. LNkeyword tag ======
@@ -812,13 +979,16 @@ LNabstract <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNkeyword <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  LNaddTag(tagText, "keyword", tagID, parentID, isHidden)
+LNkeyword <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA) {
+  LNaddTag(tagText, "keyword", tagID, parentID, isHidden, lang)
 }
 
 # ====== 2.27. LNkeywordThesaurus tag ======
@@ -830,13 +1000,16 @@ LNkeyword <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNkeywordThesaurus <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  LNaddTag(tagText, "keywordThesaurus", tagID, parentID, isHidden)
+LNkeywordThesaurus <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA) {
+  LNaddTag(tagText, "keywordThesaurus", tagID, parentID, isHidden, lang)
 }
 
 # ====== 2.28. LNintellectualRights tag ======
@@ -848,13 +1021,16 @@ LNkeywordThesaurus <- function(tagText, tagID = NA, parentID = NA, isHidden = FA
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNintellectualRights <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  LNaddTag(tagText, "intellectualRights", tagID, parentID, isHidden)
+LNintellectualRights <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA) {
+  LNaddTag(tagText, "intellectualRights", tagID, parentID, isHidden, lang)
 }
 
 # ====== 2.29. LNgeographicDescription tag ======
@@ -866,13 +1042,16 @@ LNintellectualRights <- function(tagText, tagID = NA, parentID = NA, isHidden = 
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNgeographicDescription  <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  LNaddTag(tagText, "geographicDescription", tagID, parentID, isHidden)
+LNgeographicDescription  <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA) {
+  LNaddTag(tagText, "geographicDescription", tagID, parentID, isHidden, lang)
 }
 
 # ====== 2.30. LNwestBoundingCoordinate tag ======
@@ -884,13 +1063,16 @@ LNgeographicDescription  <- function(tagText, tagID = NA, parentID = NA, isHidde
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNwestBoundingCoordinate <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  LNaddTag(tagText, "westBoundingCoordinate", tagID, parentID, isHidden)
+LNwestBoundingCoordinate <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA) {
+  LNaddTag(tagText, "westBoundingCoordinate", tagID, parentID, isHidden, lang)
 }
 
 # ====== 2.31. LNeastBoundingCoordinate tag ======
@@ -902,13 +1084,16 @@ LNwestBoundingCoordinate <- function(tagText, tagID = NA, parentID = NA, isHidde
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNeastBoundingCoordinate <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  LNaddTag(tagText, "eastBoundingCoordinate", tagID, parentID, isHidden)
+LNeastBoundingCoordinate <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA) {
+  LNaddTag(tagText, "eastBoundingCoordinate", tagID, parentID, isHidden, lang)
 }
 
 # ====== 2.32. LNsouthBoundingCoordinate tag ======
@@ -920,13 +1105,16 @@ LNeastBoundingCoordinate <- function(tagText, tagID = NA, parentID = NA, isHidde
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNsouthBoundingCoordinate <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  LNaddTag(tagText, "southBoundingCoordinate", tagID, parentID, isHidden)
+LNsouthBoundingCoordinate <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA) {
+  LNaddTag(tagText, "southBoundingCoordinate", tagID, parentID, isHidden, lang)
 }
 
 # ====== 2.33. LNnorthBoundingCoordinate ======
@@ -938,13 +1126,16 @@ LNsouthBoundingCoordinate <- function(tagText, tagID = NA, parentID = NA, isHidd
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNnorthBoundingCoordinate <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  LNaddTag(tagText, "northBoundingCoordinate", tagID, parentID, isHidden)
+LNnorthBoundingCoordinate <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA) {
+  LNaddTag(tagText, "northBoundingCoordinate", tagID, parentID, isHidden, lang)
 }
 
 # ====== 2.34. LNcalendarDate tag ======
@@ -956,13 +1147,16 @@ LNnorthBoundingCoordinate <- function(tagText, tagID = NA, parentID = NA, isHidd
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNcalendarDate <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  LNaddTag(tagText, "calendarDate", tagID, parentID, isHidden)
+LNcalendarDate <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA) {
+  LNaddTag(tagText, "calendarDate", tagID, parentID, isHidden, lang)
 }
 
 # ====== 2.35. LNtaxonRankName tag ======
@@ -974,13 +1168,16 @@ LNcalendarDate <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE)
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNtaxonRankName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  LNaddTag(tagText, "taxonRankName", tagID, parentID, isHidden)
+LNtaxonRankName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA) {
+  LNaddTag(tagText, "taxonRankName", tagID, parentID, isHidden, lang)
 }
 
 # ====== 2.36. LNtaxonRankValue tag ======
@@ -992,13 +1189,16 @@ LNtaxonRankName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNtaxonRankValue <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  LNaddTag(tagText, "taxonRankValue", tagID, parentID, isHidden)
+LNtaxonRankValue <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA) {
+  LNaddTag(tagText, "taxonRankValue", tagID, parentID, isHidden, lang)
 }
 
 # ====== 2.37. LNcommonName tag ======
@@ -1010,13 +1210,16 @@ LNtaxonRankValue <- function(tagText, tagID = NA, parentID = NA, isHidden = FALS
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNcommonName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  LNaddTag(tagText, "commonName", tagID, parentID, isHidden)
+LNcommonName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA) {
+  LNaddTag(tagText, "commonName", tagID, parentID, isHidden, lang)
 }
 
 # ====== 2.38. LNtaxanomicClassification tag ======
@@ -1028,13 +1231,16 @@ LNcommonName <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNtaxonomicClassification <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  LNaddTag(tagText, "taxonomicClassification", tagID, parentID, isHidden)
+LNtaxonomicClassification <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA) {
+  LNaddTag(tagText, "taxonomicClassification", tagID, parentID, isHidden, lang)
 }
 
 # ====== 2.39. LNmethodStep tag ======
@@ -1046,13 +1252,16 @@ LNtaxonomicClassification <- function(tagText, tagID = NA, parentID = NA, isHidd
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNmethodStep <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  LNaddTag(tagText, "methodStep", tagID, parentID, isHidden)
+LNmethodStep <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA) {
+  LNaddTag(tagText, "methodStep", tagID, parentID, isHidden, lang)
 }
 
 # ====== 2.40. LNqualityControl tag ======
@@ -1064,13 +1273,16 @@ LNmethodStep <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNqualityControl <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  LNaddTag(tagText, "qualityControl", tagID, parentID, isHidden)
+LNqualityControl <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA) {
+  LNaddTag(tagText, "qualityControl", tagID, parentID, isHidden, lang)
 }
 
 # ====== 2.41. LNsampling tag ======
@@ -1082,13 +1294,16 @@ LNqualityControl <- function(tagText, tagID = NA, parentID = NA, isHidden = FALS
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNsampling <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  LNaddTag(tagText, "sampling", tagID, parentID, isHidden)
+LNsampling <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA) {
+  LNaddTag(tagText, "sampling", tagID, parentID, isHidden, lang)
 }
 
 # ====== 2.42. LNstudyExtent tag ======
@@ -1100,13 +1315,16 @@ LNsampling <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNstudyExtent <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  LNaddTag(tagText, "studyExtent", tagID, parentID, isHidden)
+LNstudyExtent <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA) {
+  LNaddTag(tagText, "studyExtent", tagID, parentID, isHidden, lang)
 }
 
 # ====== 2.43. LNsamplingDescription tag ======
@@ -1118,13 +1336,16 @@ LNstudyExtent <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) 
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNsamplingDescription <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  LNaddTag(tagText, "samplingDescription", tagID, parentID, isHidden)
+LNsamplingDescription <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA) {
+  LNaddTag(tagText, "samplingDescription", tagID, parentID, isHidden, lang)
 }
 
 # ====== 2.44. LNpurpose tag ======
@@ -1136,12 +1357,15 @@ LNsamplingDescription <- function(tagText, tagID = NA, parentID = NA, isHidden =
 #' \code{NA} denotes that there is no parent for the tag
 #' @param isHidden A \code{logical} scalar that, if \code{TRUE}, denotes that the text should be
 #' hidden when rendered
+#' @param lang A \code{character} scalar defining the language attribute to set for the tag. See
+#' \url{https://www.w3.org/International/articles/language-tags/}{the W3C guide to language tags} for the
+#' best format to use for this attribute.  A value \code{NA} indicates that no langauge attribute will be set.
 #' @return A \code{character} scalar containing the rendered output including any HTML tags if a
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @export
 #'
-LNpurpose <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE) {
-  LNaddTag(tagText, "purpose", tagID, parentID, isHidden)
+LNpurpose <- function(tagText, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA) {
+  LNaddTag(tagText, "purpose", tagID, parentID, isHidden, lang)
 }
 

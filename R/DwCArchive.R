@@ -49,7 +49,7 @@ DwCArchive <- R6Class("DwCArchive",
         "xmlns:xsi" = "http://www.w3.org/2001/XMLSchema-instance",
         "xmlns:xs" = "http://www.w3.org/2001/XMLSchema",
         "xsi:schemaLocation" = "http://rs.tdwg.org/dwc/text/ http://rs.tdwg.org/dwc/text/tdwg_dwc_text.xsd",
-        metadata = iNEMLLocation,
+        metadata = inEMLLocation,
         .version = "1.0",
         .encoding = "UTF-8"
       )
@@ -329,7 +329,7 @@ DwCArchive <- R6Class("DwCArchive",
         stop("error encountered importing Darwin core archive: there must be exactly one core element in the archive file")
       }
       # Initialise the archive using the imported tables
-      self$initialize(fileList[[coreIndex]], fileList[-coreIndex])
+      self$initialize(fileList[[coreIndex]], fileList[-coreIndex], private$metadata)
       # Remove the temporary directory
       unlist(tempLoc, recursive = TRUE)
       invisible(self)
@@ -347,7 +347,8 @@ DwCArchive <- R6Class("DwCArchive",
     #' the tables used as extension objects in the Darwin Core archive.  If \code{coreDwC}
     #' is a character scalar then \code{extDwC} can also be a character scalar that contains the
     #' default file encodings for the files in the Darwin core archive
-    initialize = function(coreDwC, extDwC = NULL) {
+    #' @param metadata A \code{DwCMetadata} object that contains the metadata for the archive
+    initialize = function(coreDwC, extDwC = NULL, metadata = NULL) {
       if(is.character(coreDwC) || is.factor(coreDwC)) {
         # If the core object is a character vector then treat it like a file and import the data from it
         private$importFromDwCArchive(coreDwC, extDwC)
@@ -378,6 +379,13 @@ DwCArchive <- R6Class("DwCArchive",
             stop("error encountered during processing of Darwin core archive extension elements: some list memebers are not valid objects")
           }
         }
+        # Sanity test the metadata
+        if(is.null(metadata)) {
+          stop("metadata must be supplied if data table parameterisation of the archive is required")
+        } else if(!any(class(metadata) == "DwCMetadata")) {
+          stop("metadata is not a DwCMetadata object")
+        }
+        private$metadata <- metadata
       }
       invisible(self)
     },
@@ -552,8 +560,9 @@ DwCArchive <- R6Class("DwCArchive",
 #' the tables used as extension objects in the Darwin Core archive.  If \code{coreDwC}
 #' is a character scalar then \code{extDwC} can also be a character scalar that contains the
 #' default file encodings for the files in the Darwin core archive
+#' @param metadata A \code{DwCMetadata} object that contains the metadata for the archive
 #' @return A new \code{DwCArchive} object
-#' @seealso \code{\link[DwCGeneric]{DwCGeneric}}
-initializeDwCArchive = function(coreDwC, extDwC = NULL) {
-  DwCArchive$new(coreDwC = coreDwC, extDwC = extDwC)
+#' @seealso \code{\link[DwCGeneric]{DwCGeneric}} \code{\link[DwCMetadata]{DwCMetadata}}
+initializeDwCArchive = function(coreDwC, extDwC = NULL, metadata = NULL) {
+  DwCArchive$new(coreDwC = coreDwC, extDwC = extDwC, metadata = metadata)
 }
