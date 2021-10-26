@@ -3,7 +3,7 @@ title: "Handling Darwin Core Files With Living Norway:  Example Using the TOV-E 
 output: html_document
 ---
 
-```{r setup, include=FALSE}
+```{r setupEx, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
