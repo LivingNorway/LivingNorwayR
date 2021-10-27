@@ -94,6 +94,7 @@ GBIFMeasurementOrFact <- R6Class("GBIFMeasurementOrFact",
 #' term. Mappable terms can be found using: \code{sapply(X = getGBIFMeasurementOrFactMembers(), FUN = function(curTerm) { curTerm$getTermName() })}
 #' @return A new \code{GBIFMeasurementOrFact} object
 #' @seealso \code{\link[DwCTerm]{DwCTerm}} \code{\link[getGBIFMeasurementOrFactMembers]{getGBIFMeasurementOrFactMembers}}
+#' @export
 initializeGBIFMeasurementOrFact <- function(objectData, idColumnInfo, nameAutoMap = FALSE, defDateFormat = "YYYY-MM-DD", ...) {
 	GBIFMeasurementOrFact$new(objectData = objectData, idColumnInfo = idColumnInfo, nameAutoMap = nameAutoMap, defDateFormat = defDateFormat, ...)
 }
