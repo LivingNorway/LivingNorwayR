@@ -61,6 +61,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="../articles/EML_R_packages_overview.html">EML R package overview</a>
+    </li>
+    <li>
       <a href="../articles/LNWorkshopExample_TOV-E.html">Handling Darwin Core Files With Living Norway:  Example Using the TOV-E Dataset</a>
     </li>
     <li>
@@ -1738,7 +1741,7 @@
 <span class="va">newTOVEMetadata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/initializeDwCMetadata.html">initializeDwCMetadata</a></span><span class="op">(</span><span class="va">localDataLoc</span>,
   fileType <span class="op">=</span> <span class="st">"darwincore"</span> <span class="co"># This line is not required if the file has the ".zip" file extension</span>
 <span class="op">)</span></code></pre></div>
-<p>However, these methods assume that the researcher already has an EML file that can be used for initialisation of the metadata object. In many instances, the researcher will not have the EML readily available, and in situations where the researcher is unfamiliar with the standard, the process to create an EML can be rather laborious. To help alleviate this, the Living Norway adds a number of functions to aid in the creation of EML files. Instead of formatting the metadata according to the EML standard, the researcher can instead use <a href="https://rmarkdown.rstudio.com/">R markdown</a> to create a text document describing the dataset. In this text document the researcher can simply add tagging functions to sections of text that they wish to be exported to the EML file.</p>
+<p>However, these methods assume that the researcher already has an EML file that can be used for initialisation of the metadata object. In many instances, the researcher will not have the EML readily available, and in situations where the researcher is unfamiliar with the standard, the process to create an EML can be rather laborious. To help alleviate this, the Living Norway adds a number of functions to aid in the creation of EML files. Instead of formatting the metadata according to the EML standard, the researcher can instead use <a href="https://rmarkdown.rstudio.com/">R markdown</a> to create a text document describing the dataset. In this text document the researcher can simply add tagging functions to sections of text that they wish to be exported to the EML file. (<strong>It is important to note here that there are a few different R packages that one can use to make valid EML (see: <a href="https://raw.githubusercontent.com/LivingNorway/LivingNorwayR/master/vignettes/EML_R_packages_overview.rmd">EML with R</a>) all of which have different challenges associated with them.</strong>)</p>
 <p>R markdown is a simple text-based documentation language and can be thought of as an extension of simple text files with some extra support for formatting and display of text elements. In addition R markdown allows for the embedding of R code within the document which can be used to draw figures or make tables from data. This can be very useful for describing or displaying aspects of data sets.</p>
 <p>A very simple minimal example of the use of markdown to generate create metadata documentation can be found at the <a href="https://raw.githubusercontent.com/LivingNorway/LivingNorwayR/master/vignettes/LNWorkshopExample_TOV-E_Metadata.rmd">Living Norway Git Repository</a>.</p>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">

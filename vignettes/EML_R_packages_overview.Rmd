@@ -1,0 +1,387 @@
+---
+title: "EML R package overview"
+author: "Matt"
+date: "`r format(Sys.time(), '%d %m, %Y')`"
+output: 
+vignette: >
+  %\VignetteIndexEntry{EML R package overview}
+  %\VignetteEngine{knitr::rmarkdown}
+bibliography: bibliography.bib
+---
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(knitr.duplicate.label = "allow")
+
+```
+
+
+```{r libraries, include=FALSE, message=FALSE, warning=FALSE}
+#CRAN (25 documents 7 packages)
+library(tidyverse)
+library(EML)
+library(emld)
+#library(emldown) archieved
+library(RNeXML)
+library(datapack)
+library(rbefdata)
+library(geometa)
+library(LivingNorwayR)
+#GitHub (15 repositories, 6 R language)
+
+#devtools::install_github("isteves/dataspice")#fails
+#devtools::install_github("cboettig/eml2")#fails
+#devtools::install_github("earnaud/MetaShARK-v2", dependencies=TRUE)
+#devtools::install_github("atn38/MetaInbase", dependencies=TRUE)
+#devtools::install_github("EDIorg/EMLassemblyline")
+#devtools::install_github("BLE-LTER/MetaEgress")
+
+library(MetaEgress)
+library(EMLassemblyline)
+library(MetaInbase)
+#library(MetaShARK)# now a shiny app only no package install
+
+
+library(jsonlite)
+library(magrittr) 
+library(jqr)    
+library(rdflib)   
+```
+
+# R packages that interact with EML 
+
+## Introduction
+
+EML (Ecological Metadata Langauage; [@EML_2019]) is a version of the machine and human readable XML (Extensible Markup Language) which is designed to facilitate data documentation (i.e. metadata) to ease open data and sharing. XML is a language related to HTML, but was designed to tag document content and allows for validation against specific schemas. XML is well supported in many different programming languages and can be readily translated to other formats [@mccartney2002using]. 
+
+EML consists of "modules" (with separate schemas) that allow the description of data attributes (e.g. spatial, temporal, taxonomic extent). EML defines several resource types (e.g. "dataset") that inherit a common set of elements or "tags" which facilitate discovery of metadata. One of the biggest advantages of EML is that it is extensible with additional modules easily integrated [@mccartney2002using]. 
+
+GBIF (the Global Biodiversity Information Facility), which is an international network and research infrastructure, provides open access to data about biodiversity. The GBIF metadata profile is based on EML and as such anyone interacting with GBIF needs to be able to read, write or visualise data in the EML format. 
+
+A serious barrier to data sharing is the learning curve and time cost needed to produce metadata. EML is a complex set of elements (many 100's of them are available) most of which are not relevant to any single dataset [@mccartney2002using]. Writing directly in EML can be a technical barrier to many researchers who, in ecology, may only have experience in the R language which has a very different syntax and data structure. The challenge is, therefore, to make filling in metadata as easy as possible for all researchers regardless of their data type.
+
+Several R packages have functions to read, write or interact with EML files and here we aim to identify those that will be useful for researchers working with ecological data.  
+
+### Aim
+To identify R packages and functions that can read, write or interact/visualise data in the EML format 
+
+#### Objectives
+1) To review the available packages on CRAN and on GitHub that have functions to interact with EML
+2) To identify the main functions from these packages that allow reading, writing and visualising data in EML format
+
+## Methods
+
+We searched for R packages on CRAN (The Comprehensive R Archive Network - https://cran.r-project.org/) using the search function which is provided by Google. We used the search term "Ecological Metadata Language site:r-project.org". We repeated the search for "Ecological Metadata Language" on GitHub and identified repositories which used the R language. We identified all packages returned through our search that were on CRAN or on GitHub and that consisted of functions that are aimed at interacting (either reading, writing or viewing) with the Ecological Metadata Language (EML).
+
+## Results
+
+The search on Google (via CRAN) returned 25 hits. Seven of these were R packages. The search on GitHub returned 15 repositories of which 6 were in the R language. Two of these returned errors when we attempted to download them in RStudio using the devtools::install_github() function, and two have been archived. 
+We identified 9 R packages (6 from CRAN and 3 from GitHub) that were active in the last two years and explicitly stated that functions were used for interacting (either reading, writing or viewing) Ecological Metadata Language (EML). 
+
+```{r table of packages, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+tb<-data.frame("Package"=c("EML","emld", "RNeXML", "datapack", "rbefdata", "geometa", "MetaEgress", "EMLassemblyline", "MetaInbase", "LivingNorwayR"), "Package_description"=c(packageDescription(pkg = "EML")$Description, packageDescription(pkg = "emld")$Description, packageDescription(pkg = "RNeXML")$Description,packageDescription(pkg = "datapack")$Description,packageDescription(pkg = "rbefdata")$Description,packageDescription(pkg = "geometa")$Description, packageDescription(pkg = "MetaEgress")$Description, packageDescription(pkg = "EMLassemblyline")$Description, packageDescription("MetaInbase")$Description, packageDescription("LivingNorwayR")$Description))
+
+tb %>% 
+  mutate(Package_description=gsub("\n", "", Package_description )) %>% knitr::kable()
+```
+
+
+#### emld package
+
+The *emld* package [@emld] is closely related to the EML package [@EML] and its functions are heavily relied upon in the latest version of *EML*. 
+
+*emld* has an advantage over *EML* where there are large, highly nested EML files. It can flatten EML in to common R formats that can be manipulated in R. 
+
+
+
+```{r}
+# Example from https://github.com/ropensci/emld
+f <- system.file("extdata/example.xml", package="emld")
+eml <- emld::as_emld(f)
+eml$dataset$title
+```
+
+
+
+*emld* objects are nested lists so to write EML in *emld* you can create a list.
+
+```{r, echo=TRUE, warning=FALSE, message=FALSE}
+# Example from https://github.com/ropensci/emld
+
+me <- list(individualName = list(givenName = "Joe", surName = "Bloggs"))
+
+eml <- list(dataset = list(
+              title = "The biggest fish in the sea",
+              contact = me,
+              creator = me),
+              system = "doi",
+              packageId = "10.xxx")
+
+ex.xml <- tempfile("ex", fileext = ".xml") # use your preferred file path
+
+as_xml(eml, ex.xml)
+
+```
+*emld::as_xml()* reorders the list if necessary to ensure that it matches the EML required format. You can use *emld::eml_validate()* to check that the EML has been written correctly and is a valid EML file.
+
+```{r, echo=TRUE, warning=FALSE, message=FALSE}
+eml_validate(ex.xml)
+```
+
+
+#### EML package
+
+The *EML* [@EML] package uses *emld* [@emld] as a basis for many of its functions. 
+
+
+The read_eml() function reads eml files in to the R session. 
+
+```{r, echo=TRUE, warning=FALSE, message=FALSE}
+f <- system.file("extdata", "example.xml", package = "emld")
+eml <- EML::read_eml(f)
+eml$dataset$title
+```
+
+
+Several functions (with the prefix *set_*) allow the user to import attributes of the dataset file (e.g. the methods) as word or Markdown documents and merge them in to a single EML file (see https://docs.ropensci.org/EML/ for a detailed tutorial).
+
+
+*EML* has several functions (with the prefix *get_*) which allow a user to extract elements of an XML file. 
+
+
+```{r, echo=TRUE, warning=FALSE, message=FALSE}
+f <- system.file("tests", emld::eml_version(), 
+  "eml-datasetWithAttributelevelMethods.xml", package = "emld")
+eml <- EML::read_eml(f)
+EML::get_attributes(eml$dataset$dataTable$attributeList)
+
+```
+
+
+### RNeXML package
+
+*RNeXML* [@RNeXML] is a package for reading and writing phylogenetic, character and trait metadata focussed on taxonomy. The package stands parallel to *EML* and *emd* using similar functions but is focused on a different (but related) standard NeXML rather than EML per se.
+
+
+### datapack package
+
+The *datapack* package [@datapack] provides functions for collating multiple data and metadata objects of different types into a bundle that can be transported and loaded using a single composite file. It is primarily meant as a container to bundle together files for transport to or from DataONE data repositories. Metadata in the form of EML can be attached to the databundle. 
+
+```{r datapack, echo=FALSE, warning=FALSE, message=FALSE}
+# Example from: https://github.com/ropensci/datapack
+library(uuid)
+library(datapack)
+dp <- new("DataPackage")
+mdFile <- system.file("extdata/sample-eml.xml", package="datapack")
+mdId <- paste("urn:uuid:", UUIDgenerate(), sep="")
+md <- new("DataObject", id=mdId, format="eml://ecoinformatics.org/eml-2.1.0", file=mdFile)
+addData(dp, md)
+
+csvfile <- system.file("extdata/sample-data.csv", package="datapack")
+sciId <- paste("urn:uuid:", UUIDgenerate(), sep="")
+sciObj <- new("DataObject", id=sciId, format="text/csv", filename=csvfile)
+dp <- addData(dp, sciObj)
+ids <- getIdentifiers(dp)
+
+
+
+```
+
+### rbefdata package
+
+Similarly to the *datapack* package *rbefdata* [@rbefdata] links to the BEF data portal (https://fundiv.befdata.biow.uni-leipzig.de/). The function *rbefdata::bef.portal.get.metadata()* extracts the metadata from a file that the user has downloaded from the BEF data portal.
+
+### geometa package
+
+*geometa* [@geometa] provides functions for reading and writing geographic metadata. It suggests *EML* and *emld*. It can convert metadata to and from EML using the *geometa::convert_metadata()* function. 
+
+### MetaEgress package
+
+*MetaEgress* [@MetaEgress] is designed to create EML for Long Term Ecological Research metabase ( https://github.com/lter/LTER-core-metabase). Validation of EML is done through *emld::eml_validate()*
+
+### EMLassemblyline package
+
+*EMLassemblyline* [@EMLassemblyline] is a metadata builder that has functions to autoextract metadata. The package is centered around a "data package" that is a collection of data objects and metadata. The templating functions allow the development of metadata templates that the user can add information to. *EMLassemblyline* also has a "living data" set of functions that allow ongoing data collection to be published at regular periods. See https://ediorg.github.io/EMLassemblyline/index.html for examples of the workflow.
+
+```{r EMLassembly, echo=TRUE, eval=FALSE, warning=FALSE, message=FALSE }
+library(EMLassemblyline)
+make_eml(
+  path = "./metadata_templates",
+  data.path = "./data_objects",
+  eml.path = "./eml",
+  dataset.title = "Sphagnum and Vascular Plant Decomposition under Increasing Nitrogen Additions",
+  temporal.coverage = c("2014-05-01", "2015-10-31"),
+  maintenance.description = "Completed: No updates to these data are expected",
+  data.table = c("decomp.csv", "nitrogen.csv"),
+  data.table.description = c("Decomposition data", "Nitrogen data"),
+  other.entity = c("ancillary_data.zip", "processing_and_analysis.R"),
+  other.entity.description = c("Ancillary data", "Data processing and analysis script"),
+  user.id = "myid",
+  user.domain = "EDI",
+  package.id = "edi.260.1")
+
+
+```
+
+### MetaInbase package
+
+*MetaInbase* [@MetaInbase] has functions to convert EML to tables. It appears to be in an early stage of development
+
+
+### MetaShARK package
+
+*MetaShARK* (Metadata Shiny Automated Resource & Knowledge; https://github.com/earnaud/MetaShARK-v2) is a R shiny app allowing the user to get information about EML and to fill in metadata for datasets according to this standard. This package has developed a "user-friendly" Shiny App for researchers not familiar with EML standards.
+
+
+### LivingNorwayR
+
+*LivingNorwayR* addresses the EML metadata in a slightly different way to the other packages. It uses RMarkdown with specific tagging functions in order to "knit" together the EML document. The package is focused on creating Darwin Core compliant data archives ("data packages") that can be stored locally or shared with, for example, GBIF. A worked example is available as a [vignette](https://raw.githubusercontent.com/LivingNorway/LivingNorwayR/master/vignettes/LNWorkshopExample_TOV-E_Metadata.rmd).  
+
+```{r open reports, echo=FALSE, warning=FALSE, message=FALSE, include=FALSE}
+
+library(pkgnet)
+report1 <- CreatePackageReport(pkg_name = "EML", report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/EML.html")
+
+report2 <- CreatePackageReport(pkg_name = "emld", report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/emld.html")
+
+#report3 <- CreatePackageReport(pkg_name = "emldown",
+#                               report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/emldown.html")
+
+report4 <- CreatePackageReport(pkg_name = "RNeXML",
+                               report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/RNeXML.html")
+report5 <- CreatePackageReport(pkg_name = "datapack", report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/datapack.html")
+report6 <- CreatePackageReport(pkg_name = "rbefdata",
+                               report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/rbefdata.html")
+report7 <- CreatePackageReport(pkg_name = "geometa",
+                               report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/geometa.html")
+report8 <- CreatePackageReport(pkg_name = "MetaEgress",report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/MetaEgress.html")
+report9 <- CreatePackageReport(pkg_name = "EMLassemblyline"
+                               , report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/EMLassemblyline.html")
+report10 <- CreatePackageReport(pkg_name = "MetaInbase", report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/MetaInbase.html")#No dependancies
+#report11 <- CreatePackageReport(pkg_name = "MetaShARK", report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/MetaShARK.html")
+
+
+```
+
+
+## Relationship between packages
+
+By looking at the dependency relationship between the packages we can get an understanding of how they are structured and how similar each package is. From the figure and table below you can see that *jsonlite* and XML2 are core packages that underpin many of the packages that deal with EML in R. *jsonlite* helps to convert the list-like structure of EML in to different R classes. XML2 allows the user to read in XML files (EML is a type of XML) to R as a list and to also write EML as an XML structured file. Three of the packages use the *emld* package as a basis (most use the validation function) and from the network plot you can see that all the packages except *EMLassemblyline* are quite closely related in terms of their underlying dependencies. A large number of the dependencies of *EMLassemblyline* are not shared by the other packages. 
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# Dependancies
+library(tidyverse)
+
+#length(report1$DependencyReporter$nodes$node)#49
+#length(report2$DependencyReporter$nodes$node)#13
+##length(report3$DependencyReporter$nodes$node)#79
+#length(report4$DependencyReporter$nodes$node)#48
+# length(report5$DependencyReporter$nodes$node)#35
+# length(report6$DependencyReporter$nodes$node)#17
+# length(report7$DependencyReporter$nodes$node)#16
+# length(report8$DependencyReporter$nodes$node)#65
+# length(report9$DependencyReporter$nodes$node)#145
+# #length(report10$DependencyReporter$nodes$node)#No Dependency
+# #length(report11$DependencyReporter$nodes$node)#170
+
+PkgName=c(rep("EML",length(report1$DependencyReporter$nodes$node)), rep("emld",length(report2$DependencyReporter$nodes$node)), rep("RNeXML", length(report4$DependencyReporter$nodes$node)),
+          rep("datapack", length(report5$DependencyReporter$nodes$node)), rep("rbefdata", length(report6$DependencyReporter$nodes$node)), rep("geometa", length(report7$DependencyReporter$nodes$node)), rep("MetaEgress",length(report8$DependencyReporter$nodes$node)),
+          rep("EMLassemblyline", length(report9$DependencyReporter$nodes$node)))
+
+Dependency=c(report1$DependencyReporter$nodes$node,
+                  report2$DependencyReporter$nodes$node,
+                  #report3$DependencyReporter$nodes$node,
+                  report4$DependencyReporter$nodes$node,
+                  report5$DependencyReporter$nodes$node,
+                  report6$DependencyReporter$nodes$node,
+                  report7$DependencyReporter$nodes$node,
+                  report8$DependencyReporter$nodes$node,
+             report9$DependencyReporter$nodes$node)
+             #report10$DependencyReporter$nodes$node,
+             #report11$DependencyReporter$nodes$node)
+
+dtab=data.frame(PkgName,Dependency)
+dtab$PkgName<-as.character(dtab$PkgName)
+dtab$Dependency<-as.character(dtab$Dependency)
+
+
+dtab=dtab %>%
+  filter(!PkgName==Dependency)
+# dtab %>%
+#   select(Dependency) %>%
+#   group_by(Dependency) %>%
+#   tally() %>%
+#   arrange(desc(n)) %>%
+#   top_n(.,25) %>%
+#   ggplot(aes(reorder(Dependency,n),n, fill="red"))+
+#   geom_bar(stat="Identity")+
+#   coord_flip()
+# 
+
+require(visNetwork, quietly = TRUE)
+
+# minimal example
+nodes <-data.frame("id"=unique(append(dtab$PkgName, dtab$Dependency)), label=unique(append(dtab$PkgName, dtab$Dependency)))
+edges <- data.frame(from = dtab$Dependency, to = dtab$PkgName )
+visNetwork(nodes, edges, width = "100%" ) %>% 
+  visNodes() %>% 
+  visInteraction(hover = TRUE,
+                 dragNodes = FALSE, 
+                 dragView = FALSE, 
+                 navigationButtons = TRUE
+                 #, 
+                 #zoomView = FALSE
+                 ) %>% 
+  visEdges(arrows =list(to = list(enabled = TRUE, scaleFactor = 2)),
+           color = list(color = "lightblue", highlight = "red")) %>% 
+ visPhysics(solver = "forceAtlas2Based", 
+            forceAtlas2Based = list(gravitationalConstant = -300))
+
+
+```
+
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, eval=FALSE, include=FALSE}
+library(igraph)
+g1=igraph::graph.data.frame(edges)
+#plot(g1)
+#sort(degree(g1,mode="in"))
+dgre=data.frame(degree=sort(degree(g1,mode="out")))
+dgre %>% 
+ rownames_to_column("Package") %>% 
+  arrange(desc(degree)) %>% 
+  kableExtra::kable() %>% 
+  kableExtra::kable_styling()
+
+```
+
+### Which package to use? 
+
+Many of the packages we have found are focused on single data repositories. These packages might be useful for these specific tasks, however the main packages for creating EML are {emld} and {EML} as these are the basis to many of the functions used in the other packages. The {LivingNorwayR} package uses RMarkdown as a tool to create EML metadata and might be preferable to those with some experience with RMarkdown documents.
+
+
+## Places to go for help
+
+* https://environmentaldatainitiative.org/five-phases-of-data-publishing/phase-3/make-eml-with-r/
+* https://cran.r-project.org/web/packages/EML/vignettes/creating-EML.html
+* https://cran.r-project.org/web/packages/emld/vignettes/tutorial.html
+* https://www.neonscience.org/dc-metadata-importance-eml-r
+* https://ropensci.org/blog/2017/08/01/emldown/
+
+
+#### Contributors
+
+Matt Grainger
+
+
+# References {-}
+
+
+
+<div id="refs"></div>
+
+
+
+\newpage 
