@@ -13,9 +13,9 @@ install.packages("devtools")
 
 devtools::install_github("LivingNorway/LivingNorwayR")
 
-## For a basic example of the workflow please see the vignettes ("Articles")::
+## Basic example of the workflow
 
-https://livingnorway.github.io/LivingNorwayR/
+For a basic example of the workflow please see the [vignettes ("Articles")](https://livingnorway.github.io/LivingNorwayR/).
 
 ## Join us at the next Living Norway colloquium 
 
