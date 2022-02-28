@@ -19,7 +19,7 @@ For a basic example of the workflow please see the [vignettes ("Articles")](http
 
 ## Join us at the next Living Norway colloquium 
 
-For details of up-coming events and colloquia https://livingnorway.no/
+For details of[ up-coming events and colloquia](https://livingnorway.no/).
 
 ## Join our "Open Science lab"
 
