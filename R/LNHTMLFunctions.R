@@ -9,7 +9,6 @@
 #' @seealso \code{\link[uuid::UUIDgenerate]{UUIDgenerate}}
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @keyword internal
-#' @export
 #'
 generateTagID <- function(tagID) {
   outArg <- tryCatch(as.character(tagID), error = function(err) {
@@ -41,7 +40,6 @@ generateTagID <- function(tagID) {
 #'
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @keyword internal
-#' @export
 #'
 retrieveEMLSchema <- function(schema) {
   inSchema <- tryCatch(as.character(schema), error = function(err) {

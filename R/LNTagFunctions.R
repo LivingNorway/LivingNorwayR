@@ -9,7 +9,6 @@
 #' @seealso \code{\link[uuid::UUIDgenerate]{UUIDgenerate}}
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @keywords internal
-#' @export
 #'
 generateID <- function(tagID) {
   outArg <- tryCatch(as.character(tagID), error = function(err) {
@@ -51,7 +50,6 @@ generateID <- function(tagID) {
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @keywords  internal
-#' @export
 #'
 LNaddTag <- function(tagText, tagType, tagID = NA, parentID = NA, isHidden = FALSE, lang = NA, ...) {
   # Function to sanity check the tag related inputs
@@ -142,7 +140,6 @@ LNaddTag <- function(tagText, tagType, tagID = NA, parentID = NA, isHidden = FAL
 #' @return \code{List} of functions for each of the available Living Norway metadata tags
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @keywords  internal
-#' @export
 #'
 getTagGenerationFunctions <- function() {
   list(
@@ -211,7 +208,6 @@ getTagGenerationFunctions <- function() {
 #' HTML document is being knitted
 #' @author Joseph D. Chipperfield, \email{joechip90@@googlemail.com}; Matthew Grainger, \email{matthew.grainger@@nina.no}
 #' @keywords  internal
-#' @export
 #'
 processChildArgs <- function(parentID, sep = sep, isHiddenDefault = FALSE, ...) {
   # Process the input ID
