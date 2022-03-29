@@ -22,5 +22,4 @@ extension<-Archive$getExtensionTables()
 metadata<-Archive$getMetadata()
 # For datasets with several versions use:
 Archive=getLNportalData(datasetKey="4a00502d-6342-4294-aad1-9727e5c24041",version=1.6)
-#' @export
 }

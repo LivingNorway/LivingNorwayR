@@ -10,7 +10,7 @@
 #' metadata<-Archive$getMetadata()
 #' # For datasets with several versions use:
 #' Archive=getLNportalData(datasetKey="4a00502d-6342-4294-aad1-9727e5c24041",version=1.6)
-#' #' @export
+#' @export
 
 getLNportalData=function(datasetKey, version=NULL){
   dataset <- RJSONIO::fromJSON(paste0("http://api.gbif.org/v1/dataset/",datasetKey,"/endpoint"))
