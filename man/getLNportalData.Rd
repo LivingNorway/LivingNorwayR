@@ -4,16 +4,23 @@
 \alias{getLNportalData}
 \title{Function for getting data from the Livng Norway Portal}
 \usage{
-getLNportalData(datasetID)
+getLNportalData(datasetKey, version = NULL)
 }
 \arguments{
-\item{datasetID}{the dataset unique identifying key}
+\item{datasetKey}{the dataset unique identifying key}
+
+\item{version}{the dataset version as indicated on the IPT from which the dataset was published}
 }
 \description{
 using the dataset key for a Living Norway dataset (and other GBIF datasets) you can download and extract the elements of the Darwin Core Archive file
 }
 \examples{
-Archive=getLNportalData(datasetID = "b848f1f3-3955-4725-8ad8-e711e4a9e0ac" )
+Archive=getLNportalData(datasetKey = "b848f1f3-3955-4725-8ad8-e711e4a9e0ac" )
+# Then interact with the archive
 core<-Archive$getCoreTable()
 extension<-Archive$getExtensionTables()
+metadata<-Archive$getMetadata()
+# For datasets with several versions use:
+Archive=getLNportalData(datasetKey="4a00502d-6342-4294-aad1-9727e5c24041",version=1.6)
+#' @export
 }
