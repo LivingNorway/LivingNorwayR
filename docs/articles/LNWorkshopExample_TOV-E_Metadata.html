@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TOV-E Bird monitoring sampling data • LivingNorwayR</title>
+<title>LNWorkshopExample_TOV-E_Metadata • LivingNorwayR</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="TOV-E Bird monitoring sampling data">
+<script src="../pkgdown.js"></script><meta property="og:title" content="LNWorkshopExample_TOV-E_Metadata">
 <meta property="og:description" content="LivingNorwayR">
 <meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -26,6 +26,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -38,23 +40,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">LivingNorwayR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -67,14 +63,14 @@
       <a href="../articles/LNWorkshopExample_TOV-E.html">Handling Darwin Core Files With Living Norway:  Example Using the TOV-E Dataset</a>
     </li>
     <li>
-      <a href="../articles/LNWorkshopExample_TOV-E_Metadata.html">TOV-E Bird monitoring sampling data</a>
+      <a href="../articles/LNWorkshopExample_TOV-E_Metadata.html">LNWorkshopExample_TOV-E_Metadata</a>
     </li>
   </ul>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/LivingNorway/LivingNorwayR/">
+  <a href="https://github.com/LivingNorway/LivingNorwayR/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -92,25 +88,25 @@
       </header><script src="LNWorkshopExample_TOV-E_Metadata_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>TOV-E Bird monitoring sampling data</h1>
+      <h1 data-toc-skip>LNWorkshopExample_TOV-E_Metadata</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/LivingNorway/LivingNorwayR/blob/master/vignettes/LNWorkshopExample_TOV-E_Metadata.rmd"><code>vignettes/LNWorkshopExample_TOV-E_Metadata.rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LivingNorway/LivingNorwayR/blob/HEAD/vignettes/LNWorkshopExample_TOV-E_Metadata.rmd" class="external-link"><code>vignettes/LNWorkshopExample_TOV-E_Metadata.rmd</code></a></small>
       <div class="hidden name"><code>LNWorkshopExample_TOV-E_Metadata.rmd</code></div>
 
     </div>
 
     
     
-<div id="a-mini-introduction-to-r-markdown" class="section level2">
-<h2 class="hasAnchor">
-<a href="#a-mini-introduction-to-r-markdown" class="anchor"></a>A Mini-Introduction to R Markdown</h2>
-<p>Markdown documents are text files that contain a mixture of standard prose and programming code that can be easily be rendered as HTML or PDF outputs. During this rendering process, any code blocks are run and the results embedded in the output document. This can be really useful for making figures and tables to help describe a data set and to document analyses. <a href="https://rmarkdown.rstudio.com/">R markdown</a> is a flavour of markdown that interfaces with the <a href="https://www.r-project.org/">R statistical platform</a>.</p>
+<div class="section level2">
+<h2 id="a-mini-introduction-to-r-markdown">A Mini-Introduction to R Markdown<a class="anchor" aria-label="anchor" href="#a-mini-introduction-to-r-markdown"></a>
+</h2>
+<p>Markdown documents are text files that contain a mixture of standard prose and programming code that can be easily be rendered as HTML or PDF outputs. During this rendering process, any code blocks are run and the results embedded in the output document. This can be really useful for making figures and tables to help describe a data set and to document analyses. <a href="https://rmarkdown.rstudio.com/" class="external-link">R markdown</a> is a flavour of markdown that interfaces with the <a href="https://www.r-project.org/" class="external-link">R statistical platform</a>.</p>
 <p>Code can included in R markdown documents in ‘chunks’ such as the one shown below:</p>
 <p>However, you will only see this code chunk in the original markdown text. At the top of the code chunk you will see the line <code>input=FALSE</code>. This means that the code is run but that neither the code itself or the results of the code is printed when rendering the document to HTML or any other output format. This is useful when you want to set up things in the background that you don’t want rendered into the document. In this example the code chunk above calls the libraries that our markdown document will use so we don’t need to have that code rendered to the HTML output. We can also make the code chunks print to the rendered document by removing the <code>include=FALSE</code> term. Sometimes, you might only want the result to be created in the rendered document. For example, when producing figures, we often do not want the code that produces the figure in the rendered document, just the figure itself. By setting <code>echo=FALSE</code> in the code chunk options then the code itself will not be rendered in the output document. For example the code chunk below will appear as code in the markdown document but will be replaced by a figure in the rendered document.</p>
 <p><img src="LNWorkshopExample_TOV-E_Metadata_files/figure-html/figExample-1.png" width="700"></p>
-<p>The easiest way to render this document is to open it in <a href="https://www.rstudio.com/">RStudio</a> and then click on the ‘Knit’ button that is in the top left-hand corner. A rendered version of the document is then opened in a browser.</p>
-<p>We can also call R functions ‘inline’. For example in the markdown version of the document the term: 4 appears as ‘r 2+2’ but, in the rendered version, R is called and the calculation is performed. The statement is then replaced by the output (in this case ‘4’). A full introduction to R markdown is beyond the scope of this document but there are number of <a href="https://bookdown.org/yihui/rmarkdown/">great resources</a> to learn more.</p>
+<p>The easiest way to render this document is to open it in <a href="https://www.rstudio.com/" class="external-link">RStudio</a> and then click on the ‘Knit’ button that is in the top left-hand corner. A rendered version of the document is then opened in a browser.</p>
+<p>We can also call R functions ‘inline’. For example in the markdown version of the document the term: 4 appears as ‘r 2+2’ but, in the rendered version, R is called and the calculation is performed. The statement is then replaced by the output (in this case ‘4’). A full introduction to R markdown is beyond the scope of this document but there are number of <a href="https://bookdown.org/yihui/rmarkdown/" class="external-link">great resources</a> to learn more.</p>
 <p>When using markdown to describe the metadata of the project we can use a number of functions described in the Living Norway package to help flag sections of text that we want to export as information to appear in an EML file. The code chunk below will allow you to see flagged sections of text being rendered in a red colour in HTML output. For normal descriptions of metadata you would not want this so you should delete this code chunk for your own metadata descriptions.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb1-1"><a href="#cb1-1"></a>span<span class="fu">.LNmetadata</span> {</span>
 <span id="cb1-2"><a href="#cb1-2"></a>  <span class="kw">color</span>: <span class="cn">red</span><span class="op">;</span></span>
@@ -121,36 +117,36 @@ span.LNmetadata {
 }
 </style>
 </div>
-<div id="the-dataset" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-dataset" class="anchor"></a>The Dataset</h2>
+<div class="section level2">
+<h2 id="the-dataset">The Dataset<a class="anchor" aria-label="anchor" href="#the-dataset"></a>
+</h2>
 <p>Metadata must have a dataset tag. We give this tag an ID and it serves as a parent ID for a lot of other tags that describe the dataset. Often we don’t want to print any text associated with this tag to the output so we can therefore set the <code>isHidden</code> argument to <code>TRUE</code> so that the tag is invisible in the rendered output. The main purpose of calling this function is to set an ID for the dataset tag that can be used to relate other things to it (here we have used the ID ‘TOVEDataset’). In the dataset function we can also give information on the title to use in the dataset through the <code>title.tagText</code> argument.</p>
-<p><span id="LNdataset_TOVEDataset" class="LNmetadata" style="display:none"></span><span id="LNtitle_285e84a6-2330-4325-827e-7f4aa4bbcc6e_TOVEDataset" class="LNmetadata" style="display:none">TOV-E Bird monitoring sampling data</span></p>
-<p>We can also associate some keywords with the dataset. To do this we can set up a ‘keywordSet’ tag using the relevant tagging function <span id="LNkeywordSet_TOVEKeywordSet_TOVEDataset" class="LNmetadata" style="display:none"></span> and then specifying keywords such as <span id="LNkeyword_32e90124-163b-4049-bc89-a276b2ac9d80_TOVEKeywordSet" class="LNmetadata">breeding birds</span> and <span id="LNkeyword_5e45692c-a478-4974-aff0-d602cf3dc8a6_TOVEKeywordSet" class="LNmetadata">sampling event</span>.</p>
-<p>We must also specify some contact information for the individual or organisation responsible for coordinating with users of the dataset. Here the responsible user is <span id="LNcontact_TOVEContact_TOVEDataset" class="LNmetadata"></span> <span id="LNindividualName_aa4cb10c-1a2b-41ed-9dcc-3941c94ed200_TOVEContact" class="LNmetadata"></span><span id="LNgivenName_8f346379-6f70-40ef-9d03-4ae5c7869ea5_aa4cb10c-1a2b-41ed-9dcc-3941c94ed200" class="LNmetadata">John Atle</span> <span id="LNsurName_ea814f41-a55b-42a0-85ef-2f7a0152ce90_aa4cb10c-1a2b-41ed-9dcc-3941c94ed200" class="LNmetadata">Kålås</span>.</p>
+<p><span id="LNdataset_TOVEDataset" class="LNmetadata" style="display:none"></span><span id="LNtitle_693ace94-6f54-40af-99ce-9034b3470727_TOVEDataset" class="LNmetadata" style="display:none">TOV-E Bird monitoring sampling data</span></p>
+<p>We can also associate some keywords with the dataset. To do this we can set up a ‘keywordSet’ tag using the relevant tagging function <span id="LNkeywordSet_TOVEKeywordSet_TOVEDataset" class="LNmetadata" style="display:none"></span> and then specifying keywords such as <span id="LNkeyword_f8bb9187-eb5d-4fdd-a938-7f5d59c3b05a_TOVEKeywordSet" class="LNmetadata">breeding birds</span> and <span id="LNkeyword_9529ac05-077a-4efa-8317-311bac108f34_TOVEKeywordSet" class="LNmetadata">sampling event</span>.</p>
+<p>We must also specify some contact information for the individual or organisation responsible for coordinating with users of the dataset. Here the responsible user is <span id="LNcontact_TOVEContact_TOVEDataset" class="LNmetadata"></span> <span id="LNindividualName_ad0222cb-3ffd-4bed-93bc-cad0d91f1e91_TOVEContact" class="LNmetadata"></span><span id="LNgivenName_4273accb-a4c2-443d-bd42-0f6058f3e3d4_ad0222cb-3ffd-4bed-93bc-cad0d91f1e91" class="LNmetadata">John Atle</span> <span id="LNsurName_800027e6-ad63-4622-9502-9af2df74d214_ad0222cb-3ffd-4bed-93bc-cad0d91f1e91" class="LNmetadata">Kålås</span>.</p>
 </div>
-<div id="abstract" class="section level2">
-<h2 class="hasAnchor">
-<a href="#abstract" class="anchor"></a>Abstract</h2>
+<div class="section level2">
+<h2 id="abstract">Abstract<a class="anchor" aria-label="anchor" href="#abstract"></a>
+</h2>
 <p>We will need to produce an abstract for the data. You can flag the abstract for export to EML using the following inline code:</p>
 <p><span id="LNabstract_TOVEAbstract_TOVEDataset" class="LNmetadata">Data from the project: “Extensive monitoring of breeding birds (TOV-E)” from 2006 up until today. The project is carried out in cooperation between NOF BirdLife Norway, Norwegian Institute for Nature Research (NINA) and Norwegian Environment Agency, and is the most important project for monitoring population trends for Norwegian bird species on land.</span></p>
 <p>The Living Norway package will also allow for alternative translations of EML elements. In the inline code above we set the tagID argument. We can provide an alternative translation for the element with that tagID using the following code:</p>
-<p><span id="LNvalue_53c570fd-bf98-47b9-af2b-4c90bb2de96f_TOVEAbstract" class="LNmetadata" style="display:none" xml:lang="nb">Data fra prosjektet “Ekstensiv overvåking av hekkefugl (TOV-E)” fra 2006 og frem til i dag. Prosjektet utføres i samarbeid mellom Norsk Ornitologisk Forening, Norsk Institutt for Naturforskning og Miljødirektoratet og er det viktigste prosjektet for å overvåke populasjonstrender for norske fuglearter på land.</span></p>
+<p><span id="LNvalue_46aa5ac9-0938-41eb-a728-246448d02809_TOVEAbstract" class="LNmetadata" style="display:none" xml:lang="nb">Data fra prosjektet “Ekstensiv overvåking av hekkefugl (TOV-E)” fra 2006 og frem til i dag. Prosjektet utføres i samarbeid mellom Norsk Ornitologisk Forening, Norsk Institutt for Naturforskning og Miljødirektoratet og er det viktigste prosjektet for å overvåke populasjonstrender for norske fuglearter på land.</span></p>
 <p>By default, alternative translations are hidden in rendered HTML output. The information is still there but it is not displayed when being opened by a browser. This is useful when you want information to be exported to the EML file but do not to display them in the rendered HTML. If you would rather the alternative translation be displayed, then you can add the argument <code>isHidden=FALSE</code> to the <code>LNaddTranslation</code> function.</p>
 </div>
-<div id="dataset-creators" class="section level2">
-<h2 class="hasAnchor">
-<a href="#dataset-creators" class="anchor"></a>Dataset creators</h2>
+<div class="section level2">
+<h2 id="dataset-creators">Dataset creators<a class="anchor" aria-label="anchor" href="#dataset-creators"></a>
+</h2>
 <p>The dataset was created by the following people:</p>
 <ul>
 <li>
-<span id="LNcreator_TOVECreator1_TOVEDataset" class="LNmetadata"></span><span id="LNindividualName_131c84c5-557d-4584-9c52-bc9d847cec1c_TOVECreator1" class="LNmetadata"></span><span id="LNgivenName_927492fb-ccbf-4cf8-9524-b39e574af86a_131c84c5-557d-4584-9c52-bc9d847cec1c" class="LNmetadata">John Atle</span> <span id="LNsurName_ee2f0319-1baf-477b-98e4-655d227310d8_131c84c5-557d-4584-9c52-bc9d847cec1c" class="LNmetadata">Kålås</span> who is a <span id="LNpositionName_f00493a5-5fa8-4bb7-894f-e2ae74746270_TOVECreator1" class="LNmetadata">senior researcher</span> at the <span id="LNorganizationName_f07614f4-db1e-4c16-bb13-ccc61600b102_TOVECreator1" class="LNmetadata">Norwegian Institute for Nature Research</span> (<span id="LNelectronicMailAddress_c34d8de3-24d5-4865-a2ae-77ec80f84a7d_TOVECreator1" class="LNmetadata"><a href="mailto:john.kalas@nina.no" class="email">john.kalas@nina.no</a></span>).</li>
+<span id="LNcreator_TOVECreator1_TOVEDataset" class="LNmetadata"></span><span id="LNindividualName_45a081bd-d482-4610-8d28-736fcd28edac_TOVECreator1" class="LNmetadata"></span><span id="LNgivenName_b279949a-abcf-46a2-9bb5-9e896cea9052_45a081bd-d482-4610-8d28-736fcd28edac" class="LNmetadata">John Atle</span> <span id="LNsurName_49a3d5ff-1920-4477-a942-11c7d430dad9_45a081bd-d482-4610-8d28-736fcd28edac" class="LNmetadata">Kålås</span> who is a <span id="LNpositionName_275d3cad-1cba-4845-978b-1a020f849b71_TOVECreator1" class="LNmetadata">senior researcher</span> at the <span id="LNorganizationName_15506c0e-30a0-4c32-a0a2-21c98c3fda25_TOVECreator1" class="LNmetadata">Norwegian Institute for Nature Research</span> (<span id="LNelectronicMailAddress_96dc21bf-c393-4e7a-9cba-648069717cb1_TOVECreator1" class="LNmetadata"><a href="mailto:john.kalas@nina.no" class="email">john.kalas@nina.no</a></span>).</li>
 <li>
-<span id="LNcreator_TOVECreator2_TOVEDataset" class="LNmetadata"></span><span id="LNindividualName_06e79aba-42a9-4a23-91ad-8690cd7e4d41_TOVECreator2" class="LNmetadata"></span><span id="LNgivenName_36a5d102-8c3c-4fe1-9cf1-d461ab62d235_06e79aba-42a9-4a23-91ad-8690cd7e4d41" class="LNmetadata">Ingar Jostein</span> <span id="LNsurName_843c38d8-ff24-4556-8e95-040c8ccb77ed_06e79aba-42a9-4a23-91ad-8690cd7e4d41" class="LNmetadata">Øien</span> who is a <span id="LNpositionName_2bd8a4cd-d9a7-4301-9562-5bd13f2eb986_TOVECreator2" class="LNmetadata">fagsjef</span> at the <span id="LNorganizationName_fc24fd3d-28f9-4b5e-bcfe-16e0ad274745_TOVECreator2" class="LNmetadata">Norsk Ornitologisk Forening</span> (<span id="LNelectronicMailAddress_469821a1-a483-4163-9fb5-7ddf665ac08e_TOVECreator2" class="LNmetadata"><a href="mailto:ingar@birdlife.no" class="email">ingar@birdlife.no</a></span>).</li>
+<span id="LNcreator_TOVECreator2_TOVEDataset" class="LNmetadata"></span><span id="LNindividualName_9ad6cfe4-e96a-4581-b952-22d7292f4d4e_TOVECreator2" class="LNmetadata"></span><span id="LNgivenName_0bde260c-58df-4ef4-8902-872a9ab8eaa3_9ad6cfe4-e96a-4581-b952-22d7292f4d4e" class="LNmetadata">Ingar Jostein</span> <span id="LNsurName_d839549a-cb43-42e0-bfec-30f2de2f3069_9ad6cfe4-e96a-4581-b952-22d7292f4d4e" class="LNmetadata">Øien</span> who is a <span id="LNpositionName_7bc3f88d-0870-4c74-b1ac-2d4d42b9d337_TOVECreator2" class="LNmetadata">fagsjef</span> at the <span id="LNorganizationName_01672952-1f0c-4709-a328-fdd0e951142b_TOVECreator2" class="LNmetadata">Norsk Ornitologisk Forening</span> (<span id="LNelectronicMailAddress_4d16f8cf-2e9d-4b6e-a1d7-32672ae340cc_TOVECreator2" class="LNmetadata"><a href="mailto:ingar@birdlife.no" class="email">ingar@birdlife.no</a></span>).</li>
 <li>
-<span id="LNcreator_TOVECreator3_TOVEDataset" class="LNmetadata"></span><span id="LNindividualName_29df95eb-23d7-4a4b-8a90-0dfd243fe88f_TOVECreator3" class="LNmetadata"></span><span id="LNgivenName_4ad749ee-409d-4ac3-b075-6760744b2759_29df95eb-23d7-4a4b-8a90-0dfd243fe88f" class="LNmetadata">Bård</span> <span id="LNsurName_094c167f-db06-48fe-a386-a1247a1846f1_29df95eb-23d7-4a4b-8a90-0dfd243fe88f" class="LNmetadata">Stokke</span> who is a <span id="LNpositionName_4a3789bd-11ac-48e0-bd2b-dd46c7a13cdf_TOVECreator3" class="LNmetadata">senior researcher</span> at the <span id="LNorganizationName_6834866f-82b9-44e5-8b63-605cf0ff6876_TOVECreator3" class="LNmetadata">Norwegian Institute for Nature Research</span> (<span id="LNelectronicMailAddress_6c11c2df-182a-4eb0-8276-eb65c5199648_TOVECreator3" class="LNmetadata"><a href="mailto:bard.stokke@nina.no" class="email">bard.stokke@nina.no</a></span>).</li>
+<span id="LNcreator_TOVECreator3_TOVEDataset" class="LNmetadata"></span><span id="LNindividualName_21522eda-a690-465e-84b2-4b3e3cbf2c66_TOVECreator3" class="LNmetadata"></span><span id="LNgivenName_e82409e4-337b-412d-ade8-85d58ffdbd87_21522eda-a690-465e-84b2-4b3e3cbf2c66" class="LNmetadata">Bård</span> <span id="LNsurName_d2318efd-8776-44ce-95ba-de652641b891_21522eda-a690-465e-84b2-4b3e3cbf2c66" class="LNmetadata">Stokke</span> who is a <span id="LNpositionName_66ccb963-6dda-4afe-bbea-e74776475026_TOVECreator3" class="LNmetadata">senior researcher</span> at the <span id="LNorganizationName_ce772ae0-7f5b-4da6-82ae-09fdd396124b_TOVECreator3" class="LNmetadata">Norwegian Institute for Nature Research</span> (<span id="LNelectronicMailAddress_d63b8709-2b3d-4a7b-bd58-e1a9d45fa752_TOVECreator3" class="LNmetadata"><a href="mailto:bard.stokke@nina.no" class="email">bard.stokke@nina.no</a></span>).</li>
 <li>
-<span id="LNcreator_TOVECreator4_TOVEDataset" class="LNmetadata"></span><span id="LNindividualName_d7d28506-0a36-456d-abd7-b4c7d6446c58_TOVECreator4" class="LNmetadata"></span><span id="LNgivenName_c26acbe3-532a-4aee-92ee-be04d56c16e7_d7d28506-0a36-456d-abd7-b4c7d6446c58" class="LNmetadata">Roald</span> <span id="LNsurName_97febffc-eda7-4b09-bbc7-d81d8de44046_d7d28506-0a36-456d-abd7-b4c7d6446c58" class="LNmetadata">Vang</span> who is a <span id="LNpositionName_4d90225a-f999-4cd8-af3b-684836fec232_TOVECreator4" class="LNmetadata">data manager</span> at the <span id="LNorganizationName_348828f8-c28a-4829-9102-b2ef85324cb6_TOVECreator4" class="LNmetadata">Norwegian Institute for Nature Research</span> (<span id="LNelectronicMailAddress_711f6b8e-51cf-497d-96cb-65b9c77246ac_TOVECreator4" class="LNmetadata"><a href="mailto:roald.vang@nina.no" class="email">roald.vang@nina.no</a></span>).</li>
+<span id="LNcreator_TOVECreator4_TOVEDataset" class="LNmetadata"></span><span id="LNindividualName_a66102a1-0709-4891-a752-cce67e1409ee_TOVECreator4" class="LNmetadata"></span><span id="LNgivenName_b75c035d-02d5-40c6-a857-16cbe15293aa_a66102a1-0709-4891-a752-cce67e1409ee" class="LNmetadata">Roald</span> <span id="LNsurName_4eb8b103-8344-4c07-89d1-86a32d222000_a66102a1-0709-4891-a752-cce67e1409ee" class="LNmetadata">Vang</span> who is a <span id="LNpositionName_db124d98-efac-468d-af25-46f499e5b8ed_TOVECreator4" class="LNmetadata">data manager</span> at the <span id="LNorganizationName_b6a8a8d3-56d4-4402-bce6-10df54cba6a5_TOVECreator4" class="LNmetadata">Norwegian Institute for Nature Research</span> (<span id="LNelectronicMailAddress_8976cc79-4e07-4afd-9a4d-4659829bf569_TOVECreator4" class="LNmetadata"><a href="mailto:roald.vang@nina.no" class="email">roald.vang@nina.no</a></span>).</li>
 </ul>
 </div>
   </div>
@@ -166,11 +162,13 @@ span.LNmetadata {
 
 
       <footer><div class="copyright">
-  <p>Developed by Joseph Chipperfield, Matthew Grainger, Erlend Nilsen, Norsk institutt for naturforskning (NINA).</p>
+  <p></p>
+<p>Developed by Joseph Chipperfield, Matthew Grainger, Erlend Nilsen, Norsk institutt for naturforskning (NINA).</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -178,6 +176,8 @@ span.LNmetadata {
 
   
 
+
+  
 
   </body>
 </html>

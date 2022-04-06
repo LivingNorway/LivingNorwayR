@@ -1,11 +1,18 @@
 ---
-title: "TOV-E Bird monitoring sampling data"
-output:
+title: "LNWorkshopExample_TOV-E_Metadata"
+output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{TOV-E Bird monitoring sampling data}
+  %\VignetteIndexEntry{LNWorkshopExample_TOV-E_Metadata}
   %\VignetteEngine{knitr::rmarkdown}
- 
+  %\VignetteEncoding{UTF-8}
 ---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
 
 ## A Mini-Introduction to R Markdown
 
