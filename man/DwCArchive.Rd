@@ -7,13 +7,15 @@
 \code{\link{R6Class}} object.
 }
 \description{
-R6 class representing a complete data structure for a Darwin Core archive
+R6 class representing a complete data structure
+for a Darwin Core archive
 }
 \details{
-The \code{DwcArchive} class serves a base class to all Darwin Core archive file types. This class supports
-all kinds of Darwin Core archive files but may miss some of the specialised functionality of the more specialist
-classes. See \url{https://dwc.tdwg.org/text/}{the Darwin core archive guide} for more information on the
-structure of Darwin core archive files.
+The \code{DwcArchive} class serves a base class to all Darwin Core
+archive file types. This class supports all kinds of Darwin Core archive files
+but may miss some of the specialised functionality of the more specialist
+classes. See \url{https://dwc.tdwg.org/text/}{the Darwin core archive guide}
+for more information on the structure of Darwin core archive files.
 }
 \section{Methods}{
 \subsection{Public methods}{

@@ -2,7 +2,7 @@
 title: "Handling Darwin Core Files With Living Norway:  Example Using the TOV-E Dataset"
 output: 
 vignette: >
-  %\VignetteIndexEntry{TOV-E Bird monitoring sampling data}
+  %\VignetteIndexEntry{Handling Darwin Core Files With Living Norway:  Example Using the TOV-E Dataset}
   %\VignetteEngine{knitr::rmarkdown}
 ---
 

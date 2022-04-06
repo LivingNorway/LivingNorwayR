@@ -27,7 +27,7 @@ To expand the activities and the knowhow created in the Living Norway Ecological
 
 ## Contributing to LivingNorwayR
 
-We would appreciate your inputs! We want to make contributing to this project as easy and transparent as possible. We use GitHub to host code, to track issues and feature requests, as well as accept pull requests. If you do not use GitHub you can submit questions and feature requests through the issues (https://github.com/LivingNorway/LivingNorwayR/issues).
+We would appreciate your inputs! We want to make contributing to this project as easy and transparent as possible. We use GitHub to host code, to track issues and feature requests, as well as accept pull requests. If you do not use GitHub you can submit questions and feature requests through the [issues](https://github.com/LivingNorway/LivingNorwayR/issues).
 
 We actively welcome your pull requests:
 
