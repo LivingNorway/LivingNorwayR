@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-## A Mini-Introduction to R Markdown
+# A Mini-Introduction to R Markdown
 
 Markdown documents are text files that contain a mixture of standard prose and programming code that can be easily be rendered as HTML or PDF outputs.  During this rendering process, any code blocks are run and the results embedded in the output document.  This can be really useful for making figures and tables to help describe a data set and to document analyses.  [R markdown](https://rmarkdown.rstudio.com/) is a flavour of markdown that interfaces with the [R statistical platform](https://www.r-project.org/).
 

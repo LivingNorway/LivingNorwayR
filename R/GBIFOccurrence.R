@@ -103,7 +103,7 @@ GBIFOccurrence <- R6Class("GBIFOccurrence",
 #'Archive <-getLNportalData(datasetKey = datasetKey)
 #'core<-Archive$getCoreTable()
 #'core=core$exportAsDataFrame()
-#'GBIFOcc=initializeGBIFOccurrence(core, "id", TRUE)datasetKey <- "aea17af8-5578-4b04-b5d3-7adf0c5a1e60"
+#'GBIFOcc=initializeGBIFOccurrence(core, "id", TRUE)
 #'}
 #' @export
 initializeGBIFOccurrence <- function(objectData, idColumnInfo, nameAutoMap = FALSE, defDateFormat = "YYYY-MM-DD", ...) {

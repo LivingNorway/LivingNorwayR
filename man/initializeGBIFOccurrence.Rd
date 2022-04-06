@@ -48,7 +48,7 @@ datasetKey <- "346a9b13-5c96-4793-bcd7-d6614950e726"
 Archive <-getLNportalData(datasetKey = datasetKey)
 core<-Archive$getCoreTable()
 core=core$exportAsDataFrame()
-GBIFOcc=initializeGBIFOccurrence(core, "id", TRUE)datasetKey <- "aea17af8-5578-4b04-b5d3-7adf0c5a1e60"
+GBIFOcc=initializeGBIFOccurrence(core, "id", TRUE)
 }
 }
 \seealso{
