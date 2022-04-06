@@ -2,6 +2,8 @@
 
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
+[![DOI](https://zenodo.org/badge/268060000.svg)](https://zenodo.org/badge/latestdoi/268060000)
+
 The LivingNorwayR package provides a workflow for creating a Darwin Core standard-compliant data archive ("a data package"). This facilitates FAIR (Findable, Accessible, Interoperable, Reusable; https://www.go-fair.org/fair-principles/) data sharing and uploading of Darwin Core archives (data packages) to repositories such as GBIF. The Living Norway package also provides tools for the processing and manipulation of metadata associated with Darwin Core archives and for the import and export of metadata according to the EML (Ecological Metadata Language; https://eml.ecoinformatics.org/) standard.
 
 The code for the package can be found here: URL: https://github.com/LivingNorway/LivingNorwayR. See the guidelines (below) for details on how to contribute to the package development.
