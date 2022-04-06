@@ -95,6 +95,18 @@ GBIFEvent <- R6Class("GBIFEvent",
 #' term. Mappable terms can be found using: \code{sapply(X = getGBIFEventMembers(), FUN = function(curTerm) { curTerm$getTermName() })}
 #' @return A new \code{GBIFEvent} object
 #' @seealso \code{\link[DwCTerm]{DwCTerm}} \code{\link[getGBIFEventMembers]{getGBIFEventMembers}}
+#'@examples
+#'\dontrun{
+#'## Get a dataset as an Archive and then extract the event core
+#'## Get the dataset using the key:
+#'datasetKey <- "aea17af8-5578-4b04-b5d3-7adf0c5a1e60"
+#'Archive <-getLNportalData(datasetKey = datasetKey)
+#'event<-Archive$getCoreTable()
+#'## Convert the event back to a dataframe
+#'event=event$exportAsDataFrame()
+#'## Then use the dataframe to initialise an object of class GBIF event
+#'GBIFevent<-initializeGBIFEvent(event, idColumnInfo = "id", nameAutoMap = TRUE)
+#'}
 #' @export
 initializeGBIFEvent <- function(objectData, idColumnInfo, nameAutoMap = FALSE, defDateFormat = "YYYY-MM-DD", ...) {
 	GBIFEvent$new(objectData = objectData, idColumnInfo = idColumnInfo, nameAutoMap = nameAutoMap, defDateFormat = defDateFormat, ...)

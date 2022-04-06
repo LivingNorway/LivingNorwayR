@@ -40,6 +40,17 @@ A new \code{GBIFOccurrence} object
 \description{
 Initialize a new GBIF Occurrence object
 }
+\examples{
+\dontrun{
+## Get a dataset as an Archive and then extract the occurrence file
+#'## Get the dataset using the key:
+datasetKey <- "346a9b13-5c96-4793-bcd7-d6614950e726"
+Archive <-getLNportalData(datasetKey = datasetKey)
+core<-Archive$getCoreTable()
+core=core$exportAsDataFrame()
+GBIFOcc=initializeGBIFOccurrence(core, "id", TRUE)datasetKey <- "aea17af8-5578-4b04-b5d3-7adf0c5a1e60"
+}
+}
 \seealso{
 \code{\link[DwCTerm]{DwCTerm}} \code{\link[getGBIFOccurrenceMembers]{getGBIFOccurrenceMembers}}
 }

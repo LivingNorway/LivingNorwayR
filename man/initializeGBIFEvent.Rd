@@ -40,6 +40,19 @@ A new \code{GBIFEvent} object
 \description{
 Initialize a new GBIF Event object
 }
+\examples{
+\dontrun{
+## Get a dataset as an Archive and then extract the event core
+## Get the dataset using the key:
+datasetKey <- "aea17af8-5578-4b04-b5d3-7adf0c5a1e60"
+Archive <-getLNportalData(datasetKey = datasetKey)
+event<-Archive$getCoreTable()
+## Convert the event back to a dataframe
+event=event$exportAsDataFrame()
+## Then use the dataframe to initialise an object of class GBIF event
+GBIFevent<-initializeGBIFEvent(event, idColumnInfo = "id", nameAutoMap = TRUE)
+}
+}
 \seealso{
 \code{\link[DwCTerm]{DwCTerm}} \code{\link[getGBIFEventMembers]{getGBIFEventMembers}}
 }
