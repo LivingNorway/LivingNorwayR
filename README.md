@@ -21,11 +21,15 @@ For a basic example of the workflow please see the [vignettes ("Articles")](http
 
 ## Join us at the next Living Norway colloquium 
 
-For details of[ up-coming events and colloquia](https://livingnorway.no/).
+For details of [up-coming events and colloquia](https://livingnorway.no/).
 
 ## Join our "Open Science lab"
 
 To expand the activities and the knowhow created in the Living Norway Ecological Data Network and reach out to the ecological research community, we launch the open science lab project. All ecologists and others (anywhere in the world!) who use or produce ecological data at all educational and career stages are invited to [join us](https://livingnorway.no/join-the-living-norway-ecological-data-network-through-our-open-science-lab/).
+
+## Have a look at the Living Norway Data Portal
+
+The Living Norway Data Portal can be found [here](https://data.livingnorway.no/)
 
 ## Contributing to LivingNorwayR
 
