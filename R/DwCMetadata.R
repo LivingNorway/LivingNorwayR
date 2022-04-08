@@ -525,9 +525,35 @@ DwCMetadata<-R6::R6Class(
         }
       }
       outValue
+    },
+    # ====== 1.11. Retrieve the coverage of the dataset ======
+    #' @description
+    #' Retrieve the dataset coverage
+    #' @param lang A \code{character} scalar that specifies the language of the elements to return.  This
+    #' is useful when the elements have multiple translations in the metadata
+    #' @export
+
+getCoverage = function(lang = NA) {
+  outValue <- NA
+  if(!is.null(private$xmlContent)) {
+    # Retrieve all the "abstract" nodes that are of the specified language type
+    coverageNodes <- private$retrieveLangNodes("//dataset/coverage", lang)
+    coverageText <- ""
+    if(!is.null(coverageNodes)) {
+      # Retrieve the text of the respective elements
+      coverageText <- xml2::xml_text(coverageNodes, trim = TRUE)
     }
-  )
+    # Remove any empty strings
+    coverageText <- coverageText[!is.na(coverageText) && coverageText != ""]
+    if(length(coverageText) > 0) {
+      outValue <- paste(coverageText, collapse = "\n\n")
+    }
+  }
+  outValue
+}
 )
+)
+
 
 # ------ 2. INITIALISATION FUNCTION ------
 
