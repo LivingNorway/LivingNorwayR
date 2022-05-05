@@ -285,7 +285,7 @@ DwCMetadata<-R6::R6Class(
       private$xmlContent <- xml2::read_xml(inFileLocation, inFileEncoding)
       # Validate the EML according to the schema
       if(!private$validateEML(fileEncoding = inFileEncoding)) {
-        stop("EML is not valid according to the selected EML schema")
+        warning("EML is not valid according to the selected EML schema")
       }
       invisible(self)
     },
