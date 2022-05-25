@@ -27,6 +27,7 @@ handling of metadata being presented
 \item \href{#method-getTitle}{\code{DwCMetadata$getTitle()}}
 \item \href{#method-getCreatorInfo}{\code{DwCMetadata$getCreatorInfo()}}
 \item \href{#method-getAbstract}{\code{DwCMetadata$getAbstract()}}
+\item \href{#method-getCoverage}{\code{DwCMetadata$getCoverage()}}
 \item \href{#method-clone}{\code{DwCMetadata$clone()}}
 }
 }
@@ -234,6 +235,24 @@ is useful when the elements have multiple translations in the metadata}
 Retrieve the dataset abstract
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DwCMetadata$getAbstract(lang = NA)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{lang}}{A \code{character} scalar that specifies the language of the elements to return.  This
+is useful when the elements have multiple translations in the metadata}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-getCoverage"></a>}}
+\if{latex}{\out{\hypertarget{method-getCoverage}{}}}
+\subsection{Method \code{getCoverage()}}{
+Retrieve the dataset coverage
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DwCMetadata$getCoverage(lang = NA)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

@@ -16,6 +16,9 @@
     <loc>/articles/LNWorkshopExample_TOV-E_Metadata.html</loc>
   </url>
   <url>
+    <loc>/articles/Mapping_data_to_Darwin_Core_using_the_LivingNorwayR_package.html</loc>
+  </url>
+  <url>
     <loc>/authors.html</loc>
   </url>
   <url>
@@ -656,5 +659,8 @@
   </url>
   <url>
     <loc>/reference/retrieveGBIFClassSpecifications.html</loc>
+  </url>
+  <url>
+    <loc>/reference/searchGBIFOccurenceMembers.html</loc>
   </url>
 </urlset>
