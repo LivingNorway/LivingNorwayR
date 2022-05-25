@@ -27,6 +27,7 @@
     <a class="dropdown-item" href="../articles/EML_R_packages_overview.html">EML R package overview</a>
     <a class="dropdown-item" href="../articles/LNWorkshopExample_TOV-E.html">Handling Darwin Core Files With Living Norway:  Example Using the TOV-E Dataset</a>
     <a class="dropdown-item" href="../articles/LNWorkshopExample_TOV-E_Metadata.html">LNWorkshopExample_TOV-E_Metadata</a>
+    <a class="dropdown-item" href="../articles/Mapping_data_to_Darwin_Core_using_the_LivingNorwayR_package.html">Mapping data to Darwin Core using the LivingNorwayR package</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
@@ -80,6 +81,7 @@ handling of metadata being presented</p>
 <li><p><a href="#method-getTitle"><code>DwCMetadata$getTitle()</code></a></p></li>
 <li><p><a href="#method-getCreatorInfo"><code>DwCMetadata$getCreatorInfo()</code></a></p></li>
 <li><p><a href="#method-getAbstract"><code>DwCMetadata$getAbstract()</code></a></p></li>
+<li><p><a href="#method-getCoverage"><code>DwCMetadata$getCoverage()</code></a></p></li>
 <li><p><a href="#method-clone"><code>DwCMetadata$clone()</code></a></p></li>
 </ul></div><p></p><hr><a id="method-importFromLivingNorwayHTML"></a><div class="section">
 <h3 id="method-importfromlivingnorwayhtml-">Method <code>importFromLivingNorwayHTML()</code><a class="anchor" aria-label="anchor" href="#method-importfromlivingnorwayhtml-"></a></h3>
@@ -305,15 +307,32 @@ is useful when the elements have multiple translations in the metadata</p></dd>
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-clone"></a><div class="section">
-<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
-<p>The objects of this class are cloneable with this method.</p><div class="section">
+</div><p></p><hr><a id="method-getCoverage"></a><div class="section">
+<h3 id="method-getcoverage-">Method <code>getCoverage()</code><a class="anchor" aria-label="anchor" href="#method-getcoverage-"></a></h3>
+<p>Retrieve the dataset coverage</p><div class="section">
 <h4 id="usage-10">Usage<a class="anchor" aria-label="anchor" href="#usage-10"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">DwCMetadata</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">DwCMetadata</span><span class="op">$</span><span class="fu">getCoverage</span><span class="op">(</span>lang <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="arguments-9">Arguments<a class="anchor" aria-label="anchor" href="#arguments-9"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>lang</code></dt>
+<dd><p>A <code>character</code> scalar that specifies the language of the elements to return.  This
+is useful when the elements have multiple translations in the metadata</p></dd>
+
+
+</dl><p></p></div>
+</div>
+
+</div><p></p><hr><a id="method-clone"></a><div class="section">
+<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
+<p>The objects of this class are cloneable with this method.</p><div class="section">
+<h4 id="usage-11">Usage<a class="anchor" aria-label="anchor" href="#usage-11"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">DwCMetadata</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-10">Arguments<a class="anchor" aria-label="anchor" href="#arguments-10"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
 
