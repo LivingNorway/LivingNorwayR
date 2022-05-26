@@ -661,6 +661,15 @@
     <loc>/reference/retrieveGBIFClassSpecifications.html</loc>
   </url>
   <url>
+    <loc>/reference/searchGBIFCoreClasses.html</loc>
+  </url>
+  <url>
+    <loc>/reference/searchGBIFEventMembers.html</loc>
+  </url>
+  <url>
+    <loc>/reference/searchGBIFExtensionClasses.html</loc>
+  </url>
+  <url>
     <loc>/reference/searchGBIFOccurenceMembers.html</loc>
   </url>
 </urlset>
