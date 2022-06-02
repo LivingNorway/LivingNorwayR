@@ -16,7 +16,7 @@ A subset of the list from the LivingNorwayR::getGBIFOccurrenceMembers() function
 function to search GBIFOccurrenceMembers
 }
 \examples{
-searchGBIFEventMembers("tax")
+searchGBIFOccurrenceMembers("tax")
 }
 \seealso{
 \code{\link[GBIFOccurrence]{GBIFOccurrence}}

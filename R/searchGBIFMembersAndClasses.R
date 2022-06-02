@@ -3,7 +3,7 @@
 #' @return A subset of the list from the LivingNorwayR::getGBIFOccurrenceMembers() function
 #' @seealso \code{\link[GBIFOccurrence]{GBIFOccurrence}}
 #' @examples
-#' searchGBIFEventMembers("tax")
+#' searchGBIFOccurrenceMembers("tax")
 #' @export
 
 searchGBIFOccurenceMembers=function(term){
