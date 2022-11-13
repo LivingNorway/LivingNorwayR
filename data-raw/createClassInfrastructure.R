@@ -2,8 +2,8 @@
 #' Function to generate source files to support all of the GBIF supported formats
 #'
 #' @param fileLocation A \code{character} scalar providing the location to store the
-#' @export
 #' source files
+#' @export
 createGBIFClassInfrastructure <- function(fileLocation) {
   # Retrieve all the GBIF classes and their members
   allGBIFClassList <- retrieveGBIFClassSpecifications("all", TRUE)
