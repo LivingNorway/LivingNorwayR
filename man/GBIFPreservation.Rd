@@ -21,34 +21,34 @@ The \code{GBIFPreservation} class allows for the specification of data tables th
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{GBIFPreservation$new()}}
-\item \href{#method-clone}{\code{GBIFPreservation$clone()}}
+\item \href{#method-GBIFPreservation-new}{\code{GBIFPreservation$new()}}
+\item \href{#method-GBIFPreservation-clone}{\code{GBIFPreservation$clone()}}
 }
 }
-\if{html}{
-\out{<details ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="exportAsDataFrame">}\href{../../LivingNorwayR/html/DwCGeneric.html#method-exportAsDataFrame}{\code{LivingNorwayR::DwCGeneric$exportAsDataFrame()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="exportTable">}\href{../../LivingNorwayR/html/DwCGeneric.html#method-exportTable}{\code{LivingNorwayR::DwCGeneric$exportTable()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="getAssociatedTerms">}\href{../../LivingNorwayR/html/DwCGeneric.html#method-getAssociatedTerms}{\code{LivingNorwayR::DwCGeneric$getAssociatedTerms()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="getDefaultYearFormat">}\href{../../LivingNorwayR/html/DwCGeneric.html#method-getDefaultYearFormat}{\code{LivingNorwayR::DwCGeneric$getDefaultYearFormat()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="getDwCClassName">}\href{../../LivingNorwayR/html/DwCGeneric.html#method-getDwCClassName}{\code{LivingNorwayR::DwCGeneric$getDwCClassName()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="getDwCTermInfo">}\href{../../LivingNorwayR/html/DwCGeneric.html#method-getDwCTermInfo}{\code{LivingNorwayR::DwCGeneric$getDwCTermInfo()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="getIDIndex">}\href{../../LivingNorwayR/html/DwCGeneric.html#method-getIDIndex}{\code{LivingNorwayR::DwCGeneric$getIDIndex()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="getIDName">}\href{../../LivingNorwayR/html/DwCGeneric.html#method-getIDName}{\code{LivingNorwayR::DwCGeneric$getIDName()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="getTableName">}\href{../../LivingNorwayR/html/DwCGeneric.html#method-getTableName}{\code{LivingNorwayR::DwCGeneric$getTableName()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="getTableTermName">}\href{../../LivingNorwayR/html/DwCGeneric.html#method-getTableTermName}{\code{LivingNorwayR::DwCGeneric$getTableTermName()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="getTermMapping">}\href{../../LivingNorwayR/html/DwCGeneric.html#method-getTermMapping}{\code{LivingNorwayR::DwCGeneric$getTermMapping()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="importDataTable">}\href{../../LivingNorwayR/html/DwCGeneric.html#method-importDataTable}{\code{LivingNorwayR::DwCGeneric$importDataTable()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="print">}\href{../../LivingNorwayR/html/DwCGeneric.html#method-print}{\code{LivingNorwayR::DwCGeneric$print()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="setDefaultYearFormat">}\href{../../LivingNorwayR/html/DwCGeneric.html#method-setDefaultYearFormat}{\code{LivingNorwayR::DwCGeneric$setDefaultYearFormat()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="setTableName">}\href{../../LivingNorwayR/html/DwCGeneric.html#method-setTableName}{\code{LivingNorwayR::DwCGeneric$setTableName()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="exportAsDataFrame"><a href='../../LivingNorwayR/html/DwCGeneric.html#method-DwCGeneric-exportAsDataFrame'><code>LivingNorwayR::DwCGeneric$exportAsDataFrame()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="exportTable"><a href='../../LivingNorwayR/html/DwCGeneric.html#method-DwCGeneric-exportTable'><code>LivingNorwayR::DwCGeneric$exportTable()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="getAssociatedTerms"><a href='../../LivingNorwayR/html/DwCGeneric.html#method-DwCGeneric-getAssociatedTerms'><code>LivingNorwayR::DwCGeneric$getAssociatedTerms()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="getDefaultYearFormat"><a href='../../LivingNorwayR/html/DwCGeneric.html#method-DwCGeneric-getDefaultYearFormat'><code>LivingNorwayR::DwCGeneric$getDefaultYearFormat()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="getDwCClassName"><a href='../../LivingNorwayR/html/DwCGeneric.html#method-DwCGeneric-getDwCClassName'><code>LivingNorwayR::DwCGeneric$getDwCClassName()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="getDwCTermInfo"><a href='../../LivingNorwayR/html/DwCGeneric.html#method-DwCGeneric-getDwCTermInfo'><code>LivingNorwayR::DwCGeneric$getDwCTermInfo()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="getIDIndex"><a href='../../LivingNorwayR/html/DwCGeneric.html#method-DwCGeneric-getIDIndex'><code>LivingNorwayR::DwCGeneric$getIDIndex()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="getIDName"><a href='../../LivingNorwayR/html/DwCGeneric.html#method-DwCGeneric-getIDName'><code>LivingNorwayR::DwCGeneric$getIDName()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="getTableName"><a href='../../LivingNorwayR/html/DwCGeneric.html#method-DwCGeneric-getTableName'><code>LivingNorwayR::DwCGeneric$getTableName()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="getTableTermName"><a href='../../LivingNorwayR/html/DwCGeneric.html#method-DwCGeneric-getTableTermName'><code>LivingNorwayR::DwCGeneric$getTableTermName()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="getTermMapping"><a href='../../LivingNorwayR/html/DwCGeneric.html#method-DwCGeneric-getTermMapping'><code>LivingNorwayR::DwCGeneric$getTermMapping()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="importDataTable"><a href='../../LivingNorwayR/html/DwCGeneric.html#method-DwCGeneric-importDataTable'><code>LivingNorwayR::DwCGeneric$importDataTable()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="print"><a href='../../LivingNorwayR/html/DwCGeneric.html#method-DwCGeneric-print'><code>LivingNorwayR::DwCGeneric$print()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="setDefaultYearFormat"><a href='../../LivingNorwayR/html/DwCGeneric.html#method-DwCGeneric-setDefaultYearFormat'><code>LivingNorwayR::DwCGeneric$setDefaultYearFormat()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="LivingNorwayR" data-topic="DwCGeneric" data-id="setTableName"><a href='../../LivingNorwayR/html/DwCGeneric.html#method-DwCGeneric-setTableName'><code>LivingNorwayR::DwCGeneric$setTableName()</code></a></span></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-GBIFPreservation-new"></a>}}
+\if{latex}{\out{\hypertarget{method-GBIFPreservation-new}{}}}
 \subsection{Method \code{new()}}{
 Create a new GBIFPreservation object
 \subsection{Usage}{
@@ -92,8 +92,8 @@ A new \code{GBIFPreservation} object
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-GBIFPreservation-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-GBIFPreservation-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

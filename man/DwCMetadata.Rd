@@ -17,22 +17,22 @@ handling of metadata being presented
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-importFromLivingNorwayHTML}{\code{DwCMetadata$importFromLivingNorwayHTML()}}
-\item \href{#method-importFromLivingNorwayRMD}{\code{DwCMetadata$importFromLivingNorwayRMD()}}
-\item \href{#method-importFromEML}{\code{DwCMetadata$importFromEML()}}
-\item \href{#method-importFromDwCArchive}{\code{DwCMetadata$importFromDwCArchive()}}
-\item \href{#method-exportToEML}{\code{DwCMetadata$exportToEML()}}
-\item \href{#method-new}{\code{DwCMetadata$new()}}
-\item \href{#method-print}{\code{DwCMetadata$print()}}
-\item \href{#method-getTitle}{\code{DwCMetadata$getTitle()}}
-\item \href{#method-getCreatorInfo}{\code{DwCMetadata$getCreatorInfo()}}
-\item \href{#method-getAbstract}{\code{DwCMetadata$getAbstract()}}
-\item \href{#method-clone}{\code{DwCMetadata$clone()}}
+\item \href{#method-DwCMetadata-importFromLivingNorwayHTML}{\code{DwCMetadata$importFromLivingNorwayHTML()}}
+\item \href{#method-DwCMetadata-importFromLivingNorwayRMD}{\code{DwCMetadata$importFromLivingNorwayRMD()}}
+\item \href{#method-DwCMetadata-importFromEML}{\code{DwCMetadata$importFromEML()}}
+\item \href{#method-DwCMetadata-importFromDwCArchive}{\code{DwCMetadata$importFromDwCArchive()}}
+\item \href{#method-DwCMetadata-exportToEML}{\code{DwCMetadata$exportToEML()}}
+\item \href{#method-DwCMetadata-new}{\code{DwCMetadata$new()}}
+\item \href{#method-DwCMetadata-print}{\code{DwCMetadata$print()}}
+\item \href{#method-DwCMetadata-getTitle}{\code{DwCMetadata$getTitle()}}
+\item \href{#method-DwCMetadata-getCreatorInfo}{\code{DwCMetadata$getCreatorInfo()}}
+\item \href{#method-DwCMetadata-getAbstract}{\code{DwCMetadata$getAbstract()}}
+\item \href{#method-DwCMetadata-clone}{\code{DwCMetadata$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-importFromLivingNorwayHTML"></a>}}
-\if{latex}{\out{\hypertarget{method-importFromLivingNorwayHTML}{}}}
+\if{html}{\out{<a id="method-DwCMetadata-importFromLivingNorwayHTML"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCMetadata-importFromLivingNorwayHTML}{}}}
 \subsection{Method \code{importFromLivingNorwayHTML()}}{
 Retrieve metadata information from a HTML file that has been created with a
 Living Norway HTML tag schema
@@ -60,8 +60,8 @@ attribute) will be otherwise auto-generated}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-importFromLivingNorwayRMD"></a>}}
-\if{latex}{\out{\hypertarget{method-importFromLivingNorwayRMD}{}}}
+\if{html}{\out{<a id="method-DwCMetadata-importFromLivingNorwayRMD"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCMetadata-importFromLivingNorwayRMD}{}}}
 \subsection{Method \code{importFromLivingNorwayRMD()}}{
 Retrieve metadata information from a RMD file that has been created with a
 Living Norway HTML tag schema
@@ -89,8 +89,8 @@ attribute) will be otherwise auto-generated}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-importFromEML"></a>}}
-\if{latex}{\out{\hypertarget{method-importFromEML}{}}}
+\if{html}{\out{<a id="method-DwCMetadata-importFromEML"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCMetadata-importFromEML}{}}}
 \subsection{Method \code{importFromEML()}}{
 Retrieve metadata information from an Ecological Metadata Language (EML) file
 \subsection{Usage}{
@@ -110,8 +110,8 @@ character data can be re-encoded as they are written}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-importFromDwCArchive"></a>}}
-\if{latex}{\out{\hypertarget{method-importFromDwCArchive}{}}}
+\if{html}{\out{<a id="method-DwCMetadata-importFromDwCArchive"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCMetadata-importFromDwCArchive}{}}}
 \subsection{Method \code{importFromDwCArchive()}}{
 Retrieve metadata information from a Darwin Core archive file
 \subsection{Usage}{
@@ -131,8 +131,8 @@ character data can be re-encoded as they are written}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-exportToEML"></a>}}
-\if{latex}{\out{\hypertarget{method-exportToEML}{}}}
+\if{html}{\out{<a id="method-DwCMetadata-exportToEML"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCMetadata-exportToEML}{}}}
 \subsection{Method \code{exportToEML()}}{
 Export the metadata as an EML XML file
 \subsection{Usage}{
@@ -151,8 +151,8 @@ character data can be re-encoded as they are written}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-DwCMetadata-new"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCMetadata-new}{}}}
 \subsection{Method \code{new()}}{
 Initialise a metadata object from an import file
 \subsection{Usage}{
@@ -182,8 +182,8 @@ attribute) will be otherwise auto-generated}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-DwCMetadata-print"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCMetadata-print}{}}}
 \subsection{Method \code{print()}}{
 Print the metadata information to the console
 \subsection{Usage}{
@@ -192,8 +192,8 @@ Print the metadata information to the console
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getTitle"></a>}}
-\if{latex}{\out{\hypertarget{method-getTitle}{}}}
+\if{html}{\out{<a id="method-DwCMetadata-getTitle"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCMetadata-getTitle}{}}}
 \subsection{Method \code{getTitle()}}{
 Retrieve the title of the dataset
 \subsection{Usage}{
@@ -210,8 +210,8 @@ is useful when the title has multiple translations in the metadata}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getCreatorInfo"></a>}}
-\if{latex}{\out{\hypertarget{method-getCreatorInfo}{}}}
+\if{html}{\out{<a id="method-DwCMetadata-getCreatorInfo"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCMetadata-getCreatorInfo}{}}}
 \subsection{Method \code{getCreatorInfo()}}{
 Retrieve the information of the dataset creators
 \subsection{Usage}{
@@ -228,8 +228,8 @@ is useful when the elements have multiple translations in the metadata}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getAbstract"></a>}}
-\if{latex}{\out{\hypertarget{method-getAbstract}{}}}
+\if{html}{\out{<a id="method-DwCMetadata-getAbstract"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCMetadata-getAbstract}{}}}
 \subsection{Method \code{getAbstract()}}{
 Retrieve the dataset abstract
 \subsection{Usage}{
@@ -246,8 +246,8 @@ is useful when the elements have multiple translations in the metadata}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-DwCMetadata-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCMetadata-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

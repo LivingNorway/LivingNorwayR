@@ -23,28 +23,28 @@ supported by them.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-setTableName}{\code{DwCGeneric$setTableName()}}
-\item \href{#method-getTableName}{\code{DwCGeneric$getTableName()}}
-\item \href{#method-importDataTable}{\code{DwCGeneric$importDataTable()}}
-\item \href{#method-new}{\code{DwCGeneric$new()}}
-\item \href{#method-getDwCClassName}{\code{DwCGeneric$getDwCClassName()}}
-\item \href{#method-getDwCTermInfo}{\code{DwCGeneric$getDwCTermInfo()}}
-\item \href{#method-getTermMapping}{\code{DwCGeneric$getTermMapping()}}
-\item \href{#method-getAssociatedTerms}{\code{DwCGeneric$getAssociatedTerms()}}
-\item \href{#method-print}{\code{DwCGeneric$print()}}
-\item \href{#method-exportAsDataFrame}{\code{DwCGeneric$exportAsDataFrame()}}
-\item \href{#method-exportTable}{\code{DwCGeneric$exportTable()}}
-\item \href{#method-getIDIndex}{\code{DwCGeneric$getIDIndex()}}
-\item \href{#method-getIDName}{\code{DwCGeneric$getIDName()}}
-\item \href{#method-setDefaultYearFormat}{\code{DwCGeneric$setDefaultYearFormat()}}
-\item \href{#method-getDefaultYearFormat}{\code{DwCGeneric$getDefaultYearFormat()}}
-\item \href{#method-getTableTermName}{\code{DwCGeneric$getTableTermName()}}
-\item \href{#method-clone}{\code{DwCGeneric$clone()}}
+\item \href{#method-DwCGeneric-setTableName}{\code{DwCGeneric$setTableName()}}
+\item \href{#method-DwCGeneric-getTableName}{\code{DwCGeneric$getTableName()}}
+\item \href{#method-DwCGeneric-importDataTable}{\code{DwCGeneric$importDataTable()}}
+\item \href{#method-DwCGeneric-new}{\code{DwCGeneric$new()}}
+\item \href{#method-DwCGeneric-getDwCClassName}{\code{DwCGeneric$getDwCClassName()}}
+\item \href{#method-DwCGeneric-getDwCTermInfo}{\code{DwCGeneric$getDwCTermInfo()}}
+\item \href{#method-DwCGeneric-getTermMapping}{\code{DwCGeneric$getTermMapping()}}
+\item \href{#method-DwCGeneric-getAssociatedTerms}{\code{DwCGeneric$getAssociatedTerms()}}
+\item \href{#method-DwCGeneric-print}{\code{DwCGeneric$print()}}
+\item \href{#method-DwCGeneric-exportAsDataFrame}{\code{DwCGeneric$exportAsDataFrame()}}
+\item \href{#method-DwCGeneric-exportTable}{\code{DwCGeneric$exportTable()}}
+\item \href{#method-DwCGeneric-getIDIndex}{\code{DwCGeneric$getIDIndex()}}
+\item \href{#method-DwCGeneric-getIDName}{\code{DwCGeneric$getIDName()}}
+\item \href{#method-DwCGeneric-setDefaultYearFormat}{\code{DwCGeneric$setDefaultYearFormat()}}
+\item \href{#method-DwCGeneric-getDefaultYearFormat}{\code{DwCGeneric$getDefaultYearFormat()}}
+\item \href{#method-DwCGeneric-getTableTermName}{\code{DwCGeneric$getTableTermName()}}
+\item \href{#method-DwCGeneric-clone}{\code{DwCGeneric$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setTableName"></a>}}
-\if{latex}{\out{\hypertarget{method-setTableName}{}}}
+\if{html}{\out{<a id="method-DwCGeneric-setTableName"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCGeneric-setTableName}{}}}
 \subsection{Method \code{setTableName()}}{
 Set the name of the file that the data will print to when preparing the Darwin core archive
 \subsection{Usage}{
@@ -60,8 +60,8 @@ Set the name of the file that the data will print to when preparing the Darwin c
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getTableName"></a>}}
-\if{latex}{\out{\hypertarget{method-getTableName}{}}}
+\if{html}{\out{<a id="method-DwCGeneric-getTableName"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCGeneric-getTableName}{}}}
 \subsection{Method \code{getTableName()}}{
 Retrieve the name of the file that the data will print to when preparing the Darwin core archive
 \subsection{Usage}{
@@ -73,8 +73,8 @@ The name currently set as the file name in the output archive
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-importDataTable"></a>}}
-\if{latex}{\out{\hypertarget{method-importDataTable}{}}}
+\if{html}{\out{<a id="method-DwCGeneric-importDataTable"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCGeneric-importDataTable}{}}}
 \subsection{Method \code{importDataTable()}}{
 Import data from a \code{data.frame} into a \code{DwCGeneric} object
 \subsection{Usage}{
@@ -99,8 +99,8 @@ the column of \code{objectData} that corresponds to the term}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-DwCGeneric-new"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCGeneric-new}{}}}
 \subsection{Method \code{new()}}{
 Create a new DwCGeneric object
 \subsection{Usage}{
@@ -147,8 +147,8 @@ A new \code{DwCGeneric} object
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getDwCClassName"></a>}}
-\if{latex}{\out{\hypertarget{method-getDwCClassName}{}}}
+\if{html}{\out{<a id="method-DwCGeneric-getDwCClassName"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCGeneric-getDwCClassName}{}}}
 \subsection{Method \code{getDwCClassName()}}{
 Retrieve the name of the class used in Darwin core
 \subsection{Usage}{
@@ -160,8 +160,8 @@ A \code{character} scalar contining the name of the Darwin core class
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getDwCTermInfo"></a>}}
-\if{latex}{\out{\hypertarget{method-getDwCTermInfo}{}}}
+\if{html}{\out{<a id="method-DwCGeneric-getDwCTermInfo"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCGeneric-getDwCTermInfo}{}}}
 \subsection{Method \code{getDwCTermInfo()}}{
 Retrieve the term information of thee Darwin core class of the object
 \subsection{Usage}{
@@ -174,8 +174,8 @@ of the object
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getTermMapping"></a>}}
-\if{latex}{\out{\hypertarget{method-getTermMapping}{}}}
+\if{html}{\out{<a id="method-DwCGeneric-getTermMapping"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCGeneric-getTermMapping}{}}}
 \subsection{Method \code{getTermMapping()}}{
 Retrieve the mapping information of the Darwin core terms associated with the class to the
 columns in the data table
@@ -190,8 +190,8 @@ table and \code{columnName} containg the name of the column
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getAssociatedTerms"></a>}}
-\if{latex}{\out{\hypertarget{method-getAssociatedTerms}{}}}
+\if{html}{\out{<a id="method-DwCGeneric-getAssociatedTerms"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCGeneric-getAssociatedTerms}{}}}
 \subsection{Method \code{getAssociatedTerms()}}{
 Retrieve the terms associated with the Darwin core class of the object
 \subsection{Usage}{
@@ -204,8 +204,8 @@ Print object to console
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-DwCGeneric-print"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCGeneric-print}{}}}
 \subsection{Method \code{print()}}{
 Print the term information
 \subsection{Usage}{
@@ -214,8 +214,8 @@ Print the term information
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-exportAsDataFrame"></a>}}
-\if{latex}{\out{\hypertarget{method-exportAsDataFrame}{}}}
+\if{html}{\out{<a id="method-DwCGeneric-exportAsDataFrame"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCGeneric-exportAsDataFrame}{}}}
 \subsection{Method \code{exportAsDataFrame()}}{
 Export the data contained in the table as a \code{data.frame}
 \subsection{Usage}{
@@ -227,8 +227,8 @@ A \code{data.frame} of the object's table data
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-exportTable"></a>}}
-\if{latex}{\out{\hypertarget{method-exportTable}{}}}
+\if{html}{\out{<a id="method-DwCGeneric-exportTable"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCGeneric-exportTable}{}}}
 \subsection{Method \code{exportTable()}}{
 Export the table as a text file
 \subsection{Usage}{
@@ -283,8 +283,8 @@ core versions}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getIDIndex"></a>}}
-\if{latex}{\out{\hypertarget{method-getIDIndex}{}}}
+\if{html}{\out{<a id="method-DwCGeneric-getIDIndex"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCGeneric-getIDIndex}{}}}
 \subsection{Method \code{getIDIndex()}}{
 Retrieve the column index in the dataset that refers to the unique ID in the dataset
 \subsection{Usage}{
@@ -296,8 +296,8 @@ An \code{integer} scalar giving the index of the column that refers to the uniqu
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getIDName"></a>}}
-\if{latex}{\out{\hypertarget{method-getIDName}{}}}
+\if{html}{\out{<a id="method-DwCGeneric-getIDName"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCGeneric-getIDName}{}}}
 \subsection{Method \code{getIDName()}}{
 Retrieve the column name in the dataset that refers to the unique ID in the dataset
 \subsection{Usage}{
@@ -309,8 +309,8 @@ A \code{character} scalar giving the column name that refers to the unique datas
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setDefaultYearFormat"></a>}}
-\if{latex}{\out{\hypertarget{method-setDefaultYearFormat}{}}}
+\if{html}{\out{<a id="method-DwCGeneric-setDefaultYearFormat"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCGeneric-setDefaultYearFormat}{}}}
 \subsection{Method \code{setDefaultYearFormat()}}{
 Set the default date format in the dataset
 \subsection{Usage}{
@@ -328,8 +328,8 @@ for this string.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getDefaultYearFormat"></a>}}
-\if{latex}{\out{\hypertarget{method-getDefaultYearFormat}{}}}
+\if{html}{\out{<a id="method-DwCGeneric-getDefaultYearFormat"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCGeneric-getDefaultYearFormat}{}}}
 \subsection{Method \code{getDefaultYearFormat()}}{
 Retrieve the default date format
 \subsection{Usage}{
@@ -341,8 +341,8 @@ A \code{character} scalar containing the default date format
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getTableTermName"></a>}}
-\if{latex}{\out{\hypertarget{method-getTableTermName}{}}}
+\if{html}{\out{<a id="method-DwCGeneric-getTableTermName"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCGeneric-getTableTermName}{}}}
 \subsection{Method \code{getTableTermName()}}{
 Retrieve the term name for the table
 \subsection{Usage}{
@@ -354,8 +354,8 @@ A \code{character} scalar containing the name to the term defining the table
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-DwCGeneric-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCGeneric-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

@@ -1,6 +1,7 @@
 # ------ 1. DNADERIVEDDATA TERM INFORMATION ------
 #' Return the information of the term associated with the GBIF dnaDerivedData class
 #' @return A \code{DwCTerm} object containing the term information
+#' @export
 #' @seealso \code{\link[DwCTerm]{DwCTerm}}
 getGBIFdnaDerivedDataTerm <- function() {
 	outValue <- NULL
@@ -16,6 +17,7 @@ getGBIFdnaDerivedDataTerm <- function() {
 #' Return a list of properties associated with the GBIF dnaDerivedData class
 #' @return A \code{list} of \code{DwCTerm} objects, one for each member of the the
 #' GBIF dnaDerivedData class
+#' @export
 #' @seealso \code{\link[DwCTerm]{DwCTerm}}
 getGBIFdnaDerivedDataMembers <- function() {
 	outValue <- NULL
@@ -32,6 +34,7 @@ getGBIFdnaDerivedDataMembers <- function() {
 #'
 #' The \code{GBIFdnaDerivedData} class allows for the specification of data tables that comply with the dnaDerivedData
 #' \url{http://rs.gbif.org/terms/1.0/dnaDerivedData}{class specification} of GBIF.
+#' @export
 GBIFdnaDerivedData <- R6Class("GBIFdnaDerivedData",
 	inherit = DwCGeneric,
 	# ====== 3.1. Define private members of the GBIF dnaDerivedData class ======
@@ -93,6 +96,7 @@ GBIFdnaDerivedData <- R6Class("GBIFdnaDerivedData",
 #' or an \code{integer} scalar giving the index of the column of \code{objectData} that corresponds to the
 #' term. Mappable terms can be found using: \code{sapply(X = getGBIFdnaDerivedDataMembers(), FUN = function(curTerm) { curTerm$getTermName() })}
 #' @return A new \code{GBIFdnaDerivedData} object
+#' @export
 #' @seealso \code{\link[DwCTerm]{DwCTerm}} \code{\link[getGBIFdnaDerivedDataMembers]{getGBIFdnaDerivedDataMembers}}
 initializeGBIFdnaDerivedData <- function(objectData, idColumnInfo, nameAutoMap = FALSE, defDateFormat = "YYYY-MM-DD", ...) {
 	GBIFdnaDerivedData$new(objectData = objectData, idColumnInfo = idColumnInfo, nameAutoMap = nameAutoMap, defDateFormat = defDateFormat, ...)

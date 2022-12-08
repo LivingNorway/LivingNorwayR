@@ -20,19 +20,19 @@ for more information on the structure of Darwin core archive files.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{DwCArchive$new()}}
-\item \href{#method-exportAsDwCArchive}{\code{DwCArchive$exportAsDwCArchive()}}
-\item \href{#method-print}{\code{DwCArchive$print()}}
-\item \href{#method-getNumberExtensions}{\code{DwCArchive$getNumberExtensions()}}
-\item \href{#method-getCoreTable}{\code{DwCArchive$getCoreTable()}}
-\item \href{#method-getExtensionTables}{\code{DwCArchive$getExtensionTables()}}
-\item \href{#method-getMetadata}{\code{DwCArchive$getMetadata()}}
-\item \href{#method-clone}{\code{DwCArchive$clone()}}
+\item \href{#method-DwCArchive-new}{\code{DwCArchive$new()}}
+\item \href{#method-DwCArchive-exportAsDwCArchive}{\code{DwCArchive$exportAsDwCArchive()}}
+\item \href{#method-DwCArchive-print}{\code{DwCArchive$print()}}
+\item \href{#method-DwCArchive-getNumberExtensions}{\code{DwCArchive$getNumberExtensions()}}
+\item \href{#method-DwCArchive-getCoreTable}{\code{DwCArchive$getCoreTable()}}
+\item \href{#method-DwCArchive-getExtensionTables}{\code{DwCArchive$getExtensionTables()}}
+\item \href{#method-DwCArchive-getMetadata}{\code{DwCArchive$getMetadata()}}
+\item \href{#method-DwCArchive-clone}{\code{DwCArchive$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-DwCArchive-new"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCArchive-new}{}}}
 \subsection{Method \code{new()}}{
 Create a new \code{DwCAchive} object
 \subsection{Usage}{
@@ -58,8 +58,8 @@ default file encodings for the files in the Darwin core archive}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-exportAsDwCArchive"></a>}}
-\if{latex}{\out{\hypertarget{method-exportAsDwCArchive}{}}}
+\if{html}{\out{<a id="method-DwCArchive-exportAsDwCArchive"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCArchive-exportAsDwCArchive}{}}}
 \subsection{Method \code{exportAsDwCArchive()}}{
 Export the archive as a Darwin core archive file
 \subsection{Usage}{
@@ -107,8 +107,8 @@ character data can be re-encoded as they are written}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-DwCArchive-print"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCArchive-print}{}}}
 \subsection{Method \code{print()}}{
 Print the archive information
 \subsection{Usage}{
@@ -117,8 +117,8 @@ Print the archive information
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getNumberExtensions"></a>}}
-\if{latex}{\out{\hypertarget{method-getNumberExtensions}{}}}
+\if{html}{\out{<a id="method-DwCArchive-getNumberExtensions"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCArchive-getNumberExtensions}{}}}
 \subsection{Method \code{getNumberExtensions()}}{
 Retrieve the number of extensions used in the archive
 \subsection{Usage}{
@@ -130,8 +130,8 @@ An \code{integer} scalar containing the number of extensions used in the archive
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getCoreTable"></a>}}
-\if{latex}{\out{\hypertarget{method-getCoreTable}{}}}
+\if{html}{\out{<a id="method-DwCArchive-getCoreTable"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCArchive-getCoreTable}{}}}
 \subsection{Method \code{getCoreTable()}}{
 Retrieve the core table in the archive
 \subsection{Usage}{
@@ -143,8 +143,8 @@ An object derived from \code{DwCGeneric} that contains the core table informatio
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getExtensionTables"></a>}}
-\if{latex}{\out{\hypertarget{method-getExtensionTables}{}}}
+\if{html}{\out{<a id="method-DwCArchive-getExtensionTables"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCArchive-getExtensionTables}{}}}
 \subsection{Method \code{getExtensionTables()}}{
 Retrieve an extension table from the archive
 \subsection{Usage}{
@@ -167,8 +167,8 @@ information
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getMetadata"></a>}}
-\if{latex}{\out{\hypertarget{method-getMetadata}{}}}
+\if{html}{\out{<a id="method-DwCArchive-getMetadata"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCArchive-getMetadata}{}}}
 \subsection{Method \code{getMetadata()}}{
 Retrieve the metadata for the archive
 \subsection{Usage}{
@@ -180,8 +180,8 @@ A \code{DwCMetadata} object that contains the metadata of the archive
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-DwCArchive-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCArchive-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

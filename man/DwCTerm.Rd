@@ -13,32 +13,32 @@ R6 class to hold information on DWC terms
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{DwCTerm$new()}}
-\item \href{#method-getQualifiedName}{\code{DwCTerm$getQualifiedName()}}
-\item \href{#method-isDeprecated}{\code{DwCTerm$isDeprecated()}}
-\item \href{#method-print}{\code{DwCTerm$print()}}
-\item \href{#method-getTermName}{\code{DwCTerm$getTermName()}}
-\item \href{#method-getNamespaceName}{\code{DwCTerm$getNamespaceName()}}
-\item \href{#method-getTermIRI}{\code{DwCTerm$getTermIRI()}}
-\item \href{#method-getTermVersionIRI}{\code{DwCTerm$getTermVersionIRI()}}
-\item \href{#method-getDateModified}{\code{DwCTerm$getDateModified()}}
-\item \href{#method-getLabel}{\code{DwCTerm$getLabel()}}
-\item \href{#method-getIsReplacedBy}{\code{DwCTerm$getIsReplacedBy()}}
-\item \href{#method-getDefinition}{\code{DwCTerm$getDefinition()}}
-\item \href{#method-getNotes}{\code{DwCTerm$getNotes()}}
-\item \href{#method-getType}{\code{DwCTerm$getType()}}
-\item \href{#method-getExamples}{\code{DwCTerm$getExamples()}}
-\item \href{#method-getTermInformationLN}{\code{DwCTerm$getTermInformationLN()}}
-\item \href{#method-getExecCommitteeDecisions}{\code{DwCTerm$getExecCommitteeDecisions()}}
-\item \href{#method-getMiscInformation}{\code{DwCTerm$getMiscInformation()}}
-\item \href{#method-getTermDef}{\code{DwCTerm$getTermDef()}}
-\item \href{#method-getVocabularyURI}{\code{DwCTerm$getVocabularyURI()}}
-\item \href{#method-clone}{\code{DwCTerm$clone()}}
+\item \href{#method-DwCTerm-new}{\code{DwCTerm$new()}}
+\item \href{#method-DwCTerm-getQualifiedName}{\code{DwCTerm$getQualifiedName()}}
+\item \href{#method-DwCTerm-isDeprecated}{\code{DwCTerm$isDeprecated()}}
+\item \href{#method-DwCTerm-print}{\code{DwCTerm$print()}}
+\item \href{#method-DwCTerm-getTermName}{\code{DwCTerm$getTermName()}}
+\item \href{#method-DwCTerm-getNamespaceName}{\code{DwCTerm$getNamespaceName()}}
+\item \href{#method-DwCTerm-getTermIRI}{\code{DwCTerm$getTermIRI()}}
+\item \href{#method-DwCTerm-getTermVersionIRI}{\code{DwCTerm$getTermVersionIRI()}}
+\item \href{#method-DwCTerm-getDateModified}{\code{DwCTerm$getDateModified()}}
+\item \href{#method-DwCTerm-getLabel}{\code{DwCTerm$getLabel()}}
+\item \href{#method-DwCTerm-getIsReplacedBy}{\code{DwCTerm$getIsReplacedBy()}}
+\item \href{#method-DwCTerm-getDefinition}{\code{DwCTerm$getDefinition()}}
+\item \href{#method-DwCTerm-getNotes}{\code{DwCTerm$getNotes()}}
+\item \href{#method-DwCTerm-getType}{\code{DwCTerm$getType()}}
+\item \href{#method-DwCTerm-getExamples}{\code{DwCTerm$getExamples()}}
+\item \href{#method-DwCTerm-getTermInformationLN}{\code{DwCTerm$getTermInformationLN()}}
+\item \href{#method-DwCTerm-getExecCommitteeDecisions}{\code{DwCTerm$getExecCommitteeDecisions()}}
+\item \href{#method-DwCTerm-getMiscInformation}{\code{DwCTerm$getMiscInformation()}}
+\item \href{#method-DwCTerm-getTermDef}{\code{DwCTerm$getTermDef()}}
+\item \href{#method-DwCTerm-getVocabularyURI}{\code{DwCTerm$getVocabularyURI()}}
+\item \href{#method-DwCTerm-clone}{\code{DwCTerm$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-DwCTerm-new"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCTerm-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DwCTerm$new(
@@ -105,8 +105,8 @@ Retrieve the qualified name of the term (the term name with the associated names
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getQualifiedName"></a>}}
-\if{latex}{\out{\hypertarget{method-getQualifiedName}{}}}
+\if{html}{\out{<a id="method-DwCTerm-getQualifiedName"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCTerm-getQualifiedName}{}}}
 \subsection{Method \code{getQualifiedName()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DwCTerm$getQualifiedName()}\if{html}{\out{</div>}}
@@ -119,8 +119,8 @@ Return the deprecation status of the term
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isDeprecated"></a>}}
-\if{latex}{\out{\hypertarget{method-isDeprecated}{}}}
+\if{html}{\out{<a id="method-DwCTerm-isDeprecated"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCTerm-isDeprecated}{}}}
 \subsection{Method \code{isDeprecated()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DwCTerm$isDeprecated()}\if{html}{\out{</div>}}
@@ -136,8 +136,8 @@ Retrieve the term name
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-DwCTerm-print"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCTerm-print}{}}}
 \subsection{Method \code{print()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DwCTerm$print(...)}\if{html}{\out{</div>}}
@@ -145,8 +145,8 @@ Retrieve the term name
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getTermName"></a>}}
-\if{latex}{\out{\hypertarget{method-getTermName}{}}}
+\if{html}{\out{<a id="method-DwCTerm-getTermName"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCTerm-getTermName}{}}}
 \subsection{Method \code{getTermName()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DwCTerm$getTermName()}\if{html}{\out{</div>}}
@@ -159,8 +159,8 @@ Retrieve the namespace name
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getNamespaceName"></a>}}
-\if{latex}{\out{\hypertarget{method-getNamespaceName}{}}}
+\if{html}{\out{<a id="method-DwCTerm-getNamespaceName"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCTerm-getNamespaceName}{}}}
 \subsection{Method \code{getNamespaceName()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DwCTerm$getNamespaceName()}\if{html}{\out{</div>}}
@@ -173,8 +173,8 @@ Retrieve the term IRI
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getTermIRI"></a>}}
-\if{latex}{\out{\hypertarget{method-getTermIRI}{}}}
+\if{html}{\out{<a id="method-DwCTerm-getTermIRI"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCTerm-getTermIRI}{}}}
 \subsection{Method \code{getTermIRI()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DwCTerm$getTermIRI()}\if{html}{\out{</div>}}
@@ -187,8 +187,8 @@ Retrieve the term version IRI
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getTermVersionIRI"></a>}}
-\if{latex}{\out{\hypertarget{method-getTermVersionIRI}{}}}
+\if{html}{\out{<a id="method-DwCTerm-getTermVersionIRI"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCTerm-getTermVersionIRI}{}}}
 \subsection{Method \code{getTermVersionIRI()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DwCTerm$getTermVersionIRI()}\if{html}{\out{</div>}}
@@ -201,8 +201,8 @@ Retrieve the modification date
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getDateModified"></a>}}
-\if{latex}{\out{\hypertarget{method-getDateModified}{}}}
+\if{html}{\out{<a id="method-DwCTerm-getDateModified"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCTerm-getDateModified}{}}}
 \subsection{Method \code{getDateModified()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DwCTerm$getDateModified()}\if{html}{\out{</div>}}
@@ -215,8 +215,8 @@ Retrieve the label
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getLabel"></a>}}
-\if{latex}{\out{\hypertarget{method-getLabel}{}}}
+\if{html}{\out{<a id="method-DwCTerm-getLabel"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCTerm-getLabel}{}}}
 \subsection{Method \code{getLabel()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DwCTerm$getLabel()}\if{html}{\out{</div>}}
@@ -229,8 +229,8 @@ Retrieve the replacement IRI
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getIsReplacedBy"></a>}}
-\if{latex}{\out{\hypertarget{method-getIsReplacedBy}{}}}
+\if{html}{\out{<a id="method-DwCTerm-getIsReplacedBy"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCTerm-getIsReplacedBy}{}}}
 \subsection{Method \code{getIsReplacedBy()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DwCTerm$getIsReplacedBy()}\if{html}{\out{</div>}}
@@ -243,8 +243,8 @@ Retrieve the definition
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getDefinition"></a>}}
-\if{latex}{\out{\hypertarget{method-getDefinition}{}}}
+\if{html}{\out{<a id="method-DwCTerm-getDefinition"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCTerm-getDefinition}{}}}
 \subsection{Method \code{getDefinition()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DwCTerm$getDefinition()}\if{html}{\out{</div>}}
@@ -257,8 +257,8 @@ Retrieve the term notes
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getNotes"></a>}}
-\if{latex}{\out{\hypertarget{method-getNotes}{}}}
+\if{html}{\out{<a id="method-DwCTerm-getNotes"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCTerm-getNotes}{}}}
 \subsection{Method \code{getNotes()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DwCTerm$getNotes()}\if{html}{\out{</div>}}
@@ -271,8 +271,8 @@ Retrieve the type of the term
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getType"></a>}}
-\if{latex}{\out{\hypertarget{method-getType}{}}}
+\if{html}{\out{<a id="method-DwCTerm-getType"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCTerm-getType}{}}}
 \subsection{Method \code{getType()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DwCTerm$getType()}\if{html}{\out{</div>}}
@@ -284,8 +284,8 @@ Retrieve examples of the use of the term
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getExamples"></a>}}
-\if{latex}{\out{\hypertarget{method-getExamples}{}}}
+\if{html}{\out{<a id="method-DwCTerm-getExamples"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCTerm-getExamples}{}}}
 \subsection{Method \code{getExamples()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DwCTerm$getExamples()}\if{html}{\out{</div>}}
@@ -298,8 +298,8 @@ Retrieve supplementary information about the term provided by Living Norway
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getTermInformationLN"></a>}}
-\if{latex}{\out{\hypertarget{method-getTermInformationLN}{}}}
+\if{html}{\out{<a id="method-DwCTerm-getTermInformationLN"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCTerm-getTermInformationLN}{}}}
 \subsection{Method \code{getTermInformationLN()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DwCTerm$getTermInformationLN()}\if{html}{\out{</div>}}
@@ -312,8 +312,8 @@ Retrieve executive committee decisions about the use of the term
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getExecCommitteeDecisions"></a>}}
-\if{latex}{\out{\hypertarget{method-getExecCommitteeDecisions}{}}}
+\if{html}{\out{<a id="method-DwCTerm-getExecCommitteeDecisions"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCTerm-getExecCommitteeDecisions}{}}}
 \subsection{Method \code{getExecCommitteeDecisions()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DwCTerm$getExecCommitteeDecisions()}\if{html}{\out{</div>}}
@@ -326,8 +326,8 @@ Retrieve miscellaneous information on the usage of the term
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getMiscInformation"></a>}}
-\if{latex}{\out{\hypertarget{method-getMiscInformation}{}}}
+\if{html}{\out{<a id="method-DwCTerm-getMiscInformation"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCTerm-getMiscInformation}{}}}
 \subsection{Method \code{getMiscInformation()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DwCTerm$getMiscInformation()}\if{html}{\out{</div>}}
@@ -340,8 +340,8 @@ Retrieve the source of the term definition
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getTermDef"></a>}}
-\if{latex}{\out{\hypertarget{method-getTermDef}{}}}
+\if{html}{\out{<a id="method-DwCTerm-getTermDef"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCTerm-getTermDef}{}}}
 \subsection{Method \code{getTermDef()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DwCTerm$getTermDef()}\if{html}{\out{</div>}}
@@ -354,8 +354,8 @@ Retrieve the vocabulary URI
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getVocabularyURI"></a>}}
-\if{latex}{\out{\hypertarget{method-getVocabularyURI}{}}}
+\if{html}{\out{<a id="method-DwCTerm-getVocabularyURI"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCTerm-getVocabularyURI}{}}}
 \subsection{Method \code{getVocabularyURI()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DwCTerm$getVocabularyURI()}\if{html}{\out{</div>}}
@@ -367,8 +367,8 @@ term is described
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-DwCTerm-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-DwCTerm-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
