@@ -11,9 +11,9 @@ The code for the package can be found here: URL: https://github.com/LivingNorway
 If you identify any bugs please let us know (submit a "Bug Report" here: https://github.com/LivingNorway/LivingNorwayR/issues)
 
 ## Installation
-install.packages("devtools")
+install.packages("remotes")
 
-devtools::install_github("LivingNorway/LivingNorwayR")
+remotes::install_github("LivingNorway/LivingNorwayR")
 
 ## Basic example of the workflow
 
