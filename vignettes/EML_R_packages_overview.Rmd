@@ -33,6 +33,7 @@ library(LivingNorwayR)
 #devtools::install_github("cboettig/eml2")#fails
 #devtools::install_github("earnaud/MetaShARK-v2", dependencies=TRUE)
 #devtools::install_github("atn38/MetaInbase", dependencies=TRUE)
+#devtools::install_github("atn38/pkEML") #MetaInbase renamed to pkEML
 #devtools::install_github("EDIorg/EMLassemblyline")
 #devtools::install_github("BLE-LTER/MetaEgress")
 #devtools::install_github("nationalparkservice/NPSdataverse")
@@ -86,19 +87,19 @@ In addition, as of 2023-11-29, the package rbefdata is no longer available via C
 
 ```{r table of packages, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
-tb<-data.frame("Package"=c("EML","emld", "RNeXML", "datapack", "rbefdata",
+tb<-data.frame("Package"=c("EML","emld", "RNeXML", "datapack", #"rbefdata",
                            "geometa", "MetaEgress", "EMLassemblyline",
-                           "MetaInbase", "LivingNorwayR", "NPSdataverse",
+                           "pkEML", "LivingNorwayR", "NPSdataverse",
                            "EMLeditor", "DPchecker", "NPSutils"),
                "Package_description"=c(packageDescription(pkg = "EML")$Description,
                                        packageDescription(pkg = "emld")$Description,
                                        packageDescription(pkg = "RNeXML")$Description,
                                        packageDescription(pkg = "datapack")$Description,
-                                       packageDescription(pkg = "rbefdata")$Description,
+                                       #packageDescription(pkg = "rbefdata")$Description,
                                        packageDescription(pkg = "geometa")$Description, 
                                        packageDescription(pkg = "MetaEgress")$Description,
                                        packageDescription(pkg = "EMLassemblyline")$Description,
-                                       packageDescription("MetaInbase")$Description,
+                                       packageDescription("pkEML")$Description,
                                        packageDescription("LivingNorwayR")$Description,
                                        packageDescription("NPSdataverse")$Description,
                                        packageDescription("EMLeditor")$Description,
@@ -251,7 +252,7 @@ make_eml(
 
 ### MetaInbase package
 
-*MetaInbase* [@MetaInbase] has functions to convert EML to tables. It appears to be in an early stage of development
+*MetaInbase* [@MetaInbase] has functions to convert EML to tables. It appears to be in an early stage of development. Renamed to pkEML. 
 
 
 ### MetaShARK package
@@ -288,8 +289,8 @@ report8 <- CreatePackageReport(pkg_name = "MetaEgress",
                                report_path= here::here("Pkgnet_out/MetaEgress.html"))
 report9 <- CreatePackageReport(pkg_name = "EMLassemblyline",
                                report_path = here::here("Pkgnet_out/EMLassemblyline.html"))
-report10 <- CreatePackageReport(pkg_name = "MetaInbase",
-                                report_path = here::here("Pkgnet_out/MetaInbase.html"))
+report10 <- CreatePackageReport(pkg_name = "pkEML",
+                                report_path = here::here("Pkgnet_out/pkEML.html"))
 #No dependancies
 #report11 <- CreatePackageReport(pkg_name = "MetaShARK", report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/MetaShARK.html")
 report12 <- CreatePackageReport(pkg_name = "NPSdataverse",
