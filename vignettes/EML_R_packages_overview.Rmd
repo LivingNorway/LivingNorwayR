@@ -21,13 +21,13 @@ options(knitr.duplicate.label = "allow")
 library(tidyverse)
 library(EML)
 library(emld)
-#library(emldown) archieved
+#library(emldown) archived
 library(RNeXML)
 library(datapack)
 library(rbefdata)
 library(geometa)
 library(LivingNorwayR)
-#GitHub (15 repositories, 6 R language)
+#GitHub (19 repositories, 10 R language)
 
 #devtools::install_github("isteves/dataspice")#fails
 #devtools::install_github("cboettig/eml2")#fails
@@ -35,6 +35,10 @@ library(LivingNorwayR)
 #devtools::install_github("atn38/MetaInbase", dependencies=TRUE)
 #devtools::install_github("EDIorg/EMLassemblyline")
 #devtools::install_github("BLE-LTER/MetaEgress")
+#devtools::install_github("nationalparkservice/NPSdataverse")
+#devtools::install_github("nationalparkservice/EMLeditor")
+#devtools::install_github("nationalparkservice/DPchecker")
+#devtools::install_github("nationalparkservice/NPSutils")
 
 library(MetaEgress)
 library(EMLassemblyline)
@@ -52,7 +56,7 @@ library(rdflib)
 
 ## Introduction
 
-EML (Ecological Metadata Langauage; [@EML_2019]) is a version of the machine and human readable XML (Extensible Markup Language) which is designed to facilitate data documentation (i.e. metadata) to ease open data and sharing. XML is a language related to HTML, but was designed to tag document content and allows for validation against specific schemas. XML is well supported in many different programming languages and can be readily translated to other formats [@mccartney2002using]. 
+EML (Ecological Metadata Language; [@EML_2019]) is a version of the machine and human readable XML (Extensible Markup Language) which is designed to facilitate data documentation (i.e. metadata) to ease open data and sharing. XML is a language related to HTML, but was designed to tag document content and allows for validation against specific schemas. XML is well supported in many different programming languages and can be readily translated to other formats [@mccartney2002using]. 
 
 EML consists of "modules" (with separate schemas) that allow the description of data attributes (e.g. spatial, temporal, taxonomic extent). EML defines several resource types (e.g. "dataset") that inherit a common set of elements or "tags" which facilitate discovery of metadata. One of the biggest advantages of EML is that it is extensible with additional modules easily integrated [@mccartney2002using]. 
 
@@ -77,10 +81,25 @@ We searched for R packages on CRAN (The Comprehensive R Archive Network - https:
 
 The search on Google (via CRAN) returned 25 hits. Seven of these were R packages. The search on GitHub returned 15 repositories of which 6 were in the R language. Two of these returned errors when we attempted to download them in RStudio using the devtools::install_github() function, and two have been archived. 
 We identified 9 R packages (6 from CRAN and 3 from GitHub) that were active in the last two years and explicitly stated that functions were used for interacting (either reading, writing or viewing) Ecological Metadata Language (EML). 
+Since the original google search, several additional packages have become available on GitHub and are not also included in the following list. One of these, NPSdataverse is a wrapper package that will install and load multiple EML-related packages including EML, EMLAssemblyline, EMLeditor, DPchecker, and NPSutils.
 
 ```{r table of packages, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
-tb<-data.frame("Package"=c("EML","emld", "RNeXML", "datapack", "rbefdata", "geometa", "MetaEgress", "EMLassemblyline", "MetaInbase", "LivingNorwayR"), "Package_description"=c(packageDescription(pkg = "EML")$Description, packageDescription(pkg = "emld")$Description, packageDescription(pkg = "RNeXML")$Description,packageDescription(pkg = "datapack")$Description,packageDescription(pkg = "rbefdata")$Description,packageDescription(pkg = "geometa")$Description, packageDescription(pkg = "MetaEgress")$Description, packageDescription(pkg = "EMLassemblyline")$Description, packageDescription("MetaInbase")$Description, packageDescription("LivingNorwayR")$Description))
+tb<-data.frame("Package"=c("EML","emld", "RNeXML", "datapack", "rbefdata", "geometa", "MetaEgress", "EMLassemblyline", "MetaInbase", "LivingNorwayR", "NPSdataverse", "EMLeditor", "DPchecker", "NPSutils"),
+               "Package_description"=c(packageDescription(pkg = "EML")$Description,
+                                       packageDescription(pkg = "emld")$Description,
+                                       packageDescription(pkg = "RNeXML")$Description,
+                                       packageDescription(pkg = "datapack")$Description,
+                                       packageDescription(pkg = "rbefdata")$Description,
+                                       packageDescription(pkg = "geometa")$Description, 
+                                       packageDescription(pkg = "MetaEgress")$Description,
+                                       packageDescription(pkg = "EMLassemblyline")$Description,
+                                       packageDescription("MetaInbase")$Description,
+                                       packageDescription("LivingNorwayR")$Description,
+                                       packageDescription("NPSdataverse")$Description,
+                                       packageDescription("EMLeditor")$Description,
+                                       packageDescription("DPchecker")$Description,
+                                       packageDescription("NPSutils")$Description))
 
 tb %>% 
   mutate(Package_description=gsub("\n", "", Package_description )) %>% knitr::kable()
@@ -261,9 +280,19 @@ report9 <- CreatePackageReport(pkg_name = "EMLassemblyline"
 report10 <- CreatePackageReport(pkg_name = "MetaInbase", report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/MetaInbase.html")#No dependancies
 #report11 <- CreatePackageReport(pkg_name = "MetaShARK", report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/MetaShARK.html")
 
-
 ```
 
+### NPSdataverse
+*NPSdataverse* is a wrapper package that will install a suite of packages for generating, editing, checking, up/downloading (to/from the NPS [DataStore](https://irma.nps.gov/DataStore/)) and accessing EML. [NPSdataverse](https://nationalparkservice.github.io/NPSdataverse/) will install and load the following packages: EML, EMLassemblyline, QCkit, EMLeditor, DPchecker, NPSutils. Of these, QCkit is the only package that does not involve EML in one way or another.
+
+### EMLeditor
+*EMLeditor* is a package aimed at editing EML. [EMLeditor](https://nationalparkservice.github.io/EMLeditor/) package contains a number of "get_" and "set_" class functions for retrieving and editing EML objects in R. Installing EMLeditor will also install a sample .rmd script accessible via Rstudio for generating EML via a combination of EML, EMLassemblyline, and EMLeditor. One major goal of EMLeditor is to make editing EML fast and easy without needing to call the make_eml() function from EMLassemblyline. Another goal is to add EML elements that may be specific to National Park Staff, collaborators, or partners. The package will also authenticated users to generate references on the NPS DataStore and upload data sets/metadata to DataStore. 
+
+### DPchecker
+*DPchecker* is a package that aimed at checking whether a data package - consisting of several flat files in .csv format and a single EML file (*_metadata.xml) is ready to be uploaded to the NPS DataStore. Although many of the checks will be NPS specific, the [DPchecker](https://nationalparkservice.github.io/DPchecker/) also performs a number of more general checks for internal consitency in the EML file as well as congruence between the EML file and the data files.
+
+### NPSutils
+*NPSutils* is primarily a public-facing package aimed at accessing data packages on the NPS DataStore. [NPSutils](https://nationalparkservice.github.io/NPSutils/) contains functions to download data packages (.csv files and an EML file), load the data and metadata in to R, and load the data and EML metadata into dashboard visualizers such as Power BI.
 
 ## Relationship between packages
 
@@ -271,7 +300,7 @@ By looking at the dependency relationship between the packages we can get an und
 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-# Dependancies
+# Dependencies
 library(tidyverse)
 
 #length(report1$DependencyReporter$nodes$node)#49
