@@ -24,7 +24,7 @@ library(emld)
 #library(emldown) archived
 library(RNeXML)
 library(datapack)
-library(rbefdata)
+library(rbefdata) # this package no longer available on CRAN; github dev version also does not have any files and states that it is no longer maintained (https://github.com/befdata/rbefdata). The files are still available via a fork: https://github.com/cpfaff/rbefdata
 library(geometa)
 library(LivingNorwayR)
 #GitHub (19 repositories, 10 R language)
