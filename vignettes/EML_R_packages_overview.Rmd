@@ -24,7 +24,7 @@ library(emld)
 #library(emldown) archived
 library(RNeXML)
 library(datapack)
-library(rbefdata) # this package no longer available on CRAN; github dev version also does not have any files and states that it is no longer maintained (https://github.com/befdata/rbefdata). The files are still available via a fork: https://github.com/cpfaff/rbefdata
+#library(rbefdata) # this package no longer available on CRAN; github dev version also does not have any files and states that it is no longer maintained (https://github.com/befdata/rbefdata). The files are still available via a fork: https://github.com/cpfaff/rbefdata
 library(geometa)
 library(LivingNorwayR)
 #GitHub (19 repositories, 10 R language)
@@ -82,6 +82,7 @@ We searched for R packages on CRAN (The Comprehensive R Archive Network - https:
 The search on Google (via CRAN) returned 25 hits. Seven of these were R packages. The search on GitHub returned 15 repositories of which 6 were in the R language. Two of these returned errors when we attempted to download them in RStudio using the devtools::install_github() function, and two have been archived. 
 We identified 9 R packages (6 from CRAN and 3 from GitHub) that were active in the last two years and explicitly stated that functions were used for interacting (either reading, writing or viewing) Ecological Metadata Language (EML). 
 Since the original google search, several additional packages have become available on GitHub and are not also included in the following list. One of these, NPSdataverse is a wrapper package that will install and load multiple EML-related packages including EML, EMLAssemblyline, EMLeditor, DPchecker, and NPSutils.
+In addition, as of 2023-11-29, the package rbefdata is no longer available via CRAN and is not being maintained by on GitHub.
 
 ```{r table of packages, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -212,6 +213,8 @@ ids <- getIdentifiers(dp)
 
 ### rbefdata package
 
+**This package does not appear to be available on CRAN or GitHub as of 2023-11-29**
+
 Similarly to the *datapack* package *rbefdata* [@rbefdata] links to the BEF data portal (https://fundiv.befdata.biow.uni-leipzig.de/). The function *rbefdata::bef.portal.get.metadata()* extracts the metadata from a file that the user has downloaded from the BEF data portal.
 
 ### geometa package
@@ -276,10 +279,11 @@ report4 <- CreatePackageReport(pkg_name = "RNeXML",
                                report_path = here::here("Pkgnet_out/RNeXML.html"))
 report5 <- CreatePackageReport(pkg_name = "datapack",
                                report_path = here::here("Pkgnet_out/datapack.html"))
-report6 <- CreatePackageReport(pkg_name = "rbefdata",
-                               report_path = here::here("Pkgnet_out/rbefdata.html"))
+#report6 <- CreatePackageReport(pkg_name = "rbefdata",
+#                               report_path = here::here("Pkgnet_out/rbefdata.html"))
+# rbefdata no longer available on CRAN or GitHub
 report7 <- CreatePackageReport(pkg_name = "geometa",
-                               report_path = here::here("LivNoR/Pkgnet_out/geometa.html"))
+                               report_path = here::here("Pkgnet_out/geometa.html"))
 report8 <- CreatePackageReport(pkg_name = "MetaEgress",
                                report_path= here::here("Pkgnet_out/MetaEgress.html"))
 report9 <- CreatePackageReport(pkg_name = "EMLassemblyline",
