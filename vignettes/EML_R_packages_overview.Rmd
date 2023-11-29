@@ -85,7 +85,10 @@ Since the original google search, several additional packages have become availa
 
 ```{r table of packages, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
-tb<-data.frame("Package"=c("EML","emld", "RNeXML", "datapack", "rbefdata", "geometa", "MetaEgress", "EMLassemblyline", "MetaInbase", "LivingNorwayR", "NPSdataverse", "EMLeditor", "DPchecker", "NPSutils"),
+tb<-data.frame("Package"=c("EML","emld", "RNeXML", "datapack", "rbefdata",
+                           "geometa", "MetaEgress", "EMLassemblyline",
+                           "MetaInbase", "LivingNorwayR", "NPSdataverse",
+                           "EMLeditor", "DPchecker", "NPSutils"),
                "Package_description"=c(packageDescription(pkg = "EML")$Description,
                                        packageDescription(pkg = "emld")$Description,
                                        packageDescription(pkg = "RNeXML")$Description,
@@ -260,25 +263,39 @@ make_eml(
 ```{r open reports, echo=FALSE, warning=FALSE, message=FALSE, include=FALSE}
 
 library(pkgnet)
-report1 <- CreatePackageReport(pkg_name = "EML", report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/EML.html")
+report1 <- CreatePackageReport(pkg_name = "EML",
+                               report_path = here::here("Pkgnet_out/EML.html"))
 
-report2 <- CreatePackageReport(pkg_name = "emld", report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/emld.html")
+report2 <- CreatePackageReport(pkg_name = "emld",
+                               report_path = here::here("Pkgnet_out/emld.html"))
 
 #report3 <- CreatePackageReport(pkg_name = "emldown",
 #                               report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/emldown.html")
 
 report4 <- CreatePackageReport(pkg_name = "RNeXML",
-                               report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/RNeXML.html")
-report5 <- CreatePackageReport(pkg_name = "datapack", report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/datapack.html")
+                               report_path = here::here("Pkgnet_out/RNeXML.html"))
+report5 <- CreatePackageReport(pkg_name = "datapack",
+                               report_path = here::here("Pkgnet_out/datapack.html"))
 report6 <- CreatePackageReport(pkg_name = "rbefdata",
-                               report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/rbefdata.html")
+                               report_path = here::here("Pkgnet_out/rbefdata.html"))
 report7 <- CreatePackageReport(pkg_name = "geometa",
-                               report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/geometa.html")
-report8 <- CreatePackageReport(pkg_name = "MetaEgress",report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/MetaEgress.html")
-report9 <- CreatePackageReport(pkg_name = "EMLassemblyline"
-                               , report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/EMLassemblyline.html")
-report10 <- CreatePackageReport(pkg_name = "MetaInbase", report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/MetaInbase.html")#No dependancies
+                               report_path = here::here("LivNoR/Pkgnet_out/geometa.html"))
+report8 <- CreatePackageReport(pkg_name = "MetaEgress",
+                               report_path= here::here("Pkgnet_out/MetaEgress.html"))
+report9 <- CreatePackageReport(pkg_name = "EMLassemblyline",
+                               report_path = here::here("Pkgnet_out/EMLassemblyline.html"))
+report10 <- CreatePackageReport(pkg_name = "MetaInbase",
+                                report_path = here::here("Pkgnet_out/MetaInbase.html"))
+#No dependancies
 #report11 <- CreatePackageReport(pkg_name = "MetaShARK", report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/MetaShARK.html")
+report12 <- CreatePackageReport(pkg_name = "NPSdataverse",
+                                report_path = here::here("Pkgnet_out/NPSdatavderse.html"))
+report13 <- CreatePackageReport(pkg_name = "EMLeditor",
+                                report_path = here::here("Pkgnet_out/EMLeditor.html"))
+report14 <- CreatePackageReport(pkg_name = "DPchecker",
+                                report_path = here::here("Pkgnet_out/DPchecker.html"))
+report15 <- CreatePackageReport(pkg_name = "NPSutils",
+                                report_path = here::here("Pkgnet_out/NPSutils.html"))
 
 ```
 
