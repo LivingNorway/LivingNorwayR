@@ -322,34 +322,46 @@ By looking at the dependency relationship between the packages we can get an und
 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-# Dependencies
+# Dependencies - last updated 2023-11-29
 library(tidyverse)
 
-#length(report1$DependencyReporter$nodes$node)#49
-#length(report2$DependencyReporter$nodes$node)#13
-##length(report3$DependencyReporter$nodes$node)#79
-#length(report4$DependencyReporter$nodes$node)#48
-# length(report5$DependencyReporter$nodes$node)#35
-# length(report6$DependencyReporter$nodes$node)#17
-# length(report7$DependencyReporter$nodes$node)#16
-# length(report8$DependencyReporter$nodes$node)#65
-# length(report9$DependencyReporter$nodes$node)#145
-# #length(report10$DependencyReporter$nodes$node)#No Dependency
-# #length(report11$DependencyReporter$nodes$node)#170
+length(report1$DependencyReporter$nodes$node)#56
+length(report2$DependencyReporter$nodes$node)#13
+#length(report3$DependencyReporter$nodes$node)#does not exist?
+length(report4$DependencyReporter$nodes$node)#46
+length(report5$DependencyReporter$nodes$node)#37
+#length(report6$DependencyReporter$nodes$node)#rbefdata no longer exists
+length(report7$DependencyReporter$nodes$node)#43
+length(report8$DependencyReporter$nodes$node)#75
+length(report9$DependencyReporter$nodes$node)#151
+length(report10$DependencyReporter$nodes$node)#No Dependency
+#length(report11$DependencyReporter$nodes$node)#170
+length(report12$DependencyReporter$nodes$node) #199
+length(report13$DependencyReporter$nodes$node) #108
+length(report14$DependencyReporter$nodes$node) #90
+length(report15$DependencyReporter$nodes$node) #135
 
-PkgName=c(rep("EML",length(report1$DependencyReporter$nodes$node)), rep("emld",length(report2$DependencyReporter$nodes$node)), rep("RNeXML", length(report4$DependencyReporter$nodes$node)),
-          rep("datapack", length(report5$DependencyReporter$nodes$node)), rep("rbefdata", length(report6$DependencyReporter$nodes$node)), rep("geometa", length(report7$DependencyReporter$nodes$node)), rep("MetaEgress",length(report8$DependencyReporter$nodes$node)),
-          rep("EMLassemblyline", length(report9$DependencyReporter$nodes$node)))
+PkgName=c(rep("EML",length(report1$DependencyReporter$nodes$node)),
+          rep("emld",length(report2$DependencyReporter$nodes$node)),
+          rep("RNeXML", length(report4$DependencyReporter$nodes$node)),
+          rep("datapack", length(report5$DependencyReporter$nodes$node)),
+          #rep("rbefdata", length(report6$DependencyReporter$nodes$node)),
+          rep("geometa", length(report7$DependencyReporter$nodes$node)),
+          rep("MetaEgress",length(report8$DependencyReporter$nodes$node)),
+          rep("EMLassemblyline", length(report9$DependencyReporter$nodes$node)),
+          rep("pkEML", length(report10$DependencyReporter$nodes$node)),
+          
+          )
 
 Dependency=c(report1$DependencyReporter$nodes$node,
                   report2$DependencyReporter$nodes$node,
                   #report3$DependencyReporter$nodes$node,
                   report4$DependencyReporter$nodes$node,
                   report5$DependencyReporter$nodes$node,
-                  report6$DependencyReporter$nodes$node,
+                  #report6$DependencyReporter$nodes$node,
                   report7$DependencyReporter$nodes$node,
                   report8$DependencyReporter$nodes$node,
-             report9$DependencyReporter$nodes$node)
+                  report9$DependencyReporter$nodes$node)
              #report10$DependencyReporter$nodes$node,
              #report11$DependencyReporter$nodes$node)
 
