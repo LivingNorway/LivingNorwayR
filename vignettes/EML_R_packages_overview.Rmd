@@ -334,7 +334,7 @@ length(report5$DependencyReporter$nodes$node)#37
 length(report7$DependencyReporter$nodes$node)#43
 length(report8$DependencyReporter$nodes$node)#75
 length(report9$DependencyReporter$nodes$node)#151
-length(report10$DependencyReporter$nodes$node)#No Dependency
+#length(report10$DependencyReporter$nodes$node)#No Dependency
 #length(report11$DependencyReporter$nodes$node)#170
 length(report12$DependencyReporter$nodes$node) #199
 length(report13$DependencyReporter$nodes$node) #108
@@ -349,22 +349,29 @@ PkgName=c(rep("EML",length(report1$DependencyReporter$nodes$node)),
           rep("geometa", length(report7$DependencyReporter$nodes$node)),
           rep("MetaEgress",length(report8$DependencyReporter$nodes$node)),
           rep("EMLassemblyline", length(report9$DependencyReporter$nodes$node)),
-          rep("pkEML", length(report10$DependencyReporter$nodes$node)),
-          
+          #rep("pkEML", length(report10$DependencyReporter$nodes$node)),
+          rep("NPSdataverse", length(report12$DependencyReporter$nodes$node)),
+          rep("EMLeditor", length(report13$DependencyReporter$nodes$node)),
+          rep("DPchecker", length(report14$DependencyReporter$nodes$node)),
+          rep("NPSutils", length(report15$DependencyReporter$nodes$node))
           )
 
 Dependency=c(report1$DependencyReporter$nodes$node,
-                  report2$DependencyReporter$nodes$node,
-                  #report3$DependencyReporter$nodes$node,
-                  report4$DependencyReporter$nodes$node,
-                  report5$DependencyReporter$nodes$node,
-                  #report6$DependencyReporter$nodes$node,
-                  report7$DependencyReporter$nodes$node,
-                  report8$DependencyReporter$nodes$node,
-                  report9$DependencyReporter$nodes$node)
+             report2$DependencyReporter$nodes$node,
+             #report3$DependencyReporter$nodes$node,
+             report4$DependencyReporter$nodes$node,
+             report5$DependencyReporter$nodes$node,
+             #report6$DependencyReporter$nodes$node,
+             report7$DependencyReporter$nodes$node,
+             report8$DependencyReporter$nodes$node,
+             report9$DependencyReporter$nodes$node,
              #report10$DependencyReporter$nodes$node,
-             #report11$DependencyReporter$nodes$node)
-
+             report12$DependencyReporter$nodes$node,
+             report13$DependencyReporter$nodes$node,
+             report14$DependencyReporter$nodes$node,
+             report15$DependencyReporter$nodes$node
+             )
+             
 dtab=data.frame(PkgName,Dependency)
 dtab$PkgName<-as.character(dtab$PkgName)
 dtab$Dependency<-as.character(dtab$Dependency)
@@ -437,6 +444,7 @@ Many of the packages we have found are focused on single data repositories. Thes
 #### Contributors
 
 Matt Grainger
+Rob Baker
 
 
 # References {-}
