@@ -48,7 +48,14 @@ Suggests:
     testthat,
     devtools,
     tidyverse,
-    EML
-VignetteBuilder: knitr
-Depends: 
+    EML,
+    RNeXML, 
+    datapack,
+    geometa,
+    MetaEgress,
+    EMLassemblyline,
+    pkEML,
+    rdflib
+vignetteBuilder: knitr
+Depends:
     R (>= 2.10)
