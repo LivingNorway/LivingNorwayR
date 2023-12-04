@@ -1,675 +1,675 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/404.html</loc>
   </url>
   <url>
-    <loc>/articles/EML_R_packages_overview.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/articles/EML_R_packages_overview.html</loc>
   </url>
   <url>
-    <loc>/articles/index.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/articles/index.html</loc>
   </url>
   <url>
-    <loc>/articles/LNWorkshopExample_TOV-E.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/articles/LNWorkshopExample_TOV-E.html</loc>
   </url>
   <url>
-    <loc>/articles/LNWorkshopExample_TOV-E_Metadata.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/articles/LNWorkshopExample_TOV-E_Metadata.html</loc>
   </url>
   <url>
-    <loc>/articles/Mapping_data_to_Darwin_Core_using_the_LivingNorwayR_package.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/articles/Mapping_data_to_Darwin_Core_using_the_LivingNorwayR_package.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/authors.html</loc>
   </url>
   <url>
-    <loc>/CONTRIBUTING.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/CONTRIBUTING.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/index.html</loc>
   </url>
   <url>
-    <loc>/LICENSE.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/LICENSE.html</loc>
   </url>
   <url>
-    <loc>/reference/DwCArchive.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/DwCArchive.html</loc>
   </url>
   <url>
-    <loc>/reference/DwCGeneric.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/DwCGeneric.html</loc>
   </url>
   <url>
-    <loc>/reference/DwCMetadata.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/DwCMetadata.html</loc>
   </url>
   <url>
-    <loc>/reference/DwCTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/DwCTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFAmplification.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFAmplification.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFChronometricAge.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFChronometricAge.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFChronometricDate.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFChronometricDate.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFClassLookup.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFClassLookup.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFCloning.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFCloning.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFDescription.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFDescription.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFDistribution.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFDistribution.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFdnaDerivedData.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFdnaDerivedData.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFEOLMediaExtension.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFEOLMediaExtension.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFEOLReferencesExtension.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFEOLReferencesExtension.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFEvent.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFEvent.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFExtendedMeasurementOrFact.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFExtendedMeasurementOrFact.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFGelImage.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFGelImage.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFGermplasmAccession.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFGermplasmAccession.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFGermplasmSample.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFGermplasmSample.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFIdentification.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFIdentification.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFIdentifier.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFIdentifier.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFImage.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFImage.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFLoan.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFLoan.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFMaterialSample.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFMaterialSample.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFMeasurementOrFact.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFMeasurementOrFact.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFMeasurementScore.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFMeasurementScore.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFMeasurementTrait.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFMeasurementTrait.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFMeasurementTrial.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFMeasurementTrial.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFMultimedia.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFMultimedia.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFOccurrence.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFOccurrence.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFPermit.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFPermit.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFPreparation.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFPreparation.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFPreservation.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFPreservation.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFReference.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFReference.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFReleve.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFReleve.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFResourceRelationship.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFResourceRelationship.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFSpeciesProfile.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFSpeciesProfile.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFTaxon.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFTaxon.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFTypesAndSpecimen.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFTypesAndSpecimen.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFVernacularName.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/GBIFVernacularName.html</loc>
   </url>
   <url>
-    <loc>/reference/generateID.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/generateID.html</loc>
   </url>
   <url>
-    <loc>/reference/generateTagID.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/generateTagID.html</loc>
   </url>
   <url>
-    <loc>/reference/getDefaultEMLDefinitionInfo.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getDefaultEMLDefinitionInfo.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFAmplificationMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFAmplificationMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFAmplificationTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFAmplificationTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFChronometricAgeMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFChronometricAgeMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFChronometricAgeTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFChronometricAgeTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFChronometricDateMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFChronometricDateMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFChronometricDateTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFChronometricDateTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFCloningMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFCloningMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFCloningTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFCloningTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFCoreClasses.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFCoreClasses.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFDescriptionMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFDescriptionMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFDescriptionTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFDescriptionTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFDistributionMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFDistributionMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFDistributionTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFDistributionTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFdnaDerivedDataMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFdnaDerivedDataMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFdnaDerivedDataTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFdnaDerivedDataTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFEOLMediaExtensionMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFEOLMediaExtensionMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFEOLMediaExtensionTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFEOLMediaExtensionTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFEOLReferencesExtensionMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFEOLReferencesExtensionMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFEOLReferencesExtensionTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFEOLReferencesExtensionTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFEventMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFEventMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFEventTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFEventTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFExtendedMeasurementOrFactMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFExtendedMeasurementOrFactMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFExtendedMeasurementOrFactTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFExtendedMeasurementOrFactTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFExtensionClasses.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFExtensionClasses.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFGelImageMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFGelImageMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFGelImageTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFGelImageTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFGermplasmAccessionMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFGermplasmAccessionMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFGermplasmAccessionTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFGermplasmAccessionTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFGermplasmSampleMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFGermplasmSampleMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFGermplasmSampleTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFGermplasmSampleTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFIdentificationMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFIdentificationMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFIdentificationTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFIdentificationTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFIdentifierMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFIdentifierMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFIdentifierTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFIdentifierTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFImageMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFImageMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFImageTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFImageTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFLoanMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFLoanMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFLoanTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFLoanTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFMaterialSampleMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFMaterialSampleMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFMaterialSampleTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFMaterialSampleTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFMeasurementOrFactMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFMeasurementOrFactMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFMeasurementOrFactTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFMeasurementOrFactTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFMeasurementScoreMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFMeasurementScoreMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFMeasurementScoreTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFMeasurementScoreTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFMeasurementTraitMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFMeasurementTraitMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFMeasurementTraitTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFMeasurementTraitTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFMeasurementTrialMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFMeasurementTrialMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFMeasurementTrialTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFMeasurementTrialTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFMultimediaMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFMultimediaMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFMultimediaTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFMultimediaTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFOccurrenceMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFOccurrenceMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFOccurrenceTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFOccurrenceTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFPermitMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFPermitMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFPermitTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFPermitTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFPreparationMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFPreparationMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFPreparationTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFPreparationTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFPreservationMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFPreservationMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFPreservationTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFPreservationTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFReferenceMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFReferenceMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFReferenceTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFReferenceTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFReleveMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFReleveMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFReleveTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFReleveTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFResourceRelationshipMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFResourceRelationshipMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFResourceRelationshipTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFResourceRelationshipTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFSpeciesProfileMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFSpeciesProfileMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFSpeciesProfileTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFSpeciesProfileTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFTaxonMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFTaxonMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFTaxonTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFTaxonTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFTypesAndSpecimenMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFTypesAndSpecimenMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFTypesAndSpecimenTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFTypesAndSpecimenTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFVernacularNameMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFVernacularNameMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/getGBIFVernacularNameTerm.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getGBIFVernacularNameTerm.html</loc>
   </url>
   <url>
-    <loc>/reference/getLNportalData.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getLNportalData.html</loc>
   </url>
   <url>
-    <loc>/reference/getTagGenerationFunctions.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/getTagGenerationFunctions.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeDwCArchive.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeDwCArchive.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeDwCGeneric.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeDwCGeneric.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeDwCMetadata.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeDwCMetadata.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFAmplification.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFAmplification.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFChronometricAge.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFChronometricAge.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFChronometricDate.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFChronometricDate.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFCloning.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFCloning.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFDescription.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFDescription.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFDistribution.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFDistribution.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFdnaDerivedData.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFdnaDerivedData.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFEOLMediaExtension.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFEOLMediaExtension.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFEOLReferencesExtension.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFEOLReferencesExtension.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFEvent.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFEvent.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFExtendedMeasurementOrFact.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFExtendedMeasurementOrFact.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFGelImage.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFGelImage.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFGermplasmAccession.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFGermplasmAccession.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFGermplasmSample.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFGermplasmSample.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFIdentification.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFIdentification.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFIdentifier.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFIdentifier.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFImage.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFImage.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFLoan.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFLoan.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFMaterialSample.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFMaterialSample.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFMeasurementOrFact.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFMeasurementOrFact.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFMeasurementScore.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFMeasurementScore.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFMeasurementTrait.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFMeasurementTrait.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFMeasurementTrial.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFMeasurementTrial.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFMultimedia.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFMultimedia.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFOccurrence.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFOccurrence.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFPermit.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFPermit.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFPreparation.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFPreparation.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFPreservation.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFPreservation.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFReference.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFReference.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFReleve.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFReleve.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFResourceRelationship.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFResourceRelationship.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFSpeciesProfile.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFSpeciesProfile.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFTaxon.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFTaxon.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFTypesAndSpecimen.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFTypesAndSpecimen.html</loc>
   </url>
   <url>
-    <loc>/reference/initializeGBIFVernacularName.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/initializeGBIFVernacularName.html</loc>
   </url>
   <url>
-    <loc>/reference/isDwCGeneric.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/isDwCGeneric.html</loc>
   </url>
   <url>
-    <loc>/reference/LNabstract.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNabstract.html</loc>
   </url>
   <url>
-    <loc>/reference/LNaddTag.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNaddTag.html</loc>
   </url>
   <url>
-    <loc>/reference/LNaddTranslation.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNaddTranslation.html</loc>
   </url>
   <url>
-    <loc>/reference/LNalternateIdentifier.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNalternateIdentifier.html</loc>
   </url>
   <url>
-    <loc>/reference/LNbeginDate.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNbeginDate.html</loc>
   </url>
   <url>
-    <loc>/reference/LNboundingCoordinates.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNboundingCoordinates.html</loc>
   </url>
   <url>
-    <loc>/reference/LNcalendarDate.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNcalendarDate.html</loc>
   </url>
   <url>
-    <loc>/reference/LNcity.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNcity.html</loc>
   </url>
   <url>
-    <loc>/reference/LNcommonName.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNcommonName.html</loc>
   </url>
   <url>
-    <loc>/reference/LNcontact.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNcontact.html</loc>
   </url>
   <url>
-    <loc>/reference/LNcoverage.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNcoverage.html</loc>
   </url>
   <url>
-    <loc>/reference/LNcreator.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNcreator.html</loc>
   </url>
   <url>
-    <loc>/reference/LNdataset.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNdataset.html</loc>
   </url>
   <url>
-    <loc>/reference/LNdeliveryPoint.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNdeliveryPoint.html</loc>
   </url>
   <url>
-    <loc>/reference/LNeastBoundingCoordinate.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNeastBoundingCoordinate.html</loc>
   </url>
   <url>
-    <loc>/reference/LNelectronicMailAddress.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNelectronicMailAddress.html</loc>
   </url>
   <url>
-    <loc>/reference/LNendDate.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNendDate.html</loc>
   </url>
   <url>
-    <loc>/reference/LNgeographicCoverage.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNgeographicCoverage.html</loc>
   </url>
   <url>
-    <loc>/reference/LNgeographicDescription.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNgeographicDescription.html</loc>
   </url>
   <url>
-    <loc>/reference/LNgivenName.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNgivenName.html</loc>
   </url>
   <url>
-    <loc>/reference/LNindividualName.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNindividualName.html</loc>
   </url>
   <url>
-    <loc>/reference/LNintellectualRights.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNintellectualRights.html</loc>
   </url>
   <url>
-    <loc>/reference/LNkeyword.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNkeyword.html</loc>
   </url>
   <url>
-    <loc>/reference/LNkeywordSet.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNkeywordSet.html</loc>
   </url>
   <url>
-    <loc>/reference/LNkeywordThesaurus.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNkeywordThesaurus.html</loc>
   </url>
   <url>
-    <loc>/reference/LNlanguage.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNlanguage.html</loc>
   </url>
   <url>
-    <loc>/reference/LNmetadataProvider.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNmetadataProvider.html</loc>
   </url>
   <url>
-    <loc>/reference/LNmethodStep.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNmethodStep.html</loc>
   </url>
   <url>
-    <loc>/reference/LNnorthBoundingCoordinate.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNnorthBoundingCoordinate.html</loc>
   </url>
   <url>
-    <loc>/reference/LNorganizationName.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNorganizationName.html</loc>
   </url>
   <url>
-    <loc>/reference/LNpositionName.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNpositionName.html</loc>
   </url>
   <url>
-    <loc>/reference/LNpostalCode.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNpostalCode.html</loc>
   </url>
   <url>
-    <loc>/reference/LNpubDate.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNpubDate.html</loc>
   </url>
   <url>
-    <loc>/reference/LNpurpose.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNpurpose.html</loc>
   </url>
   <url>
-    <loc>/reference/LNqualityControl.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNqualityControl.html</loc>
   </url>
   <url>
-    <loc>/reference/LNrangeOfDates.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNrangeOfDates.html</loc>
   </url>
   <url>
-    <loc>/reference/LNsampling.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNsampling.html</loc>
   </url>
   <url>
-    <loc>/reference/LNsamplingDescription.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNsamplingDescription.html</loc>
   </url>
   <url>
-    <loc>/reference/LNsouthBoundingCoordinate.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNsouthBoundingCoordinate.html</loc>
   </url>
   <url>
-    <loc>/reference/LNstudyExtent.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNstudyExtent.html</loc>
   </url>
   <url>
-    <loc>/reference/LNsurName.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNsurName.html</loc>
   </url>
   <url>
-    <loc>/reference/LNtaxonomicClassification.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNtaxonomicClassification.html</loc>
   </url>
   <url>
-    <loc>/reference/LNtaxonomicCoverage.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNtaxonomicCoverage.html</loc>
   </url>
   <url>
-    <loc>/reference/LNtaxonRankName.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNtaxonRankName.html</loc>
   </url>
   <url>
-    <loc>/reference/LNtaxonRankValue.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNtaxonRankValue.html</loc>
   </url>
   <url>
-    <loc>/reference/LNtemporalCoverage.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNtemporalCoverage.html</loc>
   </url>
   <url>
-    <loc>/reference/LNtitle.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNtitle.html</loc>
   </url>
   <url>
-    <loc>/reference/LNwestBoundingCoordinate.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/LNwestBoundingCoordinate.html</loc>
   </url>
   <url>
-    <loc>/reference/processChildArgs.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/processChildArgs.html</loc>
   </url>
   <url>
-    <loc>/reference/retrieveDwCClassSpecifications.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/retrieveDwCClassSpecifications.html</loc>
   </url>
   <url>
-    <loc>/reference/retrieveDwCTermSpecifications.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/retrieveDwCTermSpecifications.html</loc>
   </url>
   <url>
-    <loc>/reference/retrieveEMLSchema.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/retrieveEMLSchema.html</loc>
   </url>
   <url>
-    <loc>/reference/retrieveGBIFClassSpecifications.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/retrieveGBIFClassSpecifications.html</loc>
   </url>
   <url>
-    <loc>/reference/searchGBIFCoreClasses.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/searchGBIFCoreClasses.html</loc>
   </url>
   <url>
-    <loc>/reference/searchGBIFEventMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/searchGBIFEventMembers.html</loc>
   </url>
   <url>
-    <loc>/reference/searchGBIFExtensionClasses.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/searchGBIFExtensionClasses.html</loc>
   </url>
   <url>
-    <loc>/reference/searchGBIFOccurenceMembers.html</loc>
+    <loc>https://livingnorway.github.io/LivingNorwayR/reference/searchGBIFOccurenceMembers.html</loc>
   </url>
 </urlset>

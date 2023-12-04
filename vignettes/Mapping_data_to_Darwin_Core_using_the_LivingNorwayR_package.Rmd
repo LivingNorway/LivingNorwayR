@@ -316,7 +316,6 @@ penguin_data=penguin_data %>%
 The **basisOfRecord** records how the observation was made (e.g. **PreservedSpecimen**, **FossilSpecimen**, **LivingSpecimen**, **MaterialSample**, **Event**, **HumanObservation**, **MachineObservation**, etc.)
 
 ```{r}
-klippy::klippy(position = "right")
 penguin_data=penguin_data %>% 
   mutate(basisOfRecord="HumanObservation")
   

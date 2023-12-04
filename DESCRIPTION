@@ -24,7 +24,7 @@ Description: The package provides a workflow for creating a Darwin Core standard
     also provides tools for the processing and manipulation of metadata associated with Darwin Core archives and for the
     import and export of metadata according to the EML (Ecological Metadata Language; https://eml.ecoinformatics.org/)
     standard.
-URL: https://github.com/LivingNorway/LivingNorwayR
+URL: https://github.com/LivingNorway/LivingNorwayR, https://livingnorway.github.io/LivingNorwayR/
 BugReports: https://github.com/LivingNorway/LivingNorwayR/issues
 License: GPL-3
 Encoding: UTF-8
