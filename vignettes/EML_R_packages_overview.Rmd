@@ -43,7 +43,7 @@ library(LivingNorwayR)
 
 library(MetaEgress)
 library(EMLassemblyline)
-library(MetaInbase)
+library(pkEML)
 #library(MetaShARK)# now a shiny app only no package install
 
 
@@ -250,7 +250,7 @@ make_eml(
 
 ```
 
-### MetaInbase package
+### MetaInbase (pkEML) package
 
 *MetaInbase* [@MetaInbase] has functions to convert EML to tables. It appears to be in an early stage of development. Renamed to pkEML. 
 
@@ -325,21 +325,21 @@ By looking at the dependency relationship between the packages we can get an und
 # Dependencies - last updated 2023-11-29
 library(tidyverse)
 
-length(report1$DependencyReporter$nodes$node)#56
-length(report2$DependencyReporter$nodes$node)#13
-#length(report3$DependencyReporter$nodes$node)#does not exist?
-length(report4$DependencyReporter$nodes$node)#46
-length(report5$DependencyReporter$nodes$node)#37
-#length(report6$DependencyReporter$nodes$node)#rbefdata no longer exists
-length(report7$DependencyReporter$nodes$node)#43
-length(report8$DependencyReporter$nodes$node)#75
-length(report9$DependencyReporter$nodes$node)#151
-#length(report10$DependencyReporter$nodes$node)#No Dependency
-#length(report11$DependencyReporter$nodes$node)#170
-length(report12$DependencyReporter$nodes$node) #199
-length(report13$DependencyReporter$nodes$node) #108
-length(report14$DependencyReporter$nodes$node) #90
-length(report15$DependencyReporter$nodes$node) #135
+# length(report1$DependencyReporter$nodes$node)#56
+# length(report2$DependencyReporter$nodes$node)#13
+# #length(report3$DependencyReporter$nodes$node)#does not exist?
+# length(report4$DependencyReporter$nodes$node)#46
+# length(report5$DependencyReporter$nodes$node)#37
+# #length(report6$DependencyReporter$nodes$node)#rbefdata no longer exists
+# length(report7$DependencyReporter$nodes$node)#43
+# length(report8$DependencyReporter$nodes$node)#75
+# length(report9$DependencyReporter$nodes$node)#151
+# #length(report10$DependencyReporter$nodes$node)#No Dependency
+# #length(report11$DependencyReporter$nodes$node)#170
+# length(report12$DependencyReporter$nodes$node) #199
+# length(report13$DependencyReporter$nodes$node) #108
+# length(report14$DependencyReporter$nodes$node) #90
+# length(report15$DependencyReporter$nodes$node) #135
 
 PkgName=c(rep("EML",length(report1$DependencyReporter$nodes$node)),
           rep("emld",length(report2$DependencyReporter$nodes$node)),
@@ -442,9 +442,9 @@ Many of the packages we have found are focused on single data repositories. Thes
 
 
 #### Contributors
+[Matt Grainger](https://github.com/DrMattG)
 
-Matt Grainger
-Rob Baker
+[Rob Baker](https://github.com/RobLBaker)
 
 
 # References {-}
