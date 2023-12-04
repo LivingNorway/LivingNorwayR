@@ -49,10 +49,8 @@ Suggests:
     devtools,
     tidyverse,
     EML,
-    RNeXML, 
     datapack,
-    geometa,
-    rdflib
+    geometa
 vignetteBuilder: knitr
 Depends:
     R (>= 2.10)
