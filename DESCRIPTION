@@ -52,9 +52,6 @@ Suggests:
     RNeXML, 
     datapack,
     geometa,
-    MetaEgress,
-    EMLassemblyline,
-    pkEML,
     rdflib
 vignetteBuilder: knitr
 Depends:
