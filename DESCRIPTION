@@ -30,7 +30,7 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: TRUE
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 Imports: 
     dplyr,
     leaflet,
@@ -47,7 +47,8 @@ Imports:
 Suggests:
     testthat,
     devtools,
-    tidyverse
+    tidyverse,
+    EML
 VignetteBuilder: knitr
 Depends: 
     R (>= 2.10)
