@@ -21,24 +21,29 @@ options(knitr.duplicate.label = "allow")
 library(tidyverse)
 library(EML)
 library(emld)
-#library(emldown) archieved
+#library(emldown) archived
 library(RNeXML)
 library(datapack)
-library(rbefdata)
+#library(rbefdata) # this package no longer available on CRAN; github dev version also does not have any files and states that it is no longer maintained (https://github.com/befdata/rbefdata). The files are still available via a fork: https://github.com/cpfaff/rbefdata
 library(geometa)
 library(LivingNorwayR)
-#GitHub (15 repositories, 6 R language)
+#GitHub (19 repositories, 10 R language)
 
 #devtools::install_github("isteves/dataspice")#fails
 #devtools::install_github("cboettig/eml2")#fails
 #devtools::install_github("earnaud/MetaShARK-v2", dependencies=TRUE)
 #devtools::install_github("atn38/MetaInbase", dependencies=TRUE)
+#devtools::install_github("atn38/pkEML") #MetaInbase renamed to pkEML
 #devtools::install_github("EDIorg/EMLassemblyline")
 #devtools::install_github("BLE-LTER/MetaEgress")
+#devtools::install_github("nationalparkservice/NPSdataverse")
+#devtools::install_github("nationalparkservice/EMLeditor")
+#devtools::install_github("nationalparkservice/DPchecker")
+#devtools::install_github("nationalparkservice/NPSutils")
 
 library(MetaEgress)
 library(EMLassemblyline)
-library(MetaInbase)
+library(pkEML)
 #library(MetaShARK)# now a shiny app only no package install
 
 
@@ -52,7 +57,7 @@ library(rdflib)
 
 ## Introduction
 
-EML (Ecological Metadata Langauage; [@EML_2019]) is a version of the machine and human readable XML (Extensible Markup Language) which is designed to facilitate data documentation (i.e. metadata) to ease open data and sharing. XML is a language related to HTML, but was designed to tag document content and allows for validation against specific schemas. XML is well supported in many different programming languages and can be readily translated to other formats [@mccartney2002using]. 
+EML (Ecological Metadata Language; [@EML_2019]) is a version of the machine and human readable XML (Extensible Markup Language) which is designed to facilitate data documentation (i.e. metadata) to ease open data and sharing. XML is a language related to HTML, but was designed to tag document content and allows for validation against specific schemas. XML is well supported in many different programming languages and can be readily translated to other formats [@mccartney2002using]. 
 
 EML consists of "modules" (with separate schemas) that allow the description of data attributes (e.g. spatial, temporal, taxonomic extent). EML defines several resource types (e.g. "dataset") that inherit a common set of elements or "tags" which facilitate discovery of metadata. One of the biggest advantages of EML is that it is extensible with additional modules easily integrated [@mccartney2002using]. 
 
@@ -77,10 +82,29 @@ We searched for R packages on CRAN (The Comprehensive R Archive Network - https:
 
 The search on Google (via CRAN) returned 25 hits. Seven of these were R packages. The search on GitHub returned 15 repositories of which 6 were in the R language. Two of these returned errors when we attempted to download them in RStudio using the devtools::install_github() function, and two have been archived. 
 We identified 9 R packages (6 from CRAN and 3 from GitHub) that were active in the last two years and explicitly stated that functions were used for interacting (either reading, writing or viewing) Ecological Metadata Language (EML). 
+Since the original google search, several additional packages have become available on GitHub and are not also included in the following list. One of these, NPSdataverse is a wrapper package that will install and load multiple EML-related packages including EML, EMLAssemblyline, EMLeditor, DPchecker, and NPSutils.
+In addition, as of 2023-11-29, the package rbefdata is no longer available via CRAN and is not being maintained by on GitHub.
 
 ```{r table of packages, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
-tb<-data.frame("Package"=c("EML","emld", "RNeXML", "datapack", "rbefdata", "geometa", "MetaEgress", "EMLassemblyline", "MetaInbase", "LivingNorwayR"), "Package_description"=c(packageDescription(pkg = "EML")$Description, packageDescription(pkg = "emld")$Description, packageDescription(pkg = "RNeXML")$Description,packageDescription(pkg = "datapack")$Description,packageDescription(pkg = "rbefdata")$Description,packageDescription(pkg = "geometa")$Description, packageDescription(pkg = "MetaEgress")$Description, packageDescription(pkg = "EMLassemblyline")$Description, packageDescription("MetaInbase")$Description, packageDescription("LivingNorwayR")$Description))
+tb<-data.frame("Package"=c("EML","emld", "RNeXML", "datapack", #"rbefdata",
+                           "geometa", "MetaEgress", "EMLassemblyline",
+                           "pkEML", "LivingNorwayR", "NPSdataverse",
+                           "EMLeditor", "DPchecker", "NPSutils"),
+               "Package_description"=c(packageDescription(pkg = "EML")$Description,
+                                       packageDescription(pkg = "emld")$Description,
+                                       packageDescription(pkg = "RNeXML")$Description,
+                                       packageDescription(pkg = "datapack")$Description,
+                                       #packageDescription(pkg = "rbefdata")$Description,
+                                       packageDescription(pkg = "geometa")$Description, 
+                                       packageDescription(pkg = "MetaEgress")$Description,
+                                       packageDescription(pkg = "EMLassemblyline")$Description,
+                                       packageDescription("pkEML")$Description,
+                                       packageDescription("LivingNorwayR")$Description,
+                                       packageDescription("NPSdataverse")$Description,
+                                       packageDescription("EMLeditor")$Description,
+                                       packageDescription("DPchecker")$Description,
+                                       packageDescription("NPSutils")$Description))
 
 tb %>% 
   mutate(Package_description=gsub("\n", "", Package_description )) %>% knitr::kable()
@@ -190,6 +214,8 @@ ids <- getIdentifiers(dp)
 
 ### rbefdata package
 
+**This package does not appear to be available on CRAN or GitHub as of 2023-11-29**
+
 Similarly to the *datapack* package *rbefdata* [@rbefdata] links to the BEF data portal (https://fundiv.befdata.biow.uni-leipzig.de/). The function *rbefdata::bef.portal.get.metadata()* extracts the metadata from a file that the user has downloaded from the BEF data portal.
 
 ### geometa package
@@ -224,9 +250,9 @@ make_eml(
 
 ```
 
-### MetaInbase package
+### MetaInbase (pkEML) package
 
-*MetaInbase* [@MetaInbase] has functions to convert EML to tables. It appears to be in an early stage of development
+*MetaInbase* [@MetaInbase] has functions to convert EML to tables. It appears to be in an early stage of development. Renamed to pkEML. 
 
 
 ### MetaShARK package
@@ -241,29 +267,54 @@ make_eml(
 ```{r open reports, echo=FALSE, warning=FALSE, message=FALSE, include=FALSE}
 
 library(pkgnet)
-report1 <- CreatePackageReport(pkg_name = "EML", report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/EML.html")
+report1 <- CreatePackageReport(pkg_name = "EML",
+                               report_path = here::here("Pkgnet_out/EML.html"))
 
-report2 <- CreatePackageReport(pkg_name = "emld", report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/emld.html")
+report2 <- CreatePackageReport(pkg_name = "emld",
+                               report_path = here::here("Pkgnet_out/emld.html"))
 
 #report3 <- CreatePackageReport(pkg_name = "emldown",
 #                               report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/emldown.html")
 
 report4 <- CreatePackageReport(pkg_name = "RNeXML",
-                               report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/RNeXML.html")
-report5 <- CreatePackageReport(pkg_name = "datapack", report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/datapack.html")
-report6 <- CreatePackageReport(pkg_name = "rbefdata",
-                               report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/rbefdata.html")
+                               report_path = here::here("Pkgnet_out/RNeXML.html"))
+report5 <- CreatePackageReport(pkg_name = "datapack",
+                               report_path = here::here("Pkgnet_out/datapack.html"))
+#report6 <- CreatePackageReport(pkg_name = "rbefdata",
+#                               report_path = here::here("Pkgnet_out/rbefdata.html"))
+# rbefdata no longer available on CRAN or GitHub
 report7 <- CreatePackageReport(pkg_name = "geometa",
-                               report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/geometa.html")
-report8 <- CreatePackageReport(pkg_name = "MetaEgress",report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/MetaEgress.html")
-report9 <- CreatePackageReport(pkg_name = "EMLassemblyline"
-                               , report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/EMLassemblyline.html")
-report10 <- CreatePackageReport(pkg_name = "MetaInbase", report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/MetaInbase.html")#No dependancies
+                               report_path = here::here("Pkgnet_out/geometa.html"))
+report8 <- CreatePackageReport(pkg_name = "MetaEgress",
+                               report_path= here::here("Pkgnet_out/MetaEgress.html"))
+report9 <- CreatePackageReport(pkg_name = "EMLassemblyline",
+                               report_path = here::here("Pkgnet_out/EMLassemblyline.html"))
+report10 <- CreatePackageReport(pkg_name = "pkEML",
+                                report_path = here::here("Pkgnet_out/pkEML.html"))
+#No dependancies
 #report11 <- CreatePackageReport(pkg_name = "MetaShARK", report_path ="C:/Users/matthew.grainger/Documents/Projects_in_development/LivNoR/Pkgnet_out/MetaShARK.html")
-
+report12 <- CreatePackageReport(pkg_name = "NPSdataverse",
+                                report_path = here::here("Pkgnet_out/NPSdatavderse.html"))
+report13 <- CreatePackageReport(pkg_name = "EMLeditor",
+                                report_path = here::here("Pkgnet_out/EMLeditor.html"))
+report14 <- CreatePackageReport(pkg_name = "DPchecker",
+                                report_path = here::here("Pkgnet_out/DPchecker.html"))
+report15 <- CreatePackageReport(pkg_name = "NPSutils",
+                                report_path = here::here("Pkgnet_out/NPSutils.html"))
 
 ```
 
+### NPSdataverse
+*NPSdataverse* is a wrapper package that will install a suite of packages for generating, editing, checking, up/downloading (to/from the NPS [DataStore](https://irma.nps.gov/DataStore/)) and accessing EML. [NPSdataverse](https://nationalparkservice.github.io/NPSdataverse/) will install and load the following packages: EML, EMLassemblyline, QCkit, EMLeditor, DPchecker, NPSutils. Of these, QCkit is the only package that does not involve EML in one way or another.
+
+### EMLeditor
+*EMLeditor* is a package aimed at editing EML. [EMLeditor](https://nationalparkservice.github.io/EMLeditor/) package contains a number of "get_" and "set_" class functions for retrieving and editing EML objects in R. Installing EMLeditor will also install a sample .rmd script accessible via Rstudio for generating EML via a combination of EML, EMLassemblyline, and EMLeditor. One major goal of EMLeditor is to make editing EML fast and easy without needing to call the make_eml() function from EMLassemblyline. Another goal is to add EML elements that may be specific to National Park Staff, collaborators, or partners. The package will also authenticated users to generate references on the NPS DataStore and upload data sets/metadata to DataStore. 
+
+### DPchecker
+*DPchecker* is a package that aimed at checking whether a data package - consisting of several flat files in .csv format and a single EML file (*_metadata.xml) is ready to be uploaded to the NPS DataStore. Although many of the checks will be NPS specific, the [DPchecker](https://nationalparkservice.github.io/DPchecker/) also performs a number of more general checks for internal consitency in the EML file as well as congruence between the EML file and the data files.
+
+### NPSutils
+*NPSutils* is primarily a public-facing package aimed at accessing data packages on the NPS DataStore. [NPSutils](https://nationalparkservice.github.io/NPSutils/) contains functions to download data packages (.csv files and an EML file), load the data and metadata in to R, and load the data and EML metadata into dashboard visualizers such as Power BI.
 
 ## Relationship between packages
 
@@ -271,37 +322,56 @@ By looking at the dependency relationship between the packages we can get an und
 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-# Dependancies
+# Dependencies - last updated 2023-11-29
 library(tidyverse)
 
-#length(report1$DependencyReporter$nodes$node)#49
-#length(report2$DependencyReporter$nodes$node)#13
-##length(report3$DependencyReporter$nodes$node)#79
-#length(report4$DependencyReporter$nodes$node)#48
-# length(report5$DependencyReporter$nodes$node)#35
-# length(report6$DependencyReporter$nodes$node)#17
-# length(report7$DependencyReporter$nodes$node)#16
-# length(report8$DependencyReporter$nodes$node)#65
-# length(report9$DependencyReporter$nodes$node)#145
+# length(report1$DependencyReporter$nodes$node)#56
+# length(report2$DependencyReporter$nodes$node)#13
+# #length(report3$DependencyReporter$nodes$node)#does not exist?
+# length(report4$DependencyReporter$nodes$node)#46
+# length(report5$DependencyReporter$nodes$node)#37
+# #length(report6$DependencyReporter$nodes$node)#rbefdata no longer exists
+# length(report7$DependencyReporter$nodes$node)#43
+# length(report8$DependencyReporter$nodes$node)#75
+# length(report9$DependencyReporter$nodes$node)#151
 # #length(report10$DependencyReporter$nodes$node)#No Dependency
 # #length(report11$DependencyReporter$nodes$node)#170
+# length(report12$DependencyReporter$nodes$node) #199
+# length(report13$DependencyReporter$nodes$node) #108
+# length(report14$DependencyReporter$nodes$node) #90
+# length(report15$DependencyReporter$nodes$node) #135
 
-PkgName=c(rep("EML",length(report1$DependencyReporter$nodes$node)), rep("emld",length(report2$DependencyReporter$nodes$node)), rep("RNeXML", length(report4$DependencyReporter$nodes$node)),
-          rep("datapack", length(report5$DependencyReporter$nodes$node)), rep("rbefdata", length(report6$DependencyReporter$nodes$node)), rep("geometa", length(report7$DependencyReporter$nodes$node)), rep("MetaEgress",length(report8$DependencyReporter$nodes$node)),
-          rep("EMLassemblyline", length(report9$DependencyReporter$nodes$node)))
+PkgName=c(rep("EML",length(report1$DependencyReporter$nodes$node)),
+          rep("emld",length(report2$DependencyReporter$nodes$node)),
+          rep("RNeXML", length(report4$DependencyReporter$nodes$node)),
+          rep("datapack", length(report5$DependencyReporter$nodes$node)),
+          #rep("rbefdata", length(report6$DependencyReporter$nodes$node)),
+          rep("geometa", length(report7$DependencyReporter$nodes$node)),
+          rep("MetaEgress",length(report8$DependencyReporter$nodes$node)),
+          rep("EMLassemblyline", length(report9$DependencyReporter$nodes$node)),
+          #rep("pkEML", length(report10$DependencyReporter$nodes$node)),
+          rep("NPSdataverse", length(report12$DependencyReporter$nodes$node)),
+          rep("EMLeditor", length(report13$DependencyReporter$nodes$node)),
+          rep("DPchecker", length(report14$DependencyReporter$nodes$node)),
+          rep("NPSutils", length(report15$DependencyReporter$nodes$node))
+          )
 
 Dependency=c(report1$DependencyReporter$nodes$node,
-                  report2$DependencyReporter$nodes$node,
-                  #report3$DependencyReporter$nodes$node,
-                  report4$DependencyReporter$nodes$node,
-                  report5$DependencyReporter$nodes$node,
-                  report6$DependencyReporter$nodes$node,
-                  report7$DependencyReporter$nodes$node,
-                  report8$DependencyReporter$nodes$node,
-             report9$DependencyReporter$nodes$node)
+             report2$DependencyReporter$nodes$node,
+             #report3$DependencyReporter$nodes$node,
+             report4$DependencyReporter$nodes$node,
+             report5$DependencyReporter$nodes$node,
+             #report6$DependencyReporter$nodes$node,
+             report7$DependencyReporter$nodes$node,
+             report8$DependencyReporter$nodes$node,
+             report9$DependencyReporter$nodes$node,
              #report10$DependencyReporter$nodes$node,
-             #report11$DependencyReporter$nodes$node)
-
+             report12$DependencyReporter$nodes$node,
+             report13$DependencyReporter$nodes$node,
+             report14$DependencyReporter$nodes$node,
+             report15$DependencyReporter$nodes$node
+             )
+             
 dtab=data.frame(PkgName,Dependency)
 dtab$PkgName<-as.character(dtab$PkgName)
 dtab$Dependency<-as.character(dtab$Dependency)
@@ -372,8 +442,9 @@ Many of the packages we have found are focused on single data repositories. Thes
 
 
 #### Contributors
+[Matt Grainger](https://github.com/DrMattG)
 
-Matt Grainger
+[Rob Baker](https://github.com/RobLBaker)
 
 
 # References {-}
