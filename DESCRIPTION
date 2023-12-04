@@ -48,9 +48,7 @@ Suggests:
     testthat,
     devtools,
     tidyverse,
-    EML,
-    datapack,
-    geometa
+    EML
 vignetteBuilder: knitr
 Depends:
     R (>= 2.10)
