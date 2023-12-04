@@ -48,7 +48,8 @@ Suggests:
     testthat,
     tidyverse,
     EML,
-    RNeXML
+    RNeXML,
+    datapack
 vignetteBuilder: knitr
 Depends:
     R (>= 2.10)
