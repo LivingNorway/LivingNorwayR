@@ -44,12 +44,6 @@ Imports:
     zip,
     xml2,
     here
-Suggests:
-    testthat,
-    tidyverse,
-    EML,
-    RNeXML,
-    datapack
 vignetteBuilder: knitr
 Depends:
     R (>= 2.10)
