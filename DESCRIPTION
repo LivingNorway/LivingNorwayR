@@ -46,7 +46,6 @@ Imports:
     here
 Suggests:
     testthat,
-    devtools,
     tidyverse,
     EML,
     RNeXML
