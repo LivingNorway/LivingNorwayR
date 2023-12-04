@@ -45,7 +45,9 @@ Imports:
     xml2,
     here
 Suggests:
-    testthat,devtools
+    testthat,
+    devtools,
+    tidyverse
 VignetteBuilder: knitr
 Depends: 
     R (>= 2.10)
