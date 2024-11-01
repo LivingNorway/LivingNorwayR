@@ -42,7 +42,7 @@ Before we can use any of the functions contained within the Living Norway packag
 
 ```{r LNInstall, results="hide", message=FALSE, warning=FALSE}
 # Install the Living Norway package from the Git repository
-#devtools::install_github("https://github.com/LivingNorway/LivingNorwayR")
+# devtools::install_github("https://github.com/LivingNorway/LivingNorwayR")
 # Import the tools into R
 library(LivingNorwayR)
 ```
